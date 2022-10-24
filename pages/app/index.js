@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const index = () => {
+  const router = useRouter();
   const [showDrop, setShowDrop] = useState(false);
   const [region, setRegion] = useState("Region");
   const [regions, setRegions] = useState(["Region 1", "Region 2", "Region 3"]);
@@ -14,7 +16,6 @@ const index = () => {
     "Movies 7",
     "Movies 8",
   ]);
-
   const toggleDropDown = () => {
     setShowDrop((current) => !current);
   };
@@ -70,9 +71,14 @@ const index = () => {
         </div>
       </div>
       <div className="flex items-center justify-start my-3 p-3 max-w-full overflow-x-scroll">
-        {movies.map((movie) => (
-          <div className="m-2">
-            <div className="w-60 h-80 rounded-xl bg-slate-600 transition ease-in-out duration-300 cursor-pointer hover:scale-105"></div>
+        {movies.map((movie, index) => (
+          <div key={index} className="m-2">
+            <div
+              onClick={() => router.push("/app/movie/" + index)}
+              className="w-60 h-80 rounded-xl bg-slate-600 transition ease-in-out duration-300 cursor-pointer hover:scale-105"
+            >
+              {index + 1}
+            </div>
             <div>
               <h5 className="font-poppins m-3 text-center text-xl font-normal">
                 {movie}
