@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { ethers } from "ethers";
+import React, { useRef, useState } from "react";
+import { cinemaContract } from "../../../hooks/useContract";
 
 const cinemas = () => {
   const [studioAmount, setStudioAmount] = useState(1);
   const [studioCapacities, setStudioCapacities] = useState([""]);
+  const regionRef = useRef();
+  const cinemaNameRef = useRef();
+  const addCinemaMutation = useMutation((event) => submit(event));
 
-  const submit = () => [];
+  const submit = async (event) => {
+    event.preventDefault();
+    const contract = cinemaContract();
+    const region = regionRef.current.value;
+    const cinemaName = ethers.utils.formatBytes32String(
+      cinemaNameRef.current.value
+    );
+    const addCinema = await contract.addCinema(
+      region,
+      cinemaName,
+      studioAmount,
+      studioCapacities
+    );
+    return addCinema;
+  };
 
   const decrementStudioAmount = () => {
     if (studioAmount <= 1) return;
@@ -28,7 +48,7 @@ const cinemas = () => {
         <h1 className="font-poppins font-semibold text-3xl">Add Cinema</h1>
       </div>
       <form
-        onSubmit={() => submit()}
+        onSubmit={(event) => addCinemaMutation.mutate(event)}
         className="w-4/6 flex flex-col justify-center items-center"
       >
         <div className="w-full flex flex-col justify-center items-center m-2">
@@ -36,15 +56,17 @@ const cinemas = () => {
             Select Region
           </h5>
           <input
+            ref={regionRef}
             type="text"
-            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2"
+            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
           />
         </div>
         <div className="w-full flex flex-col justify-center items-center m-2">
           <h5 className="font-poppins font-medium text-lg m-2">Cinema Name</h5>
           <input
+            ref={cinemaNameRef}
             type="text"
-            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2"
+            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
           />
         </div>
         <div className="w-full flex flex-col justify-center items-center m-2">
