@@ -1,12 +1,14 @@
 import Layout from "../components/Layout";
-import Navbar from "../components/Navbar";
+import { appContext, AppContextDOM } from "../context/AppContext";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />;
-    </Layout>
+    <AppContextDOM Context={appContext}>
+      <Layout>
+        <Component {...pageProps} />;
+      </Layout>
+    </AppContextDOM>
   );
 }
 
