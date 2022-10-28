@@ -9,7 +9,7 @@ export const rolesContract = () => {
   const contract = new ethers.Contract(
     process.env.ROLES_CONTRACT_ADDRESS,
     RolesABI.abi,
-    provider
+    provider.getSigner()
   );
   return contract;
 };
@@ -19,7 +19,7 @@ export const cinemaContract = () => {
   const contract = new ethers.Contract(
     process.env.CINEMA_CONTRACT_ADDRESS,
     CinemaABI.abi,
-    provider
+    provider.getSigner()
   );
   return contract;
 };
@@ -29,7 +29,7 @@ export const ticketContract = () => {
   const contract = new ethers.Contract(
     process.env.TICKET_CONTRACT_ADDRESS,
     TicketABI.abi,
-    provider
+    provider.getSigner()
   );
   return contract;
 };
@@ -39,7 +39,7 @@ export const moviesContract = () => {
   const contract = new ethers.Contract(
     process.env.MOVIES_CONTRACT_ADDRESS,
     MoviesABI.abi,
-    provider
+    provider.getSigner()
   );
   return contract;
 };
