@@ -2,16 +2,33 @@ import { useMutation } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import React, { useRef, useState } from "react";
 import { cinemaContract } from "../../../hooks/useContract";
+import { useSetLoading, useToast } from "../../../store/stores";
 
 const cinemas = () => {
   const [studioAmount, setStudioAmount] = useState(1);
   const [studioCapacities, setStudioCapacities] = useState([""]);
+  const [setLoading, setLoadingText] = useSetLoading();
+  const [toastSuccess, toastError] = useToast();
   const regionRef = useRef();
   const cinemaNameRef = useRef();
-  const addCinemaMutation = useMutation((event) => submit(event));
+  const addCinemaMutation = useMutation((event) => submit(event), {
+    onMutate: () => {
+      setLoadingText("Adding new cinema");
+      setLoading(true);
+    },
+    onError: (error) => {
+      setLoading(false);
+      toastError(error.reason);
+    },
+    onSuccess: () => {
+      setLoading(false);
+      toastSuccess("Successfully added new cinema");
+    },
+  });
 
   const submit = async (event) => {
     event.preventDefault();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = cinemaContract();
     const region = regionRef.current.value;
     const cinemaName = ethers.utils.formatBytes32String(
@@ -23,7 +40,8 @@ const cinemas = () => {
       studioAmount,
       studioCapacities
     );
-    return addCinema;
+    const waitTransaction = await provider.waitForTransaction(addCinema.hash);
+    return waitTransaction;
   };
 
   const decrementStudioAmount = () => {
