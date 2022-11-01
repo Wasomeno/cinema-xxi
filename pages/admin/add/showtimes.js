@@ -1,33 +1,94 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import useUnary from "../../../hooks/useUnary";
+import { cinemaContract } from "../../../hooks/useContract";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { ethers } from "ethers";
+import { useSetLoading, useToast } from "../../../store/stores";
+import {
+  fetchShowTimes,
+  fetchStudioShowTimes,
+} from "../../../fetchers/fetchers";
 
 const showtimes = () => {
   const [hour, incrementHour, decrementHour] = useUnary(1, 10, 1, 1);
   const [minutes, incrementMinutes, decrementMinutes] = useUnary(5, 55, 5, 5);
+  const [setLoading, setLoadingText] = useSetLoading();
+  const [toastSuccess, toastError] = useToast();
   const [showStudio, toggleShowStudio] = useToggle(false);
-  const [showTimes, setShowTimes] = useState([
-    "01:50",
-    "03:00",
-    "04:05",
-    "03:00",
-    "04:05",
-    "03:00",
-    "04:05",
-  ]);
-  const [studioShowTimes, setStudioShowTimes] = useState([
-    "01:50",
-    "03:00",
-    "04:05",
-    "03:00",
-    "04:05",
-    "03:00",
-    "04:05",
-  ]);
+
+  const showTimes = useQuery(["showTimes", 6996, 1], () =>
+    fetchShowTimes(6996, 1)
+  );
+
+  const studioShowTimes = useQuery(["studioShowTimes", 6996, 1, 1], () =>
+    fetchStudioShowTimes(6996, 1, 1)
+  );
+
+  const addShowTimeMutation = useMutation(() => addShowTime(), {
+    onMutate: () => {
+      setLoadingText("Adding new show time");
+      setLoading(true);
+    },
+    onError: (result) => {
+      setLoading(false);
+      toastError(result.reason);
+    },
+    onSuccess: () => {
+      setLoading(false);
+      toastSuccess("Show time successfully added");
+    },
+  });
+
+  const addStudioShowTimesMutation = useMutation(() => addShowTimesToStudio(), {
+    onMutate: () => {
+      setLoadingText("Adding new region");
+      setLoading(true);
+    },
+    onError: (result) => {
+      setLoading(false);
+      toastError(result.reason);
+    },
+    onSuccess: () => {
+      setLoading(false);
+      toastSuccess(
+        "Region " + regionNameRef.current.value + " successfully added"
+      );
+    },
+  });
+
+  const addShowTime = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = cinemaContract();
+    const timeInSeconds = hour * 3600 + minutes * 60;
+    const addShowTime = await contract.addShowTime(12345, 1, timeInSeconds);
+    const waitTransaction = await provider.waitForTransaction(addShowTime.hash);
+    return waitTransaction;
+  };
+
+  const addShowTimesToStudio = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = cinemaContract();
+    const timeInSeconds = hour * 3600 + minutes * 60;
+    const addShowTimes = await contract.addStudioShowTimes(
+      12345,
+      1,
+      timeInSeconds
+    );
+    const waitTransaction = await provider.waitForTransaction(
+      addShowTimes.hash
+    );
+    return waitTransaction;
+  };
+
+  useEffect(() => {
+    console.log(showTimes.data);
+    console.log(studioShowTimes.data);
+  }, [studioShowTimes.isLoading]);
 
   return (
     <div className="w-full h-full">
-      <div className="text-center">
+      {/* <div className="text-center">
         <h1 className="font-poppins font-semibold text-2xl m-4 p-2">
           Manage Show Times
         </h1>
@@ -138,7 +199,10 @@ const showtimes = () => {
                 </h5>
               </div>
             </div>
-            <button className="p-2 m-2 bg-black text-white font-poppins font-medium text-sm rounded-lg w-1/6">
+            <button
+              className="p-2 m-2 bg-black text-white font-poppins font-medium text-sm rounded-lg w-1/6"
+              onClick={() => addShowTimeMutation.mutate()}
+            >
               Submit
             </button>
           </div>
@@ -202,7 +266,7 @@ const showtimes = () => {
                   <h3 className="font-poppins text-sm m-2 text-center">
                     Available Show Time
                   </h3>
-                  <div className="w-full bg-slate-100 shadow-md rounded-lg h-4/6 flex flex-col items-center justify-center overflow-y-scroll">
+                  <div className="w-full bg-slate-100 shadow-md rounded-lg h-4/6 flex flex-col items-center justify-center">
                     {showTimes.length < 1 ? (
                       <h5 className="text-center font-poppins text-xs">
                         No Show Times
@@ -213,7 +277,7 @@ const showtimes = () => {
                           key={index}
                           className="p-2 border mb-2 border-slate-300 rounded-xl w-3/6 h-20 text-center transition duration-200 ease-in-out hover:bg-black hover:text-white"
                         >
-                          <p className="font-poppins text-sm">{showTime}</p>
+                          <p className="font-poppins text-sm">{"test"}</p>
                         </button>
                       ))
                     )}
@@ -223,8 +287,8 @@ const showtimes = () => {
                   <h3 className="font-poppins text-sm m-2 text-center">
                     Current Show Times
                   </h3>
-                  <div className="w-full bg-slate-100 shadow-md rounded-lg h-4/6 overflow-y-scroll">
-                    <div className="flex flex-col items-center justify-start py-3 -h-1/6">
+                  <div className="w-full bg-slate-100 shadow-md rounded-lg h-4/6">
+                    <div className="flex flex-col items-center justify-center py-3 h-full">
                       {showTimes.length < 1 ? (
                         <h5 className="text-center font-poppins text-xs">
                           No Show Times
@@ -245,13 +309,16 @@ const showtimes = () => {
               </div>
             </div>
             <div className="text-center m-2 mx-auto">
-              <button className="bg-black p-2 rounded-lg text-white font-poppins text-sm w-2/6">
+              <button
+                className="bg-black p-2 rounded-lg text-white font-poppins text-sm w-2/6"
+                onClick={() => addShowTimeMutation.mutate()}
+              >
                 Submit
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
