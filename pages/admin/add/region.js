@@ -2,27 +2,42 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import React, { useRef } from "react";
 import { cinemaContract } from "../../../hooks/useContract";
+import { useSetLoading, useToast } from "../../../store/stores";
 
 const region = () => {
   const regionIdRef = useRef();
   const regionNameRef = useRef();
-  const cinemaAmountRef = useRef();
-  const addRegionMutation = useMutation((event) => submit(event));
+  const [setLoading, setLoadingText] = useSetLoading();
+  const [toastSuccess, toastError] = useToast();
+
+  const addRegionMutation = useMutation((event) => submit(event), {
+    onMutate: () => {
+      setLoadingText("Adding new region");
+      setLoading(true);
+    },
+    onError: (result) => {
+      setLoading(false);
+      toastError(result.reason);
+    },
+    onSuccess: () => {
+      setLoading(false);
+      toastSuccess(
+        "Region " + regionNameRef.current.value + " successfully added"
+      );
+    },
+  });
 
   const submit = async (event) => {
     event.preventDefault();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = cinemaContract();
     const regionId = regionIdRef.current.value;
     const regionName = ethers.utils.formatBytes32String(
       regionNameRef.current.value
     );
-    const cinemaAmount = cinemaAmountRef.current.value;
-    const addRegion = await contract.addRegionDetails(
-      regionId,
-      regionName,
-      cinemaAmount
-    );
-    return addRegion;
+    const addRegion = await contract.addRegion(regionId, regionName);
+    const waitTransaction = await provider.waitForTransaction(addRegion.hash);
+    return waitTransaction;
   };
 
   return (
@@ -52,17 +67,7 @@ const region = () => {
             className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
           />
         </div>
-        <div className="w-full flex flex-col justify-center items-center m-2 mb-4">
-          <h5 className="font-poppins font-medium text-lg m-2">
-            Cinemas Amount
-          </h5>
-          <input
-            ref={cinemaAmountRef}
-            type="number"
-            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
-          />
-        </div>
-        <div className="w-full text-center">
+        <div className="w-full text-center my-4">
           <input
             type="submit"
             value={"Add Region"}
