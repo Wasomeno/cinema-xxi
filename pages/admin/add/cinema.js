@@ -1,6 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { appContext } from "../../../context/AppContext";
+import { checkConnected, fetchRegions } from "../../../fetchers/fetchers";
 import { cinemaContract } from "../../../hooks/useContract";
 import { useSetLoading, useToast } from "../../../store/stores";
 
@@ -9,8 +11,8 @@ const cinemas = () => {
   const [studioCapacities, setStudioCapacities] = useState([""]);
   const [setLoading, setLoadingText] = useSetLoading();
   const [toastSuccess, toastError] = useToast();
-  const regionRef = useRef();
   const cinemaNameRef = useRef();
+  const adminDetails = useContext(appContext).adminDetails;
   const addCinemaMutation = useMutation((event) => submit(event), {
     onMutate: () => {
       setLoadingText("Adding new cinema");
@@ -30,7 +32,7 @@ const cinemas = () => {
     event.preventDefault();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = cinemaContract();
-    const region = regionRef.current.value;
+    const region = userDetails.data.region;
     const cinemaName = ethers.utils.formatBytes32String(
       cinemaNameRef.current.value
     );
@@ -71,13 +73,8 @@ const cinemas = () => {
       >
         <div className="w-full flex flex-col justify-center items-center m-2">
           <h5 className="font-poppins font-medium text-lg m-2">
-            Select Region
+            Region {adminDetails.region}
           </h5>
-          <input
-            ref={regionRef}
-            type="text"
-            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
-          />
         </div>
         <div className="w-full flex flex-col justify-center items-center m-2">
           <h5 className="font-poppins font-medium text-lg m-2">Cinema Name</h5>
@@ -115,6 +112,7 @@ const cinemas = () => {
             <input
               type="text"
               value={studioAmount}
+              readOnly={true}
               className="w-2/12 h-8 mx-2 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
             />
             <button
@@ -145,6 +143,7 @@ const cinemas = () => {
           </h5>
           {studioCapacities.map((studio, index) => (
             <input
+              key={index}
               type={"number"}
               className="w-3/12 mb-2 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
               placeholder={"Studio " + parseInt(index + 1)}
