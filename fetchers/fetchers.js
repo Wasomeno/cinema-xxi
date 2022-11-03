@@ -47,8 +47,8 @@ export const fetchCinemaMovies = async (region, cinema) => {
   return result;
 };
 
-export const fetchMovieDetails = async () => {
+export const fetchMovieDetails = async (movieId) => {
   const contract = moviesContract();
-  const details = await contract.movieToDetails(3);
+  const details = await contract.movieToDetails(movieId);
   return details;
 };
