@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import { appContext } from "../context/AppContext";
-import AdminLayout from "./AdminLayout";
+import AdminLayout from "./Admin/AdminLayout";
 import AppNav from "./AppNav";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NotConnected from "./NotConnected";
@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
 
   return basePath === "app" ? (
     isConnected ? (
-      <main className="h-screen flex items-center justify-evenly relative">
+      <main className="h-screen flex justify-evenly relative">
         <AppNav />
         {children}
       </main>
