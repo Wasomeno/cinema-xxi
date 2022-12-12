@@ -1,28 +1,33 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-const AdminNav = () => {
-  const [showNav, setShowNav] = useState(false);
+const getClass = (route) => {
+  const [active, setActive] = useState("admin");
+  const { pathname: path } = useRouter();
 
-  return !showNav ? (
-    <div
-      className="h-4/6 w-3 shadow-lg bg-slate-300 rounded-full"
-      onMouseOver={() => setShowNav(true)}
-    />
-  ) : (
-    <div className="h-4/6 mx-4 bg-slate-200 rounded-full shadow-lg">
-      <div
-        className="flex flex-col h-full items-center justify-around"
-        onMouseLeave={() => setShowNav(false)}
-      >
+  useEffect(() => {
+    const basePath = path.split("/")[3];
+    setActive(!basePath ? "admin" : basePath);
+  }, [path]);
+
+  return active === route
+    ? "p-3 h-2/6 flex items-center rounded-md transition duration-300 ease-in-out bg-slate-400"
+    : "p-3 h-2/6 flex items-center transition duration-300 ease-in-out";
+};
+
+const AdminNavMobile = () => {
+  return (
+    <div className="h-16 w-11/12 bg-slate-300 rounded-full shadow-md fixed bottom-2 left-1/2 -translate-x-1/2">
+      <div className="flex h-full w-full items-center justify-evenly p-2">
         <Link href={"/admin"}>
-          <button className="p-3 h-2/6 flex items-center rounded-t-full transition duration-300 ease-in-out hover:bg-slate-300">
+          <button className={getClass("admin")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
-              stroke="currentColor"
+              stroke="black"
               className="w-6 h-6"
             >
               <path
@@ -35,13 +40,13 @@ const AdminNav = () => {
         </Link>
 
         <Link href={"/admin/add/movie"}>
-          <button className="p-3 h-2/6 flex items-center transition duration-300 ease-in-out hover:bg-slate-300">
+          <button className={getClass("movie")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
-              stroke="currentColor"
+              stroke="black"
               className="w-6 h-6"
             >
               <path
@@ -53,8 +58,8 @@ const AdminNav = () => {
           </button>
         </Link>
 
-        <Link href={"/admin/add/region"}>
-          <button className="p-3 h-2/6 flex items-center transition duration-300 ease-in-out hover:bg-slate-300">
+        {/* <Link href={"/admin/add/region"}>
+          <button className={getClass("region")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -75,10 +80,10 @@ const AdminNav = () => {
               />
             </svg>
           </button>
-        </Link>
+        </Link> */}
 
         <Link href={"/admin/add/cinema"}>
-          <button className="p-3 h-2/6 flex items-center transition duration-300 ease-in-out hover:bg-slate-300">
+          <button className={getClass("cinema")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -97,7 +102,7 @@ const AdminNav = () => {
         </Link>
 
         <Link href={"/admin/add/showtimes"}>
-          <button className="p-3 h-2/6 rounded-b-full flex items-center transition duration-300 ease-linear hover:bg-slate-300">
+          <button className={getClass("showtimes")}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -119,4 +124,4 @@ const AdminNav = () => {
   );
 };
 
-export default AdminNav;
+export default AdminNavMobile;
