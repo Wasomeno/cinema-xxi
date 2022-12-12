@@ -1,0 +1,2901 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_region",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_cinema",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_newAdmins",
+          "type": "address[]"
+        }
+      ],
+      "name": "addAdminsToCinema",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_ticket",
+          "type": "uint256"
+        }
+      ],
+      "name": "addUserHistory",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "adminToDetails",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "region",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint32",
+          "name": "cinema",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_cinema",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_admin",
+          "type": "address"
+        }
+      ],
+      "name": "checkAdmin",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "result",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "cinemaAdmins",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "cinemaAdminsAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "cinemaInterface",
+      "outputs": [
+        {
+          "internalType": "contract ICinema",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_cinemaContractAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setInterface",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userHistoryAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "userToHistory",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "ticket",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint64",
+          "name": "timeStamp",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x6080806040523461005b5760008054336001600160a01b0319821681178355916001600160a01b03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09084a361078d90816100618239f35b600080fdfe608080604052600436101561001357600080fd5b60003560e01c90816324671cc214610677575080633819583e1461062d578063528554ca146103c05780635af21344146100ae5780636d4921af14610386578063715018a6146103275780637454c007146102fb5780637b92f587146102d25780638da5cb5b146102a9578063942ae26f1461020957806397492c46146101c8578063f2fde38b146101005763fef20c4d146100ae57600080fd5b346100fb5760403660031901126100fb576100c76106e9565b600435600052600460205260406000209060018060a01b0316600052602052602060ff604060002054166040519015158152f35b600080fd5b346100fb5760203660031901126100fb576101196106d3565b6101216106ff565b6001600160a01b0390811690811561017457600080546001600160a01b031981168417825560405191939192167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08484a3f35b60405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608490fd5b346100fb5760203660031901126100fb576001600160a01b036101e96106d3565b166bffffffffffffffffffffffff60a01b60015416176001556000604051f35b346100fb5760403660031901126100fb576001600160a01b0361022a6106d3565b16600052600260205260406000205460036020526040600020906001810180911161029357600052602052604060002080546bffffffffffffffff000000004260201b169063ffffffff60243516906bffffffffffffffffffffffff1916171790556000604051f35b634e487b7160e01b600052601160045260246000fd5b346100fb5760003660031901126100fb576000546040516001600160a01b039091168152602090f35b346100fb5760003660031901126100fb576001546040516001600160a01b039091168152602090f35b346100fb5760203660031901126100fb5760043560005260056020526020604060002054604051908152f35b346100fb5760003660031901126100fb576103406106ff565b600080546001600160a01b0319811682556040519082906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08284a3f35b346100fb5760203660031901126100fb576001600160a01b036103a76106d3565b1660005260026020526020604060002054604051908152f35b346100fb5760603660031901126100fb5760043567ffffffffffffffff604435116100fb573660236044350112156100fb5767ffffffffffffffff60443560040135116100fb573660246044356004013560051b6044350101116100fb576104266106ff565b600154604051630322506f60e61b815260048101839052602480359082015290602090829060449082906001600160a01b03165afa908115610621576000916105d0575b50156105985760243560005260056020526040600020549060005b6044356004013581106104b65760046044350135830180841161029357602435600090815260056020526040902055005b604435600582901b01602401356001600160a01b03811681036100fb576024356000526004602052604060002060018060a01b0382166000526020526040600020600160ff198254161790556040519081604081011067ffffffffffffffff604084011117610582576040820160405260ff84168252602082019063ffffffff60243516825260018060a01b0316600052600660205260ff604060002092511664ffffffff008354925160081b169164ffffffffff191617179055600019811461029357600101610485565b634e487b7160e01b600052604160045260246000fd5b60405162461bcd60e51b815260206004820152601060248201526f18da5b995b58481b9bdd08195e1a5cdd60821b6044820152606490fd5b905060203d60201161061a575b601f8101601f1916820167ffffffffffffffff811183821017610582576020918391604052810103126100fb575180151581036100fb578261046a565b503d6105dd565b6040513d6000823e3d90fd5b346100fb5760203660031901126100fb576001600160a01b0361064e6106d3565b1660005260066020526040806000205463ffffffff82519160ff8116835260081c166020820152f35b346100fb5760403660031901126100fb576040906001600160a01b0361069b6106d3565b1660005260036020528160002060243560005260205267ffffffffffffffff826000205463ffffffff8116835260201c166020820152f35b600435906001600160a01b03821682036100fb57565b602435906001600160a01b03821682036100fb57565b6000546001600160a01b0316330361071357565b606460405162461bcd60e51b815260206004820152602060248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152fdfea26469706673582212200d68f4c7b0415d987cf27ceaca59ed6d4c14605215983d21d21d09201bf3c1da64736f6c63430008100033",
+    "sourceMap": "165:2086:21:-:0;;;;;;;2603:6:15;165:2086:21;;736:10:16;-1:-1:-1;;;;;;165:2086:21;;;;;;736:10:16;-1:-1:-1;;;;;165:2086:21;;;;2653:40:15;;;;165:2086:21;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x608080604052600436101561001357600080fd5b60003560e01c90816324671cc214610677575080633819583e1461062d578063528554ca146103c05780635af21344146100ae5780636d4921af14610386578063715018a6146103275780637454c007146102fb5780637b92f587146102d25780638da5cb5b146102a9578063942ae26f1461020957806397492c46146101c8578063f2fde38b146101005763fef20c4d146100ae57600080fd5b346100fb5760403660031901126100fb576100c76106e9565b600435600052600460205260406000209060018060a01b0316600052602052602060ff604060002054166040519015158152f35b600080fd5b346100fb5760203660031901126100fb576101196106d3565b6101216106ff565b6001600160a01b0390811690811561017457600080546001600160a01b031981168417825560405191939192167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08484a3f35b60405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608490fd5b346100fb5760203660031901126100fb576001600160a01b036101e96106d3565b166bffffffffffffffffffffffff60a01b60015416176001556000604051f35b346100fb5760403660031901126100fb576001600160a01b0361022a6106d3565b16600052600260205260406000205460036020526040600020906001810180911161029357600052602052604060002080546bffffffffffffffff000000004260201b169063ffffffff60243516906bffffffffffffffffffffffff1916171790556000604051f35b634e487b7160e01b600052601160045260246000fd5b346100fb5760003660031901126100fb576000546040516001600160a01b039091168152602090f35b346100fb5760003660031901126100fb576001546040516001600160a01b039091168152602090f35b346100fb5760203660031901126100fb5760043560005260056020526020604060002054604051908152f35b346100fb5760003660031901126100fb576103406106ff565b600080546001600160a01b0319811682556040519082906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08284a3f35b346100fb5760203660031901126100fb576001600160a01b036103a76106d3565b1660005260026020526020604060002054604051908152f35b346100fb5760603660031901126100fb5760043567ffffffffffffffff604435116100fb573660236044350112156100fb5767ffffffffffffffff60443560040135116100fb573660246044356004013560051b6044350101116100fb576104266106ff565b600154604051630322506f60e61b815260048101839052602480359082015290602090829060449082906001600160a01b03165afa908115610621576000916105d0575b50156105985760243560005260056020526040600020549060005b6044356004013581106104b65760046044350135830180841161029357602435600090815260056020526040902055005b604435600582901b01602401356001600160a01b03811681036100fb576024356000526004602052604060002060018060a01b0382166000526020526040600020600160ff198254161790556040519081604081011067ffffffffffffffff604084011117610582576040820160405260ff84168252602082019063ffffffff60243516825260018060a01b0316600052600660205260ff604060002092511664ffffffff008354925160081b169164ffffffffff191617179055600019811461029357600101610485565b634e487b7160e01b600052604160045260246000fd5b60405162461bcd60e51b815260206004820152601060248201526f18da5b995b58481b9bdd08195e1a5cdd60821b6044820152606490fd5b905060203d60201161061a575b601f8101601f1916820167ffffffffffffffff811183821017610582576020918391604052810103126100fb575180151581036100fb578261046a565b503d6105dd565b6040513d6000823e3d90fd5b346100fb5760203660031901126100fb576001600160a01b0361064e6106d3565b1660005260066020526040806000205463ffffffff82519160ff8116835260081c166020820152f35b346100fb5760403660031901126100fb576040906001600160a01b0361069b6106d3565b1660005260036020528160002060243560005260205267ffffffffffffffff826000205463ffffffff8116835260201c166020820152f35b600435906001600160a01b03821682036100fb57565b602435906001600160a01b03821682036100fb57565b6000546001600160a01b0316330361071357565b606460405162461bcd60e51b815260206004820152602060248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152fdfea26469706673582212200d68f4c7b0415d987cf27ceaca59ed6d4c14605215983d21d21d09201bf3c1da64736f6c63430008100033",
+    "sourceMap": "165:2086:21:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;:::i;:::-;1097:65:15;;:::i;:::-;-1:-1:-1;;;;;165:2086:21;;;;2238:22:15;;165:2086:21;;;;;-1:-1:-1;;;;;;165:2086:21;;;;;;;;;;;;;2653:40:15;165:2086:21;;2653:40:15;165:2086:21;;;;-1:-1:-1;;;165:2086:21;;;;;;;;;;;;;;;;;-1:-1:-1;;;165:2086:21;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;-1:-1:-1;;;;;165:2086:21;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;-1:-1:-1;;;;;165:2086:21;;:::i;:::-;;;;1186:17;165:2086;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1407:15;165:2086;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;;;-1:-1:-1;;;;;165:2086:21;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;;;-1:-1:-1;;;;;165:2086:21;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;;;615:53;165:2086;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;1097:65:15;;:::i;:::-;165:2086:21;;;-1:-1:-1;;;;;;165:2086:21;;;;;;;;;-1:-1:-1;;;;;165:2086:21;2653:40:15;165:2086:21;;2653:40:15;165:2086:21;;;;;;;-1:-1:-1;;165:2086:21;;;;-1:-1:-1;;;;;165:2086:21;;:::i;:::-;;;;406:52;165:2086;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1097:65:15;;:::i;:::-;165:2086:21;;;;-1:-1:-1;;;820:53:21;;165:2086;820:53;;165:2086;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;165:2086:21;820:53;;;;;;;165:2086;820:53;;;165:2086;;;;;;;;;;;;;;;;1694:9;165:2086;1705:21;165:2086;;;;;1705:21;;;;165:2086;;;;;;;;;;;;;;;;;;;;;;;;;;1728:3;165:2086;;;;;;;;;;-1:-1:-1;;;;;165:2086:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1875:94;;165:2086;;;;;;;;;;;;;;;1848:14;165:2086;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1694:9;;165:2086;;;;;;;;;;;;;;;-1:-1:-1;;;165:2086:21;;;;;;;;;;;;-1:-1:-1;;;165:2086:21;;;;;;;820:53;;;165:2086;820:53;165:2086;820:53;;;;165:2086;;;-1:-1:-1;;165:2086:21;;;;;;;;;;;;;;;;;;820:53;;165:2086;;;;;;;;;;;;820:53;;;;;;;;;165:2086;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;-1:-1:-1;;;;;165:2086:21;;:::i;:::-;;;;675:54;165:2086;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;165:2086:21;;;;;;-1:-1:-1;;;;;165:2086:21;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;165:2086:21;;;;;;:::o;:::-;;;;-1:-1:-1;;;;;165:2086:21;;;;;;:::o;1408:132:15:-;1316:6;165:2086:21;-1:-1:-1;;;;;165:2086:21;736:10:16;1472:23:15;165:2086:21;;1408:132:15:o;165:2086:21:-;;;;;;;;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "addAdminsToCinema(uint256,uint256,address[])": "528554ca",
+    "addUserHistory(address,uint256)": "942ae26f",
+    "adminToDetails(address)": "3819583e",
+    "checkAdmin(uint256,address)": "fef20c4d",
+    "cinemaAdmins(uint256,address)": "5af21344",
+    "cinemaAdminsAmount(uint256)": "7454c007",
+    "cinemaInterface()": "7b92f587",
+    "owner()": "8da5cb5b",
+    "renounceOwnership()": "715018a6",
+    "setInterface(address)": "97492c46",
+    "transferOwnership(address)": "f2fde38b",
+    "userHistoryAmount(address)": "6d4921af",
+    "userToHistory(address,uint256)": "24671cc2"
+  },
+  "ast": {
+    "absolutePath": "src/Roles.sol",
+    "id": 26577,
+    "exportedSymbols": {
+      "Context": [
+        25226
+      ],
+      "ICinema": [
+        26124
+      ],
+      "Ownable": [
+        25204
+      ],
+      "Roles": [
+        26576
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "40:2213:21",
+    "nodes": [
+      {
+        "id": 26364,
+        "nodeType": "PragmaDirective",
+        "src": "40:24:21",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".13"
+        ]
+      },
+      {
+        "id": 26365,
+        "nodeType": "ImportDirective",
+        "src": "68:23:21",
+        "absolutePath": "src/ICinema.sol",
+        "file": "./ICinema.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 26577,
+        "sourceUnit": 26125,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 26366,
+        "nodeType": "ImportDirective",
+        "src": "93:68:21",
+        "absolutePath": "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        "file": "../lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 26577,
+        "sourceUnit": 25205,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 26576,
+        "nodeType": "ContractDefinition",
+        "src": "165:2086:21",
+        "nodes": [
+          {
+            "id": 26373,
+            "nodeType": "StructDefinition",
+            "src": "198:78:21",
+            "canonicalName": "Roles.UserHistory",
+            "members": [
+              {
+                "constant": false,
+                "id": 26370,
+                "mutability": "mutable",
+                "name": "ticket",
+                "nameLocation": "235:6:21",
+                "nodeType": "VariableDeclaration",
+                "scope": 26373,
+                "src": "228:13:21",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 26369,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "228:6:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 26372,
+                "mutability": "mutable",
+                "name": "timeStamp",
+                "nameLocation": "259:9:21",
+                "nodeType": "VariableDeclaration",
+                "scope": 26373,
+                "src": "252:16:21",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 26371,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "252:6:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "UserHistory",
+            "nameLocation": "205:11:21",
+            "scope": 26576,
+            "visibility": "public"
+          },
+          {
+            "id": 26378,
+            "nodeType": "StructDefinition",
+            "src": "284:75:21",
+            "canonicalName": "Roles.AdminDetails",
+            "members": [
+              {
+                "constant": false,
+                "id": 26375,
+                "mutability": "mutable",
+                "name": "region",
+                "nameLocation": "321:6:21",
+                "nodeType": "VariableDeclaration",
+                "scope": 26378,
+                "src": "315:12:21",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 26374,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "315:5:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 26377,
+                "mutability": "mutable",
+                "name": "cinema",
+                "nameLocation": "345:6:21",
+                "nodeType": "VariableDeclaration",
+                "scope": 26378,
+                "src": "338:13:21",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 26376,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "338:6:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "AdminDetails",
+            "nameLocation": "291:12:21",
+            "scope": 26576,
+            "visibility": "public"
+          },
+          {
+            "id": 26381,
+            "nodeType": "VariableDeclaration",
+            "src": "367:30:21",
+            "constant": false,
+            "functionSelector": "7b92f587",
+            "mutability": "mutable",
+            "name": "cinemaInterface",
+            "nameLocation": "382:15:21",
+            "scope": 26576,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_ICinema_$26124",
+              "typeString": "contract ICinema"
+            },
+            "typeName": {
+              "id": 26380,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 26379,
+                "name": "ICinema",
+                "nameLocations": [
+                  "367:7:21"
+                ],
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 26124,
+                "src": "367:7:21"
+              },
+              "referencedDeclaration": 26124,
+              "src": "367:7:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ICinema_$26124",
+                "typeString": "contract ICinema"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 26385,
+            "nodeType": "VariableDeclaration",
+            "src": "406:52:21",
+            "constant": false,
+            "functionSelector": "6d4921af",
+            "mutability": "mutable",
+            "name": "userHistoryAmount",
+            "nameLocation": "441:17:21",
+            "scope": 26576,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 26384,
+              "keyType": {
+                "id": 26382,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "414:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "406:27:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 26383,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "425:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 26392,
+            "nodeType": "VariableDeclaration",
+            "src": "465:72:21",
+            "constant": false,
+            "functionSelector": "24671cc2",
+            "mutability": "mutable",
+            "name": "userToHistory",
+            "nameLocation": "524:13:21",
+            "scope": 26576,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_struct$_UserHistory_$26373_storage_$_$",
+              "typeString": "mapping(address => mapping(uint256 => struct Roles.UserHistory))"
+            },
+            "typeName": {
+              "id": 26391,
+              "keyType": {
+                "id": 26386,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "473:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "465:51:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_struct$_UserHistory_$26373_storage_$_$",
+                "typeString": "mapping(address => mapping(uint256 => struct Roles.UserHistory))"
+              },
+              "valueType": {
+                "id": 26390,
+                "keyType": {
+                  "id": 26387,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "492:7:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "484:31:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_UserHistory_$26373_storage_$",
+                  "typeString": "mapping(uint256 => struct Roles.UserHistory)"
+                },
+                "valueType": {
+                  "id": 26389,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 26388,
+                    "name": "UserHistory",
+                    "nameLocations": [
+                      "503:11:21"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 26373,
+                    "src": "503:11:21"
+                  },
+                  "referencedDeclaration": 26373,
+                  "src": "503:11:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_UserHistory_$26373_storage_ptr",
+                    "typeString": "struct Roles.UserHistory"
+                  }
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 26398,
+            "nodeType": "VariableDeclaration",
+            "src": "544:64:21",
+            "constant": false,
+            "functionSelector": "5af21344",
+            "mutability": "mutable",
+            "name": "cinemaAdmins",
+            "nameLocation": "596:12:21",
+            "scope": 26576,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_bool_$_$",
+              "typeString": "mapping(uint256 => mapping(address => bool))"
+            },
+            "typeName": {
+              "id": 26397,
+              "keyType": {
+                "id": 26393,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "552:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "544:44:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_bool_$_$",
+                "typeString": "mapping(uint256 => mapping(address => bool))"
+              },
+              "valueType": {
+                "id": 26396,
+                "keyType": {
+                  "id": 26394,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "571:7:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "nodeType": "Mapping",
+                "src": "563:24:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                  "typeString": "mapping(address => bool)"
+                },
+                "valueType": {
+                  "id": 26395,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "582:4:21",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 26402,
+            "nodeType": "VariableDeclaration",
+            "src": "615:53:21",
+            "constant": false,
+            "functionSelector": "7454c007",
+            "mutability": "mutable",
+            "name": "cinemaAdminsAmount",
+            "nameLocation": "650:18:21",
+            "scope": 26576,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+              "typeString": "mapping(uint256 => uint256)"
+            },
+            "typeName": {
+              "id": 26401,
+              "keyType": {
+                "id": 26399,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "623:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "615:27:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                "typeString": "mapping(uint256 => uint256)"
+              },
+              "valueType": {
+                "id": 26400,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "634:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 26407,
+            "nodeType": "VariableDeclaration",
+            "src": "675:54:21",
+            "constant": false,
+            "functionSelector": "3819583e",
+            "mutability": "mutable",
+            "name": "adminToDetails",
+            "nameLocation": "715:14:21",
+            "scope": 26576,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_AdminDetails_$26378_storage_$",
+              "typeString": "mapping(address => struct Roles.AdminDetails)"
+            },
+            "typeName": {
+              "id": 26406,
+              "keyType": {
+                "id": 26403,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "683:7:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "675:32:21",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_AdminDetails_$26378_storage_$",
+                "typeString": "mapping(address => struct Roles.AdminDetails)"
+              },
+              "valueType": {
+                "id": 26405,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 26404,
+                  "name": "AdminDetails",
+                  "nameLocations": [
+                    "694:12:21"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 26378,
+                  "src": "694:12:21"
+                },
+                "referencedDeclaration": 26378,
+                "src": "694:12:21",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_AdminDetails_$26378_storage_ptr",
+                  "typeString": "struct Roles.AdminDetails"
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 26428,
+            "nodeType": "ModifierDefinition",
+            "src": "738:201:21",
+            "body": {
+              "id": 26427,
+              "nodeType": "Block",
+              "src": "795:144:21",
+              "statements": [
+                {
+                  "assignments": [
+                    26414
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 26414,
+                      "mutability": "mutable",
+                      "name": "result",
+                      "nameLocation": "811:6:21",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 26427,
+                      "src": "806:11:21",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "typeName": {
+                        "id": 26413,
+                        "name": "bool",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "806:4:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 26420,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "id": 26417,
+                        "name": "_region",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26411,
+                        "src": "856:7:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 26418,
+                        "name": "_cinema",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26409,
+                        "src": "865:7:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "id": 26415,
+                        "name": "cinemaInterface",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26381,
+                        "src": "820:15:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ICinema_$26124",
+                          "typeString": "contract ICinema"
+                        }
+                      },
+                      "id": 26416,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "836:19:21",
+                      "memberName": "checkCinemaInRegion",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 26123,
+                      "src": "820:35:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$_t_uint256_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (uint256,uint256) view external returns (bool)"
+                      }
+                    },
+                    "id": 26419,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "820:53:21",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "806:67:21"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 26422,
+                        "name": "result",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26414,
+                        "src": "892:6:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "63696e656d61206e6f74206578697374",
+                        "id": 26423,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "900:18:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_d427b1a8da75d020320b3c930c2a897dc4ce0e7f08fbcef82580c1b601493a5b",
+                          "typeString": "literal_string \"cinema not exist\""
+                        },
+                        "value": "cinema not exist"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_d427b1a8da75d020320b3c930c2a897dc4ce0e7f08fbcef82580c1b601493a5b",
+                          "typeString": "literal_string \"cinema not exist\""
+                        }
+                      ],
+                      "id": 26421,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "884:7:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 26424,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "884:35:21",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 26425,
+                  "nodeType": "ExpressionStatement",
+                  "src": "884:35:21"
+                },
+                {
+                  "id": 26426,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "930:1:21"
+                }
+              ]
+            },
+            "name": "isCinemaExist",
+            "nameLocation": "747:13:21",
+            "parameters": {
+              "id": 26412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26409,
+                  "mutability": "mutable",
+                  "name": "_cinema",
+                  "nameLocation": "769:7:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26428,
+                  "src": "761:15:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 26408,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "761:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 26411,
+                  "mutability": "mutable",
+                  "name": "_region",
+                  "nameLocation": "786:7:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26428,
+                  "src": "778:15:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 26410,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "778:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "760:34:21"
+            },
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "id": 26440,
+            "nodeType": "FunctionDefinition",
+            "src": "947:131:21",
+            "body": {
+              "id": 26439,
+              "nodeType": "Block",
+              "src": "1010:68:21",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 26437,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 26433,
+                      "name": "cinemaInterface",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26381,
+                      "src": "1021:15:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ICinema_$26124",
+                        "typeString": "contract ICinema"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 26435,
+                          "name": "_cinemaContractAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26430,
+                          "src": "1047:22:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 26434,
+                        "name": "ICinema",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26124,
+                        "src": "1039:7:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_ICinema_$26124_$",
+                          "typeString": "type(contract ICinema)"
+                        }
+                      },
+                      "id": 26436,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1039:31:21",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ICinema_$26124",
+                        "typeString": "contract ICinema"
+                      }
+                    },
+                    "src": "1021:49:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ICinema_$26124",
+                      "typeString": "contract ICinema"
+                    }
+                  },
+                  "id": 26438,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1021:49:21"
+                }
+              ]
+            },
+            "functionSelector": "97492c46",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setInterface",
+            "nameLocation": "956:12:21",
+            "parameters": {
+              "id": 26431,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26430,
+                  "mutability": "mutable",
+                  "name": "_cinemaContractAddress",
+                  "nameLocation": "977:22:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26440,
+                  "src": "969:30:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 26429,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "969:7:21",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "968:32:21"
+            },
+            "returnParameters": {
+              "id": 26432,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1010:0:21"
+            },
+            "scope": 26576,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 26484,
+            "nodeType": "FunctionDefinition",
+            "src": "1086:345:21",
+            "body": {
+              "id": 26483,
+              "nodeType": "Block",
+              "src": "1151:280:21",
+              "statements": [
+                {
+                  "assignments": [
+                    26448
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 26448,
+                      "mutability": "mutable",
+                      "name": "currentAmount",
+                      "nameLocation": "1170:13:21",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 26483,
+                      "src": "1162:21:21",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 26447,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1162:7:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 26452,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 26449,
+                      "name": "userHistoryAmount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26385,
+                      "src": "1186:17:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                        "typeString": "mapping(address => uint256)"
+                      }
+                    },
+                    "id": 26451,
+                    "indexExpression": {
+                      "id": 26450,
+                      "name": "_user",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26442,
+                      "src": "1204:5:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1186:24:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1162:48:21"
+                },
+                {
+                  "assignments": [
+                    26455
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 26455,
+                      "mutability": "mutable",
+                      "name": "userHistory",
+                      "nameLocation": "1241:11:21",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 26483,
+                      "src": "1221:31:21",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_UserHistory_$26373_storage_ptr",
+                        "typeString": "struct Roles.UserHistory"
+                      },
+                      "typeName": {
+                        "id": 26454,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 26453,
+                          "name": "UserHistory",
+                          "nameLocations": [
+                            "1221:11:21"
+                          ],
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 26373,
+                          "src": "1221:11:21"
+                        },
+                        "referencedDeclaration": 26373,
+                        "src": "1221:11:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_UserHistory_$26373_storage_ptr",
+                          "typeString": "struct Roles.UserHistory"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 26463,
+                  "initialValue": {
+                    "baseExpression": {
+                      "baseExpression": {
+                        "id": 26456,
+                        "name": "userToHistory",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26392,
+                        "src": "1255:13:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint256_$_t_struct$_UserHistory_$26373_storage_$_$",
+                          "typeString": "mapping(address => mapping(uint256 => struct Roles.UserHistory storage ref))"
+                        }
+                      },
+                      "id": 26458,
+                      "indexExpression": {
+                        "id": 26457,
+                        "name": "_user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26442,
+                        "src": "1269:5:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1255:20:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_UserHistory_$26373_storage_$",
+                        "typeString": "mapping(uint256 => struct Roles.UserHistory storage ref)"
+                      }
+                    },
+                    "id": 26462,
+                    "indexExpression": {
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 26461,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "id": 26459,
+                        "name": "currentAmount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26448,
+                        "src": "1290:13:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "+",
+                      "rightExpression": {
+                        "hexValue": "31",
+                        "id": 26460,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1306:1:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      "src": "1290:17:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1255:63:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_UserHistory_$26373_storage",
+                      "typeString": "struct Roles.UserHistory storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1221:97:21"
+                },
+                {
+                  "expression": {
+                    "id": 26471,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 26464,
+                        "name": "userHistory",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26455,
+                        "src": "1329:11:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_UserHistory_$26373_storage_ptr",
+                          "typeString": "struct Roles.UserHistory storage pointer"
+                        }
+                      },
+                      "id": 26466,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberLocation": "1341:6:21",
+                      "memberName": "ticket",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 26370,
+                      "src": "1329:18:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 26469,
+                          "name": "_ticket",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26444,
+                          "src": "1357:7:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        ],
+                        "id": 26468,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "nodeType": "ElementaryTypeNameExpression",
+                        "src": "1350:6:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_uint32_$",
+                          "typeString": "type(uint32)"
+                        },
+                        "typeName": {
+                          "id": 26467,
+                          "name": "uint32",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1350:6:21",
+                          "typeDescriptions": {}
+                        }
+                      },
+                      "id": 26470,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1350:15:21",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "src": "1329:36:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "id": 26472,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1329:36:21"
+                },
+                {
+                  "expression": {
+                    "id": 26481,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 26473,
+                        "name": "userHistory",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26455,
+                        "src": "1376:11:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_UserHistory_$26373_storage_ptr",
+                          "typeString": "struct Roles.UserHistory storage pointer"
+                        }
+                      },
+                      "id": 26475,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberLocation": "1388:9:21",
+                      "memberName": "timeStamp",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 26372,
+                      "src": "1376:21:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint64",
+                        "typeString": "uint64"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "expression": {
+                            "id": 26478,
+                            "name": "block",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -4,
+                            "src": "1407:5:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_block",
+                              "typeString": "block"
+                            }
+                          },
+                          "id": 26479,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "1413:9:21",
+                          "memberName": "timestamp",
+                          "nodeType": "MemberAccess",
+                          "src": "1407:15:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        ],
+                        "id": 26477,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "nodeType": "ElementaryTypeNameExpression",
+                        "src": "1400:6:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_uint64_$",
+                          "typeString": "type(uint64)"
+                        },
+                        "typeName": {
+                          "id": 26476,
+                          "name": "uint64",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1400:6:21",
+                          "typeDescriptions": {}
+                        }
+                      },
+                      "id": 26480,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1400:23:21",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint64",
+                        "typeString": "uint64"
+                      }
+                    },
+                    "src": "1376:47:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "id": 26482,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1376:47:21"
+                }
+              ]
+            },
+            "functionSelector": "942ae26f",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addUserHistory",
+            "nameLocation": "1095:14:21",
+            "parameters": {
+              "id": 26445,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26442,
+                  "mutability": "mutable",
+                  "name": "_user",
+                  "nameLocation": "1118:5:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26484,
+                  "src": "1110:13:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 26441,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1110:7:21",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 26444,
+                  "mutability": "mutable",
+                  "name": "_ticket",
+                  "nameLocation": "1133:7:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26484,
+                  "src": "1125:15:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 26443,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1125:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1109:32:21"
+            },
+            "returnParameters": {
+              "id": 26446,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1151:0:21"
+            },
+            "scope": 26576,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 26557,
+            "nodeType": "FunctionDefinition",
+            "src": "1439:623:21",
+            "body": {
+              "id": 26556,
+              "nodeType": "Block",
+              "src": "1616:446:21",
+              "statements": [
+                {
+                  "assignments": [
+                    26501
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 26501,
+                      "mutability": "mutable",
+                      "name": "currentAmount",
+                      "nameLocation": "1635:13:21",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 26556,
+                      "src": "1627:21:21",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 26500,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1627:7:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 26505,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 26502,
+                      "name": "cinemaAdminsAmount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26402,
+                      "src": "1651:18:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                        "typeString": "mapping(uint256 => uint256)"
+                      }
+                    },
+                    "id": 26504,
+                    "indexExpression": {
+                      "id": 26503,
+                      "name": "_cinema",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26488,
+                      "src": "1670:7:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1651:27:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1627:51:21"
+                },
+                {
+                  "body": {
+                    "id": 26545,
+                    "nodeType": "Block",
+                    "src": "1733:248:21",
+                    "statements": [
+                      {
+                        "assignments": [
+                          26517
+                        ],
+                        "declarations": [
+                          {
+                            "constant": false,
+                            "id": 26517,
+                            "mutability": "mutable",
+                            "name": "newAdmin",
+                            "nameLocation": "1756:8:21",
+                            "nodeType": "VariableDeclaration",
+                            "scope": 26545,
+                            "src": "1748:16:21",
+                            "stateVariable": false,
+                            "storageLocation": "default",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            "typeName": {
+                              "id": 26516,
+                              "name": "address",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "1748:7:21",
+                              "stateMutability": "nonpayable",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "visibility": "internal"
+                          }
+                        ],
+                        "id": 26521,
+                        "initialValue": {
+                          "baseExpression": {
+                            "id": 26518,
+                            "name": "_newAdmins",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 26491,
+                            "src": "1767:10:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                              "typeString": "address[] calldata"
+                            }
+                          },
+                          "id": 26520,
+                          "indexExpression": {
+                            "id": 26519,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 26507,
+                            "src": "1778:1:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1767:13:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "VariableDeclarationStatement",
+                        "src": "1748:32:21"
+                      },
+                      {
+                        "expression": {
+                          "id": 26528,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "baseExpression": {
+                              "baseExpression": {
+                                "id": 26522,
+                                "name": "cinemaAdmins",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 26398,
+                                "src": "1795:12:21",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_bool_$_$",
+                                  "typeString": "mapping(uint256 => mapping(address => bool))"
+                                }
+                              },
+                              "id": 26525,
+                              "indexExpression": {
+                                "id": 26523,
+                                "name": "_cinema",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 26488,
+                                "src": "1808:7:21",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "1795:21:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                                "typeString": "mapping(address => bool)"
+                              }
+                            },
+                            "id": 26526,
+                            "indexExpression": {
+                              "id": 26524,
+                              "name": "newAdmin",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26517,
+                              "src": "1817:8:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "nodeType": "IndexAccess",
+                            "src": "1795:31:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bool",
+                              "typeString": "bool"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "hexValue": "74727565",
+                            "id": 26527,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "bool",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "1829:4:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bool",
+                              "typeString": "bool"
+                            },
+                            "value": "true"
+                          },
+                          "src": "1795:38:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "id": 26529,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1795:38:21"
+                      },
+                      {
+                        "expression": {
+                          "id": 26543,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "baseExpression": {
+                              "id": 26530,
+                              "name": "adminToDetails",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26407,
+                              "src": "1848:14:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_AdminDetails_$26378_storage_$",
+                                "typeString": "mapping(address => struct Roles.AdminDetails storage ref)"
+                              }
+                            },
+                            "id": 26532,
+                            "indexExpression": {
+                              "id": 26531,
+                              "name": "newAdmin",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26517,
+                              "src": "1863:8:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "nodeType": "IndexAccess",
+                            "src": "1848:24:21",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_AdminDetails_$26378_storage",
+                              "typeString": "struct Roles.AdminDetails storage ref"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "arguments": [
+                              {
+                                "arguments": [
+                                  {
+                                    "id": 26536,
+                                    "name": "_region",
+                                    "nodeType": "Identifier",
+                                    "overloadedDeclarations": [],
+                                    "referencedDeclaration": 26486,
+                                    "src": "1912:7:21",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  }
+                                ],
+                                "expression": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  ],
+                                  "id": 26535,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "nodeType": "ElementaryTypeNameExpression",
+                                  "src": "1906:5:21",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_type$_t_uint8_$",
+                                    "typeString": "type(uint8)"
+                                  },
+                                  "typeName": {
+                                    "id": 26534,
+                                    "name": "uint8",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "1906:5:21",
+                                    "typeDescriptions": {}
+                                  }
+                                },
+                                "id": 26537,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": false,
+                                "kind": "typeConversion",
+                                "lValueRequested": false,
+                                "nameLocations": [],
+                                "names": [],
+                                "nodeType": "FunctionCall",
+                                "src": "1906:14:21",
+                                "tryCall": false,
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint8",
+                                  "typeString": "uint8"
+                                }
+                              },
+                              {
+                                "arguments": [
+                                  {
+                                    "id": 26540,
+                                    "name": "_cinema",
+                                    "nodeType": "Identifier",
+                                    "overloadedDeclarations": [],
+                                    "referencedDeclaration": 26488,
+                                    "src": "1946:7:21",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  }
+                                ],
+                                "expression": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  ],
+                                  "id": 26539,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "nodeType": "ElementaryTypeNameExpression",
+                                  "src": "1939:6:21",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_type$_t_uint32_$",
+                                    "typeString": "type(uint32)"
+                                  },
+                                  "typeName": {
+                                    "id": 26538,
+                                    "name": "uint32",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "1939:6:21",
+                                    "typeDescriptions": {}
+                                  }
+                                },
+                                "id": 26541,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": false,
+                                "kind": "typeConversion",
+                                "lValueRequested": false,
+                                "nameLocations": [],
+                                "names": [],
+                                "nodeType": "FunctionCall",
+                                "src": "1939:15:21",
+                                "tryCall": false,
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint32",
+                                  "typeString": "uint32"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint8",
+                                  "typeString": "uint8"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint32",
+                                  "typeString": "uint32"
+                                }
+                              ],
+                              "id": 26533,
+                              "name": "AdminDetails",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 26378,
+                              "src": "1875:12:21",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_struct$_AdminDetails_$26378_storage_ptr_$",
+                                "typeString": "type(struct Roles.AdminDetails storage pointer)"
+                              }
+                            },
+                            "id": 26542,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "structConstructorCall",
+                            "lValueRequested": false,
+                            "nameLocations": [],
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "1875:94:21",
+                            "tryCall": false,
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_AdminDetails_$26378_memory_ptr",
+                              "typeString": "struct Roles.AdminDetails memory"
+                            }
+                          },
+                          "src": "1848:121:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_AdminDetails_$26378_storage",
+                            "typeString": "struct Roles.AdminDetails storage ref"
+                          }
+                        },
+                        "id": 26544,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1848:121:21"
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 26512,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 26509,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26507,
+                      "src": "1705:1:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 26510,
+                        "name": "_newAdmins",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26491,
+                        "src": "1709:10:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                          "typeString": "address[] calldata"
+                        }
+                      },
+                      "id": 26511,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1720:6:21",
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "src": "1709:17:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1705:21:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 26546,
+                  "initializationExpression": {
+                    "assignments": [
+                      26507
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 26507,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "1702:1:21",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 26546,
+                        "src": "1694:9:21",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 26506,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1694:7:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 26508,
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "1694:9:21"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 26514,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": true,
+                      "src": "1728:3:21",
+                      "subExpression": {
+                        "id": 26513,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26507,
+                        "src": "1730:1:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 26515,
+                    "nodeType": "ExpressionStatement",
+                    "src": "1728:3:21"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "1689:292:21"
+                },
+                {
+                  "expression": {
+                    "id": 26554,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 26547,
+                        "name": "cinemaAdminsAmount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26402,
+                        "src": "1991:18:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                          "typeString": "mapping(uint256 => uint256)"
+                        }
+                      },
+                      "id": 26549,
+                      "indexExpression": {
+                        "id": 26548,
+                        "name": "_cinema",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26488,
+                        "src": "2010:7:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "1991:27:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 26553,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "id": 26550,
+                        "name": "currentAmount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26501,
+                        "src": "2021:13:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "+",
+                      "rightExpression": {
+                        "expression": {
+                          "id": 26551,
+                          "name": "_newAdmins",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26491,
+                          "src": "2037:10:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                            "typeString": "address[] calldata"
+                          }
+                        },
+                        "id": 26552,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "2048:6:21",
+                        "memberName": "length",
+                        "nodeType": "MemberAccess",
+                        "src": "2037:17:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "src": "2021:33:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1991:63:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 26555,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1991:63:21"
+                }
+              ]
+            },
+            "functionSelector": "528554ca",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "id": 26494,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 26493,
+                  "name": "onlyOwner",
+                  "nameLocations": [
+                    "1574:9:21"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 25123,
+                  "src": "1574:9:21"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1574:9:21"
+              },
+              {
+                "arguments": [
+                  {
+                    "id": 26496,
+                    "name": "_cinema",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 26488,
+                    "src": "1598:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  {
+                    "id": 26497,
+                    "name": "_region",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 26486,
+                    "src": "1607:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  }
+                ],
+                "id": 26498,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 26495,
+                  "name": "isCinemaExist",
+                  "nameLocations": [
+                    "1584:13:21"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 26428,
+                  "src": "1584:13:21"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1584:31:21"
+              }
+            ],
+            "name": "addAdminsToCinema",
+            "nameLocation": "1448:17:21",
+            "parameters": {
+              "id": 26492,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26486,
+                  "mutability": "mutable",
+                  "name": "_region",
+                  "nameLocation": "1484:7:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26557,
+                  "src": "1476:15:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 26485,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1476:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 26488,
+                  "mutability": "mutable",
+                  "name": "_cinema",
+                  "nameLocation": "1510:7:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26557,
+                  "src": "1502:15:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 26487,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1502:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 26491,
+                  "mutability": "mutable",
+                  "name": "_newAdmins",
+                  "nameLocation": "1547:10:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26557,
+                  "src": "1528:29:21",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 26489,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "1528:7:21",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 26490,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1528:9:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1465:99:21"
+            },
+            "returnParameters": {
+              "id": 26499,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1616:0:21"
+            },
+            "scope": 26576,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 26575,
+            "nodeType": "FunctionDefinition",
+            "src": "2070:178:21",
+            "body": {
+              "id": 26574,
+              "nodeType": "Block",
+              "src": "2191:57:21",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 26572,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 26566,
+                      "name": "result",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 26564,
+                      "src": "2202:6:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "baseExpression": {
+                        "baseExpression": {
+                          "id": 26567,
+                          "name": "cinemaAdmins",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26398,
+                          "src": "2211:12:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_bool_$_$",
+                            "typeString": "mapping(uint256 => mapping(address => bool))"
+                          }
+                        },
+                        "id": 26569,
+                        "indexExpression": {
+                          "id": 26568,
+                          "name": "_cinema",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 26559,
+                          "src": "2224:7:21",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "2211:21:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                          "typeString": "mapping(address => bool)"
+                        }
+                      },
+                      "id": 26571,
+                      "indexExpression": {
+                        "id": 26570,
+                        "name": "_admin",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 26561,
+                        "src": "2233:6:21",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "2211:29:21",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "2202:38:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 26573,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2202:38:21"
+                }
+              ]
+            },
+            "functionSelector": "fef20c4d",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "checkAdmin",
+            "nameLocation": "2079:10:21",
+            "parameters": {
+              "id": 26562,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26559,
+                  "mutability": "mutable",
+                  "name": "_cinema",
+                  "nameLocation": "2098:7:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26575,
+                  "src": "2090:15:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 26558,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2090:7:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 26561,
+                  "mutability": "mutable",
+                  "name": "_admin",
+                  "nameLocation": "2115:6:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26575,
+                  "src": "2107:14:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 26560,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2107:7:21",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2089:33:21"
+            },
+            "returnParameters": {
+              "id": 26565,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26564,
+                  "mutability": "mutable",
+                  "name": "result",
+                  "nameLocation": "2178:6:21",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26575,
+                  "src": "2173:11:21",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 26563,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2173:4:21",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2172:13:21"
+            },
+            "scope": 26576,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 26367,
+              "name": "Ownable",
+              "nameLocations": [
+                "183:7:21"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 25204,
+              "src": "183:7:21"
+            },
+            "id": 26368,
+            "nodeType": "InheritanceSpecifier",
+            "src": "183:7:21"
+          }
+        ],
+        "canonicalName": "Roles",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          26576,
+          25204,
+          25226
+        ],
+        "name": "Roles",
+        "nameLocation": "174:5:21",
+        "scope": 26577,
+        "usedErrors": []
+      }
+    ],
+    "license": "UNLICENSED"
+  },
+  "id": 21
+}
