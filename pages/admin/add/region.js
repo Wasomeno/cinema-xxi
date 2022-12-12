@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import React, { useRef } from "react";
+import AnimatedContainer from "../../../components/AnimatedContainer";
 import { cinemaContract } from "../../../hooks/useContract";
 import { useSetLoading, useToast } from "../../../store/stores";
 
@@ -41,7 +42,7 @@ const region = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-full">
+    <AnimatedContainer className="flex flex-col justify-center items-center w-full">
       <div className="w-4/6">
         <h1 className="font-poppins text-2xl font-semibold m-2 text-center">
           Add Region
@@ -75,7 +76,7 @@ const region = () => {
           />
         </div>
       </form>
-    </div>
+    </AnimatedContainer>
   );
 };
 
