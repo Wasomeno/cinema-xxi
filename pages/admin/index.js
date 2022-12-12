@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import AnimatedContainer from "../../components/AnimatedContainer";
 
 const index = () => {
   return (
-    <div className="flex flex-col items-center justify-start w-screen h-screen p-4">
-      <div className="flex justify-between items-center w-full m-3">
+    <AnimatedContainer className="flex flex-col items-center justify-start w-full h-5/6 p-4">
+      <div className="flex justify-start items-center w-full m-3">
         <h1 className="font-poppins font-semibold text-lg p-2">Cinema XXI</h1>
-        <button className="font-poppins bg-slate-300 p-2 px-3 rounded-lg font-medium">
-          Connect
-        </button>
       </div>
       <div className="bg-slate-200 rounded-xl shadow-md h-5/6 w-full">
         <div className="text-center">
@@ -33,7 +31,7 @@ const index = () => {
           </div>
         </div>
       </div>
-    </div>
+    </AnimatedContainer>
   );
 };
 

@@ -1,14 +1,15 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import AnimatedContainer from "../../../components/AnimatedContainer";
 import { appContext } from "../../../context/AppContext";
 import { checkConnected, fetchRegions } from "../../../fetchers/fetchers";
 import { cinemaContract } from "../../../hooks/useContract";
 import { useSetLoading, useToast } from "../../../store/stores";
 
 const cinemas = () => {
-  const [studioAmount, setStudioAmount] = useState(1);
-  const [studioCapacities, setStudioCapacities] = useState([""]);
+  const [studioAmount, setStudioAmount] = useState(2);
+  const [studioCapacities, setStudioCapacities] = useState(["", ""]);
   const [setLoading, setLoadingText] = useSetLoading();
   const [toastSuccess, toastError] = useToast();
   const cinemaNameRef = useRef();
@@ -47,7 +48,7 @@ const cinemas = () => {
   };
 
   const decrementStudioAmount = () => {
-    if (studioAmount <= 1) return;
+    if (studioAmount <= 2) return;
     setStudioAmount((currentAmount) => currentAmount - 1);
     setStudioCapacities((currentAmount) =>
       currentAmount.filter((studio, index) => {
@@ -63,7 +64,7 @@ const cinemas = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-full">
+    <AnimatedContainer className="flex flex-col justify-center items-center w-full">
       <div className="w-4/6 text-center m-4 p-2">
         <h1 className="font-poppins font-semibold text-3xl">Add Cinema</h1>
       </div>
@@ -81,7 +82,7 @@ const cinemas = () => {
           <input
             ref={cinemaNameRef}
             type="text"
-            className="w-3/12 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
+            className="w-8/12 h-10 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
           />
         </div>
         <div className="w-full flex flex-col justify-center items-center m-2">
@@ -113,7 +114,7 @@ const cinemas = () => {
               type="text"
               value={studioAmount}
               readOnly={true}
-              className="w-2/12 h-8 mx-2 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
+              className="w-4/12 h-10 mx-2 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
             />
             <button
               type="button"
@@ -137,41 +138,43 @@ const cinemas = () => {
             </button>
           </div>
         </div>
-        <div className="w-full flex flex-col justify-center items-center m-2">
-          <h5 className="font-poppins font-medium text-lg m-2">
+        <div className="m-2 h-2/6 w-full">
+          <h5 className="text-center font-poppins font-medium text-lg m-2">
             Studios Capacity
           </h5>
-          {studioCapacities.map((studio, index) => (
-            <input
-              key={index}
-              type={"number"}
-              className="w-3/12 mb-2 h-8 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
-              placeholder={"Studio " + parseInt(index + 1)}
-              value={studio}
-              onChange={(e) =>
-                setStudioCapacities((current) =>
-                  current.map((cap, inputIndex) => {
-                    if (inputIndex === index) {
-                      return e.target.value;
-                    } else {
-                      return cap;
-                    }
-                  })
-                )
-              }
-            />
-          ))}
+          <div className="w-full h-full grid grid-cols-2 gap-2">
+            {studioCapacities.map((studio, index) => (
+              <input
+                key={index}
+                type={"number"}
+                className="col-span-1 h-10 border-2 border-solid border-slate-400 rounded-lg font-poppins p-2 text-center"
+                placeholder={"Studio " + parseInt(index + 1)}
+                value={studio}
+                onChange={(e) =>
+                  setStudioCapacities((current) =>
+                    current.map((cap, inputIndex) => {
+                      if (inputIndex === index) {
+                        return e.target.value;
+                      } else {
+                        return cap;
+                      }
+                    })
+                  )
+                }
+              />
+            ))}
+          </div>
         </div>
 
         <div className="w-full flex flex-col justify-center items-center m-4">
           <input
             type="submit"
             value={"Add"}
-            className="w-3/12 bg-slate-900 text-white font-poppins font-medium p-2 text-center rounded-xl"
+            className="w-10/12 h-10 bg-slate-900 text-white font-poppins font-medium p-2 text-center rounded-xl"
           />
         </div>
       </form>
-    </div>
+    </AnimatedContainer>
   );
 };
 
