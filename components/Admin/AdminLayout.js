@@ -1,11 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { appContext } from "../../context/AppContext";
-import { rolesContract } from "../../hooks/useContract";
 import { MoonLoader } from "react-spinners";
 import AdminNav from "./AdminNav";
 import { useRouter } from "next/router";
-import { checkConnected } from "../../fetchers/fetchers";
+import { useAdminDetails } from "../reactQuery/Roles/useAdminDetails";
 
 const AdminLayout = ({ children }) => {
   const [width, setWidth] = useState(0);
@@ -13,32 +11,29 @@ const AdminLayout = ({ children }) => {
   const user = useContext(appContext).account[0];
   const screenSize = useRef();
   const setAdminDetails = useContext(appContext).setAdminDetails;
-  const userDetails = useQuery(["adminDetails", user], () =>
-    checkConnected(user)
-  );
+  const adminDetails = useAdminDetails({ user: user });
 
   useEffect(() => {
-    if (!userDetails.isLoading) {
+    if (!adminDetails.isLoading) {
       setAdminDetails({
-        region: userDetails.data.region,
-        cinema: userDetails.data.cinema,
+        region: adminDetails.data.region,
+        cinema: adminDetails.data.cinema,
       });
       setWidth(screenSize.current.clientWidth);
       screenSize.current.addEventListener("resize", () =>
         setWidth(screenSize.current.clientWidth)
       );
     }
-    console.log(width);
-  }, [userDetails.isLoading, width]);
+  }, [adminDetails.isLoading, width]);
 
-  return userDetails.isLoading ? (
+  return adminDetails.isLoading ? (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
       <p className="font-poppins text-xl font-medium m-2 my-4">
         Fetching Details
       </p>
-      <MoonLoader loading={userDetails.isLoading} size={50} color={"black"} />
+      <MoonLoader loading={adminDetails.isLoading} size={50} color={"black"} />
     </div>
-  ) : userDetails.data.region !== 0 ? (
+  ) : adminDetails.data.region !== 0 ? (
     <main
       ref={screenSize}
       className="h-screen flex-col items-center justify-evenly relative"
