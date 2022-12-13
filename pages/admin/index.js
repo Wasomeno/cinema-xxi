@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import AnimatedContainer from "../../components/AnimatedContainer";
+import { appContext } from "../../context/AppContext";
 
 const index = () => {
+  const user = useContext(appContext).account[0];
   return (
     <AnimatedContainer className="flex flex-col items-center justify-start w-full h-5/6 p-4">
-      <div className="flex justify-start items-center w-full m-3">
-        <h1 className="font-poppins font-semibold text-lg p-2">Cinema XXI</h1>
+      <div className="flex justify-between items-center w-full m-3">
+        <div className="w-5/12">
+          <h1 className="font-poppins font-semibold text-base p-2">
+            Cinema XXI
+          </h1>
+        </div>
+
+        <div className="w-5/12 flex justify-evenly items-center">
+          <div className="bg-gradient-to-r from-green-600 via-green-400 to-green-200 w-4 h-4 rounded-full"></div>
+          <p className="font-poppins text-base font-medium">
+            {user.slice(0, 10)}...
+          </p>
+        </div>
       </div>
       <div className="bg-slate-200 rounded-xl shadow-md h-5/6 w-full">
         <div className="text-center">
