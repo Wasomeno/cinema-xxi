@@ -13,7 +13,7 @@ const useUnary = (min, max, value, multiple) => {
     setNumber((currentNumber) => currentNumber - multiple);
   };
 
-  return [number, increment, decrement];
+  return { number: number, increment: increment, decrement: decrement };
 };
 
 export default useUnary;
