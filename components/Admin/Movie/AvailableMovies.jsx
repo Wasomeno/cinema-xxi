@@ -1,11 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import React from "react";
 import { MoonLoader } from "react-spinners";
-import { fetchAllMovies } from "../../../fetchers/fetchers";
+import { useAllMovies } from "../../reactQuery/queries/Movie/useAllMovies";
 
 const AvailableMovies = ({ selectedMovies, setSelectedMovies }) => {
-  const fetchedMovies = useQuery(["allMovies"], () => fetchAllMovies());
+  const fetchedMovies = useAllMovies();
   const selectMovie = (index) => {
     if (selectedMovies.includes(index)) return;
     setSelectedMovies((currentSelected) => [

@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { MoonLoader } from "react-spinners";
-import { fetchShowTimes } from "../../../fetchers/fetchers";
+import { useShowTimes } from "../../reactQuery/queries/Cinema/useShowTimes";
 
 const CurrentShowTimes = ({ adminDetails }) => {
-  const showTimes = useQuery(
-    ["showTimes", adminDetails.region, adminDetails.cinema],
-    () => fetchShowTimes(adminDetails.region, adminDetails.cinema)
-  );
+  const showTimes = useShowTimes({
+    cinema: adminDetails.cinema,
+    region: adminDetails.region,
+  });
+
   return (
     <div className="bg-slate-200 shadow-lg rounded-lg w-5/6 h-40">
       <h1 className="font-poppins m-2 font-medium p-2 text-center">

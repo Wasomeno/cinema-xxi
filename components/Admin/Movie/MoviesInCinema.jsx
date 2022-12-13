@@ -1,14 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { MoonLoader } from "react-spinners";
-import { fetchCinemaMovies } from "../../../fetchers/fetchers";
+import { useAllMovies } from "../../reactQuery/queries/Movie/useAllMovies";
+import { useCinemaMovies } from "../../reactQuery/queries/Movie/useCinemaMovies";
 
 const MoviesInCinema = ({ adminDetails }) => {
-  const fetchedMovies = useQuery(["allMovies"], () => fetchAllMovies());
-  const fetchedCinemaMovies = useQuery(
-    ["moviesInCinema", adminDetails.region, adminDetails.cinema],
-    () => fetchCinemaMovies(adminDetails.region, adminDetails.cinema)
-  );
+  const fetchedMovies = useAllMovies();
+  const fetchedCinemaMovies = useCinemaMovies({
+    region: adminDetails.region,
+    cinema: adminDetails.cinema,
+  });
+
   return (
     <div className="w-5/6 h-2/6 bg-slate-100 shadow-slate-300 shadow-lg rounded-lg p-2">
       <h2 className="font-poppins font-medium text-lg text-center m-2">
