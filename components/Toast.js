@@ -5,7 +5,7 @@ const Toast = () => {
   const [show, text, condition] = useToastDetails();
   if (!show) return;
   return condition === "success" ? (
-    <div className="flex justify-center items-center absolute bg-gradient-to-r from-green-200 via-green-300 to-green-100 rounded-lg w-1/4 h-16 p-2 shadow-md bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div className="flex justify-center items-center absolute bg-gradient-to-r from-green-200 via-green-300 to-green-100 rounded-lg w-5/6 h-16 p-2 shadow-md bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -19,10 +19,12 @@ const Toast = () => {
         />
       </svg>
 
-      <p className="font-poppins font-medium m-2 mx-4 text-sm ">{text}</p>
+      <p className="font-poppins font-medium m-2 mx-4 text-sm text-center">
+        {text}
+      </p>
     </div>
   ) : (
-    <div className="flex justify-center items-center absolute bg-gradient-to-r from-red-200 via-red-300 to-red-100 rounded-lg w-1/4 h-16 p-2 shadow-md bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div className="flex justify-center items-center absolute bg-gradient-to-r from-red-200 via-red-300 to-red-100 rounded-lg w-5/6 h-16 p-2 shadow-md bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -36,7 +38,9 @@ const Toast = () => {
         />
       </svg>
 
-      <p className="font-poppins font-medium m-2 mx-4 text-sm ">{text}</p>
+      <p className="font-poppins font-medium m-2 mx-4 text-sm text-center">
+        {text}
+      </p>
     </div>
   );
 };
