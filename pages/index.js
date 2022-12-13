@@ -29,10 +29,11 @@ export default function Home() {
           </svg>
         </div>
       </div>
-      <Link href={"app"}>
-        <a className="p-3 m-5 text-xl text-center border-2 border-solid border-black rounded-full w-40 bg-slate-900 text-white transition ease-in-out hover:bg-white hover:text-black hover:scale-x-105 duration-300">
-          Go To App
-        </a>
+      <Link
+        href={"app"}
+        className="p-2 m-5 text-lg text-center border-2 border-solid border-black rounded-full w-40 bg-slate-900 text-white transition ease-in-out hover:bg-white hover:text-black hover:scale-x-105 duration-300"
+      >
+        Go To App
       </Link>
     </div>
   );
