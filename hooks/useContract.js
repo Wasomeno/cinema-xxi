@@ -3,43 +3,33 @@ import CinemaABI from "../abi/Cinema.json";
 import RolesABI from "../abi/Roles.json";
 import TicketABI from "../abi/Ticket.json";
 import MoviesABI from "../abi/Movies.json";
+import TransactionsABI from "../abi/Transactions.json";
+import { useContract, useProvider, useSigner } from "wagmi";
 
-export const rolesContract = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(
-    process.env.ROLES_CONTRACT_ADDRESS,
-    RolesABI.abi,
-    provider.getSigner()
-  );
-  return contract;
+const createContract = (contractAddress, abi) => {
+  const provider = useProvider();
+  const { data: signer, isLoading } = useSigner();
+  return useContract({
+    address: contractAddress,
+    abi: abi,
+    signerOrProvider: !isLoading ? signer : provider,
+  });
 };
 
-export const cinemaContract = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(
-    process.env.CINEMA_CONTRACT_ADDRESS,
-    CinemaABI.abi,
-    provider.getSigner()
-  );
-  return contract;
-};
+export const rolesContract = () =>
+  createContract(process.env.ROLES_CONTRACT_ADDRESS, RolesABI.abi);
 
-export const ticketContract = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(
-    process.env.TICKET_CONTRACT_ADDRESS,
-    TicketABI.abi,
-    provider.getSigner()
-  );
-  return contract;
-};
+export const cinemaContract = () =>
+  createContract(process.env.CINEMA_CONTRACT_ADDRESS, CinemaABI.abi);
 
-export const moviesContract = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(
-    process.env.MOVIES_CONTRACT_ADDRESS,
-    MoviesABI.abi,
-    provider.getSigner()
+export const ticketContract = () =>
+  createContract(process.env.TICKET_CONTRACT_ADDRESS, TicketABI.abi);
+
+export const moviesContract = () =>
+  createContract(process.env.MOVIES_CONTRACT_ADDRESS, MoviesABI.abi);
+
+export const transactionsContract = () =>
+  createContract(
+    process.env.TRANSACTIONS_CONTRACT_ADDRESS,
+    TransactionsABI.abi
   );
-  return contract;
-};
