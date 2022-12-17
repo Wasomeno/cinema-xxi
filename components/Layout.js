@@ -7,6 +7,7 @@ import AppNav from "./AppNav";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NotConnected from "./NotConnected";
 import RegularNav from "./RegularNav";
+import ManagerLayout from "./Manager/ManagerLayout";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -28,6 +29,8 @@ const Layout = ({ children }) => {
     ) : (
       <NotConnected />
     )
+  ) : basePath === "manager" ? (
+    <ManagerLayout>{children}</ManagerLayout>
   ) : (
     <main className="h-screen">
       <RegularNav />
