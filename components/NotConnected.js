@@ -1,18 +1,8 @@
-import React, { useContext } from "react";
-import { appContext } from "../context/AppContext";
+import React from "react";
+import { useConnect } from "wagmi";
 
 const NotConnected = () => {
-  const context = useContext(appContext);
-
-  const connect = async () => {
-    if (window.ethereum) {
-      const account = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      context.setAccount(account);
-    }
-  };
-
+  const { connect, connectors } = useConnect();
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
       <div className="text-center">
@@ -22,12 +12,15 @@ const NotConnected = () => {
         <p className="font-sans text-base">You need to connect your wallet</p>
       </div>
       <div className="w-3/6 m-3 text-center">
-        <button
-          className="bg-slate-100 p-2 font-poppins font-medium text-sm w-4/6 rounded-xl shadow-md transition duration-300 ease-in-out hover:bg-black hover:text-white"
-          onClick={connect}
-        >
-          Connect
-        </button>
+        {connectors.map((connector, index) => (
+          <button
+            key={index}
+            className="bg-slate-100 p-2 font-poppins font-medium text-sm w-4/6 rounded-xl shadow-md transition duration-300 ease-in-out hover:bg-black hover:text-white"
+            onClick={connect({ connector: connector })}
+          >
+            Connect
+          </button>
+        ))}
       </div>
     </div>
   );
