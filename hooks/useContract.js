@@ -8,13 +8,13 @@ import RegionABI from "../abi/Region.json";
 import { useContract, useProvider, useSigner } from "wagmi";
 
 const createContract = (contractAddress, abi) => {
-  const provider = useProvider();
-  const { data: signer, isLoading } = useSigner();
-  return useContract({
-    address: contractAddress,
-    abi: abi,
-    signerOrProvider: !isLoading ? signer : provider,
-  });
+  const provider = new ethers.providers.InfuraProvider(
+    "goerli",
+    "10d1de5267e944c0a6580f6a690283a7"
+  );
+
+  const contract = new ethers.Contract(contractAddress, abi, provider);
+  return contract;
 };
 
 export const rolesContract = () =>
