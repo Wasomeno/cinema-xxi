@@ -4,6 +4,7 @@ import RolesABI from "../abi/Roles.json";
 import TicketABI from "../abi/Ticket.json";
 import MoviesABI from "../abi/Movies.json";
 import TransactionsABI from "../abi/Transactions.json";
+import RegionABI from "../abi/Region.json";
 import { useContract, useProvider, useSigner } from "wagmi";
 
 const createContract = (contractAddress, abi) => {
@@ -21,6 +22,9 @@ export const rolesContract = () =>
 
 export const cinemaContract = () =>
   createContract(process.env.CINEMA_CONTRACT_ADDRESS, CinemaABI.abi);
+
+export const regionContract = () =>
+  createContract(process.env.REGION_CONTRACT_ADDRESS, RegionABI.abi);
 
 export const ticketContract = () =>
   createContract(process.env.TICKET_CONTRACT_ADDRESS, TicketABI.abi);
