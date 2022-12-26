@@ -21,17 +21,15 @@ const toastStore = create((set) => ({
   },
 }));
 
-export const useGetLoading = () => {
+export const useLoadingDetails = () => {
   const getLoading = loadingStore((state) => state.loading);
   const getText = loadingStore((state) => state.text);
-
   return [getLoading, getText];
 };
 
-export const useSetLoading = () => {
+export const useLoading = () => {
   const setLoading = loadingStore((state) => state.setLoading);
   const setText = loadingStore((state) => state.setText);
-
   return [setLoading, setText];
 };
 
@@ -45,6 +43,5 @@ export const useToastDetails = () => {
   const getShow = toastStore((state) => state.show);
   const getText = toastStore((state) => state.text);
   const getCondition = toastStore((state) => state.condition);
-
   return [getShow, getText, getCondition];
 };
