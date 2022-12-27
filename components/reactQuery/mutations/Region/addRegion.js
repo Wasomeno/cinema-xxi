@@ -23,8 +23,7 @@ const addRegionSideEffects = (region) => {
 };
 
 export const addRegion = ({ regionId, regionName }) => {
-  const contract = regionContract();
-
+  const contract = regionContract({ read: false });
   const { mutate } = mutation(async () => {
     const provider = new ethers.providers.Web3Provider(window?.ethereum);
     const regionNameBytes32 = ethers.utils.formatBytes32String(regionName);
