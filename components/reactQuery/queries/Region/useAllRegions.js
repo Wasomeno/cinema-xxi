@@ -7,7 +7,6 @@ export const useAllRegions = () => {
   const result = query({
     queryKey: ["allRegions"],
     queryFunction: async () => await contract.getRegions(),
-    enabledCondition: true,
   });
   return result;
 };
