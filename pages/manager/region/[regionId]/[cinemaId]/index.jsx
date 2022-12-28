@@ -74,10 +74,18 @@ const CinemaDetails = ({
               <CinemaDetailsCard
                 title="Movies"
                 value={parseInt(cinemaDetails.moviesAmount.hex)}
+                withLink
+                link={
+                  "/manager/region/" + regionId + "/" + cinemaId + "/movies"
+                }
               />
               <CinemaDetailsCard
                 title="Showtimes"
                 value={parseInt(cinemaDetails.showTimesAmount.hex)}
+                withLink
+                link={
+                  "/manager/region/" + regionId + "/" + cinemaId + "/showtimes"
+                }
               />
               <CinemaDetailsCard title="Capacity Total" value={capacityTotal} />
             </div>
