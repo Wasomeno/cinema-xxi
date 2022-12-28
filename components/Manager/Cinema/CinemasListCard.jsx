@@ -10,7 +10,7 @@ const CinemaListCardLoading = () => {
 const CinemasListCard = ({ cinema, region }) => {
   return (
     <Link
-      href={"/manager/cinema/" + region + "/" + parseInt(cinema.hex)}
+      href={"/manager/region/" + region + "/" + parseInt(cinema.hex)}
       className="w-5/6 h-16 flex justify-evenly items-center rounded-md bg-slate-200 shadow-md p-2"
     >
       <div className="w-3/6 flex justify-center items-center gap-4">
