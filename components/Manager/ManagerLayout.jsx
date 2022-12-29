@@ -7,8 +7,9 @@ import NotValidManager from "./NotValidManager";
 const ManagerLayout = ({ children }) => {
   const { address } = useAccount();
   const superAdminStatus = useSuperAdminStatus(address);
+
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       {!superAdminStatus ? (
         <NotValidManager />
       ) : (
