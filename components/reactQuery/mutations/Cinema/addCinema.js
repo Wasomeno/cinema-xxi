@@ -25,24 +25,28 @@ const addCinemaSides = () => {
   };
 };
 
-export const addCinema = ({ cinemaDetails }) => {
+export const addCinema = ({
+  regionId,
+  cinemaId,
+  cinemaName,
+  studioAmount,
+  studioCapacities,
+}) => {
   const contract = cinemaContract({ read: false });
 
   const { mutate } = mutation(async (event) => {
     event.preventDefault();
     const provider = useMetamask();
-    const cinemaNameBytes32 = ethers.utils.formatBytes32String(
-      cinemaDetails.name
-    );
-    const cinemaStudioCapacities = cinemaDetails.studioCapacities.map(
-      (capacity) => parseInt(capacity)
+    const cinemaNameBytes32 = ethers.utils.formatBytes32String(cinemaName);
+    const cinemaStudioCapacities = studioCapacities.map((capacity) =>
+      parseInt(capacity)
     );
 
     const transaction = await contract.addCinemas(
-      cinemaDetails.region,
-      [cinemaDetails.cinemaId],
+      regionId,
+      [cinemaId],
       [cinemaNameBytes32],
-      [cinemaDetails.studioAmount],
+      [studioAmount],
       [cinemaStudioCapacities]
     );
     const waitTransaction = await provider.waitForTransaction(transaction.hash);
