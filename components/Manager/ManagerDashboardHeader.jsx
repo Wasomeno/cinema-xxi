@@ -13,7 +13,7 @@ const ManagerDashboardHeader = ({
   OptionMenu,
 }) => {
   const [option, setOption] = useState();
-  const { asPath, push } = useRouter();
+  const { back } = useRouter();
   return (
     <>
       <div className="w-full flex justify-evenly items-center h-14">
@@ -21,9 +21,9 @@ const ManagerDashboardHeader = ({
           <div className="w-1/6 text-center">
             <button
               className="bg-slate-100 shadow-md rounded-full w-8 h-8 p-1 relative"
-              onClick={() => push(asPath.slice(0, asPath.lastIndexOf("/")))}
+              onClick={() => back()}
             >
-              <ChevronLeft />
+              <ChevronLeft size="5" />
             </button>
           </div>
         ) : (
