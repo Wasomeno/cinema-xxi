@@ -10,17 +10,17 @@ import client from "../client/wagmiClient";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <WagmiConfig client={client}>
-      <QueryClientProvider client={queryClientApp}>
-        <AppContextDOM Context={appContext}>
+    <QueryClientProvider client={queryClientApp}>
+      <AppContextDOM Context={appContext}>
+        <WagmiConfig client={client}>
           <Layout>
             <Loading />
             <Component {...pageProps} />;
             <Toast />
           </Layout>
-        </AppContextDOM>
-      </QueryClientProvider>
-    </WagmiConfig>
+        </WagmiConfig>
+      </AppContextDOM>
+    </QueryClientProvider>
   );
 }
 
