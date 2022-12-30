@@ -10,8 +10,12 @@ export const RegionManagerMenu = () => {
         href={"/manager/region/add"}
         className="text-sm flex justify-evenly items-center h-full w-full"
       >
-        <Plus />
-        Add new region
+        <div className="w-1/6">
+          <Plus color="gray" size="4" />
+        </div>
+        <div className="w-4/6">
+          <p className="font-poppins text-xs">Add new region</p>
+        </div>
       </Link>
     </AnimatedContainer>
   );
