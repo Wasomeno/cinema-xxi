@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Link from "next/link";
 import React from "react";
-import Globe from "../../Icons/Globe";
+import { Globe } from "../../Icons/Globe";
 import { useRegionDetails } from "../../reactQuery/queries/Region/useRegionDetails";
 
 const RegionListCardLoading = () => {
