@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import AnimatedContainer from "../../../components/AnimatedContainer";
 import ManagerDashboardHeader from "../../../components/Manager/ManagerDashboardHeader";
+import { addMovie } from "../../../components/reactQuery/mutations/Movie/addMovie";
 import { Paragraph } from "../../../components/shared/Texts";
 
 const AddMovie = () => {
-  const [movieId, setMovieId] = useState();
-  const [title, setTitle] = useState();
-  const [duration, setDuration] = useState();
+  const [movieId, setMovieId] = useState("");
+  const [title, setTitle] = useState("");
+  const [duration, setDuration] = useState("");
+
+  const addMovieMutation = addMovie({
+    duration: duration,
+    title: title,
+    movieId: movieId,
+  });
+
   return (
     <AnimatedContainer className="p-4">
       <ManagerDashboardHeader title="Add Movie" withBackButton />
-      <form>
+      <form onSubmit={(event) => addMovieMutation(event)}>
         <div className="w-full text-center mt-3">
           <Paragraph text="Movie Id" size="sm" style="medium" margin="2" />
           <input
