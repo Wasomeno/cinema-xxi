@@ -1,41 +1,35 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
-import { appContext } from "../context/AppContext";
 import AdminLayout from "./Admin/AdminLayout";
 import AppNav from "./AppNav";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NotConnected from "./NotConnected";
 import RegularNav from "./RegularNav";
 import ManagerLayout from "./Manager/ManagerLayout";
+import { useUserDetails } from "../hooks/useUserDetails";
 
 const Layout = ({ children }) => {
   const router = useRouter();
   const basePath = router.pathname.split("/")[1];
-  const isConnected = useContext(appContext).isConnected;
+  const { isConnected } = useUserDetails();
 
-  return basePath === "app" ? (
-    isConnected ? (
+  return isConnected ? (
+    basePath === "app" ? (
       <main className="h-screen flex justify-evenly relative">
         <AppNav />
         {children}
       </main>
-    ) : (
-      <NotConnected />
-    )
-  ) : basePath === "admin" ? (
-    isConnected ? (
+    ) : basePath === "admin" ? (
       <AdminLayout>{children}</AdminLayout>
+    ) : basePath === "manager" ? (
+      <ManagerLayout>{children}</ManagerLayout>
     ) : (
-      <NotConnected />
+      <main className="h-screen">
+        <RegularNav />
+        {children}
+      </main>
     )
-  ) : basePath === "manager" ? (
-    <ManagerLayout>{children}</ManagerLayout>
   ) : (
-    <main className="h-screen">
-      <RegularNav />
-      {children}
-    </main>
+    <NotConnected />
   );
 };
 
