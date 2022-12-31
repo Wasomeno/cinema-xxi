@@ -25,8 +25,10 @@ const Toast = () => {
             conditions[condition].class
           }
         >
-          {conditions[condition].icon}
-          <Paragraph text={text} size="sm" />
+          <div className="w-1/6">{conditions[condition].icon}</div>
+          <div className="w-4/6 text-center">
+            <Paragraph text={text} size="sm" />
+          </div>
         </AnimatedContainer>
       )}
     </AnimatePresence>
