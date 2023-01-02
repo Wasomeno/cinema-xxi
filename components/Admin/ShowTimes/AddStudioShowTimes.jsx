@@ -8,25 +8,30 @@ import { useLoading, useToast } from "../../../store/stores";
 import { useShowTimes } from "../../reactQuery/queries/Cinema/useShowTimes";
 import { useStudioShowTimes } from "../../reactQuery/queries/Cinema/useStudioShowTimes";
 import { useCinemaDetails } from "../../reactQuery/queries/Cinema/useCinemaDetails";
+import { query } from "@/components/reactQuery/query";
 
-const AddStudioShowTimes = ({ adminDetails }) => {
+const AddStudioShowTimes = ({ region, cinema }) => {
   const [selectedShowTimes, setSelectedShowTimes] = useState([]);
   const [selectedStudio, setSelectedStudio] = useState(1);
   const [showStudio, toggleShowStudio] = useToggle(false);
   const [setLoading, setLoadingText] = useLoading();
   const [toastSuccess, toastError] = useToast();
-  const showTimes = useShowTimes({
-    cinema: adminDetails.cinema,
-    region: adminDetails.region,
+  const showTimes = query({
+    queryKey: ["cinemaShowtimes", region, cinema],
+    queryFunction: async () =>
+      await useShowTimes({
+        cinema: cinema,
+        region: region,
+      }),
   });
   const studioShowTimes = useStudioShowTimes({
-    cinema: adminDetails.cinema,
-    region: adminDetails.region,
+    cinema: cinema,
+    region: region,
     studio: selectedStudio,
   });
   const cinemaDetails = useCinemaDetails({
-    cinema: adminDetails.cinema,
-    region: adminDetails.region,
+    cinema: cinema,
+    region: region,
   });
 
   const getStudios = () => {
