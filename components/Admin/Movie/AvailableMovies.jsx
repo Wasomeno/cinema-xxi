@@ -1,26 +1,33 @@
+import { query } from "@/components/reactQuery/query";
+import { Paragraph, Subtitle } from "@/components/shared/Texts";
 import { ethers } from "ethers";
 import React from "react";
 import { MoonLoader } from "react-spinners";
 import { useAllMovies } from "../../reactQuery/queries/Movie/useAllMovies";
 
 const AvailableMovies = ({ selectedMovies, setSelectedMovies }) => {
-  const fetchedMovies = useAllMovies();
-  const selectMovie = (index) => {
-    if (selectedMovies.includes(index)) return;
+  const fetchedMovies = query({
+    queryKey: ["allMovies"],
+    queryFunction: async () => await useAllMovies(),
+  });
+
+  const selectMovie = (movieId, movieTitle) => {
+    if (selectedMovies.includes(movieId)) return;
     setSelectedMovies((currentSelected) => [
       ...currentSelected,
-      parseInt(index),
+      { movieId: movieId, title: movieTitle },
     ]);
   };
+
   return (
-    <div className="w-5/6 h-2/6 bg-slate-100 shadow-slate-300 shadow-lg rounded-lg p-2">
-      <h2 className="font-poppins font-medium text-lg text-center m-2">
-        Movies Available
-      </h2>
+    <div className="p-2">
+      <div className="my-2">
+        <Subtitle size="sm" text="Available Movies" />
+      </div>
       <div className="flex flex-col h-full items-center">
         {fetchedMovies.isLoading ? (
           <>
-            <p className="font-poppins m-2 my-3">Fetching Movies</p>
+            <Paragraph text="Fetching Movies" size="sm" />
             <MoonLoader
               loading={fetchedMovies.isLoading}
               size={25}
@@ -28,16 +35,20 @@ const AvailableMovies = ({ selectedMovies, setSelectedMovies }) => {
             />
           </>
         ) : (
-          <div className="flex flex-col gap-3 h-4/6 items-center overflow-y-scroll">
-            {fetchedMovies.data?.map((movie, index) => (
-              <button
-                key={index}
-                onClick={() => selectMovie(index)}
-                className="font-poppins font-normal text-center text-sm p-2 shadow-md bg-slate-200 rounded-lg w-5/6 transition duration-300 ease-in-out hover:bg-white"
-              >
-                {ethers.utils.parseBytes32String(movie)}
-              </button>
-            ))}
+          <div className="w-full h-36 flex flex-col gap-3  items-center overflow-y-scroll p-2">
+            {fetchedMovies.data.length < 1 ? (
+              <Paragraph text="No Available Movies" size="sm" margin="4" />
+            ) : (
+              fetchedMovies.data?.map((movie, index) => (
+                <button
+                  key={index}
+                  onClick={() => selectMovie(movie.movieId, movie.title)}
+                  className="font-poppins font-normal text-center text-sm p-2 shadow-md bg-slate-200 rounded-lg w-5/6 transition duration-300 ease-in-out hover:bg-white"
+                >
+                  {ethers.utils.parseBytes32String(movie.title)}
+                </button>
+              ))
+            )}
           </div>
         )}
       </div>
