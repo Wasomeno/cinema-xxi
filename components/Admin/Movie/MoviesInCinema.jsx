@@ -1,30 +1,31 @@
-import React from "react";
+import { Paragraph } from "@/components/shared/Texts";
+import { parseBytes32String } from "ethers/lib/utils.js";
 import { MoonLoader } from "react-spinners";
-import { useAllMovies } from "../../reactQuery/queries/Movie/useAllMovies";
 import { useCinemaMovies } from "../../reactQuery/queries/Movie/useCinemaMovies";
 
-const MoviesInCinema = ({ adminDetails }) => {
-  const fetchedMovies = useAllMovies();
+const MoviesInCinema = ({ region, cinema }) => {
   const fetchedCinemaMovies = useCinemaMovies({
-    region: adminDetails.region,
-    cinema: adminDetails.cinema,
+    region: region,
+    cinema: cinema,
   });
 
   return (
-    <div className="w-5/6 h-2/6 bg-slate-100 shadow-slate-300 shadow-lg rounded-lg p-2">
-      <h2 className="font-poppins font-medium text-lg text-center m-2">
-        Current Movies
-      </h2>
+    <div className="w-full p-2">
+      <div className="">
+        <Paragraph text="List of Movies" size="sm" style="medium" />
+      </div>
       <div className="flex flex-col gap-3 items-center h-4/6 overflow-y-scroll p-2">
         {fetchedCinemaMovies.isLoading ? (
           <>
-            <p className="font-poppins m-2 my-3">Fetching Movies</p>
+            <Paragraph text="Fetching Movies" size="xs" style="medium" />
             <MoonLoader
               loading={fetchedCinemaMovies.isLoading}
               size={25}
               color={"black"}
             />
           </>
+        ) : fetchedCinemaMovies.data.length < 1 ? (
+          <Paragraph text="No Active Movies" size="sm" />
         ) : (
           fetchedCinemaMovies.data.map((movie, index) => (
             <button
@@ -32,7 +33,7 @@ const MoviesInCinema = ({ adminDetails }) => {
               onClick={() => selectMovie(index)}
               className="font-poppins font-normal text-center text-sm p-2 shadow-md bg-slate-200 rounded-lg w-5/6 transition duration-300 ease-in-out hover:bg-white"
             >
-              {movie}
+              {parseBytes32String(movie)}
             </button>
           ))
         )}
