@@ -7,7 +7,7 @@ const contextLoadingTexts = {
 };
 
 const contextSuccessTexts = {
-  add: "Succesffully add ",
+  add: "Succesfully add ",
   delete: "Successfully delete ",
   update: "Successfully update ",
 };
