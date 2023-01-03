@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import AnimatedContainer from "../../AnimatedContainer";
-import Plus from "../../Icons/Plus";
-import { Paragraph } from "../../shared/Texts";
+import AnimatedContainer from "@/components/AnimatedContainer";
+import Plus from "@/components/Icons/Plus";
+import { Paragraph } from "@/components/shared/Texts";
 
 const AdminManagerMenu = ({ regionId, cinemaId }) => {
   return (

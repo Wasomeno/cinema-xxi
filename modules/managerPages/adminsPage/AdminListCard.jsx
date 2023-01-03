@@ -1,5 +1,5 @@
 import React from "react";
-import { Paragraph } from "../../shared/Texts";
+import { Paragraph } from "@/components/shared/Texts";
 
 const AdminListCard = ({ address }) => {
   return (
