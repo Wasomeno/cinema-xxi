@@ -1,5 +1,6 @@
 import { Cinema } from "@/components/Icons/Cinema";
 import { House } from "@/components/Icons/House";
+import RectangeStack from "@/components/Icons/RectangeStack";
 import Time from "@/components/Icons/TIme";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,15 +25,19 @@ const AdminNavMobile = () => {
     <div className="h-16 w-11/12 bg-slate-300 rounded-full shadow-md fixed bottom-2 left-1/2 -translate-x-1/2">
       <div className="flex h-full w-full items-center justify-evenly p-2">
         <Link href="/admin" className={getClass("admin")}>
-          <House />
+          <House size="5" />
         </Link>
 
         <Link href="/admin/movies" className={getClass("movies")}>
-          <Cinema />
+          <Cinema size="5" />
         </Link>
 
         <Link href="/admin/showtimes" className={getClass("showtimes")}>
-          <Time />
+          <Time size="5" />
+        </Link>
+
+        <Link href="/admin/studios" className={getClass("studios")}>
+          <RectangeStack size="5" />
         </Link>
       </div>
     </div>
