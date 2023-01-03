@@ -1,7 +1,7 @@
 import { Paragraph } from "@/components/shared/Texts";
 import { parseBytes32String } from "ethers/lib/utils.js";
 import { MoonLoader } from "react-spinners";
-import { useCinemaMovies } from "../../reactQuery/queries/Movie/useCinemaMovies";
+import { useCinemaMovies } from "@/components/reactQuery/queries/Movie/useCinemaMovies";
 
 const MoviesInCinema = ({ region, cinema }) => {
   const fetchedCinemaMovies = useCinemaMovies({

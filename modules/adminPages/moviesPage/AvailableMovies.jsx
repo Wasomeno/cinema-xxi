@@ -3,7 +3,7 @@ import { Paragraph, Subtitle } from "@/components/shared/Texts";
 import { ethers } from "ethers";
 import React from "react";
 import { MoonLoader } from "react-spinners";
-import { useAllMovies } from "../../reactQuery/queries/Movie/useAllMovies";
+import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies";
 
 const AvailableMovies = ({ selectedMovies, setSelectedMovies }) => {
   const fetchedMovies = query({
