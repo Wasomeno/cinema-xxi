@@ -1,13 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
-import { ethers } from "ethers";
 import React, { useState } from "react";
 import { MoonLoader } from "react-spinners";
-import { cinemaContract } from "../../../hooks/useContract";
 import useToggle from "../../../hooks/useToggle";
 import { useLoading, useToast } from "../../../store/stores";
-import { useShowTimes } from "../../reactQuery/queries/Cinema/useShowTimes";
-import { useStudioShowTimes } from "../../reactQuery/queries/Cinema/useStudioShowTimes";
-import { useCinemaDetails } from "../../reactQuery/queries/Cinema/useCinemaDetails";
+import { useShowTimes } from "@/components/reactQuery/queries/Cinema/useShowTimes";
+import { useStudioShowTimes } from "@/components/reactQuery/queries/Cinema/useStudioShowTimes";
+import { useCinemaDetails } from "@/components/reactQuery/queries/Cinema/useCinemaDetails";
 import { query } from "@/components/reactQuery/query";
 
 const AddStudioShowTimes = ({ region, cinema }) => {

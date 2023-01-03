@@ -2,7 +2,7 @@ import { query } from "@/components/reactQuery/query";
 import { Paragraph, Subtitle } from "@/components/shared/Texts";
 import React from "react";
 import { MoonLoader } from "react-spinners";
-import { useShowTimes } from "../../reactQuery/queries/Cinema/useShowTimes";
+import { useShowTimes } from "@/components/reactQuery/queries/Cinema/useShowTimes";
 
 const CurrentShowTimes = ({ region, cinema }) => {
   const showTimes = query({
