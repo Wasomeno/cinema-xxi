@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import AnimatedContainer from "../../AnimatedContainer";
-import Plus from "../../Icons/Plus";
-import XMark from "../../Icons/XMark";
-import { Paragraph } from "../../shared/Texts";
+import AnimatedContainer from "@/components/AnimatedContainer";
+import Plus from "@/components/Icons/Plus";
+import XMark from "@/components/Icons/XMark";
+import { Paragraph } from "@/components/shared/Texts";
 
 export const CinemaDetailsMenu = ({ toggleShowModal }) => {
   return (

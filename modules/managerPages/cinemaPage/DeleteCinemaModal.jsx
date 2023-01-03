@@ -1,6 +1,6 @@
 import React from "react";
-import XMark from "../../Icons/XMark";
-import { deleteCinema } from "../../reactQuery/mutations/Cinema/deleteCinema";
+import XMark from "@/components/Icons/XMark";
+import { deleteCinema } from "@/components/reactQuery/mutations/Cinema/deleteCinema";
 
 const DeleteCinemaModal = ({ show, toggleShow, text, regionId, cinemaId }) => {
   const deleteCinemaMutation = deleteCinema({
