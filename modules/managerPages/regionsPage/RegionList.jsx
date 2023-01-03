@@ -1,6 +1,6 @@
 import React from "react";
 import { MoonLoader } from "react-spinners";
-import { useAllRegions } from "../../reactQuery/queries/Region/useAllRegions";
+import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions";
 import RegionListCard from "./RegionListCard";
 
 const RegionList = () => {
