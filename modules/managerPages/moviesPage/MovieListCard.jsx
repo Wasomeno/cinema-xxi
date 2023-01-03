@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Link from "next/link";
 import React from "react";
-import { Paragraph } from "../../shared/Texts";
+import { Paragraph } from "@/components/shared/Texts";
 
 const MovieListCard = ({ movie }) => {
   return (

@@ -1,7 +1,6 @@
-import Link from "next/link";
 import React from "react";
-import AnimatedContainer from "../../AnimatedContainer";
-import XMark from "../../Icons/XMark";
+import AnimatedContainer from "@/components/AnimatedContainer";
+import XMark from "@/components/Icons/XMark";
 
 const MovieDetailsMenu = ({ toggleModal }) => {
   return (

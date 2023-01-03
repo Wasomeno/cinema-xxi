@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import AnimatedContainer from "../../AnimatedContainer";
-import Plus from "../../Icons/Plus";
+import AnimatedContainer from "@/components/AnimatedContainer";
+import Plus from "@/components/Icons/Plus";
 
 const MoviesManagerMenu = () => {
   return (

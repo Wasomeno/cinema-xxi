@@ -1,6 +1,6 @@
 import React from "react";
-import XMark from "../../Icons/XMark";
-import { deleteMovie } from "../../reactQuery/mutations/Movie/deleteMovie";
+import XMark from "@/components/Icons/XMark";
+import { deleteMovie } from "@/components/reactQuery/mutations/Movie/deleteMovie";
 
 const DeleteMovieModal = ({ show, toggleShow, text, movieId }) => {
   const deleteMovieMutation = deleteMovie({ movieId: movieId });
