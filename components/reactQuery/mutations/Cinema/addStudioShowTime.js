@@ -1,48 +1,23 @@
-import { ethers } from "ethers";
+import useMetamask from "hooks/useMetamask";
 import { cinemaContract } from "../../../../hooks/useContract";
-import { useLoading, useToast } from "../../../../store/stores";
+import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
-const addStudioShowTimeSides = (selectedStudio) => {
-  const [toastSuccess, toastError] = useToast();
-  const [setLoading, setLoadingText] = useLoading();
-  const sideEffects = {
-    onMutate: () => {
-      setLoadingText("Adding show times to studio " + selectedStudio);
-      setLoading(true);
-    },
-    onError: (result) => {
-      setLoading(false);
-      toastError(result.reason);
-    },
-    onSuccess: () => {
-      setLoading(false);
-      toastSuccess("Successfully added show times to studio " + selectedStudio);
-    },
-  };
-
-  return sideEffects;
-};
-
-export const addShowTimesToStudio = ({
-  adminDetails,
-  selectedStudio,
-  selectedShowTimes,
-}) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = cinemaContract();
+export const addShowTimesToStudio = ({ region, cinema, studio, showtimes }) => {
+  const contract = cinemaContract({ read: false });
   const { mutate } = mutation(async () => {
+    const provider = useMetamask();
     const addShowTimes = await contract.addStudioShowTimes(
-      adminDetails.region,
-      adminDetails.cinema,
-      selectedStudio,
-      selectedShowTimes
+      region,
+      cinema,
+      studio,
+      showtimes
     );
     const waitTransaction = await provider.waitForTransaction(
       addShowTimes.hash
     );
     return waitTransaction;
-  }, addStudioShowTimeSides());
+  }, createSideEffects({ context: "add", object: "showtime" }));
 
   return mutate;
 };
