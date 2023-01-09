@@ -5,6 +5,7 @@ import AnimatedContainer from "../AnimatedContainer";
 import EllipsisVertical from "../Icons/EllipsisVertical";
 import ChevronLeft from "../Icons/ChevronLeft";
 import { Title } from "../shared/Texts";
+import useToggle from "hooks/useToggle";
 
 const ManagerDashboardHeader = ({
   title,
@@ -12,7 +13,7 @@ const ManagerDashboardHeader = ({
   withBackButton,
   OptionMenu,
 }) => {
-  const [option, setOption] = useState();
+  const [option, toggleOption] = useToggle(false);
   const { back } = useRouter();
   return (
     <>
@@ -20,7 +21,7 @@ const ManagerDashboardHeader = ({
         {withBackButton ? (
           <div className="w-1/6 text-center">
             <button
-              className="bg-slate-100 shadow-md rounded-full w-8 h-8 p-1 relative"
+              className="bg-slate-100 shadow-md rounded-full w-8 h-8 p-1"
               onClick={() => back()}
             >
               <ChevronLeft size="5" />
@@ -36,8 +37,8 @@ const ManagerDashboardHeader = ({
         {withOption ? (
           <div className="w-1/6 text-center">
             <button
-              className="bg-slate-100 shadow-md rounded-full w-8 h-8 relative z-30"
-              onClick={() => setOption((current) => !current)}
+              className="bg-slate-100 shadow-md rounded-full w-8 h-8 relative z-15"
+              onClick={() => toggleOption()}
             >
               <EllipsisVertical />
             </button>
@@ -49,10 +50,10 @@ const ManagerDashboardHeader = ({
         <AnimatePresence>
           {option && (
             <>
-              <OptionMenu />
+              {OptionMenu}
               <AnimatedContainer
-                className="h-screen w-screen bg-slate-900 bg-opacity-50 top-0 left-0 absolute z-10"
-                onClick={() => setOption((current) => !current)}
+                className="h-screen w-screen bg-slate-900 bg-opacity-50 top-0 left-0 absolute z-5"
+                onClick={() => toggleOption()}
               />
             </>
           )}
