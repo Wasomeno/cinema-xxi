@@ -1,10 +1,11 @@
 import React from "react";
 import AnimatedContainer from "@/components/AnimatedContainer";
 import XMark from "@/components/Icons/XMark";
+import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
 const MovieDetailsMenu = ({ toggleModal }) => {
   return (
-    <AnimatedContainer className="flex flex-col justify-center items-center h-16 w-40 p-2 bg-slate-200 rounded-md z-20 shadow-md absolute right-16 top-10">
+    <HeaderMenuModal>
       <div className="text-sm flex justify-evenly items-center h-full w-full">
         <div className="w-1/6">
           <XMark color="#D9001D" size="5" />
@@ -13,7 +14,7 @@ const MovieDetailsMenu = ({ toggleModal }) => {
           <p className="font-poppins text-xs">Delete</p>
         </div>
       </div>
-    </AnimatedContainer>
+    </HeaderMenuModal>
   );
 };
 
