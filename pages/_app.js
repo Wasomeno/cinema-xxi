@@ -1,6 +1,6 @@
-import Layout from "../components/Layout";
-import Loading from "../components/Loading";
-import Toast from "../components/Toast";
+import Layout from "@/components/Layout";
+import Loading from "@/components/Loading";
+import Toast from "@/components/Toast";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { appContext, AppContextDOM } from "../context/AppContext";
 import "../styles/globals.css";
@@ -13,11 +13,11 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClientApp}>
       <AppContextDOM Context={appContext}>
         <WagmiConfig client={client}>
+          <Loading />
           <Layout>
-            <Loading />
-            <Component {...pageProps} />;
-            <Toast />
+            <Component {...pageProps} />
           </Layout>
+          <Toast />
         </WagmiConfig>
       </AppContextDOM>
     </QueryClientProvider>
