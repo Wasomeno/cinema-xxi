@@ -1,3 +1,4 @@
+import { parseBytes32String } from "ethers/lib/utils.js";
 import { moviesContract } from "../../../../hooks/useContract";
 import { query } from "../../query";
 
@@ -10,7 +11,11 @@ export const useAllMovies = () => {
       return await Promise.all(
         movieIds.map(async (movie) => {
           const { title, duration } = await contract.getMovieDetails(movie);
-          return { movieId: movie, title: title, duration: duration };
+          return {
+            movieId: parseInt(movie),
+            title: parseBytes32String(title),
+            duration: duration,
+          };
         })
       );
     },
