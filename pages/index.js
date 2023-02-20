@@ -27,7 +27,7 @@ export default function Home() {
         </div>
       </div>
       <Link
-        href={"app"}
+        href="app"
         className="m-5 w-40 rounded-full border-2 border-solid border-black bg-slate-900 p-2 text-center text-lg text-white transition duration-300 ease-in-out hover:scale-x-105 hover:bg-white hover:text-black"
       >
         Go To App

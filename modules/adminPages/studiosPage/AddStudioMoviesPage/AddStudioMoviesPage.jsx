@@ -67,7 +67,7 @@ export const AddStudioMoviesPage = () => {
           object="showtimes"
           loading={false}
         >
-          {studioShowtimes.data?.length < 1 ? (
+          {/* {studioShowtimes.data?.length < 1 ? (
             <Paragraph text="No active showtimes" size="sm" />
           ) : (
             studioShowtimes.data?.map((showtime, index) => (
@@ -79,7 +79,7 @@ export const AddStudioMoviesPage = () => {
                 {parseInt(showtime)}
               </div>
             ))
-          )}
+          )} */}
         </DataContainer>
       </div>
 

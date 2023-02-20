@@ -21,9 +21,9 @@ const Layout = ({ children }) => {
   const basePath = router.pathname.split("/")[1];
   const ComponentLayout = layouts[basePath];
 
-  return basePath === "" ? (
+  return basePath === "" || basePath === "about" ? (
     <main className="h-screen">{children}</main>
-  ) : (
+  ) : basePath === "admin" || basePath === "app" || basePath === "manager" ? (
     <QueryClientProvider client={queryClientApp}>
       <WagmiConfig client={client}>
         <Loading />
@@ -31,6 +31,8 @@ const Layout = ({ children }) => {
         <Toast />
       </WagmiConfig>
     </QueryClientProvider>
+  ) : (
+    <>{children}</>
   );
 };
 

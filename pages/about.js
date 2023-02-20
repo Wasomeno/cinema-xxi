@@ -1,4 +1,4 @@
-const About = () => {
+export default function Contact() {
   return (
     <div className="flex h-3/4 flex-col items-center justify-center">
       <div className="m-4">
@@ -13,6 +13,4 @@ const About = () => {
       </div>
     </div>
   );
-};
-
-export default About;
+}
