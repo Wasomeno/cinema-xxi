@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useAccount } from "wagmi";
+import {} from "wagmi";
 
 export const useUserDetails = () => {
   const account = useAccount();
   const [details, setDetails] = useState({
     user: "",
-    isConnected: false,
-    isReconnecting: true,
+    isConnected: true,
+    isReconnecting: false,
+    isConnecting: false,
   });
 
-  useEffect(() => {
-    setDetails({
+  useLayoutEffect(() => {
+    setDetails((currentDetails) => ({
+      ...currentDetails,
       user: account.address,
       isConnected: account.isConnected,
       isReconnecting: account.isReconnecting,
-    });
-  }, [account.isReconnecting, account.isConnected]);
+      isConnecting: account.isConnecting,
+    }));
+  }, [account.status]);
 
   return details;
 };

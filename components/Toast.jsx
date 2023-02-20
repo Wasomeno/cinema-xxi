@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+
 import { useToastDetails } from "../store/stores";
 import AnimatedContainer from "./AnimatedContainer";
 import CheckMark from "./Icons/Checkmark";
@@ -21,7 +22,7 @@ const Toast = () => {
       {show && (
         <AnimatedContainer
           className={
-            "flex justify-center items-center absolute bg-gradient-to-r rounded-lg w-5/6 h-14 p-2 shadow-md bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 " +
+            "absolute bottom-0 left-1/2 z-30 flex h-14 w-5/6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-gradient-to-r p-2 shadow-md " +
             conditions[condition].class
           }
         >

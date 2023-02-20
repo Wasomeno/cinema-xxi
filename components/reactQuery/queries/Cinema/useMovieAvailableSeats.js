@@ -7,12 +7,9 @@ export const useMovieAvailableSeats = ({
   studio,
   showtime,
 }) => {
-  const contract = ticketContract({ read: true });
-  const availableSeats = query({
-    queryKey: ["movieAvailableSeats", region, cinema, studio, showtime],
-    queryFunction: async () =>
-      await contract.getAvailableSeats(region, cinema, studio, showtime),
-  });
-
-  return availableSeats;
+  return {
+    data: [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    ],
+  };
 };

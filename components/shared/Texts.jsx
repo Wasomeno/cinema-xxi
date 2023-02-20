@@ -1,12 +1,12 @@
-export const Title = ({ text, isLoading }) => {
-  return isLoading ? (
-    <TitleLoading />
-  ) : (
-    <h1 className="font-poppins font-medium text-sm tracking-wide">{text}</h1>
+export const Title = ({ children }) => {
+  return (
+    <h1 className="font-inter text-sm tracking-wide md:text-base lg:text-lg">
+      {children}
+    </h1>
   );
 };
 
-export const Paragraph = ({ text, size, style, margin }) => {
+export const Paragraph = ({ children, size, style, margin }) => {
   return (
     <p
       className={
@@ -18,23 +18,23 @@ export const Paragraph = ({ text, size, style, margin }) => {
         (margin ? "m-" + margin : "m-0")
       }
     >
-      {text}
+      {children}
     </p>
   );
 };
 
-export const Subtitle = ({ text, size }) => {
+export const Subtitle = ({ children, size }) => {
   return (
     <h2
       className={
-        "font-poppins font-medium " + (size ? "text-" + size : "text-base")
+        "font-inter font-medium " + (size ? "text-" + size : "text-base")
       }
     >
-      {text}
+      {children}
     </h2>
   );
 };
 
 const TitleLoading = () => {
-  return <div className="w-3/6 h-8 bg-slate-500 rounded-md animate-pulse" />;
+  return <div className="h-8 w-3/6 animate-pulse rounded-md bg-slate-500" />;
 };

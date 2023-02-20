@@ -2,7 +2,7 @@ import { rolesContract } from "hooks/useContract";
 import { query } from "../../query";
 
 export function useCinemaAdminStatus(region, cinema, address) {
-  const contract = rolesContract({ read: true });
+  const contract = rolesContract();
   const status = query({
     queryKey: ["cinemaAdminStatus", address],
     queryFunction: async () => {

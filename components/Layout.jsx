@@ -1,35 +1,36 @@
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClientApp } from "client/reactQueryClient";
+import client from "client/wagmiClient";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
-import AdminLayout from "./Admin/AdminLayout";
-import AppNav from "./AppNav";
-import NotConnected from "./NotConnected";
-import RegularNav from "./RegularNav";
-import ManagerLayout from "./Manager/ManagerLayout";
-import { useUserDetails } from "../hooks/useUserDetails";
+import { WagmiConfig } from "wagmi";
+
+import AdminLayout from "./Layouts/AdminLayout";
+import AppLayout from "./Layouts/AppLayout";
+import ManagerLayout from "./Layouts/ManagerLayout";
+import Loading from "./Loading";
+import Toast from "./Toast";
+
+const layouts = {
+  admin: AdminLayout,
+  manager: ManagerLayout,
+  app: AppLayout,
+};
 
 const Layout = ({ children }) => {
   const router = useRouter();
   const basePath = router.pathname.split("/")[1];
-  const { isConnected } = useUserDetails();
+  const ComponentLayout = layouts[basePath];
 
-  return isConnected ? (
-    basePath === "app" ? (
-      <main className="h-screen flex justify-evenly relative">
-        <AppNav />
-        {children}
-      </main>
-    ) : basePath === "admin" ? (
-      <AdminLayout>{children}</AdminLayout>
-    ) : basePath === "manager" ? (
-      <ManagerLayout>{children}</ManagerLayout>
-    ) : (
-      <main className="h-screen">
-        <RegularNav />
-        {children}
-      </main>
-    )
+  return basePath === "" ? (
+    <main className="h-screen">{children}</main>
   ) : (
-    <NotConnected />
+    <QueryClientProvider client={queryClientApp}>
+      <WagmiConfig client={client}>
+        <Loading />
+        <ComponentLayout>{children}</ComponentLayout>
+        <Toast />
+      </WagmiConfig>
+    </QueryClientProvider>
   );
 };
 

@@ -8,9 +8,7 @@ const ChevronRight = ({ size, color }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke={color ? color : "black"}
-      className={
-        "w-" + (size ? size : "6") + " h-" + (size ? size : "6") + " mx-auto"
-      }
+      className={"w-" + (size ? size : "6") + " h-" + (size ? size : "6")}
     >
       <path
         strokeLinecap="round"

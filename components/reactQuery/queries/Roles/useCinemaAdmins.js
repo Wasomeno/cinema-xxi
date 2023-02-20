@@ -1,7 +1,6 @@
 import { rolesContract } from "../../../../hooks/useContract";
+import { query } from "../../query";
 
-export const useCinemaAdmins = async ({ regionId, cinemaId }) => {
-  const contract = rolesContract({ read: true });
-  const admins = await contract.getCinemaAdmins(regionId, cinemaId);
-  return JSON.parse(JSON.stringify(admins));
+export const useCinemaAdmins = ({ regionId, cinemaId }) => {
+  return { data: [0x000000000, 0x00000000, 0x000000], isLoading: false };
 };

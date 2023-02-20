@@ -3,7 +3,7 @@ import AnimatedContainer from "../AnimatedContainer";
 
 const HeaderMenuModal = ({ children }) => {
   return (
-    <AnimatedContainer className="flex flex-col justify-center items-center gap-3 w-40 p-3 bg-slate-200 rounded-md z-15 shadow-md absolute right-16 top-10">
+    <AnimatedContainer className="z-15 absolute right-0 top-5 flex w-40 flex-col items-center justify-center gap-3 rounded-md bg-slate-50 p-3 shadow-md sm:right-20 md:right-24">
       {children}
     </AnimatedContainer>
   );

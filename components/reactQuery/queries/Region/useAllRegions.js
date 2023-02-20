@@ -1,28 +1,37 @@
 import { parseBytes32String } from "ethers/lib/utils.js";
 import React from "react";
-import { regionContract } from "../../../../hooks/useContract";
+import { moviesContract, regionContract } from "../../../../hooks/useContract";
 import { query } from "../../query";
 
 export const useAllRegions = () => {
-  const contract = regionContract({ read: true });
-  const result = query({
-    queryKey: ["allRegions"],
-    queryFunction: async () => {
-      const regionIds = await contract.getRegions();
-      const regions = Promise.all(
-        regionIds.map(async (regionId) => {
-          const { _name, _cinemasAmount } = await contract.getRegionsDetails(
-            regionId
-          );
-          return {
-            id: parseInt(regionId),
-            name: parseBytes32String(_name),
-            cinemaAmount: parseInt(_cinemasAmount),
-          };
-        })
-      );
-      return regions;
-    },
-  });
-  return result;
+  return {
+    data: [
+      {
+        id: 1,
+        name: "Region 1",
+        cinemaAmount: 10,
+      },
+      {
+        id: 2,
+        name: "Region 2",
+        cinemaAmount: 10,
+      },
+      {
+        id: 3,
+        name: "Region 3",
+        cinemaAmount: 10,
+      },
+      {
+        id: 4,
+        name: "Region 4",
+        cinemaAmount: 10,
+      },
+      {
+        id: 5,
+        name: "Region 5",
+        cinemaAmount: 10,
+      },
+    ],
+    isLoading: false,
+  };
 };

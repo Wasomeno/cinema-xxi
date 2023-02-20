@@ -1,24 +1,31 @@
 export const FormContainer = ({ children, onSubmit }) => {
   return (
     <form
-      onSubmit={onSubmit}
-      className="w-full flex flex-col justify-start items-center gap-5"
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit();
+      }}
+      className="flex w-full flex-col items-center justify-start gap-5"
     >
       {children}
     </form>
   );
 };
 
-export const FormInput = ({ type, width, value, onChange }) => {
+export const FormInput = ({ type, width, value, setValue, id }) => {
+  const valueChange = (value) => {
+    setValue(value);
+  };
   return (
     <input
       type={type}
       value={value}
+      id={id}
       className={
         (width ? "w-" + width : "w-3/6") +
-        " h-8 p-2 font-poppins text-center border border-slate-500 rounded-lg text-sm"
+        " font-poppins h-8 rounded-lg border border-slate-500 p-2 text-center text-sm"
       }
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event) => valueChange(event.target.value)}
     />
   );
 };
@@ -30,7 +37,7 @@ export const FormSubmit = ({ width, value }) => {
       value={value}
       className={
         (width ? "w-" + width : "w-full") +
-        " text-white font-poppins bg-slate-900 font-medium text-sm p-2 rounded-lg"
+        " font-poppins rounded-lg bg-slate-900 p-2 text-xs font-medium text-white lg:text-sm"
       }
     />
   );

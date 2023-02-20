@@ -1,7 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.z-5 {
+  z-index: 5;
+}
+
+.z-25 {
+  z-index: 25;
+}
+.z-15 {
+  z-index: 15;
+}
 
 .font-poppins {
   font-family: Poppins;
+}
+
+.font-inter {
+  font-family: Inter;
 }
 
 input::-webkit-outer-spin-button,
@@ -9,6 +29,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+
+*::-webkit-scrollbar {
+  display: none;
+}
