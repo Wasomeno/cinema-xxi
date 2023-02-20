@@ -1,12 +1,13 @@
-import AdminHeader from "@/components/Headers/AdminHeader";
-import AnimatedContainer from "@/components/AnimatedContainer";
-import DataContainer from "@/components/DataContainer";
-import { addShowTimesToStudio } from "@/components/reactQuery/mutations/Cinema/addStudioShowTime";
-import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
-import { Paragraph } from "@/components/shared/Texts";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import { useRouter } from "next/router";
 import React from "react";
+
+import AnimatedContainer from "@/components/AnimatedContainer";
+import DataContainer from "@/components/DataContainer";
+import AdminHeader from "@/components/Headers/AdminHeader";
+import { addShowTimesToStudio } from "@/components/reactQuery/mutations/Cinema/addStudioShowTime";
+import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
+import { Paragraph } from "@/components/shared/Texts";
 
 const AddStudioShowtimesPage = () => {
   const { query } = useRouter();
@@ -34,8 +35,9 @@ const AddStudioShowtimesPage = () => {
           {cinemaShowtimes.data?.length < 1 ? (
             <Paragraph text="No active showtimes" size="sm" />
           ) : (
-            cinemaShowtimes.data?.map((showtime) => (
+            cinemaShowtimes.data?.map((showtime, index) => (
               <div
+                key={index}
                 onClick={() => selectShowtime(parseInt(showtime))}
                 className="flex h-10 w-4/6 items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
               >
@@ -54,8 +56,9 @@ const AddStudioShowtimesPage = () => {
               <Paragraph text="No active showtimes" size="sm" />
             </div>
           ) : (
-            selectedShowtimes.map((showtime) => (
+            selectedShowtimes.map((showtime, index) => (
               <div
+                key={index}
                 onClick={() => deselectShowtime(showtime)}
                 className="flex h-10 w-4/6 items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
               >

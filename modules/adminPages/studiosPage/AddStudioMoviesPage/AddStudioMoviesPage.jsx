@@ -1,14 +1,15 @@
-import AdminHeader from "@/components/Headers/AdminHeader";
+import { useSelectDeselect } from "hooks/useSelectDeselect";
+import { useRouter } from "next/router";
+import React from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
+import AdminHeader from "@/components/Headers/AdminHeader";
 import MovieListCard from "@/components/MovieListCard";
 import { addStudioMovies } from "@/components/reactQuery/mutations/Cinema/addStudioMovies";
 import { useStudioShowTimes } from "@/components/reactQuery/queries/Cinema/useStudioShowTimes";
 import { useCinemaMovies } from "@/components/reactQuery/queries/Movie/useCinemaMovies";
 import { Paragraph } from "@/components/shared/Texts";
-import { useSelectDeselect } from "hooks/useSelectDeselect";
-import { useRouter } from "next/router";
-import React from "react";
 
 export const AddStudioMoviesPage = () => {
   const { query } = useRouter();
@@ -69,8 +70,9 @@ export const AddStudioMoviesPage = () => {
           {studioShowtimes.data?.length < 1 ? (
             <Paragraph text="No active showtimes" size="sm" />
           ) : (
-            studioShowtimes.data?.map((showtime) => (
+            studioShowtimes.data?.map((showtime, index) => (
               <div
+                key={index}
                 onClick={() => selectShowtime(showtime)}
                 className="flex h-10 w-4/6 items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
               >
@@ -90,8 +92,9 @@ export const AddStudioMoviesPage = () => {
             {selectedMovies.length < 1 ? (
               <Paragraph text="No Movies Selected" size="xs" />
             ) : (
-              selectedMovies.map((selectedMovie) => (
+              selectedMovies.map((selectedMovie, index) => (
                 <div
+                  key={index}
                   onClick={() => deselectMovie(selectedMovie)}
                   className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
                 >
@@ -108,8 +111,9 @@ export const AddStudioMoviesPage = () => {
             {selectedShowtimes.length < 1 ? (
               <Paragraph text="No Showtimes Selected" size="xs" />
             ) : (
-              selectedShowtimes.map((selectedShowtime) => (
+              selectedShowtimes.map((selectedShowtime, index) => (
                 <div
+                  key={index}
                   onClick={() => deselectShowtime(selectedShowtime)}
                   className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
                 >
