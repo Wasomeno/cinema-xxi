@@ -1,13 +1,15 @@
+import { useRouter } from "next/router";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import { useCinemaAdmins } from "@/components/reactQuery/queries/Roles/useCinemaAdmins";
 import { Paragraph, Subtitle } from "@/components/shared/Texts";
-import { useRouter } from "next/router";
+
 import AdminListCard from "./AdminListCard";
 import AdminManagerMenu from "./AdminManagerMenu";
 
-const CinemaAdminsPage = () => {
+export const CinemaAdminsPage = () => {
   const { regionId, cinemaId } = useRouter().query;
   const cinemaAdmins = useCinemaAdmins({
     regionId: regionId,
@@ -16,14 +18,9 @@ const CinemaAdminsPage = () => {
 
   return (
     <AnimatedContainer className="p-4">
-      <ManagerDashboardHeader
-        title={"Cinema " + cinemaId + " Admins"}
-        withBackButton
-        withOption
-        OptionMenu={
-          <AdminManagerMenu regionId={regionId} cinemaId={cinemaId} />
-        }
-      />
+      <ManagerDashboardHeader withBackButton>
+        {"Cinema " + cinemaId + " Admins"}
+      </ManagerDashboardHeader>
       <div className="my-4 p-2">
         <Subtitle text="List of Admins" size="sm" />
       </div>
@@ -35,11 +32,11 @@ const CinemaAdminsPage = () => {
         {cinemaAdmins.data?.length < 1 ? (
           <Paragraph text="No Active Admins" size="sm" style="medium" />
         ) : (
-          cinemaAdmins.data?.map((admin) => <AdminListCard address={admin} />)
+          cinemaAdmins.data?.map((admin, index) => (
+            <AdminListCard key={index} address={admin} />
+          ))
         )}
       </DataContainer>
     </AnimatedContainer>
   );
 };
-
-export default CinemaAdminsPage;

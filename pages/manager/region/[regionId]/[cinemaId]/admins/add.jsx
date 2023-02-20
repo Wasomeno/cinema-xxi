@@ -1,4 +1,4 @@
-import AddCinemaAdminPage from "modules/managerPages/adminsPage/AddCinemaAdminPage";
+import { AddCinemaAdminPage } from "modules/managerPages/adminsPage/AddCinemaAdminPage";
 
 const AddCinemaAdmin = () => {
   return <AddCinemaAdminPage />;

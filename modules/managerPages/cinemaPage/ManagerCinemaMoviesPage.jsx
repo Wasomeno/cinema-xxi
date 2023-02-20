@@ -1,13 +1,14 @@
+import { useRouter } from "next/router";
+import React from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import MovieListCard from "@/components/MovieListCard";
 import { useCinemaMovies } from "@/components/reactQuery/queries/Movie/useCinemaMovies";
 import { Paragraph, Subtitle } from "@/components/shared/Texts";
-import { useRouter } from "next/router";
-import React from "react";
 
-const CinemaMoviesPage = () => {
+export const ManagerCinemaMoviesPage = () => {
   const { regionId, cinemaId } = useRouter().query;
   const cinemaMovies = useCinemaMovies({
     region: regionId,
@@ -22,15 +23,15 @@ const CinemaMoviesPage = () => {
       <DataContainer
         object="movies"
         className="flex flex-col items-center justify-start gap-4 p-2"
-        loading={cinemaMovies.isLoading}
+        loading={false}
       >
         {cinemaMovies.data.length < 1 ? (
           <div className="text-center">
             <Paragraph text="No active movies" size="xs" />
           </div>
         ) : (
-          cinemaMovies.data?.map((movie) => (
-            <MovieListCard movieTitle={movie.movieTitle} />
+          cinemaMovies.data?.map((movie, index) => (
+            <MovieListCard key={index} movieTitle={movie.movieTitle} />
           ))
         )}
       </DataContainer>

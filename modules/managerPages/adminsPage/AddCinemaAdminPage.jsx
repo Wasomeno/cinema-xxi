@@ -1,16 +1,16 @@
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
-import { addCinemaAdmin } from "@/components/reactQuery/mutations/Roles/addCinemaAdmin";
 import {
   FormContainer,
   FormInput,
   FormSubmit,
 } from "@/components/shared/Forms";
 import { Paragraph } from "@/components/shared/Texts";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
 
-const AddCinemaAdminPage = () => {
+export const AddCinemaAdminPage = () => {
   const { regionId, cinemaId } = useRouter().query;
   const [adminAddress, setAdminAddress] = useState("");
 
@@ -34,5 +34,3 @@ const AddCinemaAdminPage = () => {
     </AnimatedContainer>
   );
 };
-
-export default AddCinemaAdminPage;

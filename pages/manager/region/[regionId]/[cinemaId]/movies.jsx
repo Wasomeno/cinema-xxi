@@ -1,4 +1,4 @@
-import ManagerCinemaMoviesPage from "modules/managerPages/cinemaPage/ManagerCinemaMoviesPage";
+import { ManagerCinemaMoviesPage } from "modules/managerPages/cinemaPage/ManagerCinemaMoviesPage";
 
 const CinemaMovies = () => {
   return <ManagerCinemaMoviesPage />;

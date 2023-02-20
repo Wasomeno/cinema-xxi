@@ -1,4 +1,4 @@
-import CinemaAdminsPage from "modules/managerPages/adminsPage/CinemaAdminsPage";
+import { CinemaAdminsPage } from "modules/managerPages/adminsPage/CinemaAdminsPage";
 
 const CinemaAdmins = () => {
   return <CinemaAdminsPage />;

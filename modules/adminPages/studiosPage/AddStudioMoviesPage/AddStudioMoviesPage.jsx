@@ -41,7 +41,7 @@ export const AddStudioMoviesPage = () => {
         <DataContainer
           className="flex flex-col items-center justify-start gap-4"
           object="movies"
-          loading={moviesInCinema.isLoading}
+          loading={false}
         >
           {moviesInCinema.data?.length < 1 ? (
             <Paragraph text="No available showtimes" />

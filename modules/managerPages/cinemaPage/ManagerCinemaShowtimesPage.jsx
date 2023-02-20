@@ -1,11 +1,13 @@
+import { useRouter } from "next/router";
+import React from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
-import { useRouter } from "next/router";
-import React from "react";
+import ShowtimeListCard from "@/components/ShowtimeListCard";
 
-const ManagerCinemaShowtimesPage = () => {
+export const ManagerCinemaShowtimesPage = () => {
   const { regionId, cinemaId } = useRouter().query;
   const cinemaShowtimes = useCinemaShowTimes({
     region: regionId,
@@ -30,13 +32,11 @@ const ManagerCinemaShowtimesPage = () => {
             No active showtimes
           </p>
         ) : (
-          cinemaShowtimes.data?.map((showtime) => (
-            <ShowtimeListCard showtime={showtime} />
+          cinemaShowtimes.data?.map((showtime, index) => (
+            <ShowtimeListCard key={index} showtime={showtime} />
           ))
         )}
       </DataContainer>
     </AnimatedContainer>
   );
 };
-
-export default ManagerCinemaShowtimesPage;

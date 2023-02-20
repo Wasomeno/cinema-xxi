@@ -1,4 +1,4 @@
-import ManagerCinemaShowtimesPage from "modules/managerPages/cinemaPage/ManagerCinemaShowtimesPage";
+import { ManagerCinemaShowtimesPage } from "modules/managerPages/cinemaPage/ManagerCinemaShowtimesPage";
 
 const CinemaShowtimes = () => {
   return <ManagerCinemaShowtimesPage />;

@@ -6,7 +6,7 @@ const CinemaList = ({ cinemas, region }) => {
       {cinemas?.length < 1 ? (
         <p className="font-poppins text-sm">No active cinemas</p>
       ) : (
-        cinemas?.map((cinema, index) => (
+        cinemas?.map((cinema) => (
           <CinemaListCard key={cinema.id} cinema={cinema} region={region} />
         ))
       )}
