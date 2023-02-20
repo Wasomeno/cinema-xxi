@@ -38,5 +38,3 @@ export const ManagerCinemaMoviesPage = () => {
     </AnimatedContainer>
   );
 };
-
-export default CinemaMoviesPage;
