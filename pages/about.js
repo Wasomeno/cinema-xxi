@@ -4,7 +4,6 @@ const About = () => {
       <div className="m-4">
         <h1 className="font-poppins text-5xl">About</h1>
       </div>
-
       <div className="m-2 w-2/4">
         <p className="p-2 text-lg tracking-wide ">
           I &lsquo m just interested at what it looks like if a regular movie

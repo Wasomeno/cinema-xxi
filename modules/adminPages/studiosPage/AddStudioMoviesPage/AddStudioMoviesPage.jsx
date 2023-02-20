@@ -65,7 +65,7 @@ export const AddStudioMoviesPage = () => {
         <DataContainer
           className="flex flex-col items-center justify-start gap-4"
           object="showtimes"
-          loading={studioShowtimes.isLoading}
+          loading={false}
         >
           {studioShowtimes.data?.length < 1 ? (
             <Paragraph text="No active showtimes" size="sm" />

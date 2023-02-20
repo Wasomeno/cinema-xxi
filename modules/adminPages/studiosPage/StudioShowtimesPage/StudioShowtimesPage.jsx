@@ -19,13 +19,13 @@ export const StudioShowtimesPage = () => {
         object="showtimes"
         loading={false}
       >
-        {studioDetails.data?.showTimes.length < 1 ? (
+        {/* {studioDetails.data?.showTimes.length < 1 ? (
           <Paragraph text="No active showtimes" size="sm" />
         ) : (
           studioDetails.data?.showTimes.map((showtime, index) => (
             <Paragraph key={index} text={parseInt(showtime)} />
           ))
-        )}
+        )} */}
       </DataContainer>
     </AnimatedContainer>
   );

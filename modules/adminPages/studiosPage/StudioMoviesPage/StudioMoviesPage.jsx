@@ -29,13 +29,13 @@ export const StudioMoviesPage = () => {
         object="movies"
         loading={false}
       >
-        {moviesInStudio.data?.length < 1 ? (
+        {/* {moviesInStudio.data?.length < 1 ? (
           <Paragraph text="No Active Movies" size="sm" />
         ) : (
           moviesInStudio.data?.map((movie, index) => (
             <MovieListCard key={index} movieTitle={movie.title} />
           ))
-        )}
+        )} */}
       </DataContainer>
     </AnimatedContainer>
   );
