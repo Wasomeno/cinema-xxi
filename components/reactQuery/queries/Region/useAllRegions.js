@@ -1,8 +1,3 @@
-import { parseBytes32String } from "ethers/lib/utils.js";
-import React from "react";
-import { moviesContract, regionContract } from "../../../../hooks/useContract";
-import { query } from "../../query";
-
 export const useAllRegions = () => {
   return {
     data: [

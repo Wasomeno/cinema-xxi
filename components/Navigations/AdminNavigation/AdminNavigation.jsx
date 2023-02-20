@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import useToggle from "hooks/useToggle";
 
 import ChevronRight from "@/components/Icons/ChevronRight";
 
 import { AdminNavigationLink } from "./AdminNavigationLink";
-import useToggle from "hooks/useToggle";
 
 const AdminNavigation = () => {
   const [showNav, toggleShowNav] = useToggle(false);

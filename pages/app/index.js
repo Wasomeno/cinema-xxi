@@ -1,13 +1,13 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useAllRegions } from "../../components/reactQuery/queries/Region/useAllRegions";
 import useToggle from "hooks/useToggle";
-import { useRegionMovies } from "@/components/reactQuery/queries/Movie/useRegionMovies";
-import Image from "next/image";
-import { Paragraph, Subtitle } from "@/components/shared/Texts";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 
-const index = () => {
+import { useRegionMovies } from "@/components/reactQuery/queries/Movie/useRegionMovies";
+
+import { useAllRegions } from "../../components/reactQuery/queries/Region/useAllRegions";
+
+const CinemaApp = () => {
   const router = useRouter();
   const [showDrop, toggleShowDrop] = useToggle(false);
   const [selectedRegion, setSelectedRegion] = useState({});
@@ -60,4 +60,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default CinemaApp;

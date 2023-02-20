@@ -1,7 +1,8 @@
-import ChevronRight from "@/components/Icons/ChevronRight";
-import useToggle from "hooks/useToggle";
-import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import useToggle from "hooks/useToggle";
+
+import ChevronRight from "@/components/Icons/ChevronRight";
+
 import { AdminNavigationLink } from "../AdminNavigation/AdminNavigationLink";
 
 export const ManagerNavigation = () => {

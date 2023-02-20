@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import SeatsModal from "../../../components/SeatsModal";
+import { AnimatePresence, motion } from "framer-motion";
+import useToggle from "hooks/useToggle";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
+
+import DataContainer from "@/components/DataContainer";
+import ChevronRight from "@/components/Icons/ChevronRight";
+import { useRegionMovieShowtimes } from "@/components/reactQuery/queries/Cinema/useCinemaMovieShowtimes";
 import { useMovieDetails } from "@/components/reactQuery/queries/Movie/useMovieDetails";
 import { Paragraph, Title } from "@/components/shared/Texts";
-import { useRegionMovieShowtimes } from "@/components/reactQuery/queries/Cinema/useCinemaMovieShowtimes";
-import DataContainer from "@/components/DataContainer";
 import TicketConfirmationModal from "@/components/TicketConfirmationModal";
-import useToggle from "hooks/useToggle";
-import { AnimatePresence, motion } from "framer-motion";
-import ChevronRight from "@/components/Icons/ChevronRight";
+
+import SeatsModal from "../../../components/SeatsModal";
 
 const Movie = () => {
   const { regionId, movieId } = useRouter().query;
@@ -123,7 +125,7 @@ const Movie = () => {
             object="showtimes"
           >
             {fetchedMovieShowtimes.data.cinemas.map((cinema, index) => (
-              <div className="w-10/12">
+              <div className="w-10/12" key={index}>
                 <div
                   onClick={() => toggleCinemaShowtimes(index)}
                   key={parseInt(cinema)}

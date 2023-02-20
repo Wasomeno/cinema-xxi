@@ -1,7 +1,3 @@
-import { parseBytes32String } from "ethers/lib/utils.js";
-import { regionContract } from "../../../../hooks/useContract";
-import { query } from "../../query";
-
 export const useRegionDetails = ({ region }) => {
   return {
     data: {

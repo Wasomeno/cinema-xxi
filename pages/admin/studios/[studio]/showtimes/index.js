@@ -1,4 +1,4 @@
-import { StudioShowtimesPage } from "modules/adminPages/studiosPage/StudioShowtimesPage/StudioShowtimesPage";
+import { StudioShowtimesPage } from "modules/adminPages/studiosPage/StudioShowtimesPage";
 
 const StudioShowtimes = () => {
   return <StudioShowtimesPage />;

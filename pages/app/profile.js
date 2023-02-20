@@ -1,5 +1,3 @@
-import AnimatedContainer from "@/components/AnimatedContainer";
-import { Paragraph, Title } from "@/components/shared/Texts";
 import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import ActiveTicketList from "modules/userPages/profilePage/ActiveTicketList";
@@ -7,11 +5,14 @@ import TicketHistory from "modules/userPages/profilePage/TicketHistory";
 import TicketPageTab from "modules/userPages/profilePage/TicketPageTab";
 import React from "react";
 
-const profile = () => {
+import AnimatedContainer from "@/components/AnimatedContainer";
+import { Paragraph, Title } from "@/components/shared/Texts";
+
+const Profile = () => {
   const [activeTab, toggleActiveTab] = useToggle(false);
   return (
-    <AnimatedContainer className="p-4 w-full">
-      <div className="text-center mb-2">
+    <AnimatedContainer className="w-full p-4">
+      <div className="mb-2 text-center">
         <Title text="Ticket Details" />
       </div>
       <TicketPageTab activeTab={activeTab} toggleActiveTab={toggleActiveTab} />
@@ -22,4 +23,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;

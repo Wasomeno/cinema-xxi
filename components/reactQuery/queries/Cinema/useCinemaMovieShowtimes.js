@@ -1,6 +1,3 @@
-import { cinemaContract, regionContract } from "hooks/useContract";
-import { query } from "../../query";
-
 export const useRegionMovieShowtimes = ({ region, movie }) => {
   return {
     data: {

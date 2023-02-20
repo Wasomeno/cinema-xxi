@@ -1,4 +1,3 @@
-import React from "react";
 import { AdminStudioDetailsPage } from "modules/adminPages/studiosPage/AdminStudioDetailsPage";
 
 const AdminStudioDetails = () => {

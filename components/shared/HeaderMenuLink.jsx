@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+
 import { Cinema } from "../Icons/Cinema";
 import Minus from "../Icons/Minus";
 import Plus from "../Icons/Plus";

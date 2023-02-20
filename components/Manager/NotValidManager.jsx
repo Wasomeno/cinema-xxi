@@ -4,15 +4,15 @@ import React from "react";
 const NotValidManager = () => {
   const router = useRouter();
   return (
-    <main className="w-full h-full flex justify-center items-center">
+    <main className="flex h-full w-full items-center justify-center">
       <div className="">
-        <h1 className="font-medium text-lg font-poppins">
-          You're not a manager
+        <h1 className="font-poppins text-lg font-medium">
+          You &lsquo re not a manager
         </h1>
       </div>
       <div>
         <button
-          className="h-8 p-2 bg-slate-900 text-white font-poppins"
+          className="font-poppins h-8 bg-slate-900 p-2 text-white"
           onClick={() => router.push("/app")}
         >
           Back to App

@@ -1,13 +1,14 @@
-import AdminHeader from "@/components/Headers/AdminHeader";
+import useToggle from "hooks/useToggle";
+import Link from "next/link";
+import React from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
+import AdminHeader from "@/components/Headers/AdminHeader";
 import ChevronRight from "@/components/Icons/ChevronRight";
+import EllipsisVertical from "@/components/Icons/EllipsisVertical";
 import { useCinemaDetails } from "@/components/reactQuery/queries/Cinema/useCinemaDetails";
 import { Paragraph, Subtitle } from "@/components/shared/Texts";
-import React from "react";
-import Link from "next/link";
-import useToggle from "hooks/useToggle";
-import EllipsisVertical from "@/components/Icons/EllipsisVertical";
 
 export const AdminStudioPage = () => {
   const [showMenu, toggleShowMenu] = useToggle();
@@ -36,8 +37,9 @@ export const AdminStudioPage = () => {
             loading={false}
             object="studios"
           >
-            {studiosDataMock.map((studio) => (
+            {studiosDataMock.map((studio, index) => (
               <Link
+                key={index}
                 href={"/admin/studios/" + studio}
                 className="flex h-14 w-full items-center justify-center rounded-md bg-slate-200 p-2 shadow-sm"
               >

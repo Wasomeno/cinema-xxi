@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
+
 import { queryClientApp } from "../../client/reactQueryClient";
 
 export const query = ({ queryKey, queryFunction }) => {

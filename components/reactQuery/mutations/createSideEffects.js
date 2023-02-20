@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useLoading, useToast } from "../../../store/stores";
 
 const contextLoadingTexts = {
