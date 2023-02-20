@@ -9,7 +9,7 @@ import { addShowTimesToStudio } from "@/components/reactQuery/mutations/Cinema/a
 import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
 import { Paragraph } from "@/components/shared/Texts";
 
-const AddStudioShowtimesPage = () => {
+export const AddStudioShowtimesPage = () => {
   const { query } = useRouter();
   const cinemaShowtimes = useCinemaShowTimes({ region: 1, cinema: 1 });
   const [selectedShowtimes, selectShowtime, deselectShowtime] =
@@ -80,5 +80,3 @@ const AddStudioShowtimesPage = () => {
     </AnimatedContainer>
   );
 };
-
-export default AddStudioShowtimesPage;
