@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 
+import RectangeStack from "@/components/Icons/RectangeStack";
+
 import { House } from "../../Icons/House";
 import Ticket from "../../Icons/Ticket";
 
@@ -14,6 +16,16 @@ const AppNavigationMobile = () => {
         <House size="5" color="white" />
         <p className="font-poppins text-xs font-light tracking-wider text-white">
           Home
+        </p>
+      </Link>
+      <Link
+        href="/app/cinemas"
+        className="flex w-3/6 flex-col items-center justify-center gap-1 p-2"
+      >
+        <RectangeStack size="5" color="white" />
+
+        <p className="font-poppins text-xs font-light tracking-wider text-white">
+          Cinemas
         </p>
       </Link>
       <Link
