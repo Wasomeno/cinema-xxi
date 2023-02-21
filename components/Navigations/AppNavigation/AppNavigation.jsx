@@ -4,7 +4,7 @@ import { useUserDetails } from "hooks/useUserDetails";
 import Link from "next/link";
 import React from "react";
 
-import ConnectWalletModal from "../../ConnectWalletModal";
+import { ConnectWalletModal } from "../../ConnectWalletModal";
 import UserMenuModal from "../../UserMenuModal";
 
 const AppNavigation = () => {

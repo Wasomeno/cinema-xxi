@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Region {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  cinema Cinema[]
+}
+
+model Cinema {
+  id Int @id @default(autoincrement())
+  regionId Int
+  name String @db.VarChar(255)
+  studio Studio[]
+  movie Movie[]
+  showtime Int[]
+  region Region @relation(fields: [regionId], references: [id])
+  admin Admin[]
+}
+
+model Studio{
+  id Int @id @default(autoincrement())
+  studio Int
+  cinemaId Int
+  showtime Int[]
+  movie Movie[]
+  cinema Cinema @relation(fields: [cinemaId],references: [id])
+}
+
+model Movie {
+ id Int @id @default(autoincrement())
+ name String @db.VarChar(255)
+ duration Int
+ cinema Cinema[]
+ studio Studio[] 
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  address String @unique
+  name String
+  transactions String[]
+}
+
+model Manager {
+  id Int @id @default(autoincrement())
+  address String
+  name String
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+}
+
+model Admin {
+  id Int @id @default(autoincrement())
+  cinemaId Int
+  address String
+  name String
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  cinema Cinema @relation(fields: [cinemaId], references: [id])
+}
+
