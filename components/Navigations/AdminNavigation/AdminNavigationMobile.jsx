@@ -10,7 +10,6 @@ const AdminNavigationMobile = () => {
   useEffect(() => {
     const basePath = path.split("/")[2];
     setActiveRoute(basePath === undefined ? "admin" : basePath);
-    console.log(basePath);
   }, [path]);
 
   return (
