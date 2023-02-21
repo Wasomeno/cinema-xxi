@@ -1,7 +1,7 @@
-import React from "react";
+import { CinemaListPage } from "modules/appPages/cinemaPages/CinemaListPage";
 
-const index = () => {
-  return <div>index</div>;
+const CinemaList = () => {
+  return <CinemaListPage />;
 };
 
-export default index;
+export default CinemaList;

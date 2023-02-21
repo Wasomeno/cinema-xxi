@@ -1,7 +1,7 @@
-import React from "react";
+import { TicketPage } from "modules/appPages/ticketPages/TicketPage";
 
-const index = () => {
-  return <div>index</div>;
+const Tickets = () => {
+  return <TicketPage />;
 };
 
-export default index;
+export default Tickets;
