@@ -18,11 +18,11 @@ const ManagerLayout = ({ children }) => {
           <NotValidManager />
         </div>
       ) : (
-        <div className="h-screen">
+        <>
           {viewport.width > 1024 && <ManagerNavigation />}
           <main className="h-full w-full">{children}</main>
           {viewport.width < 1024 && <ManagerNavigationMobile />}
-        </div>
+        </>
       )}
     </>
   );

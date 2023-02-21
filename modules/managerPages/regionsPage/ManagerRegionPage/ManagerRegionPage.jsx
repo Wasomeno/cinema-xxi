@@ -5,7 +5,7 @@ import RegionList from "./components/RegionList";
 
 export const ManagerRegionPage = () => {
   return (
-    <AnimatedContainer className="h-full w-full p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerDashboardHeader>Manage Regions</ManagerDashboardHeader>
       <div className="flex justify-center">
         <RegionList />

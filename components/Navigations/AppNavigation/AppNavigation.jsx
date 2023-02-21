@@ -14,7 +14,7 @@ const AppNavigation = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 z-20 flex h-16 w-full items-center justify-between bg-slate-50 p-2">
+      <div className="sticky top-0 left-0 z-20 flex h-16 w-full items-center justify-between bg-slate-50 p-2">
         <div className="w-2/12 p-2 text-center">
           <span className="font-inter border-2 border-slate-900 bg-slate-50 px-2 text-sm tracking-widest text-slate-900 sm:text-base md:text-lg">
             XXI
@@ -34,7 +34,7 @@ const AppNavigation = () => {
             Cinemas
           </Link>
         </div>
-        <div className="w-2/12 text-center md:w-56">
+        <div className="w-3/12 text-center lg:w-2/12">
           {isConnected ? (
             <button
               onClick={() => toggleShowUserModal()}

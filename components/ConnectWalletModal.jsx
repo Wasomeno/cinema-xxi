@@ -11,7 +11,7 @@ const ConnectWalletModal = ({ toggleWalletModal }) => {
         className="fixed left-0 bottom-0 z-30 h-screen w-screen bg-black bg-opacity-70"
         onClick={() => toggleWalletModal()}
       />
-      <AnimatedContainer className="fixed top-1/2 left-1/2 z-40 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-slate-800 p-4">
+      <AnimatedContainer className="fixed bottom-0 z-40 h-72 w-full rounded-lg bg-slate-800 p-4 lg:top-1/2 lg:left-1/2 lg:h-80 lg:w-80 lg:-translate-x-1/2 lg:-translate-y-1/2">
         <div className="my-2">
           <p className="font-poppins text-sm text-white">Connect a Wallet</p>
         </div>

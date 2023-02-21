@@ -13,7 +13,7 @@ const ManagerAddRegionPage = () => {
   const [regionId, setRegionId] = useState("");
 
   return (
-    <AnimatedContainer className="flex w-full flex-col items-center justify-center gap-4 p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerDashboardHeader withBackButton>Add Region</ManagerDashboardHeader>
       <FormContainer onSubmit={console.log("test")}>
         <div className="flex w-full flex-col items-center justify-center gap-2 text-center">

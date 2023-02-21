@@ -12,7 +12,7 @@ export const ManagerRegionDetailsPage = () => {
   const { regionId } = useRouter().query;
   const regionDetails = useRegionDetails({ region: regionId });
   return (
-    <AnimatedContainer className="flex h-full flex-col gap-5 p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerHeader withBackButton>{regionDetails.data.name}</ManagerHeader>
       <div className="w-full">
         <Subtitle size="sm"></Subtitle>

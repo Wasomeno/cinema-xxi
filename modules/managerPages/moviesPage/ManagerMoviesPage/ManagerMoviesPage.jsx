@@ -1,3 +1,6 @@
+import useToggle from "hooks/useToggle";
+import React from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";
@@ -5,15 +8,14 @@ import EllipsisVertical from "@/components/Icons/EllipsisVertical";
 import MovieListCard from "@/components/MovieListCard";
 import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies";
 import { Paragraph, Subtitle } from "@/components/shared/Texts";
-import useToggle from "hooks/useToggle";
-import React from "react";
+
 import ManagerMoviesManagerMenu from "./components/ManagerMoviesMenu";
 
 export const ManagerMoviesPage = () => {
   const allMovies = useAllMovies();
   const [showMenu, toggleShowMenu] = useToggle();
   return (
-    <AnimatedContainer className="h-full w-full p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerHeader>Manage Movies</ManagerHeader>
       <div className="flex justify-center">
         <div className="w-full lg:w-5/6">
@@ -53,8 +55,8 @@ export const ManagerMoviesPage = () => {
             {allMovies.data?.length < 1 ? (
               <Paragraph text="No movies" size="sm" />
             ) : (
-              allMovies.data?.map((movie) => (
-                <MovieListCard movieTitle={movie.title} />
+              allMovies.data?.map((movie, index) => (
+                <MovieListCard key={index} movieTitle={movie.title} />
               ))
             )}
           </DataContainer>

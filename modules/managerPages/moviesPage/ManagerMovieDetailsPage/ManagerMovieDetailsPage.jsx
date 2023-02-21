@@ -15,7 +15,7 @@ export const ManagerMovieDetailsPage = () => {
   const movieDetails = useMovieDetails({ movieId: movieId });
   return (
     <>
-      <AnimatedContainer className="relative p-4">
+      <AnimatedContainer className="relative h-screen p-4">
         <ManagerDashboardHeader
           title="Movie Details"
           withBackButton

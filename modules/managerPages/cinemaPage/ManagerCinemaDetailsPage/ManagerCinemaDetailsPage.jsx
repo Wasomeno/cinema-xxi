@@ -18,7 +18,7 @@ export const ManagerCinemaDetailsPage = () => {
   });
 
   return (
-    <AnimatedContainer className="h-full p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerHeader withBackButton>{cinemaDetails.data.name}</ManagerHeader>
       <div className="mt-3 w-full">
         <div className="my-3 w-3/6">

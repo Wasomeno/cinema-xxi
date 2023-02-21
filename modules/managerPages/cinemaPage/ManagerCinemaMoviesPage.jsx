@@ -15,7 +15,7 @@ export const ManagerCinemaMoviesPage = () => {
     cinema: cinemaId,
   });
   return (
-    <AnimatedContainer className="p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerDashboardHeader title="Movies" withBackButton />
       <div className="my-4">
         <Subtitle text="List of Movies" size="sm" />

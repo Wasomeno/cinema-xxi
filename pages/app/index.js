@@ -14,11 +14,6 @@ const CinemaApp = () => {
   const fetchedRegions = useAllRegions();
   const fetchedMovies = useRegionMovies({ region: selectedRegion.id });
 
-  const selectRegion = (region) => {
-    setSelectedRegion(region);
-    toggleShowDrop();
-  };
-
   return (
     <div className="h-full">
       <div className="flex h-2/6 justify-center p-3 lg:h-3/6">

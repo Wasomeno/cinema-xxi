@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import { addMovie } from "@/components/reactQuery/mutations/Movie/addMovie";
@@ -7,7 +9,6 @@ import {
   FormSubmit,
 } from "@/components/shared/Forms";
 import { Paragraph } from "@/components/shared/Texts";
-import { useState } from "react";
 
 const ManagerAddMoviesPage = () => {
   const [movieId, setMovieId] = useState("");
@@ -21,7 +22,7 @@ const ManagerAddMoviesPage = () => {
   });
 
   return (
-    <AnimatedContainer className="p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerDashboardHeader withBackButton>Add Movie</ManagerDashboardHeader>
       <FormContainer onSubmit={addMovieMutation}>
         <div className="flex w-full flex-col items-center justify-center gap-2">

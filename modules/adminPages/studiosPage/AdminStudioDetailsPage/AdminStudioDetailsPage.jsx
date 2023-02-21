@@ -7,7 +7,7 @@ import { Subtitle } from "@/components/shared/Texts";
 export const AdminStudioDetailsPage = () => {
   const { studio } = useRouter().query;
   return (
-    <AnimatedContainer className="p-4">
+    <AnimatedContainer className="h-screen p-4">
       <AdminHeader withBackButton>{"Studio " + studio}</AdminHeader>
       <div className="my-4 flex justify-center">
         <div className="w-full lg:w-5/6">

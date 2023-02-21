@@ -15,7 +15,7 @@ export const ManagerCinemaShowtimesPage = () => {
   });
 
   return (
-    <AnimatedContainer className="p-4">
+    <AnimatedContainer className="h-screen p-4">
       <ManagerDashboardHeader title="Showtimes" withBackButton />
       <div className="mt-5 mb-3 w-3/6">
         <p className="font-poppins text-sm font-medium text-slate-500">
