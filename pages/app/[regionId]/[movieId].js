@@ -67,7 +67,7 @@ const Movie = () => {
       <div className="my-4 text-center">
         <Title>{fetchedMovieDetails.data?.title}</Title>
       </div>
-      <div className="flex h-2/6 w-full items-start justify-center gap-5 md:h-3/6">
+      <div className="flex w-full items-start justify-center gap-5 ">
         <div className="flex w-4/12 justify-center p-2 sm:h-full sm:w-3/12 md:h-full md:w-4/12 lg:h-full lg:w-4/12 xl:w-3/12">
           <div className="h-44 w-full rounded-lg bg-slate-400 sm:h-52 md:h-64 md:w-4/6 lg:h-80" />
         </div>
@@ -82,11 +82,6 @@ const Movie = () => {
             <p className="font-inter mb-2 text-xs font-semibold md:text-sm lg:text-base">
               Casts
             </p>
-            <div className="grid h-24 grid-cols-2 gap-4 sm:h-16 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              <div className="col-span-1 rounded-md bg-slate-500" />
-              <div className="col-span-1 rounded-md bg-slate-500" />
-              <div className="col-span-1 rounded-md bg-slate-500" />
-            </div>
           </div>
         </div>
       </div>
