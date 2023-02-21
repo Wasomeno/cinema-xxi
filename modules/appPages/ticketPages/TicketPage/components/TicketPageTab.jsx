@@ -7,19 +7,23 @@ const TicketPageTab = ({ activeTab, toggleActiveTab }) => {
         onClick={() => activeTab && toggleActiveTab()}
         className={
           "w-3/6 rounded-l-lg p-2 text-center transition duration-200 ease-in-out " +
-          (!activeTab && "bg-slate-400")
+          (!activeTab && "bg-blue-400 text-white")
         }
       >
-        <Paragraph text="Active Tickets" size="xs" style="medium" />
+        <Paragraph size="xs" style="medium">
+          Active Tickets
+        </Paragraph>
       </div>
       <div
         onClick={() => !activeTab && toggleActiveTab()}
         className={
           "w-3/6 rounded-r-lg p-2 text-center transition duration-200 ease-in-out " +
-          (activeTab && "bg-slate-400")
+          (activeTab && "bg-blue-400 text-white")
         }
       >
-        <Paragraph text="Ticket History" size="xs" style="medium" />
+        <Paragraph size="xs" style="medium">
+          Ticket History
+        </Paragraph>
       </div>
     </div>
   );
