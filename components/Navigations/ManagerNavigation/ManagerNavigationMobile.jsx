@@ -9,7 +9,6 @@ import UserMenuModal from "@/components/UserMenuModal";
 import { House } from "../../Icons/House";
 
 const NavigationLink = ({ activeRoute, route, text }) => {
-  const [showManagerMenuModal, toggleShowManagerMenuModal] = useToggle(false);
   return (
     <Link
       href={"/manager/" + (route === "manager" ? "" : route)}
@@ -29,6 +28,7 @@ const NavigationLink = ({ activeRoute, route, text }) => {
 };
 
 export const ManagerNavigationMobile = () => {
+  const [showManagerMenuModal, toggleShowManagerMenuModal] = useToggle(false);
   const [activeRoute, setActiveRoute] = useState("manager");
   const { pathname: path } = useRouter();
 
@@ -56,7 +56,7 @@ export const ManagerNavigationMobile = () => {
           text="Regions"
         />
         <button
-          onClick={toggleShowAdminMenuModal}
+          onClick={toggleShowManagerMenuModal}
           className="flex w-80 flex-col items-center justify-center gap-2"
         >
           <span className="h-8 w-8 rounded-full bg-blue-400" />
