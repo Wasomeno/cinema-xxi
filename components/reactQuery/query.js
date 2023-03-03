@@ -1,13 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
 
-import { queryClientApp } from "../../client/reactQueryClient";
-
-export const query = ({ queryKey, queryFunction }) => {
-  const result = useQuery(queryKey, queryFunction);
+export const query = ({ queryKey, url }) => {
+  const result = useQuery(queryKey, () =>
+    fetch(url, { method: "GET" }).then((result) => result.json())
+  );
   return result;
-};
-
-export const invalidateQueries = (keys) => {
-  queryClientApp.invalidateQueries(keys);
 };

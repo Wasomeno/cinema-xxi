@@ -12,10 +12,18 @@ export const FormContainer = ({ children, onSubmit }) => {
   );
 };
 
+export const FormTextArea = ({ id, value, setValue }) => {
+  return (
+    <textarea
+      id={id}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      className="font-poppins h-40 w-4/6 rounded-lg border border-slate-500 p-2 text-center text-xs"
+    />
+  );
+};
+
 export const FormInput = ({ type, width, value, setValue, id }) => {
-  const valueChange = (value) => {
-    setValue(value);
-  };
   return (
     <input
       type={type}
@@ -25,7 +33,7 @@ export const FormInput = ({ type, width, value, setValue, id }) => {
         (width ? "w-" + width : "w-3/6") +
         " font-poppins h-8 rounded-lg border border-slate-500 p-2 text-center text-sm"
       }
-      onChange={(event) => valueChange(event.target.value)}
+      onChange={(event) => setValue(event.target.value)}
     />
   );
 };

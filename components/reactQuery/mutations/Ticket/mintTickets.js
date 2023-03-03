@@ -1,5 +1,5 @@
 import { parseEther } from "ethers/lib/utils.js";
-import { ticketContract } from "hooks/useContract";
+import { ticketContract } from "hooks/createContract";
 import useMetamask from "hooks/useMetamask";
 
 import { createSideEffects } from "../createSideEffects";

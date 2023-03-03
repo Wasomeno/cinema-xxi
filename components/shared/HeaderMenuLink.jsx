@@ -16,13 +16,13 @@ const HeaderMenuLink = ({ href, context, text }) => {
   return (
     <Link
       href={href}
-      className="flex h-full w-full items-center justify-evenly p-1 text-sm"
+      className="flex h-full w-full items-center justify-evenly p-1"
     >
       <div className="w-1/6">
         <Icon size="4" />
       </div>
       <div className="w-4/6 text-center">
-        <p className="font-poppins text-xs">{text}</p>
+        <p className="font-poppins text-xs lg:text-sm">{text}</p>
       </div>
     </Link>
   );

@@ -1,5 +1,3 @@
-import React from "react";
-
 const RectangeStack = ({ size, color }) => {
   return (
     <svg

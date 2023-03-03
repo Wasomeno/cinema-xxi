@@ -1,18 +1,16 @@
-import React from "react";
-
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
-const ShowTimesInCinemaMenu = () => {
+const MoviesInStudioMenu = ({ studio }) => {
   return (
     <HeaderMenuModal>
       <HeaderMenuLink
-        href="/admin/showtimes/add"
         context="add"
-        text="Add Showtimes"
+        text="Add movies"
+        href={"/admin/studios/" + studio + "/movies/add"}
       />
     </HeaderMenuModal>
   );
 };
 
-export default ShowTimesInCinemaMenu;
+export default MoviesInStudioMenu;

@@ -7,36 +7,27 @@ import {
   FormContainer,
   FormInput,
   FormSubmit,
+  FormTextArea,
 } from "@/components/shared/Forms";
-import { Paragraph } from "@/components/shared/Texts";
 
 const ManagerAddMoviesPage = () => {
-  const [movieId, setMovieId] = useState("");
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
+  const [synopsis, setSynopsis] = useState("");
+  const [cast, setCast] = useState("");
 
   const addMovieMutation = addMovie({
+    synopsis: synopsis,
+    cast: cast.split(","),
     duration: duration,
     title: title,
-    movieId: movieId,
   });
 
   return (
-    <AnimatedContainer className="h-screen p-4">
+    <AnimatedContainer className="overflow-y-screen h-screen p-4">
       <ManagerDashboardHeader withBackButton>Add Movie</ManagerDashboardHeader>
-      <FormContainer onSubmit={addMovieMutation}>
-        <div className="flex w-full flex-col items-center justify-center gap-2">
-          <label id="movieId" className="font-poppins text-sm ">
-            Movie Id
-          </label>
-          <FormInput
-            id="movieId"
-            type="number"
-            value={movieId}
-            setValue={setMovieId}
-          />
-        </div>
-        <div className="flex w-full flex-col items-center justify-center gap-2">
+      <FormContainer onSubmit={addMovieMutation.mutate}>
+        <div className="flex w-full flex-col items-center justify-center gap-2 lg:w-4/6">
           <label id="movieTitle" className="font-poppins text-sm">
             Movie Title
           </label>
@@ -47,7 +38,8 @@ const ManagerAddMoviesPage = () => {
             setValue={setTitle}
           />
         </div>
-        <div className="flex w-full flex-col items-center justify-center gap-2">
+
+        <div className="flex w-full flex-col items-center justify-center gap-2 lg:w-3/6">
           <label id="movieDuration" className="font-poppins text-sm ">
             Movie Duration
           </label>
@@ -59,7 +51,23 @@ const ManagerAddMoviesPage = () => {
             width="2/6"
           />
         </div>
-        <div className="mt-3 w-full text-center">
+        <div className="flex w-full flex-col items-center justify-center gap-2 lg:w-4/6">
+          <label id="movieSynopsis" className="font-poppins text-sm ">
+            Synopsis
+          </label>
+          <FormTextArea
+            id="movieSynopsis"
+            value={synopsis}
+            setValue={setSynopsis}
+          />
+        </div>
+        <div className="flex w-full flex-col items-center justify-center gap-2 lg:w-4/6">
+          <label id="movieCast" className="font-poppins text-sm ">
+            Cast
+          </label>
+          <FormTextArea id="movieCast" value={cast} setValue={setCast} />
+        </div>
+        <div className="mt-3 w-full text-center lg:lg:w-4/6">
           <FormSubmit value="Submit" width="3/6" />
         </div>
       </FormContainer>

@@ -4,8 +4,8 @@ import React from "react";
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
-import MovieListCard from "@/components/MovieListCard";
-import { useCinemaMovies } from "@/components/reactQuery/queries/Movie/useCinemaMovies";
+import { MovieListCard } from "@/components/MovieListCard";
+import { useCinemaMovies } from "@/components/reactQuery/queries/Cinema/useCinemaMovies";
 import { Paragraph, Subtitle } from "@/components/shared/Texts";
 
 export const ManagerCinemaMoviesPage = () => {

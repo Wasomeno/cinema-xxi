@@ -1,11 +1,10 @@
-import Link from "next/link";
 import React from "react";
-import AnimatedContainer from "@/components/AnimatedContainer";
-import Plus from "@/components/Icons/Plus";
-import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
-import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 
-const ManagerMoviesManagerMenu = () => {
+import XMark from "@/components/Icons/XMark";
+import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
+import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
+
+const ManagerMoviesManagerMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
   return (
     <HeaderMenuModal>
       <HeaderMenuLink
@@ -13,6 +12,20 @@ const ManagerMoviesManagerMenu = () => {
         text="Add new movies"
         context="add"
       />
+      <button
+        onClick={() => {
+          toggleShowMenu();
+          toggleDeleteMode();
+        }}
+        className="flex h-full w-full items-center justify-evenly p-1 text-sm"
+      >
+        <span className="w-1/6">
+          <XMark size="4" />
+        </span>
+        <span className="w-4/6 text-center">
+          <p className="font-poppins text-xs">Delete Movies</p>
+        </span>
+      </button>
     </HeaderMenuModal>
   );
 };

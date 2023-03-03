@@ -12,7 +12,7 @@ export const WalletError = ({ error, toggleWalletModal }) => {
       <div role="status">
         <XMark size="16" color="darkRed" />
       </div>
-      <div>
+      <div className="text-center">
         <p className="font-poppins text-sm text-white">{error.message}</p>
       </div>
     </div>

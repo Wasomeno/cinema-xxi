@@ -47,9 +47,6 @@ const AppNavigation = () => {
               </p>
             </button>
           ) : (
-            // <div className="font-poppins text-xs tracking-wider">
-            //   {address.slice(0, 6)}...
-            // </div>
             <button
               onClick={() => toggleShowWalletModal()}
               className="font-poppins rounded-lg bg-slate-900 p-2 px-4 text-xs tracking-wider text-white md:text-sm"

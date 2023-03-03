@@ -1,16 +1,20 @@
-import { useSelectDeselect } from "hooks/useSelectDeselect";
+import { useSelectMovies } from "hooks/useSelectDeselect";
 import React from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
+import { useAddCinemaMovies } from "@/components/reactQuery/mutations/Cinema/addCinemaMovies";
 
 import AvailableMovies from "./components/AvailableMovies";
 import SelectedMovies from "./components/SelectedMovies";
 
 export const AdminAddMoviesPage = () => {
-  const [selectedMovies, selectMovie, deselectMovie] = useSelectDeselect([]);
+  const [selectedMovies, selectMovie, deselectMovie] = useSelectMovies([]);
+  const addCinemaMoviesMutation = useAddCinemaMovies({
+    movies: selectedMovies,
+  });
   return (
-    <AnimatedContainer className="h-screen p-4">
+    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
       <AdminHeader withBackButton>Add Movies</AdminHeader>
       <div className="mt-4 flex justify-center">
         <AvailableMovies
@@ -24,9 +28,9 @@ export const AdminAddMoviesPage = () => {
           deselectMovie={deselectMovie}
         />
       </div>
-      <div className="mt-2 text-center">
+      <div className="my-4 text-center">
         <button
-          onClick={() => console.log("clicked")}
+          onClick={addCinemaMoviesMutation.mutate}
           className="font-poppins w-2/6 rounded-lg bg-slate-900 p-2 text-sm text-white"
         >
           Submit

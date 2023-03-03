@@ -1,4 +1,4 @@
-import { ticketContract } from "hooks/useContract";
+import { ticketContract } from "hooks/createContract";
 
 export const useMovieAvailableSeats = ({
   region,

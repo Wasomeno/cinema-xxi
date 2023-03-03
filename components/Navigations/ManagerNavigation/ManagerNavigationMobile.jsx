@@ -1,10 +1,15 @@
+import { AnimatePresence } from "framer-motion";
+import useToggle from "hooks/useToggle";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
+import UserMenuModal from "@/components/UserMenuModal";
+
 import { House } from "../../Icons/House";
 
 const NavigationLink = ({ activeRoute, route, text }) => {
+  const [showManagerMenuModal, toggleShowManagerMenuModal] = useToggle(false);
   return (
     <Link
       href={"/manager/" + (route === "manager" ? "" : route)}
@@ -33,14 +38,35 @@ export const ManagerNavigationMobile = () => {
   }, [path]);
 
   return (
-    <div className="sticky bottom-0 flex w-full items-center justify-center bg-slate-200">
-      <NavigationLink
-        activeRoute={activeRoute}
-        route="manager"
-        text="Dashboard"
-      />
-      <NavigationLink activeRoute={activeRoute} route="movies" text="Movies" />
-      <NavigationLink activeRoute={activeRoute} route="region" text="Regions" />
-    </div>
+    <>
+      <div className="sticky bottom-0 flex w-full items-center justify-center bg-slate-200">
+        <NavigationLink
+          activeRoute={activeRoute}
+          route="manager"
+          text="Dashboard"
+        />
+        <NavigationLink
+          activeRoute={activeRoute}
+          route="movies"
+          text="Movies"
+        />
+        <NavigationLink
+          activeRoute={activeRoute}
+          route="region"
+          text="Regions"
+        />
+        <button
+          onClick={toggleShowAdminMenuModal}
+          className="flex w-80 flex-col items-center justify-center gap-2"
+        >
+          <span className="h-8 w-8 rounded-full bg-blue-400" />
+        </button>
+      </div>
+      <AnimatePresence>
+        {showManagerMenuModal && (
+          <UserMenuModal toggleShowUserModal={toggleShowManagerMenuModal} />
+        )}
+      </AnimatePresence>
+    </>
   );
 };

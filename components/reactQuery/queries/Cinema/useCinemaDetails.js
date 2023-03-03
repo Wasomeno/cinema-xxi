@@ -1,14 +1,14 @@
-export const useCinemaDetails = ({ region, cinema }) => {
-  return {
-    data: {
-      name: "Cinema Test",
-      studioAmount: 5,
-      transactionAmount: 10,
-      movieAmount: 120,
-      capacityTotal: 100,
-      showtimeAmount: 20,
-      admins: ["0x", "0x", "0x", "0x", "0x"],
-    },
-    isLoading: false,
-  };
+import { useAdminDetailsContext } from "context/AppContext";
+
+import { query } from "../../query";
+import { cinemaKeys } from "./cinemaQueryKeysFactory";
+
+export const useCinemaDetails = () => {
+  const adminDetails = useAdminDetailsContext();
+  const cinemaDetails = query({
+    queryKey: cinemaKeys.cinemaDetails(adminDetails?.cinema),
+    url: "/api/cinemas/" + adminDetails?.cinema,
+  });
+
+  return cinemaDetails;
 };

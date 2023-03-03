@@ -1,11 +1,15 @@
-import { ethers } from "ethers";
+import { useContract, useProvider, useSigner } from "wagmi";
+
 import RolesABI from "../abi/Roles.json";
 import TicketABI from "../abi/Ticket.json";
-import { useSigner } from "wagmi";
 
 const createContract = (contractAddress, abi) => {
-  const { data: signer } = useSigner();
-  const contract = new ethers.Contract(contractAddress, abi, signer);
+  const provider = useProvider();
+  const contract = useContract({
+    address: contractAddress,
+    abi: abi,
+    signerOrProvider: provider,
+  });
   return contract;
 };
 

@@ -1,59 +1,88 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import useToggle from "hooks/useToggle";
+import { useUserDetails } from "hooks/useUserDetails";
+import { useDisconnect } from "wagmi";
 
 import ChevronRight from "@/components/Icons/ChevronRight";
+import Power from "@/components/Icons/Power";
 
 import { AdminNavigationLink } from "./AdminNavigationLink";
 
 const AdminNavigation = () => {
+  const { user } = useUserDetails();
   const [showNav, toggleShowNav] = useToggle(false);
+  const { disconnect } = useDisconnect();
   return (
     <motion.div
       initial={{ width: "30px" }}
-      animate={{ width: showNav ? "280px" : "30px" }}
+      animate={{ width: showNav ? "280px" : "70px" }}
       transition={{ ease: "easeInOut", duration: "0.3" }}
       className={
         "fixed top-0 left-0 z-10 hidden h-full bg-slate-100 shadow-md md:block"
       }
     >
       <button
-        className="top-10 -right-4 hidden h-8 w-8 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md md:absolute md:flex"
+        className="top-24 -right-4 z-10 h-7 w-7 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md md:absolute md:flex"
         onClick={toggleShowNav}
       >
         <span className={(showNav ? "rotate-180 " : "") + "p-2"}>
-          <ChevronRight />
+          <ChevronRight size="4" />
         </span>
       </button>
       <div
         className={
-          (showNav ? "flex " : "hidden ") +
-          "h-40 flex-col items-center gap-2 border-b border-b-gray-400 bg-slate-100 p-4 transition duration-300"
+          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300"
         }
       >
-        <div className="h-16 w-16 rounded-full bg-slate-500" />
-        <div className="text-center">
-          <p className="font-poppins text-sm font-medium">Name</p>
-          <p className="font-poppins text-sm text-slate-500">Address</p>
-        </div>
+        <div className="h-12 w-12 rounded-full bg-slate-500" />
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showNav ? 1 : 0, display: 0 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+        >
+          <p className="font-poppins text-sm font-medium">Admin</p>
+          <p className="font-poppins text-sm text-slate-500">
+            {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
+          </p>
+        </motion.div>
       </div>
-      <div
-        className={
-          (showNav ? "flex " : "hidden ") +
-          "flex-col items-center gap-4 overflow-hidden"
-        }
-      >
-        <AdminNavigationLink href="/admin" icon="house">
-          Dashboard
-        </AdminNavigationLink>
-        <AdminNavigationLink href="/admin/movies" icon="cinema">
-          Manage Movies
-        </AdminNavigationLink>
-        <AdminNavigationLink href="/admin/showtimes" icon="time">
-          Manage Showtimes
-        </AdminNavigationLink>
-        <AdminNavigationLink href="/admin/studios" icon="time">
-          Manage Studios
-        </AdminNavigationLink>
+      <div className="flex h-5/6 flex-col justify-between">
+        <div className="flex h-4/6 flex-col items-center gap-4 overflow-hidden">
+          <AdminNavigationLink href="/admin" icon="house" showNav={showNav}>
+            Dashboard
+          </AdminNavigationLink>
+          <AdminNavigationLink
+            href="/admin/movies"
+            icon="cinema"
+            showNav={showNav}
+          >
+            Manage Movies
+          </AdminNavigationLink>
+          <AdminNavigationLink
+            href="/admin/showtimes"
+            icon="time"
+            showNav={showNav}
+          >
+            Manage Showtimes
+          </AdminNavigationLink>
+          <AdminNavigationLink
+            href="/admin/studios"
+            icon="stacks"
+            showNav={showNav}
+          >
+            Manage Studios
+          </AdminNavigationLink>
+        </div>
+        <button
+          onClick={disconnect}
+          className="flex h-1/6 items-center justify-center p-2"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-800">
+            <Power />
+          </span>
+          {showNav && <span className="w-3/6">Disconnect</span>}
+        </button>
       </div>
     </motion.div>
   );

@@ -1,3 +1,11 @@
+import { query } from "../../query";
+import { movieKeys } from "./movieQueryKeysFactory";
+
 export const useMovieDetails = ({ movieId }) => {
-  return { data: { title: "Movie 1" }, isLoading: false };
+  const movieDetails = query({
+    queryKey: movieKeys.movieDetails(movieId),
+    url: "/api/movies/" + movieId,
+  });
+
+  return movieDetails;
 };

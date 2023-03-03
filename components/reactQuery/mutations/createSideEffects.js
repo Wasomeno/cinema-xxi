@@ -1,4 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { queryClientApp } from "client/reactQueryClient";
+import { useRouter } from "next/router";
+
 import { useLoading, useToast } from "../../../store/stores";
 
 const contextLoadingTexts = {
@@ -7,16 +10,17 @@ const contextLoadingTexts = {
   update: "Updating ",
 };
 
-const contextSuccessTexts = {
-  add: "Succesfully add ",
-  delete: "Successfully delete ",
-  update: "Successfully update ",
-};
-
-export const createSideEffects = ({ context, object }) => {
+export const createSideEffects = ({
+  context,
+  object,
+  redirect,
+  invalidateQueries,
+  queryKeys,
+  redirectUrl,
+}) => {
   const [setLoading, setLoadingText] = useLoading();
   const [toastSuccess, toastError] = useToast();
-
+  const router = useRouter();
   return {
     onMutate: () => {
       setLoadingText(contextLoadingTexts[context] + object);
@@ -24,12 +28,15 @@ export const createSideEffects = ({ context, object }) => {
     },
     onError: (error) => {
       setLoading(false);
+      // toastError(error.message);
       console.log(error);
-      toastError(error.reason);
     },
-    onSuccess: () => {
+    onSuccess: async (response) => {
+      const responseJson = await response.json();
       setLoading(false);
-      toastSuccess(contextSuccessTexts[context] + object);
+      toastSuccess(responseJson.text);
+      redirect && router.push(redirectUrl);
+      invalidateQueries && queryClientApp.invalidateQueries(queryKeys);
     },
   };
 };

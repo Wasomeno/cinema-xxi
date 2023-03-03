@@ -1,6 +1,6 @@
 import React from "react";
 
-import MovieListCard from "@/components/MovieListCard";
+import { MovieListClickable } from "@/components/MovieListCard";
 import { Paragraph } from "@/components/shared/Texts";
 
 const SelectedMovies = ({ selectedMovies, deselectMovie }) => {
@@ -11,24 +11,23 @@ const SelectedMovies = ({ selectedMovies, deselectMovie }) => {
           Selected Movies
         </Paragraph>
       </div>
-      {selectedMovies.length < 1 ? (
-        <div className="text-center">
+      <div className="flex h-52 items-center justify-center lg:h-80">
+        {selectedMovies.length < 1 ? (
           <Paragraph size="sm" margin="4">
             No Movies Selected
           </Paragraph>
-        </div>
-      ) : (
-        <div className="m-2 flex max-h-52 flex-col items-center gap-3 overflow-y-scroll p-2">
-          {selectedMovies.map((movie, index) => (
-            <MovieListCard
-              key={index}
-              movieTitle={movie.title}
-              clickable
-              onClick={() => deselectMovie(movie.movieId)}
-            />
-          ))}
-        </div>
-      )}
+        ) : (
+          <div className="m-2 flex w-full flex-col items-center gap-3 overflow-y-scroll p-2">
+            {selectedMovies.map((movie) => (
+              <MovieListClickable
+                key={movie.id}
+                movie={movie}
+                onClick={() => deselectMovie(movie.id)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

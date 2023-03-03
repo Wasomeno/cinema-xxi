@@ -10,7 +10,7 @@ const WalletStatusComponent = ({ toggleWalletModal }) => {
   const walletComponents = {
     loading: WalletLoading,
     error: WalletError,
-    succes: WalletSuccess,
+    success: WalletSuccess,
     idle: WalletIdle,
   };
   const WalletStatus = walletComponents[status];

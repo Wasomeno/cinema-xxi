@@ -1,21 +1,7 @@
+import { query } from "../../query";
+import { movieKeys } from "./movieQueryKeysFactory";
+
 export const useAllMovies = () => {
-  return {
-    data: [
-      {
-        title: "Movie 1",
-      },
-      {
-        title: "Movie 2",
-      },
-      {
-        title: "Movie 3",
-      },
-      {
-        title: "Movie 4",
-      },
-      {
-        title: "Movie 5",
-      },
-    ],
-  };
+  const movies = query({ queryKey: movieKeys.allMovies, url: "/api/movies" });
+  return movies;
 };

@@ -1,8 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation } from "@tanstack/react-query";
 
-const mutation = (mutationFunction, sideEffects) => {
-  const mutationResult = useMutation(mutationFunction, sideEffects);
+const mutation = ({ url, body, sideEffects, method }) => {
+  const mutationResult = useMutation(
+    async () =>
+      await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }),
+    sideEffects
+  );
   return mutationResult;
 };
 

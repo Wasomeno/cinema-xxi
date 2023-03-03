@@ -1,11 +1,12 @@
 import React from "react";
+
 import XMark from "@/components/Icons/XMark";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
 const ManagerMovieDetailsMenu = ({ toggleModal }) => {
   return (
     <HeaderMenuModal>
-      <div className="text-sm flex justify-evenly items-center h-full w-full">
+      <div className="flex h-full w-full items-center justify-evenly text-sm">
         <div className="w-1/6">
           <XMark color="#D9001D" size="5" />
         </div>

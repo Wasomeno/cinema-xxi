@@ -1,5 +1,6 @@
 import React from "react";
-import { useAccount } from "wagmi";
+import { useToast } from "store/stores";
+import { useAccount, useDisconnect } from "wagmi";
 
 import AnimatedContainer from "./AnimatedContainer";
 import ArrowTopRight from "./Icons/ArrowTopRight";
@@ -7,7 +8,28 @@ import ClipboardDocument from "./Icons/ClipboardDocument";
 import Power from "./Icons/Power";
 
 const UserMenuModal = ({ toggleShowUserModal }) => {
-  const { address } = useAccount();
+  const [toastSuccess, toastError] = useToast();
+  const { address, isDisconnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  function openEtherScan() {
+    window
+      .open("https://sepolia.etherscan.io/address/" + address, "_blank")
+      .focus();
+  }
+
+  function copyAddress() {
+    navigator.clipboard.writeText(address);
+    toastSuccess("Address Copied");
+  }
+
+  function disconnectWallet() {
+    toggleShowUserModal();
+    disconnect();
+    toastError("Wallet Disconnected");
+  }
+
+  if (isDisconnected) return;
   return (
     <>
       <AnimatedContainer
@@ -24,15 +46,24 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
             </p>
           </div>
           <div className="flex w-2/6 items-center justify-end gap-2 md:w-3/6">
-            <div className="rounded-xl bg-slate-700 p-2">
+            <button
+              onClick={copyAddress}
+              className="rounded-xl bg-slate-700 p-2"
+            >
               <ClipboardDocument />
-            </div>
-            <div className="rounded-xl bg-slate-700 p-2">
+            </button>
+            <button
+              onClick={openEtherScan}
+              className="rounded-xl bg-slate-700 p-2"
+            >
               <ArrowTopRight />
-            </div>
-            <div className="rounded-xl bg-slate-700 p-2">
+            </button>
+            <button
+              onClick={disconnectWallet}
+              className="rounded-xl bg-slate-700 p-2"
+            >
               <Power />
-            </div>
+            </button>
           </div>
         </div>
       </AnimatedContainer>

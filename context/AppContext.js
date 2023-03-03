@@ -1,14 +1,13 @@
 import { createContext, useContext, useState } from "react";
 
-export const AppContextDOM = ({ children, Context }) => {
-  const [account, setAccount] = useState([]);
+export const appContext = createContext();
+
+export const AppContextDOM = ({ children }) => {
+  const Context = appContext;
   const [adminDetails, setAdminDetails] = useState({ region: 0, cinema: 0 });
   return (
     <Context.Provider
       value={{
-        account: account,
-        setAccount: setAccount,
-        isConnected: Boolean(account[0]),
         adminDetails: adminDetails,
         setAdminDetails: setAdminDetails,
       }}
@@ -18,4 +17,7 @@ export const AppContextDOM = ({ children, Context }) => {
   );
 };
 
-export const appContext = createContext();
+export function useAdminDetailsContext() {
+  const { adminDetails } = useContext(appContext);
+  return adminDetails;
+}

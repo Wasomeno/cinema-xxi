@@ -10,16 +10,15 @@ import CinemaDetailsCard from "./components/CinemaDetailsCard";
 import DeleteCinemaModal from "./components/DeleteCinemaModal";
 
 export const ManagerCinemaDetailsPage = () => {
-  const { regionId, cinemaId } = useRouter().query;
+  const { query } = useRouter();
   const [showModal, toggleShowModal] = useToggle(false);
   const cinemaDetails = useCinemaDetails({
-    region: regionId,
-    cinema: cinemaId,
+    cinema: query?.cinemaId,
   });
 
   return (
     <AnimatedContainer className="h-screen p-4">
-      <ManagerHeader withBackButton>{cinemaDetails.data.name}</ManagerHeader>
+      <ManagerHeader withBackButton>{cinemaDetails.data?.name}</ManagerHeader>
       <div className="mt-3 w-full">
         <div className="my-3 w-3/6">
           <p className="font-poppins text-sm font-medium text-slate-600">
@@ -36,44 +35,50 @@ export const ManagerCinemaDetailsPage = () => {
             <div className="grid w-96 grid-cols-2 gap-4">
               <CinemaDetailsCard
                 title="Studios"
-                value={cinemaDetails.data?.studioAmount}
+                value={cinemaDetails.data?.studio?.length}
               />
               <CinemaDetailsCard
                 title="Movies"
-                value={cinemaDetails.data?.movieAmount}
+                value={cinemaDetails.data?.movie?.length}
                 withLink
                 link={
-                  "/manager/region/" + regionId + "/" + cinemaId + "/movies"
+                  "/manager/region/" +
+                  query?.regionId +
+                  "/" +
+                  query?.cinemaId +
+                  "/movies"
                 }
               />
               <CinemaDetailsCard
                 title="Showtimes"
-                value={cinemaDetails.data?.showtimeAmount}
+                value={cinemaDetails.data?.showtime?.length}
                 withLink
                 link={
-                  "/manager/region/" + regionId + "/" + cinemaId + "/showtimes"
+                  "/manager/region/" +
+                  query?.regionId +
+                  "/" +
+                  query?.cinemaId +
+                  "/showtimes"
                 }
               />
-              <CinemaDetailsCard
-                title="Capacity Total"
-                value={cinemaDetails.data?.capacityTotal}
-              />
+              <CinemaDetailsCard title="Capacity Total" value={"50"} />
             </div>
           </div>
           <div className="flex h-full w-full snap-end items-center justify-start">
             <div className="grid w-96 grid-cols-2 gap-4">
               <CinemaDetailsCard
                 title="Admins"
-                value={cinemaDetails.data?.admins.length}
+                value={cinemaDetails.data?.admin?.length}
                 withLink
                 link={
-                  "/manager/region/" + regionId + "/" + cinemaId + "/admins"
+                  "/manager/region/" +
+                  query?.regionId +
+                  "/" +
+                  query?.cinemaId +
+                  "/admins"
                 }
               />
-              <CinemaDetailsCard
-                title="Transactions"
-                value={cinemaDetails.data?.transactionAmount}
-              />
+              <CinemaDetailsCard title="Transactions" value={50} />
               <CinemaDetailsCard
                 title="Showtimes"
                 value={cinemaDetails.data?.showtimeAmount}
@@ -90,8 +95,8 @@ export const ManagerCinemaDetailsPage = () => {
         </div>
       </div>
       <DeleteCinemaModal
-        regionId={regionId}
-        cinemaId={cinemaId}
+        regionId={query?.regionId}
+        cinemaId={query?.cinemaId}
         show={showModal}
         toggleShow={toggleShowModal}
         text={cinemaDetails.name}

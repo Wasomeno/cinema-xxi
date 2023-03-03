@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 const loadingStore = create((set) => ({
   loading: false,
