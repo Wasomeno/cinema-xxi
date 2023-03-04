@@ -16,6 +16,7 @@ const NavigationLink = ({ activeRoute, route, text }) => {
         (activeRoute === route ? "bg-blue-200 " : "") +
         "flex h-16 w-4/12 flex-col items-center justify-center gap-2 p-2 transition duration-300 ease-in-out"
       }
+      prefetch={false}
     >
       <span>
         <House size="5" color="black" />

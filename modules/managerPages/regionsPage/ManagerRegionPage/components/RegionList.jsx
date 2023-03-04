@@ -1,8 +1,8 @@
 import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
+import dynamic from "next/dynamic";
 
 import DataContainer from "@/components/DataContainer";
-import { DeleteModal } from "@/components/DeleteModal";
 import { deleteRegion } from "@/components/reactQuery/mutations/Region/deleteRegion";
 import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions";
 
@@ -13,16 +13,19 @@ const RegionList = ({ deleteMode, toggleDeleteMode }) => {
   const [regionsToDelete, selectRegionsToDelete, deselectRegionsToDelete] =
     useSelectDeselect([]);
   const deleteRegionMutation = deleteRegion({ regionIds: regionsToDelete });
+
+  const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
+
   return (
     <>
       <div className="my-1 mb-2 flex items-center justify-evenly border-b border-b-slate-600 p-2">
-        <p className="font-poppins w-2/12 text-center text-xs text-slate-500 lg:w-1/12">
+        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-1/12">
           Id
         </p>
-        <p className="font-poppins w-4/12 text-center text-xs text-slate-500 lg:w-3/12">
+        <p className="w-4/12 text-center font-poppins text-xs text-slate-500 lg:w-3/12">
           Name
         </p>
-        <p className="font-poppins w-2/12 text-center text-xs text-slate-500 lg:w-2/12">
+        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-2/12">
           Cinema Amount
         </p>
       </div>

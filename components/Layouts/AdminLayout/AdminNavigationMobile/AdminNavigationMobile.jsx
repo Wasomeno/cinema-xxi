@@ -1,6 +1,5 @@
 import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
-import { useUserDetails } from "hooks/useUserDetails";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -8,7 +7,7 @@ import UserMenuModal from "@/components/UserMenuModal";
 
 import { AdminNavigationLinkMobile } from "./AdminNavigationLinkMobile";
 
-const AdminNavigationMobile = () => {
+export const AdminNavigationMobile = () => {
   const [showAdminMenuModal, toggleShowAdminMenuModal] = useToggle(false);
   const [activeRoute, setActiveRoute] = useState("admin");
   const { pathname: path } = useRouter();
@@ -65,5 +64,3 @@ const AdminNavigationMobile = () => {
     </>
   );
 };
-
-export default AdminNavigationMobile;

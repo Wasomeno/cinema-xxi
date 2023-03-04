@@ -1,16 +1,17 @@
 import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import { useUserDetails } from "hooks/useUserDetails";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
-
-import { ConnectWalletModal } from "../../ConnectWalletModal";
-import UserMenuModal from "../../UserMenuModal";
 
 const AppNavigation = () => {
   const { isConnected, user } = useUserDetails();
   const [showWalletModal, toggleShowWalletModal] = useToggle(false);
   const [showUserModal, toggleShowUserModal] = useToggle(false);
+
+  const ConnectWalletModal = dynamic(() => import("../../ConnectWalletModal"));
+  const UserMenuModal = dynamic(() => import("../../UserMenuModal"));
 
   return (
     <>

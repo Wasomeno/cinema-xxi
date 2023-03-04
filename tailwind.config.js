@@ -6,6 +6,10 @@ module.exports = {
     "./modules/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      poppins: "var(--font-poppins)",
+    },
+
     extend: {},
   },
   plugins: [],

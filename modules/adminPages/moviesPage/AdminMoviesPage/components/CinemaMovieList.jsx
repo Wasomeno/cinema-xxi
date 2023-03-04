@@ -1,9 +1,8 @@
 import { useSelectDeselect } from "hooks/useSelectDeselect";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import DataContainer from "@/components/DataContainer";
-import { DeleteModal } from "@/components/DeleteModal";
-import { deleteCinemaMovies } from "@/components/reactQuery/mutations/Cinema/deleteCinemaMovies";
 import { useCinemaMovies } from "@/components/reactQuery/queries/Cinema/useCinemaMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
@@ -12,24 +11,22 @@ const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
   const cinemaMovies = useCinemaMovies();
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
-  const deleteMovieMutation = deleteCinemaMovies({
-    cinemaId: 2,
-    movieIds: moviesToDelete,
-  });
+
+  const DeleteModal = dynamic(() => import("./DeleteMoviesModal"));
 
   return (
     <>
       <div className="my-1 mb-2 flex items-center justify-evenly border-b border-b-slate-600 p-2">
-        <p className="font-poppins w-2/12 text-center text-xs text-slate-500 lg:w-1/12">
+        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-1/12">
           Id
         </p>
-        <p className="font-poppins w-3/12 text-center text-xs text-slate-500">
+        <p className="w-3/12 text-center font-poppins text-xs text-slate-500">
           Picture
         </p>
-        <p className="font-poppins w-4/12 text-center text-xs text-slate-500 lg:w-3/12">
+        <p className="w-4/12 text-center font-poppins text-xs text-slate-500 lg:w-3/12">
           Name
         </p>
-        <p className="font-poppins w-3/12 text-center text-xs text-slate-500 lg:w-2/12">
+        <p className="w-3/12 text-center font-poppins text-xs text-slate-500 lg:w-2/12">
           Added On
         </p>
       </div>
@@ -59,7 +56,7 @@ const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
               }
             >
               <div className="w-2/12 text-center lg:w-1/12">
-                <p className="font-poppins p-2 text-xs font-medium lg:text-sm">
+                <p className="p-2 font-poppins text-xs font-medium lg:text-sm">
                   {movie.id}
                 </p>
               </div>
@@ -67,19 +64,19 @@ const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
                 <div className="h-24 w-20 rounded-lg bg-slate-900" />
               </div>
               <div className="w-4/12 text-center lg:w-3/12">
-                <p className="font-poppins p-2 text-xs font-medium lg:text-sm">
+                <p className="p-2 font-poppins text-xs font-medium lg:text-sm">
                   {movie.title}
                 </p>
               </div>
               <div className="w-3/12 text-center lg:w-2/12">
-                <p className="font-poppins p-2 text-xs font-medium lg:text-sm">
+                <p className="p-2 font-poppins text-xs font-medium lg:text-sm">
                   Added On
                 </p>
               </div>
               {moviesToDelete.includes(movie.id) && deleteMode && (
                 <button
                   onClick={() => deselectMoviesToDelete(movie.id)}
-                  className="font-poppins flex-items-center absolute -top-1 -right-1 h-5 w-5 justify-center rounded-full bg-slate-50 text-xs font-medium shadow-md"
+                  className="flex-items-center absolute -top-1 -right-1 h-5 w-5 justify-center rounded-full bg-slate-50 font-poppins text-xs font-medium shadow-md"
                 >
                   X
                 </button>
@@ -93,7 +90,6 @@ const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
           toggleDeleteMode={toggleDeleteMode}
           objectToDelete={moviesToDelete}
           object="movie"
-          deleteMutation={() => deleteMovieMutation.mutate()}
         />
       )}
     </>

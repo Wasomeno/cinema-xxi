@@ -17,6 +17,7 @@ const HeaderMenuLink = ({ href, context, text }) => {
     <Link
       href={href}
       className="flex h-full w-full items-center justify-evenly p-1"
+      prefetch={false}
     >
       <div className="w-1/6">
         <Icon size="4" />

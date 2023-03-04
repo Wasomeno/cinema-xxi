@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import { useUserDetails } from "hooks/useUserDetails";
 import { useDisconnect } from "wagmi";
@@ -8,13 +8,14 @@ import Power from "@/components/Icons/Power";
 
 import { AdminNavigationLink } from "./AdminNavigationLink";
 
-const AdminNavigation = () => {
+export const AdminNavigation = () => {
   const { user } = useUserDetails();
   const [showNav, toggleShowNav] = useToggle(false);
   const { disconnect } = useDisconnect();
+  console.log("nav render");
   return (
     <motion.div
-      initial={{ width: "30px" }}
+      initial={{ width: "70px" }}
       animate={{ width: showNav ? "280px" : "70px" }}
       transition={{ ease: "easeInOut", duration: "0.3" }}
       className={
@@ -87,5 +88,3 @@ const AdminNavigation = () => {
     </motion.div>
   );
 };
-
-export default AdminNavigation;

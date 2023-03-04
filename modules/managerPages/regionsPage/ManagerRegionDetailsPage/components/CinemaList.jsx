@@ -1,15 +1,20 @@
 import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import { Subtitle } from "@/components/shared/Texts";
 
-import { DeleteCinemaModal } from "./DeleteCinemaModal";
-
 const CinemaList = ({ deleteMode, toggleDeleteMode, cinemas, region }) => {
+  const router = useRouter();
   const [cinemasToDelete, selectCinemasToDelete, deselectCinemasToDelete] =
     useSelectDeselect([]);
-  const router = useRouter();
+
+  const DeleteCinemaModal = dynamic(() =>
+    import("./DeleteCinemaModal").then(
+      (component) => component.DeleteCinemaModal
+    )
+  );
   return (
     <>
       <div className="flex flex-col gap-4">

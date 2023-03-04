@@ -1,12 +1,10 @@
 import { useUserDetails } from "hooks/useUserDetails";
 import { useViewport } from "hooks/useViewport";
 import { ManagerLoginPage } from "modules/managerPages/ManagerLoginPage";
-import React from "react";
+import dynamic from "next/dynamic";
 import { MoonLoader } from "react-spinners";
 
 import NotValidManager from "../Manager/NotValidManager";
-import { ManagerNavigation } from "../Navigations/ManagerNavigation/";
-import { ManagerNavigationMobile } from "../Navigations/ManagerNavigation/";
 import { useManagerStatus } from "../reactQuery/queries/Roles/useManagerStatus";
 import { Paragraph } from "../shared/Texts";
 
@@ -14,6 +12,17 @@ const ManagerLayout = ({ children }) => {
   const { user, isConnected } = useUserDetails();
   const viewport = useViewport();
   const managerStatus = useManagerStatus({ address: user });
+
+  const ManagerNavigation = dynamic(() =>
+    import("../Navigations/ManagerNavigation/").then(
+      (component) => component.ManagerNavigation
+    )
+  );
+  const ManagerNavigationMobile = dynamic(() =>
+    import("../Navigations/ManagerNavigation/").then(
+      (component) => component.ManagerNavigationMobile
+    )
+  );
 
   return (
     <>

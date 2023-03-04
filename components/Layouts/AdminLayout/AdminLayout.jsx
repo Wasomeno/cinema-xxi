@@ -1,18 +1,17 @@
-import { appContext, AppContextDOM } from "context/AppContext";
+import { appContext } from "context/AppContext";
 import { useUserDetails } from "hooks/useUserDetails";
 import { useViewport } from "hooks/useViewport";
 import { AdminLoginPage } from "modules/adminPages/AdminLoginPage";
-import { useMemo } from "react";
 import { MoonLoader } from "react-spinners";
 
-import NotValidAdmin from "../Admin/NotValidAdmin";
-import AdminNavigation from "../Navigations/AdminNavigation/AdminNavigation";
-import AdminNavigationMobile from "../Navigations/AdminNavigation/AdminNavigationMobile";
-import { useCinemaAdminDetails } from "../reactQuery/queries/Roles/useCinemaAdminDetails";
-import { useCinemaAdminStatus } from "../reactQuery/queries/Roles/useCinemaAdminStatus";
-import { Paragraph } from "../shared/Texts";
+import { useCinemaAdminDetails } from "../../reactQuery/queries/Roles/useCinemaAdminDetails";
+import { useCinemaAdminStatus } from "../../reactQuery/queries/Roles/useCinemaAdminStatus";
+import { Paragraph } from "../../shared/Texts";
+import { AdminNavigation } from "./AdminNavigation";
+import { AdminNavigationMobile } from "./AdminNavigationMobile";
+import NotValidAdmin from "./NotValidAdmin";
 
-const AdminLayout = ({ children }) => {
+export const AdminLayout = ({ children }) => {
   const { user, isConnected } = useUserDetails();
   const viewport = useViewport();
   const Context = appContext;
@@ -54,5 +53,3 @@ const AdminLayout = ({ children }) => {
     </>
   );
 };
-
-export default AdminLayout;

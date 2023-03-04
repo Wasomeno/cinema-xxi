@@ -1,13 +1,11 @@
 import useToggle from "hooks/useToggle";
 import { useRouter } from "next/router";
-import React from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";
 import { useCinemaDetails } from "@/components/reactQuery/queries/Cinema/useCinemaDetails";
 
 import CinemaDetailsCard from "./components/CinemaDetailsCard";
-import DeleteCinemaModal from "./components/DeleteCinemaModal";
 
 export const ManagerCinemaDetailsPage = () => {
   const { query } = useRouter();
@@ -94,13 +92,6 @@ export const ManagerCinemaDetailsPage = () => {
           </p>
         </div>
       </div>
-      <DeleteCinemaModal
-        regionId={query?.regionId}
-        cinemaId={query?.cinemaId}
-        show={showModal}
-        toggleShow={toggleShowModal}
-        text={cinemaDetails.name}
-      />
     </AnimatedContainer>
   );
 };

@@ -13,7 +13,7 @@ export function useAddCinemaMovies({ movies }) {
   });
   const movieIds = movies.map((movie) => ({ id: movie.id }));
   const addCinemaMoviesMutation = mutation({
-    url: "/api/cinemas/" + adminDetails.cinema + "/movies",
+    url: "/api/cinemas/" + adminDetails?.cinema + "/movies",
     body: {
       movieIds: movieIds,
     },

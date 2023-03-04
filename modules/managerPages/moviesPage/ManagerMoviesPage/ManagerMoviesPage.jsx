@@ -1,6 +1,4 @@
-import { useSelectDeselect } from "hooks/useSelectDeselect";
 import useToggle from "hooks/useToggle";
-import { useRouter } from "next/router";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";

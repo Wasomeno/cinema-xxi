@@ -1,9 +1,9 @@
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import useToggle from "hooks/useToggle";
+import dynamic from "next/dynamic";
 
 import { AdminSubHeader } from "@/components/AdminSubHeader";
 import DataContainer from "@/components/DataContainer";
-import { DeleteModal } from "@/components/DeleteModal";
 import { deleteShowtimes } from "@/components/reactQuery/mutations/Cinema/deleteShowtimes";
 import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
 import { Paragraph } from "@/components/shared/Texts";
@@ -24,6 +24,8 @@ const CinemaShowtimes = () => {
     showtimes: showtimesToDelete,
   });
 
+  const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
+
   return (
     <div className="my-4 flex justify-center">
       <div className="w-full p-2 lg:w-5/6">
@@ -33,13 +35,13 @@ const CinemaShowtimes = () => {
           toggleDeleteMode={toggleDeleteMode}
         />
         <div className="my-2 flex items-center justify-evenly border-b border-b-slate-600 p-2">
-          <p className="font-poppins w-2/12 text-center text-xs text-slate-500 lg:w-1/12">
+          <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-1/12">
             Id
           </p>
-          <p className="font-poppins w-3/12 text-center text-xs text-slate-500 lg:w-2/12">
+          <p className="w-3/12 text-center font-poppins text-xs text-slate-500 lg:w-2/12">
             Showtime
           </p>
-          <p className="font-poppins w-3/12 text-center text-xs text-slate-500 lg:w-2/12">
+          <p className="w-3/12 text-center font-poppins text-xs text-slate-500 lg:w-2/12">
             Added On
           </p>
         </div>

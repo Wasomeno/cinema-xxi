@@ -25,6 +25,7 @@ export const AdminNavigationLinkMobile = ({
         (activeRoute === href ? "bg-blue-300 " : "") +
         "flex h-16 w-96 flex-col items-center justify-center gap-2 transition duration-300 ease-in-out"
       }
+      prefetch={false}
     >
       <span>
         <Icon size="5" />

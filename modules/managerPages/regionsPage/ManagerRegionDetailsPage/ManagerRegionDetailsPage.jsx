@@ -1,7 +1,6 @@
-import { useSelectDeselect } from "hooks/useSelectDeselect";
 import useToggle from "hooks/useToggle";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";
@@ -10,13 +9,18 @@ import { useRegionDetails } from "@/components/reactQuery/queries/Region/useRegi
 import { Subtitle } from "@/components/shared/Texts";
 
 import CinemaList from "./components/CinemaList";
-import { ManagerRegionDetailsMenu } from "./components/ManagerRegionDetailsMenu";
 
 export const ManagerRegionDetailsPage = () => {
   const { query } = useRouter();
   const [showMenu, toggleShowMenu] = useToggle(false);
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const regionDetails = useRegionDetails({ region: query?.regionId });
+
+  const ManagerRegionDetailsMenu = dynamic(() =>
+    import("./components/ManagerRegionDetailsMenu").then(
+      (component) => component.ManagerRegionDetailsMenu
+    )
+  );
 
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">

@@ -5,13 +5,18 @@ import DataContainer from "@/components/DataContainer";
 import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
-import { DeleteMoviesModal } from "./DeleteMoviesModal";
-
 export const MovieList = ({ deleteMode, toggleDeleteMode }) => {
   const movies = useAllMovies();
   const router = useRouter();
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
+
+  const DeleteMoviesModal = dynamic(() =>
+    import("./DeleteMoviesModal").then(
+      (component) => component.DeleteMoviesModal
+    )
+  );
+
   return (
     <>
       <div className="my-1 mb-2 flex items-center justify-evenly border-b border-b-slate-600 p-2">

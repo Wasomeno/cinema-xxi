@@ -1,5 +1,4 @@
 import { useSelectMovies } from "hooks/useSelectDeselect";
-import React from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
@@ -31,7 +30,7 @@ export const AdminAddMoviesPage = () => {
       <div className="my-4 text-center">
         <button
           onClick={addCinemaMoviesMutation.mutate}
-          className="font-poppins w-2/6 rounded-lg bg-slate-900 p-2 text-sm text-white"
+          className="w-2/6 rounded-lg bg-slate-900 p-2 font-poppins text-sm text-white"
         >
           Submit
         </button>

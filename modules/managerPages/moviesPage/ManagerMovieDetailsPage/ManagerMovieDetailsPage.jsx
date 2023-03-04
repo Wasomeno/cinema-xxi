@@ -1,18 +1,20 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";
 import { useMovieDetails } from "@/components/reactQuery/queries/Movie/useMovieDetails";
-import { Subtitle } from "@/components/shared/Texts";
-
-import DeleteMovieModal from "./components/ManagerDeleteMovieModal";
-import MovieDetailsMenu from "./components/ManagerMovieDetailsMenu";
 
 export const ManagerMovieDetailsPage = () => {
   const { query } = useRouter();
   const [showModal, setShowModal] = useState(false);
   const movieDetails = useMovieDetails({ movieId: query?.movieId });
+
+  const DeleteMovieModal = dynamic(() =>
+    import("./components/ManagerDeleteMovieModal")
+  );
+
   return (
     <>
       <AnimatedContainer className="relative h-screen overflow-y-scroll p-4">
@@ -57,12 +59,13 @@ export const ManagerMovieDetailsPage = () => {
           </div>
         </div>
       </AnimatedContainer>
-      <DeleteMovieModal
-        movieId={query?.movieId}
-        show={showModal}
-        toggleShow={() => setShowModal((currentState) => !currentState)}
-        text={movieDetails.data?.name}
-      />
+      {showModal && (
+        <DeleteMovieModal
+          movieId={query?.movieId}
+          toggleShow={() => setShowModal((currentState) => !currentState)}
+          text={movieDetails.data?.name}
+        />
+      )}
     </>
   );
 };

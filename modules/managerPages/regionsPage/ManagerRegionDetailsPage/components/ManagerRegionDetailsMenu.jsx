@@ -1,5 +1,3 @@
-import React from "react";
-
 import XMark from "@/components/Icons/XMark";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";

@@ -6,7 +6,7 @@ import { useDisconnect } from "wagmi";
 import ChevronRight from "@/components/Icons/ChevronRight";
 import Power from "@/components/Icons/Power";
 
-import { AdminNavigationLink } from "../AdminNavigation/AdminNavigationLink";
+import { AdminNavigationLink } from "../../Layouts/AdminLayout/AdminNavigation/AdminNavigationLink";
 
 export const ManagerNavigation = () => {
   const { user } = useUserDetails();

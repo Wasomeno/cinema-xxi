@@ -1,16 +1,14 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import DataContainer from "@/components/DataContainer";
 import ChevronRight from "@/components/Icons/ChevronRight";
 import { useRegionMovieShowtimes } from "@/components/reactQuery/queries/Cinema/useCinemaMovieShowtimes";
 import { useMovieDetails } from "@/components/reactQuery/queries/Movie/useMovieDetails";
 import { Paragraph, Title } from "@/components/shared/Texts";
-import TicketConfirmationModal from "@/components/TicketConfirmationModal";
-
-import SeatsModal from "../../../components/SeatsModal";
 
 const Movie = () => {
   const { regionId, movieId } = useRouter().query;
@@ -19,6 +17,11 @@ const Movie = () => {
     region: regionId,
     movie: movieId,
   });
+
+  const SeatsModal = dynamic(() => import("@/components/SeatsModal"));
+  const TicketConfirmationModal = dynamic(() =>
+    import("@/components/TicketConfirmationModal")
+  );
 
   const createArray = () => {
     let array = [];
@@ -42,8 +45,6 @@ const Movie = () => {
     currentStateArray[index] = !currentStateArray[index];
     setShowCinemaShowtimes([...currentStateArray]);
   }
-
-  console.log(showCinemaShowtimes);
 
   function getDatesArray() {
     let array = [];
@@ -76,7 +77,7 @@ const Movie = () => {
             <p className="font-inter mb-2 text-xs font-semibold md:text-sm lg:text-base">
               Synopsis
             </p>
-            <p className="font-poppins overflow-hidden text-ellipsis text-xs tracking-wide"></p>
+            <p className="overflow-hidden text-ellipsis font-poppins text-xs tracking-wide"></p>
           </div>
           <div className="w-full">
             <p className="font-inter mb-2 text-xs font-semibold md:text-sm lg:text-base">
@@ -87,7 +88,7 @@ const Movie = () => {
       </div>
       <div className="m-2 flex flex-col items-center">
         <div className="w-5/6">
-          <h3 className="font-poppins m-1 text-center text-xs font-medium md:text-sm lg:m-2 lg:text-lg xl:m-2 xl:text-lg">
+          <h3 className="m-1 text-center font-poppins text-xs font-medium md:text-sm lg:m-2 lg:text-lg xl:m-2 xl:text-lg">
             Schedules
           </h3>
           <div className="h-18 my-2 flex w-full items-center justify-center gap-2 overflow-y-hidden overflow-x-scroll p-1 lg:h-24 lg:justify-center xl:h-24 xl:justify-center">
@@ -109,7 +110,7 @@ const Movie = () => {
       <div className="my-2 flex flex-col items-center">
         <div className="w-10/12 md:w-8/12 ">
           <div className="text-center">
-            <h4 className=" font-poppins text-center text-xs font-medium md:text-base lg:m-2 lg:text-lg xl:m-2 xl:text-lg">
+            <h4 className=" text-center font-poppins text-xs font-medium md:text-base lg:m-2 lg:text-lg xl:m-2 xl:text-lg">
               Available Cinemas
             </h4>
           </div>
@@ -148,7 +149,7 @@ const Movie = () => {
                             onClick={() =>
                               selectShowtime(studioShowtime, 1, cinema)
                             }
-                            className="font-poppins my-2 rounded-lg bg-blue-200 p-2 px-3 text-center text-xs transition duration-200 ease-in-out hover:bg-blue-300 md:text-sm"
+                            className="my-2 rounded-lg bg-blue-200 p-2 px-3 text-center font-poppins text-xs transition duration-200 ease-in-out hover:bg-blue-300 md:text-sm"
                           >
                             {parseInt(studioShowtime)}
                           </button>
@@ -175,6 +176,7 @@ const Movie = () => {
             movie={movieId}
           />
         )}
+
         {showTicketConfirmationModal && (
           <TicketConfirmationModal
             toggleShowConfirmationModal={toggleTicketConfirmationModal}

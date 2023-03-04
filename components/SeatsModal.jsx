@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 
 import AnimatedContainer from "./AnimatedContainer";
 import DataContainer from "./DataContainer";
-import { mintTickets } from "./reactQuery/mutations/Ticket/mintTickets";
 import { useMovieAvailableSeats } from "./reactQuery/queries/Cinema/useMovieAvailableSeats";
 import { Paragraph } from "./shared/Texts";
 
@@ -24,15 +23,6 @@ const SeatsModal = ({
     showtime: showtime,
   });
   const [selectedSeats, selectSeat, deselectSeat] = useSelectDeselect([]);
-  // const mintTicketsMutation = mintTickets({
-  //   region: region,
-  //   cinema: cinema,
-  //   studio: studio,
-  //   showtime: showtime,
-  //   seatNumbers: selectedSeats,
-  //   movie: movie,
-  //   total: getTotal(),
-  // });
 
   const isSeatSelected = (seat) => {
     const result = selectedSeats.includes(seat);
@@ -53,12 +43,12 @@ const SeatsModal = ({
       <AnimatedContainer className="fixed bottom-0 left-1/2 z-40 h-5/6 w-full -translate-x-1/2 rounded-t-lg bg-white lg:bottom-1/2 lg:top-1/2 lg:w-5/6 lg:-translate-y-1/2">
         <div className="flex items-center justify-center gap-5">
           <div className="">
-            <h5 className="font-poppins p-2 md:text-lg">
+            <h5 className="p-2 font-poppins md:text-lg">
               Cinema {parseInt(cinema)}
             </h5>
           </div>
           <div>
-            <h5 className="font-poppins p-2 md:text-lg">
+            <h5 className="p-2 font-poppins md:text-lg">
               {parseInt(showtime)}
             </h5>
           </div>
@@ -81,7 +71,7 @@ const SeatsModal = ({
                     : "bg-slate-500")
                 }
               >
-                <h5 className="font-poppins text-center text-sm font-medium text-white">
+                <h5 className="text-center font-poppins text-sm font-medium text-white">
                   {parseInt(seat)}
                 </h5>
               </button>
@@ -134,7 +124,7 @@ const SeatsModal = ({
                 toggleShowSeatsModal();
                 toggleTicketConfirmationModal();
               }}
-              className="font-poppins w-3/6 rounded-md bg-slate-900 p-2 text-xs text-white disabled:bg-slate-500 disabled:text-slate-400"
+              className="w-3/6 rounded-md bg-slate-900 p-2 font-poppins text-xs text-white disabled:bg-slate-500 disabled:text-slate-400"
             >
               Confirm Tickets
             </button>

@@ -1,14 +1,17 @@
 import useToggle from "hooks/useToggle";
+import dynamic from "next/dynamic";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import { ManagerSubHeader } from "@/components/ManagerSubHeader";
 
-import { ManagerRegionMenu } from "./components/ManagerRegionMenu";
 import RegionList from "./components/RegionList";
 
 export const ManagerRegionPage = () => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
+  const ManagerRegionMenu = dynamic(() =>
+    import("./components/ManagerRegionMenu")
+  );
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
       <ManagerDashboardHeader>Manage Regions</ManagerDashboardHeader>
