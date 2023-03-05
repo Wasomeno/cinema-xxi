@@ -39,7 +39,9 @@ const ManagerLayout = ({ children }) => {
           ) : (
             <>
               {viewport.width > 1024 && <ManagerNavigation />}
-              <main className="h-full w-full">{children}</main>
+              <main className="h-full w-full overflow-y-scroll">
+                {children}
+              </main>
               {viewport.width < 1024 && viewport.height > 400 && (
                 <ManagerNavigationMobile />
               )}

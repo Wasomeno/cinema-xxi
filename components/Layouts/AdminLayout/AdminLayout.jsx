@@ -33,7 +33,9 @@ export const AdminLayout = ({ children }) => {
           ) : cinemaAdminStatus.data ? (
             <>
               {viewport.width > 1024 && <AdminNavigation />}
-              <main className="relative w-full">{children}</main>
+              <main className="relative w-full overflow-y-scroll">
+                {children}
+              </main>
               {viewport.width < 1024 && viewport.height > 400 && (
                 <AdminNavigationMobile />
               )}
