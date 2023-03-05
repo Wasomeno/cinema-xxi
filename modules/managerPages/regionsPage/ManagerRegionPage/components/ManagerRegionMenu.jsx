@@ -2,7 +2,7 @@ import XMark from "@/components/Icons/XMark";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
-export const ManagerRegionMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
+const ManagerRegionMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
   return (
     <HeaderMenuModal>
       <HeaderMenuLink
@@ -27,3 +27,5 @@ export const ManagerRegionMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
     </HeaderMenuModal>
   );
 };
+
+export default ManagerRegionMenu;

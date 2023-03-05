@@ -9,9 +9,11 @@ import RegionList from "./components/RegionList";
 
 export const ManagerRegionPage = () => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
+
   const ManagerRegionMenu = dynamic(() =>
     import("./components/ManagerRegionMenu")
   );
+
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
       <ManagerDashboardHeader>Manage Regions</ManagerDashboardHeader>
