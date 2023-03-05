@@ -58,7 +58,7 @@ export const ManagerNavigationMobile = () => {
         />
         <button
           onClick={toggleShowManagerMenuModal}
-          className="flex w-80 flex-col items-center justify-center gap-2"
+          className="flex w-20 flex-col items-center justify-center gap-2"
         >
           <span className="h-8 w-8 rounded-full bg-blue-400" />
         </button>

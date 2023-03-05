@@ -12,7 +12,6 @@ export const AdminNavigation = () => {
   const { user } = useUserDetails();
   const [showNav, toggleShowNav] = useToggle(false);
   const { disconnect } = useDisconnect();
-  console.log("nav render");
   return (
     <motion.div
       initial={{ width: "70px" }}

@@ -5,6 +5,10 @@ import dynamic from "next/dynamic";
 import { MoonLoader } from "react-spinners";
 
 import NotValidManager from "../Manager/NotValidManager";
+import {
+  ManagerNavigation,
+  ManagerNavigationMobile,
+} from "../Navigations/ManagerNavigation";
 import { useManagerStatus } from "../reactQuery/queries/Roles/useManagerStatus";
 import { Paragraph } from "../shared/Texts";
 
@@ -12,17 +16,6 @@ const ManagerLayout = ({ children }) => {
   const { user, isConnected } = useUserDetails();
   const viewport = useViewport();
   const managerStatus = useManagerStatus({ address: user });
-
-  const ManagerNavigation = dynamic(() =>
-    import("../Navigations/ManagerNavigation/").then(
-      (component) => component.ManagerNavigation
-    )
-  );
-  const ManagerNavigationMobile = dynamic(() =>
-    import("../Navigations/ManagerNavigation/").then(
-      (component) => component.ManagerNavigationMobile
-    )
-  );
 
   return (
     <>
@@ -47,7 +40,9 @@ const ManagerLayout = ({ children }) => {
             <>
               {viewport.width > 1024 && <ManagerNavigation />}
               <main className="h-full w-full">{children}</main>
-              {viewport.width < 1024 && <ManagerNavigationMobile />}
+              {viewport.width < 1024 && viewport.height > 400 && (
+                <ManagerNavigationMobile />
+              )}
             </>
           )}
         </>

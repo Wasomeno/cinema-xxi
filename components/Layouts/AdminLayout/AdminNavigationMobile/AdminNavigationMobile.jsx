@@ -19,7 +19,7 @@ export const AdminNavigationMobile = () => {
 
   return (
     <>
-      <div className="sticky bottom-0 z-10 flex max-w-screen-lg items-center justify-start overflow-x-scroll bg-slate-100 shadow-md">
+      <div className="sticky bottom-0 z-10 flex max-w-screen-sm items-center justify-start overflow-x-scroll bg-slate-100 shadow-md">
         <AdminNavigationLinkMobile
           href="admin"
           icon="house"
@@ -51,7 +51,7 @@ export const AdminNavigationMobile = () => {
         </AdminNavigationLinkMobile>
         <button
           onClick={toggleShowAdminMenuModal}
-          className="flex w-80 flex-col items-center justify-center gap-2"
+          className="flex w-60 flex-col items-center justify-center gap-2"
         >
           <span className="h-8 w-8 rounded-full bg-blue-400" />
         </button>
