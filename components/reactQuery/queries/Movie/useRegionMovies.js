@@ -1,10 +1,10 @@
-export const useRegionMovies = ({ region }) => {
-  return {
-    data: [
-      { id: 1, title: "Movie 1" },
-      { id: 2, title: "Movie 2" },
-      { id: 3, title: "Movie 3" },
-      { id: 4, title: "Movie 4" },
-    ],
-  };
+import { query } from "../../query";
+import { regionKeys } from "../Region/regionKeysFactory";
+
+export const useRegionMovies = ({ regionId }) => {
+  const regionMovies = query({
+    queryKey: regionKeys.regionMovies(regionId),
+    url: "/api/regions/" + regionId + "/movies",
+  });
+  return regionMovies;
 };

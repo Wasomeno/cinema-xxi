@@ -5,4 +5,5 @@ export const cinemaKeys = {
   cinemaDetails: (cinemaid) => cinemaDetailsKeys("details", cinemaid),
   cinemaShowtimes: (cinemaId) => cinemaDetailsKeys("showtimes", cinemaId),
   cinemaMovies: (cinemaId) => cinemaDetailsKeys("movies", cinemaId),
+  cinemaAdmins: (cinemaId) => cinemaDetailsKeys("admins", cinemaId),
 };

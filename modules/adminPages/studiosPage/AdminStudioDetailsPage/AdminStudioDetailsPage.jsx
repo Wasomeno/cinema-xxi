@@ -17,10 +17,11 @@ export const AdminStudioDetailsPage = () => {
         <div className="w-full lg:w-5/6">
           <AdminSubHeader
             object="Studio Details"
-            SubHeaderMenu={StudioDetailsMenu}
+            toggleShowMenu={toggleShowMenu}
           />
         </div>
       </div>
+      {showMenu && <StudioDetailsMenu toggleShowMenu={toggleShowMenu} />}
     </AnimatedContainer>
   );
 };

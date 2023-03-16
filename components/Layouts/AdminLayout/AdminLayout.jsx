@@ -6,8 +6,20 @@ import dynamic from "next/dynamic";
 
 import { useCinemaAdminDetails } from "../../reactQuery/queries/Roles/useCinemaAdminDetails";
 import { useCinemaAdminStatus } from "../../reactQuery/queries/Roles/useCinemaAdminStatus";
-import { AdminNavigation } from "./AdminNavigation";
-import { AdminNavigationMobile } from "./AdminNavigationMobile";
+
+const NotValidAdmin = dynamic(() => import("./NotValidAdmin"));
+
+const AdminStatusLoading = dynamic(() => import("./AdminStatusLoading"));
+
+const AdminNavigation = dynamic(() =>
+  import("./AdminNavigation").then((component) => component.AdminNavigation)
+);
+
+const AdminNavigationMobile = dynamic(() =>
+  import("./AdminNavigationMobile").then(
+    (component) => component.AdminNavigationMobile
+  )
+);
 
 export const AdminLayout = ({ children }) => {
   const { user, isConnected } = useUserDetails();
@@ -15,10 +27,6 @@ export const AdminLayout = ({ children }) => {
   const Context = appContext;
   const cinemaAdminStatus = useCinemaAdminStatus({ address: user });
   const adminDetails = useCinemaAdminDetails({ admin: user });
-
-  const NotValidAdmin = dynamic(() => import("./NotValidAdmin"));
-
-  const AdminStatusLoading = dynamic(() => import("./AdminStatusLoading"));
 
   return (
     <>

@@ -9,6 +9,7 @@ import RegionList from "./components/RegionList";
 
 export const ManagerRegionPage = () => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
+  const [showMenu, toggleShowMenu] = useToggle(false);
 
   const ManagerRegionMenu = dynamic(() =>
     import("./components/ManagerRegionMenu")
@@ -19,17 +20,19 @@ export const ManagerRegionPage = () => {
       <ManagerDashboardHeader>Manage Regions</ManagerDashboardHeader>
       <div className="flex justify-center">
         <div className="w-full lg:w-5/6">
-          <ManagerSubHeader
-            object="movies"
-            toggleDeleteMode={toggleDeleteMode}
-            SubHeaderMenu={ManagerRegionMenu}
-          />
+          <ManagerSubHeader object="movies" toggleShowMenu={toggleShowMenu} />
           <RegionList
             deleteMode={deleteMode}
             toggleDeleteMode={toggleDeleteMode}
           />
         </div>
       </div>
+      {showMenu && (
+        <ManagerRegionMenu
+          toggleShowMenu={toggleShowMenu}
+          toggleDeleteMode={toggleDeleteMode}
+        />
+      )}
     </AnimatedContainer>
   );
 };

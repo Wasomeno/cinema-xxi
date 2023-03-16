@@ -1,29 +1,23 @@
-import XMark from "@/components/Icons/XMark";
+import DeleteModeButton from "@/components/DeleteModeButton";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
 const ManagerRegionMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
   return (
-    <HeaderMenuModal>
+    <HeaderMenuModal toggleShowMenu={toggleShowMenu}>
       <HeaderMenuLink
         href="/manager/region/add"
         text="Add new region"
-        context="add"
+        icon="plus"
       />
-      <button
+      <DeleteModeButton
         onClick={() => {
           toggleShowMenu();
           toggleDeleteMode();
         }}
-        className="flex h-full w-full items-center justify-evenly p-1 text-sm"
       >
-        <div className="w-1/6">
-          <XMark size="4" />
-        </div>
-        <div className="w-4/6 text-center">
-          <p className="font-poppins text-xs">Delete Regions</p>
-        </div>
-      </button>
+        Delete Region
+      </DeleteModeButton>
     </HeaderMenuModal>
   );
 };

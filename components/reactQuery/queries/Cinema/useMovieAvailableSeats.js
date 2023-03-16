@@ -1,12 +1,45 @@
+import { useStudioDetails } from "./useStudioDetails";
+import { useTakenSeats } from "./useTakenSeats";
+
 export const useMovieAvailableSeats = ({
   region,
-  cinema,
-  studio,
-  showtime,
+  selectedDate,
+  cinemaId,
+  studioId,
+  showtimeId,
 }) => {
-  return {
-    data: [
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-  };
+  let seats = [];
+  let column = [];
+  const seatsTaken = useTakenSeats({
+    cinemaId: cinemaId,
+    selectedDate: selectedDate,
+    showtimeId: showtimeId,
+    studioId: studioId,
+  });
+  const studioDetails = useStudioDetails({
+    region: region,
+    cinemaId: cinemaId,
+    studioId: studioId,
+  });
+  for (let i = 0; i < studioDetails.data?.capacity; i++) {
+    if (i <= 14) {
+      column.push(i + 1);
+      if (i === 14) {
+        seats.push(column);
+        column = [];
+      }
+    } else if (i > 14 && i <= 44) {
+      column.push(i + 1);
+      if (i === 44) {
+        seats.push(column);
+        column = [];
+      }
+    } else {
+      column.push(i + 1);
+      if (i === 59) {
+        seats.push(column);
+      }
+    }
+  }
+  return { seats: seats, seatsTaken: seatsTaken };
 };

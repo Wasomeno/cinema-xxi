@@ -3,11 +3,11 @@ import React from "react";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
-export const StudioListMenu = () => {
+export const StudioListMenu = ({ toggleShowMenu, toggleDeleteMode }) => {
   return (
-    <HeaderMenuModal>
+    <HeaderMenuModal toggleShowMenu={toggleShowMenu}>
       <HeaderMenuLink
-        context="add"
+        icon="plus"
         href="/admin/studios/add"
         text="Add New Studio"
       />

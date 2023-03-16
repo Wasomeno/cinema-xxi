@@ -2,8 +2,7 @@ import useToggle from "hooks/useToggle";
 
 import EllipsisVertical from "./Icons/EllipsisVertical";
 
-export const AdminSubHeader = ({ SubHeaderMenu, toggleDeleteMode, object }) => {
-  const [showMenu, toggleShowMenu] = useToggle(false);
+export const AdminSubHeader = ({ toggleShowMenu, object }) => {
   return (
     <>
       <div className="my-4 flex items-center justify-between">
@@ -19,12 +18,6 @@ export const AdminSubHeader = ({ SubHeaderMenu, toggleDeleteMode, object }) => {
           >
             <EllipsisVertical />
           </button>
-          {showMenu && (
-            <SubHeaderMenu
-              toggleShowMenu={toggleShowMenu}
-              toggleDeleteMode={toggleDeleteMode}
-            />
-          )}
         </span>
       </div>
     </>

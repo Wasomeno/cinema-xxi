@@ -1,7 +1,15 @@
+import { useEffect } from "react";
+
 import CheckMark from "@/components/Icons/Checkmark";
 
 export const WalletSuccess = ({ toggleWalletModal }) => {
-  setTimeout(() => toggleWalletModal(), 1500);
+  useEffect(() => {
+    const walletTimeout = setTimeout(() => toggleWalletModal(), 1500);
+    return () => {
+      clearTimeout(walletTimeout);
+    };
+  }, [toggleWalletModal]);
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4">
       <div className="p-2">

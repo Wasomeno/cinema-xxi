@@ -1,40 +1,67 @@
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
 
+import House from "@/components/Icons/House";
 import RectangeStack from "@/components/Icons/RectangeStack";
-
-import { House } from "../../Icons/House";
-import Ticket from "../../Icons/Ticket";
+import Ticket from "@/components/Icons/Ticket";
 
 const AppNavigationMobile = () => {
+  const { pathname } = useRouter();
+  const currentPath = pathname.split("/")[2];
   return (
-    <div className="sticky bottom-0 z-20 flex h-16 w-full items-center justify-evenly bg-slate-900 p-2 md:hidden">
+    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly bg-slate-900 md:hidden">
       <Link
         href="/app"
-        className="flex w-3/6 flex-col items-center justify-center gap-1 p-2"
+        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
       >
-        <House size="5" color="white" />
-        <p className="font-poppins text-xs font-light tracking-wider text-white">
+        <House
+          size="5"
+          color={!currentPath ? "stroke-blue-300" : "stroke-white"}
+        />
+        <p
+          className={
+            "font-poppins text-xs font-light tracking-wider" +
+            " " +
+            (!currentPath ? "text-blue-300" : "text-white")
+          }
+        >
           Home
         </p>
       </Link>
       <Link
         href="/app/cinemas"
-        className="flex w-3/6 flex-col items-center justify-center gap-1 p-2"
+        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
       >
-        <RectangeStack size="5" color="white" />
+        <RectangeStack
+          size="5"
+          color={currentPath === "cinemas" ? "stroke-blue-300" : "stroke-white"}
+        />
 
-        <p className="font-poppins text-xs font-light tracking-wider text-white">
+        <p
+          className={
+            "font-poppins text-xs font-light tracking-wider text-white" +
+            " " +
+            (currentPath === "cinemas" ? "text-blue-300" : "text-white")
+          }
+        >
           Cinemas
         </p>
       </Link>
       <Link
         href="/app/tickets"
-        className="flex w-3/6 flex-col items-center justify-center gap-1 p-2"
+        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
       >
-        <Ticket size="5" color="white" />
-
-        <p className="font-poppins text-xs font-light tracking-wider text-white">
+        <Ticket
+          size="5"
+          color={currentPath === "tickets" ? "stroke-blue-300" : "stroke-white"}
+        />
+        <p
+          className={
+            "font-poppins text-xs font-light tracking-wider text-white" +
+            " " +
+            (currentPath === "tickets" ? "text-blue-300" : "text-white")
+          }
+        >
           Tickets
         </p>
       </Link>

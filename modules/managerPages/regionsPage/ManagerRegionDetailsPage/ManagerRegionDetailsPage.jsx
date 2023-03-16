@@ -38,13 +38,6 @@ export const ManagerRegionDetailsPage = () => {
               >
                 <EllipsisVertical />
               </button>
-              {showMenu && (
-                <ManagerRegionDetailsMenu
-                  region={query?.regionId}
-                  toggleDeleteMode={toggleDeleteMode}
-                  toggleShowMenu={toggleShowMenu}
-                />
-              )}
             </div>
           </div>
           <div className="p-2">
@@ -58,6 +51,13 @@ export const ManagerRegionDetailsPage = () => {
           />
         </div>
       </div>
+      {showMenu && (
+        <ManagerRegionDetailsMenu
+          region={query?.regionId}
+          toggleDeleteMode={toggleDeleteMode}
+          toggleShowMenu={toggleShowMenu}
+        />
+      )}
     </AnimatedContainer>
   );
 };

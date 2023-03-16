@@ -68,7 +68,7 @@ export const AdminNavigation = () => {
           </AdminNavigationLink>
           <AdminNavigationLink
             href="/admin/studios"
-            icon="stacks"
+            icon="rectangleStack"
             showNav={showNav}
           >
             Manage Studios

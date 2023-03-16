@@ -14,7 +14,11 @@ export const useSelectDeselect = (defaultValue) => {
     );
   };
 
-  return [values, selectValue, deselectValue];
+  const clear = () => {
+    setValues([]);
+  };
+
+  return [values, selectValue, deselectValue, clear];
 };
 
 export const useSelectMovies = (defaultValue) => {

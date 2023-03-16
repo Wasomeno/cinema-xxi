@@ -3,19 +3,19 @@ import useToggle from "hooks/useToggle";
 import { useUserDetails } from "hooks/useUserDetails";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import React from "react";
+
+import { ConnectWalletModal } from "@/components/ConnectWalletModal";
 
 const AppNavigation = () => {
   const { isConnected, user } = useUserDetails();
   const [showWalletModal, toggleShowWalletModal] = useToggle(false);
   const [showUserModal, toggleShowUserModal] = useToggle(false);
 
-  const ConnectWalletModal = dynamic(() => import("../../ConnectWalletModal"));
   const UserMenuModal = dynamic(() => import("../../UserMenuModal"));
 
   return (
     <>
-      <div className="sticky top-0 left-0 z-20 flex h-16 w-full items-center justify-between bg-slate-50 p-2">
+      <div className="sticky top-0 left-0 z-10 flex h-16 w-full items-center justify-between bg-slate-50 p-2">
         <div className="w-2/12 p-2 text-center">
           <span className="font-inter border-2 border-slate-900 bg-slate-50 px-2 text-sm tracking-widest text-slate-900 sm:text-base md:text-lg">
             XXI
@@ -42,7 +42,7 @@ const AppNavigation = () => {
               className="flex w-full items-center justify-center gap-4 rounded-full border border-transparent p-1 transition duration-300 ease-in-out hover:border-blue-900"
             >
               <span className="h-8 w-8 rounded-full border-2 bg-blue-400" />
-              <p className="font-poppins hidden text-sm  sm:hidden md:block">
+              <p className="hidden font-poppins text-sm  sm:hidden md:block">
                 {user.slice(0, 6)}...
                 {user.slice(-6, -1) + user.slice(-1)}
               </p>
@@ -50,7 +50,7 @@ const AppNavigation = () => {
           ) : (
             <button
               onClick={() => toggleShowWalletModal()}
-              className="font-poppins rounded-lg bg-slate-900 p-2 px-4 text-xs tracking-wider text-white md:text-sm"
+              className="rounded-lg bg-slate-900 p-2 px-4 font-poppins text-xs tracking-wider text-white md:text-sm"
             >
               Connect
             </button>

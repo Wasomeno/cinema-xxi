@@ -1,14 +1,10 @@
 import { useRouter } from "next/router";
-import React from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
-import MovieListCard from "@/components/MovieListCard";
 import { useStudioMovies } from "@/components/reactQuery/queries/Cinema/useStudioMovies";
-import { Paragraph, Subtitle } from "@/components/shared/Texts";
-
-import MoviesInStudioMenu from "./MoviesInStudioMenu";
+import { Subtitle } from "@/components/shared/Texts";
 
 export const StudioMoviesPage = () => {
   const { query } = useRouter();

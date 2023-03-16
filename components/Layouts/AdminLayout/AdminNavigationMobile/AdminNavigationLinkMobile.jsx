@@ -1,15 +1,6 @@
 import Link from "next/link";
-import React from "react";
 
-import { Cinema } from "@/components/Icons/Cinema";
-import { House } from "@/components/Icons/House";
-import Time from "@/components/Icons/Time";
-
-const icons = {
-  cinema: Cinema,
-  house: House,
-  time: Time,
-};
+import { iconMap } from "@/components/Icons/iconMap";
 
 export const AdminNavigationLinkMobile = ({
   href,
@@ -17,21 +8,29 @@ export const AdminNavigationLinkMobile = ({
   icon,
   activeRoute,
 }) => {
-  const Icon = icons[icon];
+  const Icon = iconMap[icon];
   return (
     <Link
       href={"/admin/" + (href === "admin" ? "" : href)}
-      className={
-        (activeRoute === href ? "bg-blue-300 " : "") +
-        "flex h-16 w-96 flex-col items-center justify-center gap-2 transition duration-300 ease-in-out"
-      }
+      className="flex h-16 w-96 flex-col items-center justify-center gap-2 transition duration-300 ease-in-out"
       prefetch={false}
     >
       <span>
-        <Icon size="5" />
+        <Icon
+          size="5"
+          color={activeRoute === href ? "stroke-blue-800" : "stroke-black"}
+        />
       </span>
       <span className="text-center">
-        <p className="font-poppins text-xs">{children}</p>
+        <p
+          className={
+            (activeRoute === href ? "text-blue-800" : "text-slate-900") +
+            " " +
+            "font-poppins text-xs"
+          }
+        >
+          {children}
+        </p>
       </span>
     </Link>
   );

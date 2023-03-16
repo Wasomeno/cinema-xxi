@@ -7,7 +7,7 @@ export const AvailableShowtimes = ({ selectShowtime }) => {
   return (
     <div className="mb-4">
       <div className="my-4">
-        <Paragraph size="sm">Available Showtimes</Paragraph>
+        <Paragraph size="xs">Available Showtimes</Paragraph>
       </div>
       <DataContainer
         className="flex flex-col items-center justify-start gap-4"
@@ -15,15 +15,15 @@ export const AvailableShowtimes = ({ selectShowtime }) => {
         loading={cinemaShowtimes.isLoading}
       >
         {cinemaShowtimes.data?.length < 1 ? (
-          <Paragraph size="sm">No active showtimes</Paragraph>
+          <Paragraph size="xs">No active showtimes</Paragraph>
         ) : (
           cinemaShowtimes.data?.map((showtime) => (
             <button
               key={showtime.id}
-              onClick={() => selectShowtime(showtime.time)}
+              onClick={() => selectShowtime(showtime)}
               className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
             >
-              <Paragraph size="sm">{showtime.time}</Paragraph>
+              <Paragraph size="xs">{showtime.time}</Paragraph>
             </button>
           ))
         )}

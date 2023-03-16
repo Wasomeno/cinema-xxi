@@ -1,3 +1,4 @@
+import { regionKeys } from "../../queries/Region/regionKeysFactory";
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
@@ -7,6 +8,8 @@ export const addCinema = ({ regionId, cinemaName, studioCapacities }) => {
     object: "cinema",
     redirect: true,
     redirectUrl: "/manager/region/" + regionId,
+    invalidateQueries: true,
+    queryKeys: regionKeys.regionDetails(regionId),
   });
   const studioDetails = studioCapacities.map((capacity, index) => ({
     studio: parseInt(index + 1),

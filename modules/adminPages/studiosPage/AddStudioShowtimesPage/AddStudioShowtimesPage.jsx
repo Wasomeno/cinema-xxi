@@ -1,10 +1,10 @@
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
-import { addShowTimesToStudio } from "@/components/reactQuery/mutations/Cinema/addStudioShowTime";
+import { addStudioShowtimes } from "@/components/reactQuery/mutations/Cinema/addStudioShowTime";
 
 import { AvailableShowtimes } from "./components/AvailableShowtimes";
 import { SelectedShowtimes } from "./components/SelectedShowtimes";
@@ -12,14 +12,21 @@ import { SelectedShowtimes } from "./components/SelectedShowtimes";
 export const AddStudioShowtimesPage = () => {
   const { query } = useRouter();
 
-  const [selectedShowtimes, selectShowtime, deselectShowtime] =
-    useSelectDeselect([]);
+  const [selectedShowtimes, setSelectedShowtimes] = useState([]);
 
-  const addStudioShowtimeMutation = addShowTimesToStudio({
-    region: 1,
-    cinema: 2,
+  function selectShowtime(showtime) {
+    setSelectedShowtimes((currentSelected) => [...currentSelected, showtime]);
+  }
+
+  function deselectShowtime(id) {
+    setSelectedShowtimes((currentSelected) =>
+      currentSelected.filter((showtime) => id !== showtime.id)
+    );
+  }
+
+  const addStudioShowtimeMutation = addStudioShowtimes({
     showtimes: selectedShowtimes,
-    studio: query.studio,
+    studioId: query?.studio,
   });
 
   return (
@@ -36,8 +43,8 @@ export const AddStudioShowtimesPage = () => {
           />
           <div className="mt-4 text-center">
             <button
-              onClick={() => addStudioShowtimeMutation()}
-              className="font-poppins w-3/6 rounded-md bg-slate-900 p-2 text-sm text-white"
+              onClick={addStudioShowtimeMutation.mutate}
+              className="w-3/6 rounded-md bg-slate-900 p-2 font-poppins text-sm text-white"
             >
               Submit
             </button>

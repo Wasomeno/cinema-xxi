@@ -5,9 +5,10 @@ import { useRouter } from "next/router";
 import { useLoading, useToast } from "../../../store/stores";
 
 const contextLoadingTexts = {
-  add: "Adding new ",
-  delete: "Deleting ",
-  update: "Updating ",
+  add: "Adding new",
+  delete: "Deleting",
+  update: "Updating",
+  mint: "Minting",
 };
 
 export const createSideEffects = ({
@@ -23,13 +24,19 @@ export const createSideEffects = ({
   const router = useRouter();
   return {
     onMutate: () => {
-      setLoadingText(contextLoadingTexts[context] + object);
+      setLoadingText(contextLoadingTexts[context] + " " + object);
       setLoading(true);
     },
     onError: (error) => {
+      let errorMessage;
+      if (error.reason) {
+        errorMessage = error.reason;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
       setLoading(false);
-      // toastError(error.message);
-      console.log(error);
+      console.log(errorMessage);
+      toastError(errorMessage);
     },
     onSuccess: async (response) => {
       const responseJson = await response.json();

@@ -6,7 +6,6 @@ import ChevronLeft from "../Icons/ChevronLeft";
 import { Title } from "../shared/Texts";
 
 const ManagerHeader = ({ children, withBackButton }) => {
-  const [option, toggleOption] = useToggle(false);
   const { back } = useRouter();
   return (
     <>

@@ -7,8 +7,7 @@ import { Paragraph } from "@/components/shared/Texts";
 export const AvailableShowtimes = ({ selectShowtime }) => {
   const { query } = useRouter();
   const studioShowtimes = useStudioShowTimes({
-    cinemaId: 2,
-    studio: 2,
+    studio: query?.studio,
   });
 
   return (
@@ -27,8 +26,8 @@ export const AvailableShowtimes = ({ selectShowtime }) => {
           studioShowtimes.data?.showtime.map((showtime) => (
             <div
               key={showtime.id}
-              onClick={() => selectShowtime(showtime.time)}
-              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
+              onClick={() => selectShowtime(showtime)}
+              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 text-sm shadow-md"
             >
               {parseInt(showtime.time)}
             </div>

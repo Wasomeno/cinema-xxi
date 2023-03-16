@@ -5,12 +5,20 @@ import dynamic from "next/dynamic";
 import { MoonLoader } from "react-spinners";
 
 import NotValidManager from "../Manager/NotValidManager";
-import {
-  ManagerNavigation,
-  ManagerNavigationMobile,
-} from "../Navigations/ManagerNavigation";
 import { useManagerStatus } from "../reactQuery/queries/Roles/useManagerStatus";
 import { Paragraph } from "../shared/Texts";
+
+const ManagerNavigation = dynamic(() =>
+  import("../Navigations/ManagerNavigation").then(
+    (component) => component.ManagerNavigation
+  )
+);
+
+const ManagerNavigationMobile = dynamic(() =>
+  import("../Navigations/ManagerNavigation").then(
+    (component) => component.ManagerNavigationMobile
+  )
+);
 
 const ManagerLayout = ({ children }) => {
   const { user, isConnected } = useUserDetails();
@@ -39,9 +47,7 @@ const ManagerLayout = ({ children }) => {
           ) : (
             <>
               {viewport.width > 1024 && <ManagerNavigation />}
-              <main className="h-full w-full overflow-y-scroll">
-                {children}
-              </main>
+              <div className="h-full w-full overflow-y-scroll">{children}</div>
               {viewport.width < 1024 && viewport.height > 400 && (
                 <ManagerNavigationMobile />
               )}

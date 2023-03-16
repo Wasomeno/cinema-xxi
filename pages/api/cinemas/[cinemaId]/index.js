@@ -6,8 +6,23 @@ export default async function cinemaDetailsHandler(req, res) {
   if (req.method === "GET") {
     const cinemaDetails = await prisma.cinema.findUnique({
       where: { id: parseInt(cinemaId) },
-      include: { movie: true, admin: true, region: true, studio: true },
+      include: {
+        movie: true,
+        admin: true,
+        region: true,
+        studio: true,
+        showtimes: true,
+        transactions: true,
+      },
     });
-    res.status(200).json(cinemaDetails);
+    res
+      .status(200)
+      .json({
+        ...cinemaDetails,
+        transactions: cinemaDetails.transactions.map((transaction) => ({
+          ...transaction,
+          showtime: transaction.showtime.toString(),
+        })),
+      });
   }
 }

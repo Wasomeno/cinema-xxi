@@ -1,20 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 
-import { Cinema } from "@/components/Icons/Cinema";
-import { House } from "@/components/Icons/House";
-import RectangeStack from "@/components/Icons/RectangeStack";
-import Time from "@/components/Icons/Time";
-
-const icons = {
-  cinema: Cinema,
-  house: House,
-  time: Time,
-  stacks: RectangeStack,
-};
+import { iconMap } from "@/components/Icons/iconMap";
 
 export const AdminNavigationLink = ({ href, children, icon, showNav }) => {
-  const Icon = icons[icon];
+  const Icon = iconMap[icon];
   return (
     <Link
       href={href}
@@ -26,7 +16,7 @@ export const AdminNavigationLink = ({ href, children, icon, showNav }) => {
         transition={{ duration: 0.25, ease: "easeInOut" }}
         className={"flex justify-center"}
       >
-        <Icon size="5" />
+        <Icon size="5" color={"stroke-black"} />
       </motion.span>
       <AnimatePresence>
         {showNav && (

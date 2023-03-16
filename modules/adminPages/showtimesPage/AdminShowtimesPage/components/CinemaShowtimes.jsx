@@ -1,3 +1,4 @@
+import { useAdminDetailsContext } from "context/AppContext";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
@@ -11,8 +12,10 @@ import { Paragraph } from "@/components/shared/Texts";
 import CinemaShowtimesMenu from "./CinemaShowtimesMenu";
 
 const CinemaShowtimes = () => {
+  const adminDetails = useAdminDetailsContext();
   const [deleteMode, toggleDeleteMode] = useToggle(false);
-  const cinemaShowtimes = useCinemaShowTimes();
+  const [showMenu, toggleShowMenu] = useToggle(false);
+  const cinemaShowtimes = useCinemaShowTimes(adminDetails.cinema);
   const [
     showtimesToDelete,
     selectShowtimesToDelete,
@@ -29,11 +32,7 @@ const CinemaShowtimes = () => {
   return (
     <div className="my-4 flex justify-center">
       <div className="w-full p-2 lg:w-5/6">
-        <AdminSubHeader
-          SubHeaderMenu={CinemaShowtimesMenu}
-          object="showtimes"
-          toggleDeleteMode={toggleDeleteMode}
-        />
+        <AdminSubHeader object="showtimes" toggleShowMenu={toggleShowMenu} />
         <div className="my-2 flex items-center justify-evenly border-b border-b-slate-600 p-2">
           <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-1/12">
             Id
@@ -59,10 +58,10 @@ const CinemaShowtimes = () => {
           ) : (
             cinemaShowtimes.data?.map((showtime) => (
               <button
+                key={showtime.id}
                 onClick={() =>
                   deleteMode && selectShowtimesToDelete(showtime.time)
                 }
-                key={showtime.id}
                 className={
                   (showtimesToDelete.includes(showtime.time) &&
                     deleteMode &&
@@ -96,6 +95,12 @@ const CinemaShowtimes = () => {
           />
         )}
       </div>
+      {showMenu && (
+        <CinemaShowtimesMenu
+          toggleDeleteMode={toggleDeleteMode}
+          toggleShowMenu={toggleShowMenu}
+        />
+      )}
     </div>
   );
 };

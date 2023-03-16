@@ -33,11 +33,12 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
   return (
     <>
       <AnimatedContainer
-        onClick={() => toggleShowUserModal()}
-        className="fixed left-0 bottom-0 z-30 h-screen w-screen bg-black bg-opacity-70"
+        onClick={toggleShowUserModal}
+        className="z-15 fixed left-0 bottom-0 h-screen w-screen bg-black bg-opacity-70"
       />
-      <AnimatedContainer className="fixed bottom-0 z-30 h-80 w-full rounded-t-lg bg-slate-800 p-4 md:top-12 md:right-5 md:h-96 md:w-80 md:rounded-lg">
-        <div className="flex items-center justify-between">
+      <AnimatedContainer className="fixed bottom-0 z-20 flex h-80 w-full flex-col items-center gap-4 rounded-t-lg bg-slate-800 p-4 md:top-12 md:right-5 md:h-96 md:w-80 md:rounded-lg">
+        <div className="h-1 w-2/6 rounded-full bg-slate-400 bg-opacity-25" />
+        <div className="flex w-full items-center justify-between">
           <div className="flex w-5/12 items-center justify-evenly md:w-3/6">
             <div className="h-8 w-8 rounded-full border-2 bg-blue-400" />
             <p className="font-poppins text-sm font-medium tracking-wider text-slate-50">

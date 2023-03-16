@@ -1,26 +1,18 @@
 import Link from "next/link";
 import React from "react";
 
-import { Cinema } from "../Icons/Cinema";
-import Minus from "../Icons/Minus";
-import Plus from "../Icons/Plus";
+import { iconMap } from "../Icons/iconMap";
 
-const contextIcons = {
-  add: Plus,
-  delete: Minus,
-  list: Cinema,
-};
-
-const HeaderMenuLink = ({ href, context, text }) => {
-  const Icon = contextIcons[context];
+const HeaderMenuLink = ({ href, icon, text }) => {
+  const LinkIcon = iconMap[icon];
   return (
     <Link
       href={href}
-      className="flex h-full w-full items-center justify-evenly p-1"
+      className="flex h-14 w-5/6 items-center justify-evenly rounded-md bg-slate-50 p-1 shadow-md"
       prefetch={false}
     >
       <div className="w-1/6">
-        <Icon size="4" />
+        <LinkIcon size="5" color="stroke-black" />
       </div>
       <div className="w-4/6 text-center">
         <p className="font-poppins text-xs lg:text-sm">{text}</p>

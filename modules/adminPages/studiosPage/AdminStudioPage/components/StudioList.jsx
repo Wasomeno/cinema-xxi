@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 import DataContainer from "@/components/DataContainer";
 import { useCinemaStudios } from "@/components/reactQuery/queries/Cinema/useCinemaStudios";
@@ -18,10 +17,10 @@ export const StudioList = () => {
           <Paragraph size="sm">No Active Studio</Paragraph>
         </div>
       ) : (
-        cinemaStudios.data?.studio.map((studio, index) => (
+        cinemaStudios.data?.studio.map((studio) => (
           <Link
-            key={index}
-            href={"/admin/studios/" + studio.studio}
+            key={studio.id}
+            href={"/admin/studios/" + studio.id}
             className="flex h-14 w-full items-center justify-center rounded-md bg-slate-200 p-2 shadow-sm"
           >
             <div className="w-2/6 text-center">

@@ -10,9 +10,9 @@ import CinemaDetailsCard from "./components/CinemaDetailsCard";
 export const ManagerCinemaDetailsPage = () => {
   const { query } = useRouter();
   const [showModal, toggleShowModal] = useToggle(false);
-  const cinemaDetails = useCinemaDetails({
-    cinema: query?.cinemaId,
-  });
+  const cinemaDetails = useCinemaDetails(query?.cinemaId);
+
+  console.log(cinemaDetails);
 
   return (
     <AnimatedContainer className="h-screen p-4">
@@ -33,11 +33,11 @@ export const ManagerCinemaDetailsPage = () => {
             <div className="grid w-96 grid-cols-2 gap-4">
               <CinemaDetailsCard
                 title="Studios"
-                value={cinemaDetails.data?.studio?.length}
+                value={cinemaDetails.data?.studio.length}
               />
               <CinemaDetailsCard
                 title="Movies"
-                value={cinemaDetails.data?.movie?.length}
+                value={cinemaDetails.data?.movie.length}
                 withLink
                 link={
                   "/manager/region/" +
@@ -49,7 +49,7 @@ export const ManagerCinemaDetailsPage = () => {
               />
               <CinemaDetailsCard
                 title="Showtimes"
-                value={cinemaDetails.data?.showtime?.length}
+                value={cinemaDetails.data?.showtimes.length}
                 withLink
                 link={
                   "/manager/region/" +
@@ -59,7 +59,15 @@ export const ManagerCinemaDetailsPage = () => {
                   "/showtimes"
                 }
               />
-              <CinemaDetailsCard title="Capacity Total" value={"50"} />
+              <CinemaDetailsCard
+                title="Capacity Total"
+                value={cinemaDetails.data?.studio.reduce(
+                  (currentTotal, details) => {
+                    return details.capacity + currentTotal;
+                  },
+                  0
+                )}
+              />
             </div>
           </div>
           <div className="flex h-full w-full snap-end items-center justify-start">
@@ -76,10 +84,9 @@ export const ManagerCinemaDetailsPage = () => {
                   "/admins"
                 }
               />
-              <CinemaDetailsCard title="Transactions" value={50} />
               <CinemaDetailsCard
-                title="Showtimes"
-                value={cinemaDetails.data?.showtimeAmount}
+                title="Transactions"
+                value={cinemaDetails.data?.transactions.length}
               />
             </div>
           </div>

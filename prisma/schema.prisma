@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -8,21 +9,24 @@ datasource db {
 }
 
 model Region {
-  id     Int      @id @default(autoincrement())
-  name   String   @db.VarChar(255)
-  admin  Admin[]
-  cinema Cinema[]
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(255)
+  admin        Admin[]
+  cinema       Cinema[]
+  transactions Transaction[]
 }
 
 model Cinema {
-  id        Int        @id @default(autoincrement())
-  regionId  Int
-  name      String     @db.VarChar(255)
-  admin     Admin[]
-  region    Region     @relation(fields: [regionId], references: [id])
-  showtimes Showtime[]
-  studio    Studio[]
-  movie     Movie[]    @relation("CinemaToMovie")
+  id           Int           @id @default(autoincrement())
+  regionId     Int
+  name         String        @db.VarChar(255)
+  admin        Admin[]
+  region       Region        @relation(fields: [regionId], references: [id])
+  seats        Seats[]
+  showtimes    Showtime[]
+  studio       Studio[]
+  transactions Transaction[]
+  movie        Movie[]       @relation("CinemaToMovie")
 }
 
 model Studio {
@@ -35,33 +39,34 @@ model Studio {
 }
 
 model Showtime {
-  id       Int      @id @default(autoincrement())
-  cinemaId Int
-  movieId  Int?
-  studioId Int?
-  time     Int
-  cinema   Cinema   @relation(fields: [cinemaId], references: [id], onDelete: Cascade)
-  movie    Movie?   @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  studio   Studio?  @relation(fields: [studioId], references: [id], onDelete: Cascade)
-  tickets  Ticket[]
+  id            Int     @id @default(autoincrement())
+  cinemaId      Int
+  movieId       Int?
+  studioId      Int?
+  time          Int
+  showtimeSeats Seats[]
+  cinema        Cinema  @relation(fields: [cinemaId], references: [id], onDelete: Cascade)
+  movie         Movie?  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  studio        Studio? @relation(fields: [studioId], references: [id], onDelete: Cascade)
 }
 
 model Movie {
-  id            Int        @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   duration      Int
-  casts         String[]   @db.VarChar(255)
+  casts         String[]      @db.VarChar(255)
   synopsis      String
-  title         String     @db.VarChar(255)
+  title         String        @db.VarChar(255)
   watchedAmount Int
   showtime      Showtime[]
-  cinema        Cinema[]   @relation("CinemaToMovie")
+  transactions  Transaction[]
+  cinema        Cinema[]      @relation("CinemaToMovie")
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  address      String   @unique
+  id           Int           @id @default(autoincrement())
+  address      String        @unique
   name         String
-  transactions String[]
+  transactions Transaction[]
 }
 
 model Manager {
@@ -77,25 +82,43 @@ model Admin {
   address   String
   name      String
   createdAt DateTime @default(now()) @db.Timestamp(6)
-  regionId  Int      @default(1)
+  regionId  Int      @default(0)
   cinema    Cinema   @relation(fields: [cinemaId], references: [id])
   region    Region   @relation(fields: [regionId], references: [id])
 }
 
 model Transaction {
-  id        Int      @id @default(autoincrement())
-  cinema    Int
-  user      String
-  total     Int
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  tickets   Ticket[]
+  id          Int      @id @default(autoincrement())
+  user        String
+  total       Float
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  ticketIds   String[]
+  cinemaId    Int
+  movieId     Int
+  regionId    Int
+  showtime    BigInt
+  studio      Int
+  cinema      Cinema   @relation(fields: [cinemaId], references: [id])
+  movie       Movie    @relation(fields: [movieId], references: [id])
+  region      Region   @relation(fields: [regionId], references: [id])
+  userDetails User     @relation(fields: [user], references: [address])
 }
 
-model Ticket {
-  id            Int         @id @default(autoincrement())
-  showtimeId    Int
-  createdAt     DateTime    @default(now()) @db.Timestamp(6)
-  transactionId Int
-  showtime      Showtime    @relation(fields: [showtimeId], references: [id])
-  transaction   Transaction @relation(fields: [transactionId], references: [id])
+model SeatsDates {
+  id    Int     @id @default(autoincrement())
+  date  Int     @unique
+  month Int
+  year  Int
+  seats Seats[]
+}
+
+model Seats {
+  id          Int        @id @default(autoincrement())
+  showtimeId  Int
+  cinemaId    Int
+  seatsTaken  Int[]
+  seatsDateId Int
+  cinema      Cinema     @relation(fields: [cinemaId], references: [id])
+  seatsDates  SeatsDates @relation(fields: [seatsDateId], references: [id])
+  showtime    Showtime   @relation(fields: [showtimeId], references: [id])
 }

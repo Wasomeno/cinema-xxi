@@ -44,19 +44,19 @@ const ManagerAddRegionCinema = () => {
       </ManagerHeader>
       <div className="flex justify-center">
         <FormContainer onSubmit={addCinemaMutation.mutate}>
-          <div className="m-2 flex w-full flex-col items-center justify-center">
-            <Paragraph size="sm" style="medium" margin="3">
+          <div className="m-1 flex w-full flex-col items-center justify-center gap-2">
+            <Paragraph size="sm" style="medium">
               Cinema Name
             </Paragraph>
             <input
               value={cinemaName}
               onChange={(event) => setCinemaName(event.target.value)}
               type="text"
-              className="font-poppins h-8 w-8/12 rounded-lg border-2 border-solid border-slate-400 p-2 text-center text-sm"
+              className="h-8 w-8/12 rounded-lg border-2 border-solid border-slate-400 p-2 text-center font-poppins text-sm"
             />
           </div>
-          <div className="m-2 flex w-full flex-col items-center justify-center">
-            <Paragraph size="sm" style="medium" margin="3">
+          <div className="m-1 flex w-full flex-col items-center justify-center">
+            <Paragraph size="sm" style="medium" margin="1">
               Studio Amount
             </Paragraph>
             <div className="flex w-full items-center justify-center">
@@ -71,7 +71,7 @@ const ManagerAddRegionCinema = () => {
                 type="number"
                 value={studioAmount}
                 readOnly={true}
-                className="font-poppins mx-2 h-8 w-4/12 rounded-lg border-2 border-solid border-slate-400 p-2 text-center text-sm"
+                className="mx-2 h-8 w-4/12 rounded-lg border-2 border-solid border-slate-400 p-2 text-center font-poppins text-sm"
               />
               <button
                 type="button"
@@ -82,16 +82,16 @@ const ManagerAddRegionCinema = () => {
               </button>
             </div>
           </div>
-          <div className="m-2 text-center">
+          <div className="text-center">
             <Paragraph size="sm" style="medium" margin="3">
               Studio Capacities
             </Paragraph>
-            <div className="grid h-full grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 items-center gap-2">
               {studioCapacities.map((studio, index) => (
                 <input
                   key={index}
                   type="number"
-                  className="font-poppins col-span-1 h-8 rounded-lg border-2 border-solid border-slate-400 p-2 text-center text-sm"
+                  className="col-span-1 h-8 rounded-lg border-2 border-solid border-slate-400 p-2 text-center font-poppins text-sm"
                   placeholder={"Studio " + parseInt(index + 1)}
                   value={studio}
                   onChange={(e) =>
@@ -110,11 +110,11 @@ const ManagerAddRegionCinema = () => {
             </div>
           </div>
 
-          <div className="m-4 flex w-full flex-col items-center justify-center">
+          <div className="my-2 flex w-full flex-col items-center justify-center">
             <input
               type="submit"
               value="Submit"
-              className="font-poppins w-10/12 rounded-lg bg-slate-900 p-2 text-center text-sm font-medium text-white"
+              className="w-10/12 rounded-lg bg-slate-900 p-2 text-center font-poppins text-sm font-medium text-white"
             />
           </div>
         </FormContainer>

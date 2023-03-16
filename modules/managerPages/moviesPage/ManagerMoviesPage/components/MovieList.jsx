@@ -6,17 +6,15 @@ import DataContainer from "@/components/DataContainer";
 import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
+const DeleteMoviesModal = dynamic(() =>
+  import("./DeleteMoviesModal").then((component) => component.DeleteMoviesModal)
+);
+
 export const MovieList = ({ deleteMode, toggleDeleteMode }) => {
   const movies = useAllMovies();
   const router = useRouter();
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
-
-  const DeleteMoviesModal = dynamic(() =>
-    import("./DeleteMoviesModal").then(
-      (component) => component.DeleteMoviesModal
-    )
-  );
 
   return (
     <>
@@ -54,9 +52,10 @@ export const MovieList = ({ deleteMode, toggleDeleteMode }) => {
               }
               className={
                 (moviesToDelete.includes(movie.id) && deleteMode
-                  ? "bg-red-300 "
-                  : "") +
-                "relative flex w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md transition duration-150 hover:scale-105 lg:w-full"
+                  ? "bg-red-200"
+                  : "bg-slate-200") +
+                " " +
+                "relative flex w-full items-center justify-evenly rounded-md p-2 shadow-md transition duration-150 hover:scale-105 lg:w-full"
               }
             >
               <div className="w-2/12 text-center lg:w-1/12">

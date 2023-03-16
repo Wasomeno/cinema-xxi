@@ -1,3 +1,10 @@
-export const useCinemaAdmins = ({ regionId, cinemaId }) => {
-  return { data: ["0x000000000", "0x00000000", "0x000000"], isLoading: false };
+import { query } from "../../query";
+import { cinemaKeys } from "../Cinema/cinemaQueryKeysFactory";
+
+export const useCinemaAdmins = (cinemaId) => {
+  const cinemaAdmins = query({
+    queryKey: cinemaKeys.cinemaAdmins(cinemaId),
+    url: "/api/cinemas/" + cinemaId + "/admins",
+  });
+  return cinemaAdmins;
 };

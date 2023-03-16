@@ -8,7 +8,7 @@ import UserMenuModal from "@/components/UserMenuModal";
 import { AdminNavigationLinkMobile } from "./AdminNavigationLinkMobile";
 
 export const AdminNavigationMobile = () => {
-  const [showAdminMenuModal, toggleShowAdminMenuModal] = useToggle(false);
+  const [showUserModal, toggleShowUserModal] = useToggle(false);
   const [activeRoute, setActiveRoute] = useState("admin");
   const { pathname: path } = useRouter();
 
@@ -43,22 +43,22 @@ export const AdminNavigationMobile = () => {
         </AdminNavigationLinkMobile>
         <AdminNavigationLinkMobile
           href="studios"
-          icon="time"
+          icon="rectangleStack"
           activeRoute={activeRoute}
           s
         >
           Studios
         </AdminNavigationLinkMobile>
         <button
-          onClick={toggleShowAdminMenuModal}
+          onClick={toggleShowUserModal}
           className="flex w-60 flex-col items-center justify-center gap-2"
         >
           <span className="h-8 w-8 rounded-full bg-blue-400" />
         </button>
       </div>
       <AnimatePresence>
-        {showAdminMenuModal && (
-          <UserMenuModal toggleShowUserModal={toggleShowAdminMenuModal} />
+        {showUserModal && (
+          <UserMenuModal toggleShowUserModal={toggleShowUserModal} />
         )}
       </AnimatePresence>
     </>

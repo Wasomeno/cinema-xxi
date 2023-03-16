@@ -17,7 +17,7 @@ const SelectedMovies = ({ selectedMovies, deselectMovie }) => {
             No Movies Selected
           </Paragraph>
         ) : (
-          <div className="m-2 flex w-full flex-col items-center gap-3 overflow-y-scroll p-2">
+          <div className="m-2 flex h-52 w-full flex-col items-center gap-3 overflow-y-scroll p-2">
             {selectedMovies.map((movie) => (
               <MovieListClickable
                 key={movie.id}

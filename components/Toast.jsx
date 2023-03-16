@@ -30,7 +30,7 @@ const Toast = () => {
         >
           <div className="w-1/6">{conditions[condition]?.icon}</div>
           <div className="w-4/6 text-center">
-            <Paragraph size="sm">{text}</Paragraph>
+            <Paragraph size="xs">{text}</Paragraph>
           </div>
         </AnimatedContainer>
       )}

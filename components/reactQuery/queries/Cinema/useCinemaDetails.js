@@ -1,13 +1,10 @@
-import { useAdminDetailsContext } from "context/AppContext";
-
 import { query } from "../../query";
 import { cinemaKeys } from "./cinemaQueryKeysFactory";
 
-export const useCinemaDetails = () => {
-  const adminDetails = useAdminDetailsContext();
+export const useCinemaDetails = (cinema) => {
   const cinemaDetails = query({
-    queryKey: cinemaKeys.cinemaDetails(adminDetails?.cinema),
-    url: "/api/cinemas/" + adminDetails?.cinema,
+    queryKey: cinemaKeys.cinemaDetails(cinema),
+    url: "/api/cinemas/" + cinema,
   });
 
   return cinemaDetails;

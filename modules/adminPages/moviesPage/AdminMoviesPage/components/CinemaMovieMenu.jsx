@@ -1,25 +1,19 @@
-import XMark from "@/components/Icons/XMark";
+import DeleteModeButton from "@/components/DeleteModeButton";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
 const CinemaMovieMenu = ({ toggleShowMenu, toggleDeleteMode }) => {
   return (
-    <HeaderMenuModal>
-      <HeaderMenuLink href="/admin/movies/add" context="add" text="Add Movie" />
-      <button
+    <HeaderMenuModal toggleShowMenu={toggleShowMenu}>
+      <HeaderMenuLink href="/admin/movies/add" icon="plus" text="Add Movie" />
+      <DeleteModeButton
         onClick={() => {
           toggleShowMenu();
           toggleDeleteMode();
         }}
-        className="flex h-full w-full items-center justify-evenly p-1 text-sm"
       >
-        <div className="w-1/6">
-          <XMark size="4" />
-        </div>
-        <div className="w-4/6 text-center">
-          <p className="font-poppins text-xs">Delete Movies</p>
-        </div>
-      </button>
+        Delete Movies
+      </DeleteModeButton>
     </HeaderMenuModal>
   );
 };

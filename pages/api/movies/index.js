@@ -18,7 +18,7 @@ export default async function moviesHandler(req, res) {
       });
       res.status(200).json({ code: "200", text: "Successfully Added Movie" });
     } catch (error) {
-      await res.status(500).send(error);
+      await res.status(500).send(error.message);
     }
   } else if (req.method === "DELETE") {
     const { movieIds } = req.body;

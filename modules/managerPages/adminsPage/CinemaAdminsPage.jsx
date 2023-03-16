@@ -1,31 +1,29 @@
+import useToggle from "hooks/useToggle";
 import { useRouter } from "next/router";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
+import { ManagerSubHeader } from "@/components/ManagerSubHeader";
 import { useCinemaAdmins } from "@/components/reactQuery/queries/Roles/useCinemaAdmins";
-import { Paragraph, Subtitle } from "@/components/shared/Texts";
+import { Paragraph } from "@/components/shared/Texts";
 
 import AdminListCard from "./AdminListCard";
 import AdminManagerMenu from "./AdminManagerMenu";
 
 export const CinemaAdminsPage = () => {
   const { regionId, cinemaId } = useRouter().query;
-  const cinemaAdmins = useCinemaAdmins({
-    regionId: regionId,
-    cinemaId: cinemaId,
-  });
+  const [showMenu, toggleShowMenu] = useToggle(false);
+  const cinemaAdmins = useCinemaAdmins(cinemaId);
 
   return (
     <AnimatedContainer className="p-4">
       <ManagerDashboardHeader withBackButton>
         {"Cinema " + cinemaId + " Admins"}
       </ManagerDashboardHeader>
-      <div className="my-4 p-2">
-        <Subtitle text="List of Admins" size="sm" />
-      </div>
+      <ManagerSubHeader object="admins" toggleShowMenu={toggleShowMenu} />
       <DataContainer
-        className="flex flex-col items-center justify-start gap-4"
+        className="flex flex-col items-center justify-start gap-3"
         loading={cinemaAdmins.isLoading}
         object="admins"
       >
@@ -37,6 +35,7 @@ export const CinemaAdminsPage = () => {
           ))
         )}
       </DataContainer>
+      {showMenu && <AdminManagerMenu toggleShowMenu={toggleShowMenu} />}
     </AnimatedContainer>
   );
 };

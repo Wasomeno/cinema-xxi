@@ -1,3 +1,4 @@
+import { useAdminDetailsContext } from "context/AppContext";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -8,7 +9,8 @@ import { Paragraph } from "@/components/shared/Texts";
 
 const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
   const router = useRouter();
-  const cinemaMovies = useCinemaMovies();
+  const adminDetails = useAdminDetailsContext();
+  const cinemaMovies = useCinemaMovies(adminDetails.cinema);
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
 

@@ -9,7 +9,10 @@ import CinemaMovieList from "./components/CinemaMovieList";
 
 export const AdminMoviesPage = () => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
+  const [showMenu, toggleShowMenu] = useToggle(false);
+
   const CinemaMovieMenu = dynamic(() => import("./components/CinemaMovieMenu"));
+
   return (
     <AnimatedContainer className="h-screen p-4">
       <AdminHeader>Movies in Cinema</AdminHeader>
@@ -18,7 +21,7 @@ export const AdminMoviesPage = () => {
           <AdminSubHeader
             object="movies"
             toggleDeleteMode={toggleDeleteMode}
-            SubHeaderMenu={CinemaMovieMenu}
+            toggleShowMenu={toggleShowMenu}
           />
           <CinemaMovieList
             deleteMode={deleteMode}
@@ -26,6 +29,12 @@ export const AdminMoviesPage = () => {
           />
         </div>
       </div>
+      {showMenu && (
+        <CinemaMovieMenu
+          toggleDeleteMode={toggleDeleteMode}
+          toggleShowMenu={toggleShowMenu}
+        />
+      )}
     </AnimatedContainer>
   );
 };
