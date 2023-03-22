@@ -72,7 +72,7 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
         <div className="flex flex-col items-center gap-2">
           <span className="font-poppins text-sm text-white">ETH Balance</span>
           <span className="font-poppins text-2xl tracking-wider text-white">
-            {walletBalance.formatted.slice(0, 4)} ETH
+            {walletBalance?.formatted.slice(0, 4)} ETH
           </span>
         </div>
         <div className="flex flex-col items-start gap-2">
