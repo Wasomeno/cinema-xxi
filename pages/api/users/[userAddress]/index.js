@@ -9,12 +9,13 @@ export default async function userDetailsHandler(req, res) {
         transactions: { include: { cinema: true, movie: true, region: true } },
       },
     });
-    res.status(200).json({
+    const convertedDetails = {
       ...userDetails,
       transactions: userDetails.transactions.map((transaction) => ({
         ...transaction,
         showtime: transaction.showtime.toString(),
       })),
-    });
+    };
+    res.status(200).json(convertedDetails);
   }
 }
