@@ -30,14 +30,10 @@ export const TicketPage = () => {
             object="tickets"
           >
             {!activeTab && (
-              <ActiveTicketList
-                transactions={userTransactions.data?.transactions}
-              />
+              <ActiveTicketList transactions={userTransactions.data} />
             )}
             {activeTab && (
-              <TicketHistory
-                transactions={userTransactions.data?.transactions}
-              />
+              <TicketHistory transactions={userTransactions.data} />
             )}
           </DataContainer>
         </div>
