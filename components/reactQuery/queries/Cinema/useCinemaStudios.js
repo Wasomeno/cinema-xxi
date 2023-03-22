@@ -1,13 +1,10 @@
-import { useAdminDetailsContext } from "context/AppContext";
+import { query } from "../query";
+import { cinemaStudioQueryKeys } from "../queryKeys/cinemaStudioQueryKeys";
 
-import { query } from "../../query";
-import { cinemaStudioKeys } from "./cinemaStudioQueryKeysFactory";
-
-export const useCinemaStudios = () => {
-  const adminDetails = useAdminDetailsContext();
+export const useCinemaStudios = (cinema) => {
   const cinemaStudios = query({
-    queryKey: cinemaStudioKeys.allStudio,
-    url: "/api/cinemas/" + adminDetails?.cinema + "/studios",
+    queryKey: cinemaStudioQueryKeys.allStudio,
+    url: "/api/cinemas/" + cinema + "/studios",
   });
   return cinemaStudios;
 };

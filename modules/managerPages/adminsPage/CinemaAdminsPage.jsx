@@ -5,21 +5,21 @@ import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import { ManagerSubHeader } from "@/components/ManagerSubHeader";
-import { useCinemaAdmins } from "@/components/reactQuery/queries/Roles/useCinemaAdmins";
+import { useCinemaAdmins } from "@/components/reactQuery/queries/Admin/useCinemaAdmins";
 import { Paragraph } from "@/components/shared/Texts";
 
 import AdminListCard from "./AdminListCard";
 import AdminManagerMenu from "./AdminManagerMenu";
 
 export const CinemaAdminsPage = () => {
-  const { regionId, cinemaId } = useRouter().query;
+  const { query } = useRouter();
   const [showMenu, toggleShowMenu] = useToggle(false);
-  const cinemaAdmins = useCinemaAdmins(cinemaId);
+  const cinemaAdmins = useCinemaAdmins(query?.cinemaId);
 
   return (
     <AnimatedContainer className="p-4">
       <ManagerDashboardHeader withBackButton>
-        {"Cinema " + cinemaId + " Admins"}
+        {"Cinema Admins"}
       </ManagerDashboardHeader>
       <ManagerSubHeader object="admins" toggleShowMenu={toggleShowMenu} />
       <DataContainer

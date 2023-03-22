@@ -1,5 +1,5 @@
-import { queryClientApp } from "client/reactQueryClient";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
@@ -37,12 +37,13 @@ export const CinemaListPage = () => {
           </div>
         ) : (
           allCinema.data?.map((cinema) => (
-            <div
+            <Link
+              href={"/app/cinemas/" + cinema.id}
               className="w-5/6 rounded-md bg-slate-100 p-2 px-3 text-center shadow-md shadow-slate-200"
               key={cinema.id}
             >
               <p className="font-poppins text-xs">{cinema.name}</p>
-            </div>
+            </Link>
           ))
         )}
       </DataContainer>

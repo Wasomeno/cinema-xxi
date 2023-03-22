@@ -1,4 +1,4 @@
-import { regionKeys } from "../../queries/Region/regionKeysFactory";
+import { regionQueryKeys } from "../../queries/queryKeys/regionQueryKeys";
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
@@ -7,7 +7,7 @@ export function deleteRegion({ regionIds }) {
     context: "delete",
     object: "region",
     invalidateQueries: true,
-    queryKeys: regionKeys.allRegion,
+    queryKeys: regionQueryKeys.allRegion,
   });
   const deleteRegionMutation = mutation({
     url: "/api/regions",

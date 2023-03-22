@@ -1,9 +1,9 @@
-import { query } from "../../query";
-import { cinemaKeys } from "./cinemaQueryKeysFactory";
+import { query } from "../query";
+import { cinemaQueryKeys } from "../queryKeys/cinemaQueryKeys";
 
 export const useCinemaDetails = (cinema) => {
   const cinemaDetails = query({
-    queryKey: cinemaKeys.cinemaDetails(cinema),
+    queryKey: cinemaQueryKeys.cinemaDetails(cinema),
     url: "/api/cinemas/" + cinema,
   });
 

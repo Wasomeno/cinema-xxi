@@ -12,7 +12,7 @@ export const AvailableShowtimes = ({ selectShowtime }) => {
 
   return (
     <div className="my-2">
-      <div className="my-4">
+      <div className="my-2">
         <Paragraph size="xs">Available Showtimes</Paragraph>
       </div>
       <DataContainer
@@ -27,9 +27,9 @@ export const AvailableShowtimes = ({ selectShowtime }) => {
             <div
               key={showtime.id}
               onClick={() => selectShowtime(showtime)}
-              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 text-sm shadow-md"
+              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 font-poppins text-xs shadow-md"
             >
-              {parseInt(showtime.time)}
+              {showtime.time}
             </div>
           ))
         )}

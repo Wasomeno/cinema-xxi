@@ -12,8 +12,6 @@ export const ManagerCinemaDetailsPage = () => {
   const [showModal, toggleShowModal] = useToggle(false);
   const cinemaDetails = useCinemaDetails(query?.cinemaId);
 
-  console.log(cinemaDetails);
-
   return (
     <AnimatedContainer className="h-screen p-4">
       <ManagerHeader withBackButton>{cinemaDetails.data?.name}</ManagerHeader>

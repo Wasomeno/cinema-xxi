@@ -1,11 +1,9 @@
-import { useAdminDetailsContext } from "context/AppContext";
-
-import { query } from "../../query";
-import { cinemaKeys } from "./cinemaQueryKeysFactory";
+import { query } from "../query";
+import { cinemaQueryKeys } from "../queryKeys/cinemaQueryKeys";
 
 export const useCinemaShowTimes = (cinema) => {
   const cinemaShowtimes = query({
-    queryKey: cinemaKeys.cinemaShowtimes(cinema),
+    queryKey: cinemaQueryKeys.cinemaShowtimes(cinema),
     url: "/api/cinemas/" + cinema + "/showtimes",
   });
   return cinemaShowtimes;

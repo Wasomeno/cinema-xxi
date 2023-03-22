@@ -1,5 +1,3 @@
-import useToggle from "hooks/useToggle";
-
 import EllipsisVertical from "./Icons/EllipsisVertical";
 
 export const ManagerSubHeader = ({ object, toggleShowMenu }) => {

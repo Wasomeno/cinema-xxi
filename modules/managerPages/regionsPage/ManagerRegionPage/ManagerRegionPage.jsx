@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
 
@@ -7,13 +8,13 @@ import { ManagerSubHeader } from "@/components/ManagerSubHeader";
 
 import RegionList from "./components/RegionList";
 
+const ManagerRegionMenu = dynamic(() =>
+  import("./components/ManagerRegionMenu")
+);
+
 export const ManagerRegionPage = () => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const [showMenu, toggleShowMenu] = useToggle(false);
-
-  const ManagerRegionMenu = dynamic(() =>
-    import("./components/ManagerRegionMenu")
-  );
 
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
@@ -27,12 +28,14 @@ export const ManagerRegionPage = () => {
           />
         </div>
       </div>
-      {showMenu && (
-        <ManagerRegionMenu
-          toggleShowMenu={toggleShowMenu}
-          toggleDeleteMode={toggleDeleteMode}
-        />
-      )}
+      <AnimatePresence>
+        {showMenu && (
+          <ManagerRegionMenu
+            toggleShowMenu={toggleShowMenu}
+            toggleDeleteMode={toggleDeleteMode}
+          />
+        )}
+      </AnimatePresence>
     </AnimatedContainer>
   );
 };

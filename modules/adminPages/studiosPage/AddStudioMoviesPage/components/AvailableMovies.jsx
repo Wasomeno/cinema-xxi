@@ -1,13 +1,16 @@
+import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+
 import DataContainer from "@/components/DataContainer";
 import { MovieListClickable } from "@/components/MovieListCard";
 import { useCinemaMovies } from "@/components/reactQuery/queries/Cinema/useCinemaMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
 export const AvailableMovies = ({ selectMovie }) => {
-  const moviesInCinema = useCinemaMovies({ cinemaId: 2 });
+  const adminDetails = useAdminDetailsContext();
+  const moviesInCinema = useCinemaMovies(adminDetails?.cinema);
   return (
     <div className="my-2">
-      <div className="my-4">
+      <div className="my-2">
         <Paragraph size="xs">Available Movies</Paragraph>
       </div>
       <DataContainer

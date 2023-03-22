@@ -1,4 +1,6 @@
+import { useTicketPriceTotal } from "hooks/useTicketPriceTotal";
 import moment from "moment";
+import { createPortal } from "react-dom";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import { mintTicket } from "@/components/reactQuery/mutations/Ticket/mintTicket";
@@ -11,26 +13,27 @@ import {
 const TicketConfirmationModal = () => {
   const { selectedDate, selectedSeats, selectedShowtime } =
     useMoviePageValueContext();
-  const { setModalState } = useMoviePageActionContext();
+  const { setModalState, clearSeats } = useMoviePageActionContext();
   const showtimeMoment = moment({ date: selectedDate }).add({
     seconds: selectedShowtime.time,
   });
-
-  function getTotal() {
-    const total =
-      selectedSeats.length * (showtimeMoment.day() > 5 ? 0.0012 : 0.001);
-    return selectedSeats.length < 1 ? 0 : total;
-  }
+  const priceTotal = useTicketPriceTotal(
+    showtimeMoment.day(),
+    selectedSeats.length
+  );
 
   const mintTicketMutation = mintTicket({
-    total: getTotal(),
+    total: priceTotal,
   });
 
-  return (
+  return createPortal(
     <>
       <AnimatedContainer
         className="fixed left-0 bottom-0 z-30 h-screen w-screen bg-black bg-opacity-70"
-        onClick={() => setModalState("")}
+        onClick={() => {
+          setModalState("");
+          clearSeats();
+        }}
       />
       <AnimatedContainer className="fixed bottom-0 z-40 h-5/6 w-full rounded-t-lg bg-slate-800 p-4 text-slate-50 md:top-1/2 md:left-1/2 md:h-4/6 md:w-3/12 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-lg">
         <div className="flex h-full flex-col gap-4">
@@ -65,19 +68,22 @@ const TicketConfirmationModal = () => {
               </h5>
             </div>
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between">
+              <div className="flex items-center justify-between">
                 <p className="text-sm">{selectedSeats.length} Seats</p>
                 <span className="flex items-center gap-2">
                   {selectedSeats.map((seat, index) => (
-                    <p key={index} className="text-sm">
+                    <span
+                      key={index}
+                      className="rounded-md bg-blue-100 p-2 text-xs font-semibold tracking-wider"
+                    >
                       {seat}
-                    </p>
+                    </span>
                   ))}
                 </span>
               </div>
               <div className="flex justify-between">
                 <p className="text-sm">Regular Seat</p>
-                <p className="text-sm">{getTotal()} ETH</p>
+                <p className="text-sm">{priceTotal} ETH</p>
               </div>
               <div className="flex justify-between">
                 <p className="text-sm">Transaction Fee</p>
@@ -98,7 +104,8 @@ const TicketConfirmationModal = () => {
           </div>
         </div>
       </AnimatedContainer>
-    </>
+    </>,
+    document.body
   );
 };
 

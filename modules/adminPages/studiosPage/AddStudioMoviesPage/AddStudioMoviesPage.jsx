@@ -1,4 +1,3 @@
-import { useSelectMovies } from "hooks/useSelectDeselect";
 import { useRouter } from "next/router";
 import { useState } from "react";
 

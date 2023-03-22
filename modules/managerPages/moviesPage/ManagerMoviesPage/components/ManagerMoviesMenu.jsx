@@ -4,25 +4,29 @@ import DeleteModeButton from "@/components/DeleteModeButton";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
-const ManagerMoviesManagerMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
+const ManagerMoviesMenu = ({ toggleDeleteMode, toggleShowMenu }) => {
   return (
     <HeaderMenuModal toggleShowMenu={toggleShowMenu}>
-      <p className="text-left font-poppins text-xs">Manager movies menu</p>
-      <HeaderMenuLink
-        href="/manager/movies/add"
-        text="Add new movies"
-        icon="plus"
-      />
-      <DeleteModeButton
-        onClick={() => {
-          toggleShowMenu();
-          toggleDeleteMode();
-        }}
-      >
-        Delete Movies
-      </DeleteModeButton>
+      <div className="my-4 flex justify-center">
+        <p className="font-poppins text-xs">Manage movies menu</p>
+      </div>
+      <div className="flex flex-col items-center justify-start gap-2">
+        <HeaderMenuLink
+          href="/manager/movies/add"
+          text="Add new movies"
+          icon="plus"
+        />
+        <DeleteModeButton
+          onClick={() => {
+            toggleShowMenu();
+            toggleDeleteMode();
+          }}
+        >
+          Delete Movies
+        </DeleteModeButton>
+      </div>
     </HeaderMenuModal>
   );
 };
 
-export default ManagerMoviesManagerMenu;
+export default ManagerMoviesMenu;

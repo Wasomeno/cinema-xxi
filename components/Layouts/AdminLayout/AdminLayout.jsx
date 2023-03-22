@@ -1,60 +1,55 @@
-import { appContext } from "context/AppContext";
-import { useUserDetails } from "hooks/useUserDetails";
+import { AdminDetailsContextProvider } from "context/AdminDetails/AdminDetailsContextProvider";
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
 import { useViewport } from "hooks/useViewport";
 import { AdminLoginPage } from "modules/adminPages/AdminLoginPage";
 import dynamic from "next/dynamic";
 
-import { useCinemaAdminDetails } from "../../reactQuery/queries/Roles/useCinemaAdminDetails";
-import { useCinemaAdminStatus } from "../../reactQuery/queries/Roles/useCinemaAdminStatus";
+import { AdminNavigationMobile } from "@/components/Navigations/Admin/AdminNavigationMobile";
+
+import { useCinemaAdminDetails } from "../../reactQuery/queries/Admin/useCinemaAdminDetails";
+import { useCinemaAdminStatus } from "../../reactQuery/queries/Admin/useCinemaAdminStatus";
 
 const NotValidAdmin = dynamic(() => import("./NotValidAdmin"));
 
 const AdminStatusLoading = dynamic(() => import("./AdminStatusLoading"));
 
 const AdminNavigation = dynamic(() =>
-  import("./AdminNavigation").then((component) => component.AdminNavigation)
-);
-
-const AdminNavigationMobile = dynamic(() =>
-  import("./AdminNavigationMobile").then(
-    (component) => component.AdminNavigationMobile
+  import("../../Navigations/Admin/AdminNavigation").then(
+    (component) => component.AdminNavigation
   )
 );
 
-export const AdminLayout = ({ children }) => {
-  const { user, isConnected } = useUserDetails();
-  const viewport = useViewport();
-  const Context = appContext;
-  const cinemaAdminStatus = useCinemaAdminStatus({ address: user });
-  const adminDetails = useCinemaAdminDetails({ admin: user });
+// const AdminNavigationMobile = dynamic(() =>
+//   import("../../Navigations/Admin/AdminNavigationMobile").then(
+//     (component) => component.AdminNavigationMobile
+//   )
+// );
 
-  return (
+export const AdminLayout = ({ children }) => {
+  const { user, isConnected } = useUserConnectionDetails();
+  const cinemaAdminStatus = useCinemaAdminStatus({ address: user });
+  const adminDetails = useCinemaAdminDetails({ address: user });
+  const viewport = useViewport();
+
+  console.log("RERNder");
+
+  return isConnected ? (
     <>
-      {isConnected ? (
-        <Context.Provider
-          value={{
-            adminDetails: adminDetails.data,
-          }}
-        >
-          {cinemaAdminStatus.isLoading ? (
-            <AdminStatusLoading />
-          ) : cinemaAdminStatus.data ? (
-            <>
-              {viewport.width > 1024 && <AdminNavigation />}
-              <main className="relative w-full overflow-y-scroll">
-                {children}
-              </main>
-              {viewport.width < 1024 && viewport.height > 400 && (
-                <AdminNavigationMobile />
-              )}
-            </>
-          ) : (
-            <NotValidAdmin />
+      {cinemaAdminStatus.isLoading ? (
+        <AdminStatusLoading />
+      ) : cinemaAdminStatus.data ? (
+        <>
+          {viewport.width > 1024 && <AdminNavigation />}
+          <main className="relative w-full overflow-y-scroll">{children}</main>
+          {viewport.width < 1024 && viewport.height > 400 && (
+            <AdminNavigationMobile />
           )}
-        </Context.Provider>
+        </>
       ) : (
-        <AdminLoginPage />
+        <NotValidAdmin />
       )}
     </>
+  ) : (
+    <AdminLoginPage />
   );
 };

@@ -8,19 +8,14 @@ import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCi
 import ShowtimeListCard from "@/components/ShowtimeListCard";
 
 export const ManagerCinemaShowtimesPage = () => {
-  const { regionId, cinemaId } = useRouter().query;
-  const cinemaShowtimes = useCinemaShowTimes({
-    region: regionId,
-    cinema: cinemaId,
-  });
+  const { query } = useRouter();
+  const cinemaShowtimes = useCinemaShowTimes(query?.cinemaId);
 
   return (
     <AnimatedContainer className="h-screen p-4">
-      <ManagerDashboardHeader title="Showtimes" withBackButton />
+      <ManagerDashboardHeader withBackButton>Showtimes</ManagerDashboardHeader>
       <div className="mt-5 mb-3 w-3/6">
-        <p className="font-poppins text-sm font-medium text-slate-500">
-          Showtimes list
-        </p>
+        <p className="font-poppins text-xs">Showtime list</p>
       </div>
       <DataContainer
         className="flex w-full flex-col items-center justify-start gap-4"
@@ -28,12 +23,12 @@ export const ManagerCinemaShowtimesPage = () => {
         object="showtimes"
       >
         {cinemaShowtimes.data?.length < 1 ? (
-          <p className="font-poppins text-sm font-medium">
+          <p className="font-poppins text-xs font-medium">
             No active showtimes
           </p>
         ) : (
           cinemaShowtimes.data?.map((showtime, index) => (
-            <ShowtimeListCard key={index} showtime={showtime} />
+            <ShowtimeListCard key={index} showtime={showtime.time} />
           ))
         )}
       </DataContainer>

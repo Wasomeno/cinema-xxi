@@ -1,6 +1,4 @@
-import useToggle from "hooks/useToggle";
 import { useRouter } from "next/router";
-import React from "react";
 
 import ChevronLeft from "../Icons/ChevronLeft";
 import { Title } from "../shared/Texts";

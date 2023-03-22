@@ -1,4 +1,6 @@
+import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
+import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
@@ -6,13 +8,16 @@ import DataContainer from "@/components/DataContainer";
 import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
+import ManagerMoviesMenu from "./ManagerMoviesMenu";
+
 const DeleteMoviesModal = dynamic(() =>
   import("./DeleteMoviesModal").then((component) => component.DeleteMoviesModal)
 );
 
-export const MovieList = ({ deleteMode, toggleDeleteMode }) => {
+export const MovieList = ({ showMenu, toggleShowMenu }) => {
   const movies = useAllMovies();
   const router = useRouter();
+  const [deleteMode, toggleDeleteMode] = useToggle(false);
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
 
@@ -88,12 +93,20 @@ export const MovieList = ({ deleteMode, toggleDeleteMode }) => {
           ))
         )}
       </DataContainer>
-      {deleteMode && (
-        <DeleteMoviesModal
-          moviesToDelete={moviesToDelete}
-          toggleDeleteMode={toggleDeleteMode}
-        />
-      )}
+      <AnimatePresence>
+        {showMenu && (
+          <ManagerMoviesMenu
+            toggleDeleteMode={toggleDeleteMode}
+            toggleShowMenu={toggleShowMenu}
+          />
+        )}
+        {deleteMode && (
+          <DeleteMoviesModal
+            moviesToDelete={moviesToDelete}
+            toggleDeleteMode={toggleDeleteMode}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

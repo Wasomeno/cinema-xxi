@@ -1,4 +1,4 @@
-import { regionKeys } from "../../queries/Region/regionKeysFactory";
+import { regionKeys } from "../../queries/queryKeys/regionQueryKeys";
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 

@@ -1,14 +1,12 @@
+import { useIcon } from "hooks/useIcon";
 import Link from "next/link";
-import React from "react";
-
-import { iconMap } from "../Icons/iconMap";
 
 const HeaderMenuLink = ({ href, icon, text }) => {
-  const LinkIcon = iconMap[icon];
+  const LinkIcon = useIcon(icon);
   return (
     <Link
       href={href}
-      className="flex h-14 w-5/6 items-center justify-evenly rounded-md bg-slate-50 p-1 shadow-md"
+      className="flex h-14 w-11/12 items-center justify-evenly rounded-md bg-slate-50 p-1 shadow-md"
       prefetch={false}
     >
       <div className="w-1/6">

@@ -1,29 +1,29 @@
-import { useUserDetails } from "hooks/useUserDetails";
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
 import { useViewport } from "hooks/useViewport";
 import { ManagerLoginPage } from "modules/managerPages/ManagerLoginPage";
 import dynamic from "next/dynamic";
 import { MoonLoader } from "react-spinners";
 
 import NotValidManager from "../Manager/NotValidManager";
-import { useManagerStatus } from "../reactQuery/queries/Roles/useManagerStatus";
+import { useManagerStatus } from "../reactQuery/queries/Manager/useManagerStatus";
 import { Paragraph } from "../shared/Texts";
 
 const ManagerNavigation = dynamic(() =>
-  import("../Navigations/ManagerNavigation").then(
+  import("../Navigations/Manager/ManagerNavigation").then(
     (component) => component.ManagerNavigation
   )
 );
 
 const ManagerNavigationMobile = dynamic(() =>
-  import("../Navigations/ManagerNavigation").then(
+  import("../Navigations/Manager/ManagerNavigationMobile").then(
     (component) => component.ManagerNavigationMobile
   )
 );
 
 const ManagerLayout = ({ children }) => {
-  const { user, isConnected } = useUserDetails();
-  const viewport = useViewport();
+  const { user, isConnected } = useUserConnectionDetails();
   const managerStatus = useManagerStatus({ address: user });
+  const viewport = useViewport();
 
   return (
     <>

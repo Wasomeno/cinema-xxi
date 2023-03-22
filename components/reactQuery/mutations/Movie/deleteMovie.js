@@ -1,4 +1,4 @@
-import { movieKeys } from "../../queries/Movie/movieQueryKeysFactory";
+import { movieQueryKeys } from "../../queries/queryKeys/movieQueryKeys";
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
@@ -7,7 +7,7 @@ export const deleteMovies = ({ movieIds }) => {
     context: "delete",
     object: "movies",
     invalidateQueries: true,
-    queryKeys: movieKeys.allMovies,
+    queryKeys: movieQueryKeys.allMovies,
   });
   const deleteMoviesMutation = mutation({
     url: "/api/movies",

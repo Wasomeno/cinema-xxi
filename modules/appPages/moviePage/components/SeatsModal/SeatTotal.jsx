@@ -1,3 +1,4 @@
+import { useTicketPriceTotal } from "hooks/useTicketPriceTotal";
 import moment from "moment";
 
 import { Paragraph } from "@/components/shared/Texts";
@@ -11,11 +12,8 @@ const SeatTotal = () => {
   const { deselectSeat, setModalState } = useMoviePageActionContext();
   const { selectedSeats, selectedDate } = useMoviePageValueContext();
   const dayOfWeek = moment({ date: selectedDate }).day();
+  const ticketPriceTotal = useTicketPriceTotal(dayOfWeek, selectedSeats.length);
 
-  function getTotal() {
-    const total = selectedSeats.length * (dayOfWeek > 5 ? 0.0012 : 0.001);
-    return selectedSeats.length < 1 ? 0 : total;
-  }
   return (
     <div className="fixed bottom-4 left-1/2 flex h-44 w-5/6 -translate-x-1/2 flex-col justify-around rounded-md border-2 border-blue-100 p-2 shadow-md">
       <div className="flex h-4/6 items-start justify-center">
@@ -26,7 +24,7 @@ const SeatTotal = () => {
             </Paragraph>
           </div>
           <div className="text-center">
-            <Paragraph size="xs">{getTotal() + " ETH"}</Paragraph>
+            <Paragraph size="xs">{ticketPriceTotal} ETH</Paragraph>
           </div>
         </div>
         <div className="w-6/12">

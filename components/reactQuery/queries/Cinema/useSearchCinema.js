@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryClientApp } from "client/reactQueryClient";
-import { useEffect, useState } from "react";
 
 export function useSearchCinema({ searchTerm }) {
-  //   const [cinemas, setCinemas] = useState([]);
   const cinemas = useQuery({
     queryKey: ["cinemaSearch", searchTerm],
     queryFn: async () => {

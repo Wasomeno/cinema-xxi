@@ -4,7 +4,7 @@ export default async function cinemaSearchHandler(req, res) {
   if (req.method === "POST") {
     const { searchTerm } = req.body;
     const getCinemas = async () => {
-      if (!searchTerm) {
+      if (searchTerm === "") {
         const allCinema = await prisma.cinema.findMany();
         return allCinema;
       } else {

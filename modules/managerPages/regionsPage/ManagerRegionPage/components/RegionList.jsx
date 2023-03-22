@@ -8,13 +8,12 @@ import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegi
 
 import RegionListCard from "./RegionListCard";
 
+const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
+
 const RegionList = ({ deleteMode, toggleDeleteMode }) => {
   const regions = useAllRegions();
   const [regionsToDelete, selectRegionsToDelete, deselectRegionsToDelete] =
     useSelectDeselect([]);
-  const deleteRegionMutation = deleteRegion({ regionIds: regionsToDelete });
-
-  const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
 
   return (
     <>
@@ -56,7 +55,9 @@ const RegionList = ({ deleteMode, toggleDeleteMode }) => {
       <AnimatePresence>
         {deleteMode && (
           <DeleteModal
-            deleteMutation={deleteRegionMutation.mutate}
+            deleteMutation={() =>
+              deleteRegion({ regionIds: regionsToDelete }).mutate()
+            }
             object="region"
             toggleDeleteMode={toggleDeleteMode}
             objectToDelete={regionsToDelete}

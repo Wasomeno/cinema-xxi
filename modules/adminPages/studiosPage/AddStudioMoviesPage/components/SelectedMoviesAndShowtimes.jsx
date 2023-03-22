@@ -12,7 +12,7 @@ export const SelectedMoviesAndShowtimes = ({
         <Paragraph size="xs">Selected Movie & Showtimes</Paragraph>
       </div>
       <div className="flex justify-center gap-4">
-        <div className="flex h-72 w-6/12 flex-col items-center justify-center gap-4 p-2 text-center">
+        <div className="flex h-40 w-6/12 flex-col items-center justify-center gap-4 p-2 text-center">
           {!selectedMovie ? (
             <Paragraph size="xs">No Movie Selected</Paragraph>
           ) : (
@@ -26,7 +26,7 @@ export const SelectedMoviesAndShowtimes = ({
             </button>
           )}
         </div>
-        <div className="flex h-72 w-6/12 flex-col items-center justify-center gap-4 p-2 text-center">
+        <div className="flex h-40 w-6/12 flex-col items-center justify-center gap-4 p-2 text-center">
           {!selectedShowtime ? (
             <Paragraph size="xs">No Showtime Selected</Paragraph>
           ) : (

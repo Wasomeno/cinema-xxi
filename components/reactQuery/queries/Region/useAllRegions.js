@@ -1,9 +1,9 @@
-import { query } from "../../query";
-import { regionKeys } from "./regionKeysFactory";
+import { query } from "../query";
+import { regionQueryKeys } from "../queryKeys/regionQueryKeys";
 
 export const useAllRegions = () => {
   const regions = query({
-    queryKey: regionKeys.allRegion,
+    queryKey: regionQueryKeys.allRegion,
     url: "/api/regions",
   });
   return regions;

@@ -1,9 +1,12 @@
+import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+
 import DataContainer from "@/components/DataContainer";
 import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
 import { Paragraph } from "@/components/shared/Texts";
 
 export const AvailableShowtimes = ({ selectShowtime }) => {
-  const cinemaShowtimes = useCinemaShowTimes({ region: 1, cinemaId: 2 });
+  const adminDetails = useAdminDetailsContext();
+  const cinemaShowtimes = useCinemaShowTimes(adminDetails?.cinema);
   return (
     <div className="mb-4">
       <div className="my-4">

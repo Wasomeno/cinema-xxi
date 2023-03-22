@@ -4,9 +4,11 @@ export const ContextValue = createContext();
 export const ContextAction = createContext();
 
 export function useMoviePageValueContext() {
-  return useContext(ContextValue);
+  const contextValues = useContext(ContextValue);
+  return contextValues;
 }
 
 export function useMoviePageActionContext() {
-  return useContext(ContextAction);
+  const contextActions = useContext(ContextAction);
+  return contextActions;
 }

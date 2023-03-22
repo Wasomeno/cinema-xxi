@@ -21,15 +21,28 @@ export const AdminAddShowtimesPage = () => {
     <AnimatedContainer className="h-screen p-4">
       <AdminHeader withBackButton>Add Showtimes</AdminHeader>
       <FormContainer onSubmit={addShowTime.mutate}>
-        <div className="flex w-5/6 flex-col items-center justify-center gap-2 lg:w-3/6">
-          <label className="font-poppins text-xs lg:text-sm">Hour</label>
-          <FormInput type="number" setValue={setHour} value={hour} />
+        <div className="flex items-center justify-center gap-2">
+          <div className="flex w-5/6 flex-col items-center justify-center gap-2 lg:w-3/6">
+            <label className="font-poppins text-xs lg:text-sm">Hour</label>
+            <FormInput
+              type="number"
+              setValue={setHour}
+              value={hour}
+              width="full"
+            />
+          </div>
+          <div className="flex w-5/6 flex-col items-center justify-center gap-2 lg:w-3/6">
+            <label className="font-poppins text-xs lg:text-sm">Minutes</label>
+            <FormInput
+              type="number"
+              setValue={setMinutes}
+              value={minutes}
+              width="full"
+            />
+          </div>
         </div>
-        <div className="flex w-5/6 flex-col items-center justify-center gap-2 lg:w-3/6">
-          <label className="font-poppins text-xs lg:text-sm">Minutes</label>
-          <FormInput type="number" setValue={setMinutes} value={minutes} />
-        </div>
-        <div className="w-3/6 sm:w-2/6 lg:w-1/6 ">
+
+        <div className="mt-2 w-3/6 sm:w-2/6 lg:w-1/6 ">
           <FormSubmit value="Submit" width="full" />
         </div>
       </FormContainer>

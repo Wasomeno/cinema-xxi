@@ -16,7 +16,6 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
     idle: WalletIdle,
   };
   const WalletStatusComponent = walletComponents[status];
-  console.log(toggleWalletModal);
   return (
     <>
       <AnimatedContainer

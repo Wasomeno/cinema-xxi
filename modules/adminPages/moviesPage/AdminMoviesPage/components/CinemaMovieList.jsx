@@ -1,5 +1,7 @@
-import { useAdminDetailsContext } from "context/AppContext";
+import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
+import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
@@ -7,14 +9,17 @@ import DataContainer from "@/components/DataContainer";
 import { useCinemaMovies } from "@/components/reactQuery/queries/Cinema/useCinemaMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
-const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
+import CinemaMovieMenu from "./CinemaMovieMenu";
+
+const DeleteModal = dynamic(() => import("./DeleteMoviesModal"));
+
+const CinemaMovieList = ({ showMenu, toggleShowMenu }) => {
   const router = useRouter();
   const adminDetails = useAdminDetailsContext();
-  const cinemaMovies = useCinemaMovies(adminDetails.cinema);
+  const cinemaMovies = useCinemaMovies(adminDetails?.cinema);
+  const [deleteMode, toggleDeleteMode] = useToggle(false);
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
-
-  const DeleteModal = dynamic(() => import("./DeleteMoviesModal"));
 
   return (
     <>
@@ -22,7 +27,7 @@ const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
         <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-1/12">
           Id
         </p>
-        <p className="w-3/12 text-center font-poppins text-xs text-slate-500">
+        <p className="hidden w-3/12 text-center font-poppins text-xs text-slate-500">
           Picture
         </p>
         <p className="w-4/12 text-center font-poppins text-xs text-slate-500 lg:w-3/12">
@@ -87,13 +92,21 @@ const CinemaMovieList = ({ deleteMode, toggleDeleteMode }) => {
           ))
         )}
       </DataContainer>
-      {deleteMode && (
-        <DeleteModal
-          toggleDeleteMode={toggleDeleteMode}
-          objectToDelete={moviesToDelete}
-          object="movie"
-        />
-      )}
+      <AnimatePresence>
+        {showMenu && (
+          <CinemaMovieMenu
+            toggleDeleteMode={toggleDeleteMode}
+            toggleShowMenu={toggleShowMenu}
+          />
+        )}
+        {deleteMode && (
+          <DeleteModal
+            toggleDeleteMode={toggleDeleteMode}
+            objectToDelete={moviesToDelete}
+            object="movie"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

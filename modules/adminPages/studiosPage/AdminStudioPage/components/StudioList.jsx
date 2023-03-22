@@ -1,15 +1,20 @@
+import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 import DataContainer from "@/components/DataContainer";
 import { useCinemaStudios } from "@/components/reactQuery/queries/Cinema/useCinemaStudios";
 import { Paragraph } from "@/components/shared/Texts";
 
-export const StudioList = () => {
-  const cinemaStudios = useCinemaStudios();
+import { StudioListMenu } from "./StudioListMenu";
+
+export const StudioList = ({ showMenu, toggleShowMenu }) => {
+  const adminDetails = useAdminDetailsContext();
+  const cinemaStudios = useCinemaStudios(adminDetails?.cinema);
   return (
     <DataContainer
       className="flex flex-col items-center justify-start gap-3"
-      loading={false}
+      loading={cinemaStudios.isLoading}
       object="studios"
     >
       {cinemaStudios.data?.studio.length < 1 ? (
@@ -29,6 +34,9 @@ export const StudioList = () => {
           </Link>
         ))
       )}
+      <AnimatePresence>
+        {showMenu && <StudioListMenu toggleShowMenu={toggleShowMenu} />}
+      </AnimatePresence>
     </DataContainer>
   );
 };

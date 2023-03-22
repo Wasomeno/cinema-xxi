@@ -1,9 +1,9 @@
-import { query } from "../../query";
-import { cinemaStudioKeys } from "./cinemaStudioQueryKeysFactory";
+import { query } from "../query";
+import { cinemaStudioQueryKeys } from "../queryKeys/cinemaStudioQueryKeys";
 
-export const useStudioDetails = ({ region, cinemaId, studioId }) => {
+export const useStudioDetails = ({ cinemaId, studioId }) => {
   const studioDetails = query({
-    queryKey: cinemaStudioKeys.studioDetails(studioId, cinemaId),
+    queryKey: cinemaStudioQueryKeys.studioDetails(studioId, cinemaId),
     url: "/api/cinemas/" + cinemaId + "/studios/" + studioId,
   });
   return studioDetails;

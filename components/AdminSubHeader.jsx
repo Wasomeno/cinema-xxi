@@ -5,7 +5,7 @@ import EllipsisVertical from "./Icons/EllipsisVertical";
 export const AdminSubHeader = ({ toggleShowMenu, object }) => {
   return (
     <>
-      <div className="my-4 flex items-center justify-between">
+      <div className="my-2 flex items-center justify-between">
         <div className="w-2/6">
           <p className="font-poppins text-xs font-medium lg:text-sm">
             List of {object}

@@ -1,7 +1,7 @@
-import ManagerAddRegionCinema from "modules/managerPages/regionsPage/ManagerAddRegionCinema";
+import { ManagerAddRegionCinemaPage } from "modules/managerPages/regionsPage/ManagerAddRegionCinemaPage";
 
 const AddCinemaInRegion = () => {
-  return <ManagerAddRegionCinema />;
+  return <ManagerAddRegionCinemaPage />;
 };
 
 export default AddCinemaInRegion;

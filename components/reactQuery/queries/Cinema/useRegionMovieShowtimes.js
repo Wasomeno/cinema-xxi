@@ -1,4 +1,4 @@
-import { query } from "../../query";
+import { query } from "../query";
 
 export const useRegionMovieShowtimes = ({ regionId, movieId }) => {
   const movieShowtimes = query({

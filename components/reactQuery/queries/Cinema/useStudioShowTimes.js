@@ -1,12 +1,15 @@
-import { useAdminDetailsContext } from "context/AppContext";
+import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
 
-import { query } from "../../query";
-import { cinemaStudioKeys } from "./cinemaStudioQueryKeysFactory";
+import { query } from "../query";
+import { cinemaStudioQueryKeys } from "../queryKeys/cinemaStudioQueryKeys";
 
 export const useStudioShowTimes = ({ studio }) => {
   const adminDetails = useAdminDetailsContext();
   const studioShowtimes = query({
-    queryKey: cinemaStudioKeys.studioShowtimes(studio, adminDetails?.cinema),
+    queryKey: cinemaStudioQueryKeys.studioShowtimes(
+      studio,
+      adminDetails?.cinema
+    ),
     url:
       "/api/cinemas/" +
       adminDetails?.cinema +

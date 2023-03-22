@@ -1,8 +1,6 @@
-import { useRouter } from "next/router";
-import React from "react";
+import Link from "next/link";
 
 const NotValidManager = () => {
-  const router = useRouter();
   return (
     <main className="flex h-screen flex-col items-center justify-center gap-4">
       <div className="text-center">
@@ -11,12 +9,12 @@ const NotValidManager = () => {
         </h1>
       </div>
 
-      <button
+      <Link
+        href="/app"
         className="rounded-md bg-slate-900 p-2 px-4 font-poppins text-sm text-white"
-        onClick={() => router.push("/app")}
       >
         Back to App
-      </button>
+      </Link>
     </main>
   );
 };

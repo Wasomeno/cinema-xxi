@@ -6,7 +6,7 @@ export const SelectedShowtimes = ({ selectedShowtimes, deselectShowtime }) => {
       <div className="my-4">
         <Paragraph size="xs">Selected Showtimes</Paragraph>
       </div>
-      <div className="flex h-80 items-center justify-center overflow-y-scroll">
+      <div className="flex h-40 items-center justify-center overflow-y-scroll">
         {selectedShowtimes.length < 1 ? (
           <Paragraph size="sm">No Showtimes Selected</Paragraph>
         ) : (
@@ -15,7 +15,7 @@ export const SelectedShowtimes = ({ selectedShowtimes, deselectShowtime }) => {
               <div
                 key={index}
                 onClick={() => deselectShowtime(showtime.id)}
-                className="tems-center flex h-10 w-full justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
+                className="tems-center flex w-full justify-evenly rounded-md bg-slate-200 p-3 shadow-md"
               >
                 <Paragraph size="xs">{showtime.time}</Paragraph>
               </div>

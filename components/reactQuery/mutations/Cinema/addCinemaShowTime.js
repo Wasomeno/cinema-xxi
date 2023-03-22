@@ -1,4 +1,4 @@
-import { useAdminDetailsContext } from "context/AppContext";
+import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
 
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";

@@ -1,4 +1,4 @@
-import { cinemaKeys } from "../../queries/Cinema/cinemaQueryKeysFactory";
+import { cinemaQueryKeys } from "../../queries/queryKeys/cinemaQueryKeys";
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
@@ -10,7 +10,7 @@ export const deleteCinemaMovies = ({ cinemaId, movieIds }) => {
     context: "delete",
     object: "movie",
     invalidateQueries: true,
-    queryKeys: cinemaKeys.cinemaMovies(cinemaId),
+    queryKeys: cinemaQueryKeys.cinemaMovies(cinemaId),
   });
 
   const deleteCinemaMoviesMutation = mutation({

@@ -7,7 +7,7 @@ export default async function cinemaDetailsHandler(req, res) {
     const cinemaDetails = await prisma.cinema.findUnique({
       where: { id: parseInt(cinemaId) },
       include: {
-        movie: true,
+        movie: { include: { cinema: true, showtime: true } },
         admin: true,
         region: true,
         studio: true,
@@ -15,14 +15,12 @@ export default async function cinemaDetailsHandler(req, res) {
         transactions: true,
       },
     });
-    res
-      .status(200)
-      .json({
-        ...cinemaDetails,
-        transactions: cinemaDetails.transactions.map((transaction) => ({
-          ...transaction,
-          showtime: transaction.showtime.toString(),
-        })),
-      });
+    res.status(200).json({
+      ...cinemaDetails,
+      transactions: cinemaDetails.transactions.map((transaction) => ({
+        ...transaction,
+        showtime: transaction.showtime.toString(),
+      })),
+    });
   }
 }

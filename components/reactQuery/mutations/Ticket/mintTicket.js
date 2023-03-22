@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { parseEther } from "ethers/lib/utils.js";
 import { ticketContract } from "hooks/createContract";
-import { useUserDetails } from "hooks/useUserDetails";
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
 import { useMoviePageValueContext } from "modules/appPages/moviePage/components/context/appMoviePageContext";
 import moment from "moment";
 import { useWaitForTransaction } from "wagmi";
@@ -13,7 +13,7 @@ export function mintTicket({ total }) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useMoviePageValueContext();
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { user } = useUserDetails();
+  const { user } = useUserConnectionDetails();
   const contract = ticketContract();
   const dayOfWeek = moment().day();
   // const ticketShowtime = moment().startOf("day").add({ seconds: time });

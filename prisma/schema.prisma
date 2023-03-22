@@ -11,7 +11,7 @@ datasource db {
 model Region {
   id           Int           @id @default(autoincrement())
   name         String        @db.VarChar(255)
-  admin        Admin[]
+  regionAdmins        String[]
   cinema       Cinema[]
   transactions Transaction[]
 }
@@ -20,7 +20,7 @@ model Cinema {
   id           Int           @id @default(autoincrement())
   regionId     Int
   name         String        @db.VarChar(255)
-  admin        Admin[]
+  admins        String[]
   region       Region        @relation(fields: [regionId], references: [id])
   seats        Seats[]
   showtimes    Showtime[]
@@ -67,24 +67,6 @@ model User {
   address      String        @unique
   name         String
   transactions Transaction[]
-}
-
-model Manager {
-  id        Int      @id @default(autoincrement())
-  address   String
-  name      String
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-}
-
-model Admin {
-  id        Int      @id @default(autoincrement())
-  cinemaId  Int
-  address   String
-  name      String
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  regionId  Int      @default(0)
-  cinema    Cinema   @relation(fields: [cinemaId], references: [id])
-  region    Region   @relation(fields: [regionId], references: [id])
 }
 
 model Transaction {

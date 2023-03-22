@@ -5,25 +5,37 @@ export const FormContainer = ({ children, onSubmit }) => {
         event.preventDefault();
         onSubmit();
       }}
-      className="flex w-full flex-col items-center justify-start gap-5"
+      className="flex w-full flex-col items-center justify-start gap-2"
     >
       {children}
     </form>
   );
 };
 
-export const FormTextArea = ({ id, value, setValue }) => {
+export const FormTextArea = ({ id, value, setValue, width }) => {
   return (
     <textarea
       id={id}
       value={value}
       onChange={(event) => setValue(event.target.value)}
-      className="font-poppins h-40 w-4/6 rounded-lg border border-slate-500 p-2 text-center text-xs"
+      className={
+        "h-40 rounded-lg border border-slate-500 p-2 font-poppins text-xs lg:text-sm" +
+        " " +
+        "w-" +
+        width
+      }
     />
   );
 };
 
-export const FormInput = ({ type, width, value, setValue, id }) => {
+export const FormInput = ({
+  type,
+  width,
+  value,
+  setValue,
+  id,
+  placeholder,
+}) => {
   return (
     <input
       type={type}
@@ -31,8 +43,9 @@ export const FormInput = ({ type, width, value, setValue, id }) => {
       id={id}
       className={
         (width ? "w-" + width : "w-3/6") +
-        " font-poppins h-8 rounded-lg border border-slate-500 p-2 text-center text-sm"
+        " h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs lg:text-sm"
       }
+      placeholder={placeholder}
       onChange={(event) => setValue(event.target.value)}
     />
   );
@@ -45,7 +58,7 @@ export const FormSubmit = ({ width, value }) => {
       value={value}
       className={
         (width ? "w-" + width : "w-full") +
-        " font-poppins rounded-lg bg-slate-900 p-2 text-xs font-medium text-white lg:text-sm"
+        " rounded-lg bg-slate-900 p-2 font-poppins text-xs font-medium text-white lg:text-sm"
       }
     />
   );

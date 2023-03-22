@@ -1,8 +1,8 @@
 import { useViewport } from "hooks/useViewport";
 import React from "react";
 
-import AppNavigation from "../Navigations/AppNavigation/AppNavigation";
-import AppNavigationMobile from "../Navigations/AppNavigation/AppNavigationMobile";
+import AppNavigation from "../Navigations/App/AppNavigation";
+import AppNavigationMobile from "../Navigations/App/AppNavigationMobile";
 
 const AppLayout = ({ children }) => {
   const viewport = useViewport();

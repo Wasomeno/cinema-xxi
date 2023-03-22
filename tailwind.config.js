@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     fontFamily: {
       poppins: "var(--font-poppins)",
+      openSans: "var(---font-open-sans)",
     },
 
     extend: {},

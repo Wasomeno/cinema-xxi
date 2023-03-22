@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -10,17 +11,17 @@ import { Subtitle } from "@/components/shared/Texts";
 
 import CinemaList from "./components/CinemaList";
 
+const ManagerRegionDetailsMenu = dynamic(() =>
+  import("./components/ManagerRegionDetailsMenu").then(
+    (component) => component.ManagerRegionDetailsMenu
+  )
+);
+
 export const ManagerRegionDetailsPage = () => {
   const { query } = useRouter();
   const [showMenu, toggleShowMenu] = useToggle(false);
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const regionDetails = useRegionDetails({ region: query?.regionId });
-
-  const ManagerRegionDetailsMenu = dynamic(() =>
-    import("./components/ManagerRegionDetailsMenu").then(
-      (component) => component.ManagerRegionDetailsMenu
-    )
-  );
 
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
@@ -51,13 +52,15 @@ export const ManagerRegionDetailsPage = () => {
           />
         </div>
       </div>
-      {showMenu && (
-        <ManagerRegionDetailsMenu
-          region={query?.regionId}
-          toggleDeleteMode={toggleDeleteMode}
-          toggleShowMenu={toggleShowMenu}
-        />
-      )}
+      <AnimatePresence>
+        {showMenu && (
+          <ManagerRegionDetailsMenu
+            region={query?.regionId}
+            toggleDeleteMode={toggleDeleteMode}
+            toggleShowMenu={toggleShowMenu}
+          />
+        )}
+      </AnimatePresence>
     </AnimatedContainer>
   );
 };
