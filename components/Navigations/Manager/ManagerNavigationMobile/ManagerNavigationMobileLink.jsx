@@ -8,7 +8,8 @@ export const ManagerNavigationMobileLink = ({
   text,
   icon,
 }) => {
-  const Icon = useMemo(() => useIcon(icon), [icon]);
+  const Icon = useIcon(icon);
+  const MemoizedIcon = useMemo(() => Icon, []);
   return (
     <Link
       href={"/manager/" + (route === "manager" ? "" : route)}
@@ -16,7 +17,7 @@ export const ManagerNavigationMobileLink = ({
       prefetch={false}
     >
       <span>
-        <Icon
+        <MemoizedIcon
           size="5"
           color={activeRoute === route ? "stroke-blue-800" : "stroke-black"}
         />
