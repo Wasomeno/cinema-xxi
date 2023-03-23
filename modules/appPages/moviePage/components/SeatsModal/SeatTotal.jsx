@@ -15,7 +15,7 @@ const SeatTotal = () => {
   const ticketPriceTotal = useTicketPriceTotal(dayOfWeek, selectedSeats.length);
 
   return (
-    <div className="fixed bottom-4 left-1/2 flex h-44 w-5/6 -translate-x-1/2 flex-col justify-around rounded-md border-2 border-blue-100 p-2 shadow-md">
+    <div className="relative bottom-2 left-1/2 flex h-44 w-5/6 -translate-x-1/2 flex-col justify-around rounded-md border-2 border-blue-100 p-2 shadow-md">
       <div className="flex h-4/6 items-start justify-center">
         <div className="w-6/12">
           <div className="mb-2 text-center">
