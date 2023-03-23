@@ -13,7 +13,7 @@ export default async function mintTicketHandler(req, res) {
         })
         .unix();
       await prisma.showtime.update({
-        // where: { id: ticketDetails.showtime.id },
+        where: { id: ticketDetails.showtime.id },
         data: {
           showtimeSeats: {
             upsert: {
