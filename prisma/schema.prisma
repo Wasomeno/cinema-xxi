@@ -20,7 +20,7 @@ model Cinema {
   id           Int           @id @default(autoincrement())
   regionId     Int
   name         String        @db.VarChar(255)
-  admins        String[]
+  admins       String[]
   region       Region        @relation(fields: [regionId], references: [id])
   seats        Seats[]
   showtimes    Showtime[]
