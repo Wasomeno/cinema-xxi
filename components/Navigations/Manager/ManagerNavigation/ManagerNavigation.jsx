@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
-import { useDisconnect } from "wagmi";
+import { useToast } from "stores/toastStore";
+import { useBalance, useDisconnect } from "wagmi";
 
+import ArrowTopRight from "@/components/Icons/ArrowTopRight";
 import ChevronRight from "@/components/Icons/ChevronRight";
+import ClipboardDocument from "@/components/Icons/ClipboardDocument";
 import Power from "@/components/Icons/Power";
 
 import { ManagerNavigationLink } from "./ManagerNavigationLink";
@@ -12,6 +15,19 @@ export const ManagerNavigation = () => {
   const { user } = useUserConnectionDetails();
   const { disconnect } = useDisconnect();
   const [showNav, toggleShowNav] = useToggle();
+  const { data: walletBalance } = useBalance({ address: user });
+  const [toastSuccess] = useToast();
+
+  function openEtherScan() {
+    window
+      .open("https://sepolia.etherscan.io/address/" + user, "_blank")
+      .focus();
+  }
+
+  function copyAddress() {
+    navigator.clipboard.writeText(user);
+    toastSuccess("Address Copied");
+  }
 
   return (
     <motion.div
@@ -37,15 +53,31 @@ export const ManagerNavigation = () => {
       >
         <div className="h-12 w-12 rounded-full bg-slate-500" />
         <motion.div
-          className="text-center"
+          className="flex flex-col items-center justify-center gap-2"
           initial={{ opacity: 0 }}
-          animate={{ opacity: showNav ? 1 : 0, display: 0 }}
+          animate={{ opacity: showNav ? 1 : 0, display: "flex" }}
           transition={{ duration: 0.2, ease: "easeInOut" }}
         >
-          <p className="font-poppins text-sm font-medium">Manager</p>
-          <p className="font-poppins text-sm text-slate-500">
-            {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
+          <p className="text-center font-poppins text-sm font-medium">
+            Manager
           </p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="font-poppins text-sm text-slate-500">
+              {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
+            </p>
+            <button
+              onClick={copyAddress}
+              className="rounded-lg bg-slate-700 p-1.5"
+            >
+              <ClipboardDocument color="stroke-slate-50" size="4" />
+            </button>
+            <button
+              onClick={openEtherScan}
+              className="rounded-lg bg-slate-700 p-1.5"
+            >
+              <ArrowTopRight color="stroke-slate-50" size="4" />
+            </button>
+          </div>
         </motion.div>
       </div>
       <div className="flex h-5/6 flex-col justify-between">
@@ -62,7 +94,7 @@ export const ManagerNavigation = () => {
           </ManagerNavigationLink>
           <ManagerNavigationLink
             href="/manager/region"
-            icon="time"
+            icon="globe"
             showNav={showNav}
           >
             Manage Region

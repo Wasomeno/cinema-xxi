@@ -4,7 +4,7 @@ import { AdminSubHeader } from "@/components/AdminSubHeader";
 import AnimatedContainer from "@/components/AnimatedContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
 
-import CinemaMovieList from "./components/CinemaMovieList";
+import CinemaMovies from "./components/CinemaMovies";
 
 export const AdminMoviesPage = () => {
   const [showMenu, toggleShowMenu] = useToggle(false);
@@ -12,12 +12,11 @@ export const AdminMoviesPage = () => {
     <AnimatedContainer className="h-screen p-4">
       <AdminHeader>Movies in Cinema</AdminHeader>
       <div className="flex justify-center">
-        <div className="w-full lg:w-5/6">
-          <AdminSubHeader object="movies" toggleShowMenu={toggleShowMenu} />
-          <CinemaMovieList
-            showMenu={showMenu}
-            toggleShowMenu={toggleShowMenu}
-          />
+        <div className="w-full lg:w-4/6">
+          <AdminSubHeader toggleShowMenu={toggleShowMenu}>
+            Cinema Movies
+          </AdminSubHeader>
+          <CinemaMovies showMenu={showMenu} toggleShowMenu={toggleShowMenu} />
         </div>
       </div>
     </AnimatedContainer>

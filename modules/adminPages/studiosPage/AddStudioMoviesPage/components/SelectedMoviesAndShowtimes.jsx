@@ -7,8 +7,8 @@ export const SelectedMoviesAndShowtimes = ({
   deselectShowtime,
 }) => {
   return (
-    <div className="my-2">
-      <div className="my-4">
+    <div className="w-full">
+      <div className="mb-42">
         <Paragraph size="xs">Selected Movie & Showtimes</Paragraph>
       </div>
       <div className="flex justify-center gap-4">

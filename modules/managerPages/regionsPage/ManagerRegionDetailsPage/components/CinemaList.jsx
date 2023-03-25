@@ -19,7 +19,9 @@ const CinemaList = ({ deleteMode, toggleDeleteMode, cinemas, region }) => {
     <>
       <div className="flex flex-col gap-4">
         <div className="my-2 w-2/6 border-b-2 border-b-blue-600 py-1">
-          <Subtitle size="xs">Cinema List</Subtitle>
+          <p className="font-poppins text-xs font-medium lg:text-sm">
+            Cinema List
+          </p>
         </div>
         <div className="flex flex-col items-center justify-center gap-3">
           {cinemas?.length < 1 ? (

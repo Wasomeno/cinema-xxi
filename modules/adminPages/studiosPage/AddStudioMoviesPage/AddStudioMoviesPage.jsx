@@ -5,8 +5,8 @@ import AnimatedContainer from "@/components/AnimatedContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
 import { addStudioMoviesShowtime } from "@/components/reactQuery/mutations/Cinema/addStudioMoviesShowtime";
 
-import { AvailableMovies } from "./components/AvailableMovies";
-import { AvailableShowtimes } from "./components/AvailableShowtimes";
+import { AvailableCinemaShowtimes } from "../AddStudioShowtimesPage/components/AvailableCinemaShowtimes";
+import { AvailableCinemaMovies } from "./components/AvailableCinemaMovies";
 import { SelectedMoviesAndShowtimes } from "./components/SelectedMoviesAndShowtimes";
 
 export const AddStudioMoviesPage = () => {
@@ -24,16 +24,16 @@ export const AddStudioMoviesPage = () => {
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
       <AdminHeader withBackButton>Add Movies</AdminHeader>
       <div className="flex justify-center">
-        <div className="w-full lg:w-4/6">
-          <AvailableMovies selectMovie={setSelectedMovie} />
-          <AvailableShowtimes selectShowtime={setSelectedShowtime} />
+        <div className="flex w-11/12 flex-col items-center gap-4 lg:w-4/6">
+          <AvailableCinemaMovies selectMovie={setSelectedMovie} />
+          <AvailableCinemaShowtimes selectShowtime={setSelectedShowtime} />
           <SelectedMoviesAndShowtimes
             deselectMovie={() => setSelectedMovie()}
             deselectShowtime={() => setSelectedShowtime()}
             selectedMovie={selectedMovie}
             selectedShowtime={selectedShowtime}
           />
-          <div className="mt-4 text-center">
+          <div className="w-full text-center">
             <button
               onClick={addStudioMoviesShowtimeMutation.mutate}
               className="w-3/6 rounded-md bg-slate-900 p-2 font-poppins text-sm text-white lg:w-2/6"

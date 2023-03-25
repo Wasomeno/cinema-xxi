@@ -20,10 +20,10 @@ const TicketHistory = ({ transactions }) => {
           <Link
             key={transaction.id}
             href={"/app/tickets/" + transaction.id}
-            className="flex w-full items-center justify-center gap-2 rounded-md bg-slate-50 p-2"
+            className="flex w-full items-center justify-center gap-2 rounded-md bg-slate-50 p-2 lg:w-3/6"
           >
-            <div className="w-2/6">
-              <div className="h-36 w-full rounded-md bg-slate-500" />
+            <div className="w-2/6 lg:w-3/12">
+              <div className="h-36 w-full rounded-md bg-slate-500 lg:h-52" />
             </div>
             <div className="flex w-4/6 flex-col gap-2">
               <p className="font-poppins text-sm">{transaction.movie.title}</p>

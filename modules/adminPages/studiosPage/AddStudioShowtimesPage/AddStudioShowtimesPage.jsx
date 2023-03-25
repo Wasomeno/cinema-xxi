@@ -5,7 +5,7 @@ import AnimatedContainer from "@/components/AnimatedContainer";
 import AdminHeader from "@/components/Headers/AdminHeader";
 import { addStudioShowtimes } from "@/components/reactQuery/mutations/Cinema/addStudioShowTime";
 
-import { AvailableShowtimes } from "./components/AvailableShowtimes";
+import { AvailableCinemaShowtimes } from "./components/AvailableCinemaShowtimes";
 import { SelectedShowtimes } from "./components/SelectedShowtimes";
 
 export const AddStudioShowtimesPage = () => {
@@ -34,13 +34,13 @@ export const AddStudioShowtimesPage = () => {
         Add Studio {query.studio} Showtimes
       </AdminHeader>
       <div className="flex justify-center">
-        <div className="w-5/6 lg:w-4/6">
-          <AvailableShowtimes selectShowtime={selectShowtime} />
+        <div className="flex w-11/12 flex-col items-center gap-4 lg:w-4/6">
+          <AvailableCinemaShowtimes selectShowtime={selectShowtime} />
           <SelectedShowtimes
             selectedShowtimes={selectedShowtimes}
             deselectShowtime={deselectShowtime}
           />
-          <div className="mt-4 text-center">
+          <div className="mt-4 w-full text-center">
             <button
               onClick={addStudioShowtimeMutation.mutate}
               className="w-3/6 rounded-md bg-slate-900 p-2 font-poppins text-sm text-white"

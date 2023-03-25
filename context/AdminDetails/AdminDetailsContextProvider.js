@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 import { adminDetailsContext } from "./adminDetailsContext";
 
 export const AdminDetailsContextProvider = ({ children, adminDetails }) => {

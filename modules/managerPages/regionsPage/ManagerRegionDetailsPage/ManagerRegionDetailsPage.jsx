@@ -2,12 +2,13 @@ import { AnimatePresence } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { MoonLoader } from "react-spinners";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";
 import EllipsisVertical from "@/components/Icons/EllipsisVertical";
 import { useRegionDetails } from "@/components/reactQuery/queries/Region/useRegionDetails";
-import { Subtitle } from "@/components/shared/Texts";
+import { Paragraph } from "@/components/shared/Texts";
 
 import CinemaList from "./components/CinemaList";
 
@@ -23,14 +24,29 @@ export const ManagerRegionDetailsPage = () => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const regionDetails = useRegionDetails({ region: query?.regionId });
 
+  if (regionDetails.isLoading)
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
+        <p className="font-poppins text-xs">Fetching region details</p>
+        <MoonLoader
+          loading={regionDetails.isLoading}
+          size="30"
+          color="black"
+          speedMultiplier={0.75}
+        />
+      </div>
+    );
+
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
       <ManagerHeader withBackButton>{regionDetails.data?.name}</ManagerHeader>
       <div className="flex justify-center">
-        <div className="w-full lg:w-5/6">
+        <div className="w-full md:w-5/6 lg:w-4/6">
           <div className="my-2 flex items-center justify-between">
             <div className="w-2/6">
-              <Subtitle size="xs">Region Details</Subtitle>
+              <p className="font-poppins text-xs font-medium lg:text-sm">
+                Region Details
+              </p>
             </div>
             <div className="relative">
               <button

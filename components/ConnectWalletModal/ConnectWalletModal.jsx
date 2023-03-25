@@ -22,14 +22,16 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
         className="fixed left-0 bottom-0 z-30 h-screen w-screen bg-black bg-opacity-70"
         onClick={toggleWalletModal}
       />
-      <AnimatedContainer className="fixed bottom-0 z-40 h-72 w-full rounded-t-lg bg-slate-800 p-4 lg:top-1/2 lg:left-1/2 lg:h-80 lg:w-80 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-lg">
+      <AnimatedContainer className="fixed bottom-0 z-40 flex h-72 w-full flex-col items-center gap-2 rounded-t-lg bg-slate-800 p-4 lg:top-1/2 lg:left-1/2 lg:h-80 lg:w-80 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-lg">
         <div className="h-1 w-2/6 rounded-full bg-slate-600 bg-opacity-25" />
-        <WalletStatusComponent
-          connectors={connectors}
-          connect={connect}
-          error={error}
-          toggleWalletModal={toggleWalletModal}
-        />
+        <div className="w-full">
+          <WalletStatusComponent
+            connectors={connectors}
+            connect={connect}
+            error={error}
+            toggleWalletModal={toggleWalletModal}
+          />
+        </div>
       </AnimatedContainer>
     </>
   );

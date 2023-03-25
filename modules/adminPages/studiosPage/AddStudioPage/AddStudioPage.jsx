@@ -50,7 +50,7 @@ export const AddStudioPage = () => {
               />
             </div>
           </div>
-          <div className="mt-4 w-full text-center">
+          <div className="mt-4 w-5/6 text-center lg:w-3/6">
             <FormSubmit value="Submit" width="3/6" />
           </div>
         </FormContainer>

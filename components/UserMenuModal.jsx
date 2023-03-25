@@ -1,5 +1,5 @@
 import React from "react";
-import { useToast } from "store/stores";
+import { useToast } from "stores/toastStore";
 import { useAccount, useBalance, useDisconnect } from "wagmi";
 
 import AnimatedContainer from "./AnimatedContainer";

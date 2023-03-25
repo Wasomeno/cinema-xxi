@@ -27,7 +27,7 @@ const StudioAmountInput = ({
       <label id="studioAmount" className="font-poppins text-xs lg:text-sm">
         Studio Amount
       </label>
-      <div className="flex w-full items-center justify-center gap-1">
+      <div className="flex w-5/6 items-center justify-center gap-1">
         <button
           type="button"
           className="rounded-lg bg-black p-1.5"
@@ -39,7 +39,7 @@ const StudioAmountInput = ({
           type="number"
           value={studioAmount}
           readOnly={true}
-          className="h-8 w-4/12 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs"
+          className="lg:tex-sm h-8 w-6/12 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs"
         />
         <button
           type="button"

@@ -1,12 +1,23 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useIcon } from "hooks/useIcon";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-export const AdminNavigationLink = ({ href, children, icon, showNav }) => {
+export const AdminNavigationLink = ({
+  href,
+  children,
+  icon,
+  showNav,
+  setShowNav,
+}) => {
+  const { push } = useRouter();
   const Icon = useIcon(icon);
   return (
-    <Link
-      href={href}
+    <button
+      onClick={() => {
+        push(href);
+        setShowNav(false);
+      }}
       className="flex h-16 w-full items-center justify-center p-2 transition duration-300 ease-in-out hover:bg-slate-300"
     >
       <motion.span
@@ -29,6 +40,6 @@ export const AdminNavigationLink = ({ href, children, icon, showNav }) => {
           </motion.span>
         )}
       </AnimatePresence>
-    </Link>
+    </button>
   );
 };

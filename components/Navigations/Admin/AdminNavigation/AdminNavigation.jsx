@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import useToggle from "hooks/useToggle";
 import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
+import { useState } from "react";
 import { useDisconnect } from "wagmi";
 
 import ChevronRight from "@/components/Icons/ChevronRight";
@@ -10,8 +10,9 @@ import { AdminNavigationLink } from "./AdminNavigationLink";
 
 export const AdminNavigation = () => {
   const { user } = useUserConnectionDetails();
-  const [showNav, toggleShowNav] = useToggle(false);
+  const [showNav, setShowNav] = useState(false);
   const { disconnect } = useDisconnect();
+
   return (
     <motion.div
       initial={{ width: "70px" }}
@@ -23,7 +24,7 @@ export const AdminNavigation = () => {
     >
       <button
         className="top-24 -right-4 z-10 h-7 w-7 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md md:absolute md:flex"
-        onClick={toggleShowNav}
+        onClick={() => setShowNav(!showNav)}
       >
         <span className={(showNav ? "rotate-180 " : "") + "p-2"}>
           <ChevronRight size="4" />
@@ -49,10 +50,16 @@ export const AdminNavigation = () => {
       </div>
       <div className="flex h-5/6 flex-col justify-between">
         <div className="flex h-4/6 flex-col items-center gap-4 overflow-hidden">
-          <AdminNavigationLink href="/admin" icon="house" showNav={showNav}>
+          <AdminNavigationLink
+            setShowNav={setShowNav}
+            href="/admin"
+            icon="house"
+            showNav={showNav}
+          >
             Dashboard
           </AdminNavigationLink>
           <AdminNavigationLink
+            setShowNav={setShowNav}
             href="/admin/movies"
             icon="cinema"
             showNav={showNav}
@@ -60,6 +67,7 @@ export const AdminNavigation = () => {
             Manage Movies
           </AdminNavigationLink>
           <AdminNavigationLink
+            setShowNav={setShowNav}
             href="/admin/showtimes"
             icon="time"
             showNav={showNav}
@@ -67,6 +75,7 @@ export const AdminNavigation = () => {
             Manage Showtimes
           </AdminNavigationLink>
           <AdminNavigationLink
+            setShowNav={setShowNav}
             href="/admin/studios"
             icon="rectangleStack"
             showNav={showNav}

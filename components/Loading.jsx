@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { MoonLoader } from "react-spinners";
 
-import { useLoadingDetails } from "../store/stores";
+import { useLoadingDetails } from "../stores/loadingStore";
 import AnimatedContainer from "./AnimatedContainer";
 import { Paragraph } from "./shared/Texts";
 

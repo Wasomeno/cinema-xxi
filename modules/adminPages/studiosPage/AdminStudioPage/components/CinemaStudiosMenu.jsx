@@ -3,7 +3,7 @@ import React from "react";
 import HeaderMenuLink from "@/components/shared/HeaderMenuLink";
 import HeaderMenuModal from "@/components/shared/HeaderMenuModal";
 
-export const StudioListMenu = ({ toggleShowMenu, toggleDeleteMode }) => {
+export const CinemaStudiosMenu = ({ toggleShowMenu }) => {
   return (
     <HeaderMenuModal toggleShowMenu={toggleShowMenu}>
       <div className="my-4 flex justify-center">

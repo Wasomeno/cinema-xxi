@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 
-import { useToastDetails } from "../store/stores";
+import { useToastDetails } from "../stores/toastStore";
 import AnimatedContainer from "./AnimatedContainer";
 import CheckMark from "./Icons/Checkmark";
 import Warning from "./Icons/Warning";

@@ -2,13 +2,13 @@ import useToggle from "hooks/useToggle";
 
 import EllipsisVertical from "./Icons/EllipsisVertical";
 
-export const AdminSubHeader = ({ toggleShowMenu, object }) => {
+export const AdminSubHeader = ({ toggleShowMenu, children }) => {
   return (
     <>
       <div className="my-2 flex items-center justify-between">
         <div className="w-2/6">
           <p className="font-poppins text-xs font-medium lg:text-sm">
-            List of {object}
+            {children}
           </p>
         </div>
         <span className="relative">

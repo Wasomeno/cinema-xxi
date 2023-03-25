@@ -16,10 +16,9 @@ export const AdminStudioDetailsPage = () => {
       <AdminHeader withBackButton>{"Studio " + query.studio}</AdminHeader>
       <div className="flex justify-center">
         <div className="w-full lg:w-5/6">
-          <AdminSubHeader
-            object="Studio Details"
-            toggleShowMenu={toggleShowMenu}
-          />
+          <AdminSubHeader toggleShowMenu={toggleShowMenu}>
+            Studio Details
+          </AdminSubHeader>
         </div>
       </div>
       <AnimatePresence>

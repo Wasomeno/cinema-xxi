@@ -8,7 +8,6 @@ export default async function cinemaDetailsHandler(req, res) {
       where: { id: parseInt(cinemaId) },
       include: {
         movie: { include: { cinema: true, showtime: true } },
-        admin: true,
         region: true,
         studio: true,
         showtimes: true,

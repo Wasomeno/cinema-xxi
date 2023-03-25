@@ -2,7 +2,8 @@
 import { queryClientApp } from "client/reactQueryClient";
 import { useRouter } from "next/router";
 
-import { useLoading, useToast } from "../../../store/stores";
+import { useLoading } from "../../../stores/loadingStore";
+import { useToast } from "../../../stores/toastStore";
 
 const contextLoadingTexts = {
   add: "Adding new",

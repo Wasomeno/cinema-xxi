@@ -25,37 +25,35 @@ const ManagerLayout = ({ children }) => {
   const managerStatus = useManagerStatus({ address: user });
   const viewport = useViewport();
 
+  if (!isConnected) return <ManagerLoginPage />;
+
+  if (managerStatus.isLoading && isConnected)
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+        <Paragraph size="sm" style="medium">
+          Fetching Manager Status
+        </Paragraph>
+        <MoonLoader
+          loading={managerStatus.isLoading}
+          size="30px"
+          color="black"
+        />
+      </div>
+    );
+
+  if (!managerStatus.data && isConnected)
+    return (
+      <div className="relative flex flex-col items-center justify-center">
+        <NotValidManager />
+      </div>
+    );
+
   return (
     <>
-      {isConnected ? (
-        <>
-          {managerStatus.isLoading ? (
-            <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
-              <Paragraph size="sm" style="medium">
-                Fetching Manager Status
-              </Paragraph>
-              <MoonLoader
-                loading={managerStatus.isLoading}
-                size="30px"
-                color="black"
-              />
-            </div>
-          ) : !managerStatus.data ? (
-            <div className="relative flex flex-col items-center justify-center">
-              <NotValidManager />
-            </div>
-          ) : (
-            <>
-              {viewport.width > 1024 && <ManagerNavigation />}
-              <div className="h-full w-full overflow-y-scroll">{children}</div>
-              {viewport.width < 1024 && viewport.height > 400 && (
-                <ManagerNavigationMobile />
-              )}
-            </>
-          )}
-        </>
-      ) : (
-        <ManagerLoginPage />
+      {viewport.width > 1024 && <ManagerNavigation />}
+      <div className="h-full w-full overflow-y-scroll">{children}</div>
+      {viewport.width < 1024 && viewport.height > 400 && (
+        <ManagerNavigationMobile />
       )}
     </>
   );

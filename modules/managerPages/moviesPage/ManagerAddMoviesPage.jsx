@@ -27,7 +27,7 @@ const ManagerAddMoviesPage = () => {
     <AnimatedContainer className="h-screen p-4">
       <ManagerDashboardHeader withBackButton>Add Movie</ManagerDashboardHeader>
       <FormContainer onSubmit={addMovieMutation.mutate}>
-        <div className="my-2 flex items-center justify-center gap-2">
+        <div className="my-2 flex w-full items-center justify-center gap-2 lg:w-4/6">
           <div className="flex w-9/12 flex-col items-start justify-center gap-1 lg:w-4/6">
             <label id="movieTitle" className="font-poppins text-xs md:text-sm">
               Movie Title

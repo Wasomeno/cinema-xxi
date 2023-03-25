@@ -29,7 +29,7 @@ export const ManagerAddRegionCinemaPage = () => {
       </ManagerHeader>
       <div className="flex justify-center">
         <FormContainer onSubmit={addCinemaMutation.mutate}>
-          <div className="mt-4 flex items-center justify-center gap-1">
+          <div className="mt-4 flex w-full items-center justify-center gap-1 lg:w-4/6">
             <CinemaNameInput
               cinemaName={cinemaName}
               setCinemaName={setCinemaName}
@@ -44,7 +44,7 @@ export const ManagerAddRegionCinemaPage = () => {
             setStudioCapacities={setStudioCapacities}
             studioCapacities={studioCapacities}
           />
-          <div className="my-2 flex w-full flex-col items-center justify-center">
+          <div className="my-2 flex w-full flex-col items-center justify-center lg:w-2/6">
             <input
               type="submit"
               value="Submit"

@@ -1,19 +1,40 @@
 import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import dynamic from "next/dynamic";
+import { MoonLoader } from "react-spinners";
 
-import DataContainer from "@/components/DataContainer";
 import { deleteRegion } from "@/components/reactQuery/mutations/Region/deleteRegion";
 import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions";
+import { Paragraph } from "@/components/shared/Texts";
 
 import RegionListCard from "./RegionListCard";
 
 const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
 
-const RegionList = ({ deleteMode, toggleDeleteMode }) => {
+const AllRegions = ({ deleteMode, toggleDeleteMode }) => {
   const regions = useAllRegions();
   const [regionsToDelete, selectRegionsToDelete, deselectRegionsToDelete] =
     useSelectDeselect([]);
+
+  if (regions.isLoading)
+    return (
+      <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
+        <p className="font-poppins text-xs">Fetching all regions</p>
+        <MoonLoader
+          loading={regions.isLoading}
+          size="30"
+          color="black"
+          speedMultiplier={0.75}
+        />
+      </div>
+    );
+
+  if (regions.data?.length < 1)
+    return (
+      <div className="flex h-80 w-full items-center justify-center">
+        <Paragraph size="sm">No active region</Paragraph>
+      </div>
+    );
 
   return (
     <>
@@ -28,30 +49,18 @@ const RegionList = ({ deleteMode, toggleDeleteMode }) => {
           Cinema Amount
         </p>
       </div>
-      <DataContainer
-        loading={regions.isLoading}
-        object="regions"
-        className="mt-3 flex h-5/6 flex-col items-center justify-start gap-3"
-      >
-        {regions.data?.length < 1 ? (
-          <div className="flex h-72 items-center justify-center">
-            <p className="font-poppins text-xs font-medium">
-              No active regions
-            </p>
-          </div>
-        ) : (
-          regions.data?.map((region) => (
-            <RegionListCard
-              key={region.id}
-              region={region}
-              deleteMode={deleteMode}
-              deselectRegionsToDelete={deselectRegionsToDelete}
-              selectRegionsToDelete={selectRegionsToDelete}
-              regionsToDelete={regionsToDelete}
-            />
-          ))
-        )}
-      </DataContainer>
+      <div className="mt-3 flex h-5/6 flex-col items-center justify-start gap-3">
+        {regions.data?.map((region) => (
+          <RegionListCard
+            key={region.id}
+            region={region}
+            deleteMode={deleteMode}
+            deselectRegionsToDelete={deselectRegionsToDelete}
+            selectRegionsToDelete={selectRegionsToDelete}
+            regionsToDelete={regionsToDelete}
+          />
+        ))}
+      </div>
       <AnimatePresence>
         {deleteMode && (
           <DeleteModal
@@ -68,4 +77,4 @@ const RegionList = ({ deleteMode, toggleDeleteMode }) => {
   );
 };
 
-export default RegionList;
+export default AllRegions;

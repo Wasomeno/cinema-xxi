@@ -13,7 +13,7 @@ const HeaderMenuLink = ({ href, icon, text }) => {
         <LinkIcon size="5" color="stroke-black" />
       </div>
       <div className="w-4/6 text-center">
-        <p className="font-poppins text-xs lg:text-sm">{text}</p>
+        <p className="font-poppins text-xs">{text}</p>
       </div>
     </Link>
   );

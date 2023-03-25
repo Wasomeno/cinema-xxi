@@ -6,7 +6,7 @@ import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
 import { ManagerSubHeader } from "@/components/ManagerSubHeader";
 
-import RegionList from "./components/RegionList";
+import AllRegions from "./components/AllRegions";
 
 const ManagerRegionMenu = dynamic(() =>
   import("./components/ManagerRegionMenu")
@@ -20,9 +20,9 @@ export const ManagerRegionPage = () => {
     <AnimatedContainer className="h-screen overflow-y-scroll p-4">
       <ManagerDashboardHeader>Manage Regions</ManagerDashboardHeader>
       <div className="flex justify-center">
-        <div className="w-full lg:w-5/6">
-          <ManagerSubHeader object="movies" toggleShowMenu={toggleShowMenu} />
-          <RegionList
+        <div className="w-full lg:w-4/6">
+          <ManagerSubHeader object="regions" toggleShowMenu={toggleShowMenu} />
+          <AllRegions
             deleteMode={deleteMode}
             toggleDeleteMode={toggleDeleteMode}
           />

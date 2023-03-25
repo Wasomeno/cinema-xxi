@@ -32,7 +32,7 @@ const SeatColumns = () => {
   return (
     <div className="flex flex-col items-center overflow-x-scroll">
       <DataContainer
-        className="grid w-11/12 grid-cols-8 flex-wrap justify-center gap-2.5 overflow-x-scroll p-3"
+        className="grid w-11/12 grid-cols-8 flex-wrap justify-center gap-2.5 overflow-x-scroll p-3 md:w-9/12 lg:w-7/12"
         loading={false}
         object="seats"
       >
@@ -55,8 +55,8 @@ const SeatColumns = () => {
           </button>
         ))}
       </DataContainer>
-      <div className="mx-auto my-4 w-5/6 rounded-full bg-slate-700 p-2 text-center lg:w-5/6">
-        <p className="font-poppins text-xs text-white">Screen</p>
+      <div className="mx-auto my-4 w-5/6 rounded-full bg-slate-700 p-2 text-center md:w-9/12 lg:w-7/12">
+        <p className="font-poppins text-xs text-white lg:text-sm">Screen</p>
       </div>
     </div>
   );

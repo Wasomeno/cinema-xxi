@@ -2,11 +2,11 @@ import React from "react";
 
 const StudioCapacitiesInput = ({ studioCapacities, setStudioCapacities }) => {
   return (
-    <div className="my-3 flex flex-col items-start gap-2">
+    <div className="my-3 flex w-full flex-col items-start gap-2 lg:w-4/6">
       <label id="studioCapacities" className="font-poppins text-xs md:text-sm">
         Studio Capacities
       </label>
-      <div className="grid grid-cols-2 items-center gap-2">
+      <div className="grid grid-cols-2 items-center gap-2 lg:grid-cols-4">
         {studioCapacities.map((studio, index) => (
           <input
             key={index}

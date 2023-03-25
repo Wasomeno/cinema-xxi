@@ -11,7 +11,7 @@ export const CinemaListPage = () => {
   return (
     <AnimatedContainer className="h-screen p-4">
       <div className="text-center">
-        <h1 className="font-poppins text-sm">List of Cinema</h1>
+        <h1 className="font-poppins text-sm lg:text-base">List of Cinema</h1>
       </div>
       <div className="my-4 flex justify-center">
         <input
@@ -20,7 +20,7 @@ export const CinemaListPage = () => {
           onChange={(event) => {
             setSearch(event.target.value);
           }}
-          className="w-5/6 rounded-md bg-slate-50 p-2 text-xs"
+          className="w-5/6 rounded-md bg-slate-100 p-2 text-xs md:w-4/6 lg:w-3/6 lg:text-base"
           placeholder="Search cinema"
         />
       </div>
@@ -39,10 +39,10 @@ export const CinemaListPage = () => {
           allCinema.data?.map((cinema) => (
             <Link
               href={"/app/cinemas/" + cinema.id}
-              className="w-5/6 rounded-md bg-slate-100 p-2 px-3 text-center shadow-md shadow-slate-200"
+              className="w-5/6 rounded-md bg-slate-100 p-2 px-3 text-center shadow-md shadow-slate-200 md:w-4/6 lg:w-3/6"
               key={cinema.id}
             >
-              <p className="font-poppins text-xs">{cinema.name}</p>
+              <p className="font-poppins text-xs lg:text-sm">{cinema.name}</p>
             </Link>
           ))
         )}

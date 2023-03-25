@@ -11,7 +11,7 @@ const CinemaNameInput = ({ cinemaName, setCinemaName }) => {
         value={cinemaName}
         onChange={(event) => setCinemaName(event.target.value)}
         type="text"
-        className="h-8 w-full rounded-lg border border-slate-400 p-2 text-center font-openSans text-xs md:text-sm"
+        className="h-8 w-full rounded-lg border border-slate-400 p-2 font-openSans text-xs md:text-sm"
       />
     </div>
   );
