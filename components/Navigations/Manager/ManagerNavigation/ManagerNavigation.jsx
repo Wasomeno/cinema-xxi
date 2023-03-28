@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
 import { useToast } from "stores/toastStore";
-import { useBalance, useDisconnect } from "wagmi";
+import { useDisconnect } from "wagmi";
 
 import ArrowTopRight from "@/components/Icons/ArrowTopRight";
 import ChevronRight from "@/components/Icons/ChevronRight";
@@ -15,7 +15,6 @@ export const ManagerNavigation = () => {
   const { user } = useUserConnectionDetails();
   const { disconnect } = useDisconnect();
   const [showNav, toggleShowNav] = useToggle();
-  const { data: walletBalance } = useBalance({ address: user });
   const [toastSuccess] = useToast();
 
   function openEtherScan() {
@@ -43,7 +42,7 @@ export const ManagerNavigation = () => {
         onClick={toggleShowNav}
       >
         <span className={(showNav ? "rotate-180 " : "") + "p-2"}>
-          <ChevronRight size="4" />
+          <ChevronRight color="stroke-slate-900" size="4" />
         </span>
       </button>
       <div
@@ -105,7 +104,7 @@ export const ManagerNavigation = () => {
           className="flex h-1/6 items-center justify-center p-2"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-800">
-            <Power />
+            <Power size="4" color="stroke-slate-50" />
           </span>
           {showNav && <span className="w-3/6">Disconnect</span>}
         </button>

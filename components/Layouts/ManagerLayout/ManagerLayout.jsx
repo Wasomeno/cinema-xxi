@@ -4,23 +4,23 @@ import { ManagerLoginPage } from "modules/managerPages/ManagerLoginPage";
 import dynamic from "next/dynamic";
 import { MoonLoader } from "react-spinners";
 
-import NotValidManager from "../Manager/NotValidManager";
-import { useManagerStatus } from "../reactQuery/queries/Manager/useManagerStatus";
-import { Paragraph } from "../shared/Texts";
+import { useManagerStatus } from "../../reactQuery/queries/Manager/useManagerStatus";
+import { Paragraph } from "../../shared/Texts";
+import NotValidManager from "./NotValidManager";
 
 const ManagerNavigation = dynamic(() =>
-  import("../Navigations/Manager/ManagerNavigation").then(
+  import("../../Navigations/Manager/ManagerNavigation").then(
     (component) => component.ManagerNavigation
   )
 );
 
 const ManagerNavigationMobile = dynamic(() =>
-  import("../Navigations/Manager/ManagerNavigationMobile").then(
+  import("../../Navigations/Manager/ManagerNavigationMobile").then(
     (component) => component.ManagerNavigationMobile
   )
 );
 
-const ManagerLayout = ({ children }) => {
+export const ManagerLayout = ({ children }) => {
   const { user, isConnected } = useUserConnectionDetails();
   const managerStatus = useManagerStatus({ address: user });
   const viewport = useViewport();
@@ -58,5 +58,3 @@ const ManagerLayout = ({ children }) => {
     </>
   );
 };
-
-export default ManagerLayout;

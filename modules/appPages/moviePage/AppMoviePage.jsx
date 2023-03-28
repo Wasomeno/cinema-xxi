@@ -22,8 +22,8 @@ export const AppMoviePage = () => {
   const fetchedMovieDetails = useMovieDetails({ movieId: movieId });
 
   return (
-    <AnimatedContainer className="h-screen">
-      <div className="my-2 text-center">
+    <AnimatedContainer className="h-screen bg-opacity-95 p-4 dark:bg-slate-800">
+      <div className="mb-2 text-center">
         <Title>{fetchedMovieDetails.data?.title}</Title>
       </div>
       <div className="flex w-full items-start justify-center gap-5 ">

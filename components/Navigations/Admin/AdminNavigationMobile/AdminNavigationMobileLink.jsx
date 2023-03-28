@@ -19,13 +19,19 @@ export const AdminNavigationMobileLink = ({
       <span>
         <MemoizedIcon
           size="5"
-          color={activeRoute === href ? "stroke-blue-800" : "stroke-black"}
+          color={
+            activeRoute === href
+              ? "stroke-blue-800"
+              : "stroke-slate-800 dark:stroke-slate-50"
+          }
         />
       </span>
       <span className="text-center">
         <p
           className={
-            (activeRoute === href ? "text-blue-800" : "text-slate-900") +
+            (activeRoute === href
+              ? "text-blue-800"
+              : "text-slate-800 dark:text-slate-50") +
             " " +
             "font-poppins text-xs"
           }

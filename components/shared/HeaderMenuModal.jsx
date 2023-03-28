@@ -25,7 +25,7 @@ const HeaderMenuModal = ({ children, toggleShowMenu }) => {
         onDirectionLock={toggleShowMenu}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         exit={{ bottom: -10, opacity: 0 }}
-        className="fixed left-0 bottom-0 z-30 h-2/6 w-full rounded-md bg-slate-100 p-3 shadow-md sm:w-48 md:left-1/2 md:top-1/2 md:h-96 md:w-96 md:-translate-x-1/2 md:-translate-y-1/2"
+        className="fixed left-0 bottom-0 z-30 h-2/6 w-full rounded-md bg-slate-100 p-3 shadow-md dark:bg-slate-800 sm:w-48 md:left-1/2 md:top-1/2 md:h-96 md:w-96 md:-translate-x-1/2 md:-translate-y-1/2"
       >
         <div className="mx-auto h-1 w-2/6 rounded-full bg-slate-400 bg-opacity-25" />
         {children}

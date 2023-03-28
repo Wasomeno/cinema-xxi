@@ -15,7 +15,7 @@ export const TicketPage = () => {
   const [activeTab, toggleActiveTab] = useToggle(false);
 
   return (
-    <AnimatedContainer className="relative h-screen overflow-y-scroll">
+    <AnimatedContainer className="relative h-screen overflow-y-scroll bg-opacity-95 dark:bg-slate-800">
       {isConnected ? (
         <div className="flex flex-col items-center">
           <div className="sticky top-0 z-10 h-10 w-full lg:w-4/6">

@@ -11,10 +11,13 @@ const AdminHeader = ({ withBackButton, children }) => {
         {withBackButton && (
           <div className="col-span-1 text-center">
             <button
-              className="relative h-8 w-8 rounded-full bg-slate-100 p-1 shadow-md"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 p-1 shadow-md dark:bg-slate-700"
               onClick={() => back()}
             >
-              <ChevronLeft size="5" />
+              <ChevronLeft
+                size="5"
+                color="stroke-slate-800 dark:stroke-slate-50"
+              />
             </button>
           </div>
         )}

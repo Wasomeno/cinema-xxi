@@ -30,23 +30,26 @@ const StudioAmountInput = ({
       <div className="flex w-5/6 items-center justify-center gap-1">
         <button
           type="button"
-          className="rounded-lg bg-black p-1.5"
+          className="rounded-lg bg-slate-900 p-1.5"
           onClick={decrementStudioAmount}
         >
-          <ChevronLeft size="4" color="white" />
+          <ChevronLeft size="4" color="stroke-slate-800 dark:stroke-slate-50" />
         </button>
         <input
           type="number"
           value={studioAmount}
           readOnly={true}
-          className="lg:tex-sm h-8 w-6/12 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs"
+          className="lg:tex-sm h-8 w-6/12 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs dark:bg-slate-700"
         />
         <button
           type="button"
-          className="rounded-lg bg-black p-1.5"
+          className="rounded-lg bg-slate-900 p-1.5"
           onClick={incrementStudioAmount}
         >
-          <ChevronRight size="4" color="white" />
+          <ChevronRight
+            size="4"
+            color="stroke-slate-800 dark:stroke-slate-50"
+          />
         </button>
       </div>
     </div>

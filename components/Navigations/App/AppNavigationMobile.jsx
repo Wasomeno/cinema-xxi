@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { twMerge } from "tailwind-merge";
 
 import House from "@/components/Icons/House";
 import RectangeStack from "@/components/Icons/RectangeStack";
@@ -9,7 +11,7 @@ const AppNavigationMobile = () => {
   const { pathname, query } = useRouter();
   const currentPath = pathname.split("/")[2];
   return (
-    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly bg-slate-900 md:hidden">
+    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly bg-slate-300 shadow-md backdrop-blur-md dark:bg-slate-900 md:hidden">
       <Link
         href="/app"
         className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
@@ -21,11 +23,12 @@ const AppNavigationMobile = () => {
           }
         />
         <p
-          className={
-            "font-poppins text-xs font-light tracking-wider" +
-            " " +
-            (!currentPath ? "text-blue-300" : "text-white")
-          }
+          className={twMerge(
+            clsx(
+              "font-poppins text-xs tracking-wider dark:text-white",
+              currentPath === undefined && "dark:text-blue-300"
+            )
+          )}
         >
           Home
         </p>
@@ -40,11 +43,12 @@ const AppNavigationMobile = () => {
         />
 
         <p
-          className={
-            "font-poppins text-xs font-light tracking-wider text-white" +
-            " " +
-            (currentPath === "cinemas" ? "text-blue-300" : "text-white")
-          }
+          className={twMerge(
+            clsx(
+              "font-poppins text-xs tracking-wider dark:text-white",
+              currentPath === "cinemas" && "dark:text-blue-300"
+            )
+          )}
         >
           Cinemas
         </p>
@@ -58,11 +62,12 @@ const AppNavigationMobile = () => {
           color={currentPath === "tickets" ? "stroke-blue-300" : "stroke-white"}
         />
         <p
-          className={
-            "font-poppins text-xs font-light tracking-wider text-white" +
-            " " +
-            (currentPath === "tickets" ? "text-blue-300" : "text-white")
-          }
+          className={twMerge(
+            clsx(
+              "font-poppins text-xs tracking-wider dark:text-white",
+              currentPath === "tickets" && "dark:text-blue-300"
+            )
+          )}
         >
           Tickets
         </p>

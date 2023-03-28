@@ -18,7 +18,7 @@ export const SelectedMoviesAndShowtimes = ({
           ) : (
             <button
               onClick={deselectMovie}
-              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
+              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md dark:bg-slate-700"
             >
               <Paragraph size="xs" style="medium">
                 {selectedMovie.title}
@@ -32,7 +32,7 @@ export const SelectedMoviesAndShowtimes = ({
           ) : (
             <div
               onClick={deselectShowtime}
-              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
+              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md dark:bg-slate-700"
             >
               <Paragraph size="xs" style="medium">
                 {selectedShowtime.time}

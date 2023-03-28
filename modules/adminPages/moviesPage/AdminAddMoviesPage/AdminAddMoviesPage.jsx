@@ -13,7 +13,7 @@ export const AdminAddMoviesPage = () => {
     movies: selectedMovies,
   });
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
+    <AnimatedContainer className="h-screen overflow-y-scroll bg-opacity-95 p-4 dark:bg-slate-800">
       <AdminHeader withBackButton>Add Movies</AdminHeader>
       <div className="mt-4 flex justify-center">
         <AvailableMovies

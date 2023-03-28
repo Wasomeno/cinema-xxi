@@ -57,7 +57,7 @@ export const MovieShowtimesList = () => {
                 <div
                   onClick={() => toggleActiveShowtimetab(index)}
                   key={parseInt(cinema)}
-                  className="my-2 flex w-full cursor-pointer items-center justify-between rounded-xl bg-slate-300 p-2"
+                  className="my-2 flex w-full cursor-pointer items-center justify-between rounded-xl bg-slate-300 p-2 px-4 dark:bg-slate-600"
                 >
                   <h5 className="font-poppins text-xs font-medium md:text-sm">
                     {cinema.name}
@@ -70,12 +70,12 @@ export const MovieShowtimesList = () => {
 
               <AnimatePresence>
                 {activeShowtimeTab === index && (
-                  <div className="my-2 flex items-center gap-4 rounded-xl bg-slate-200 p-2">
+                  <div className="my-2 flex items-center gap-4 rounded-xl bg-slate-200 p-2 dark:bg-slate-500">
                     {cinema.showtimes.map((showtime) => (
                       <button
                         key={index}
                         onClick={() => selectShowtime(showtime)}
-                        className="my-2 rounded-lg bg-blue-200 p-2 px-3 text-center font-poppins text-xs transition duration-200 ease-in-out hover:bg-blue-300 md:text-sm"
+                        className="my-2 rounded-lg bg-slate-200 p-2 px-3 text-center font-poppins text-xs transition duration-200 ease-in-out hover:bg-blue-300 dark:bg-slate-600 md:text-sm"
                       >
                         {parseShowtime(showtime.time).hour} :
                         {parseShowtime(showtime.time).minutes}

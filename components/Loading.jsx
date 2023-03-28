@@ -13,7 +13,7 @@ const Loading = () => {
       {loading && (
         <>
           <AnimatedContainer className="fixed top-0 z-20 h-screen w-screen bg-slate-700 bg-opacity-80" />
-          <AnimatedContainer className="fixed top-1/2 left-1/2 z-30 flex h-72 w-64 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-5 rounded-lg bg-slate-100 shadow-md">
+          <AnimatedContainer className="fixed top-1/2 left-1/2 z-30 flex h-72 w-64 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-5 rounded-lg bg-slate-100 shadow-md dark:bg-slate-800">
             <Paragraph size="sm" style="medium">
               {loadingText}
             </Paragraph>

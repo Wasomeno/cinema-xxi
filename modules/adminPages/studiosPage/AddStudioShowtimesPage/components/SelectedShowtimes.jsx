@@ -17,7 +17,7 @@ export const SelectedShowtimes = ({ selectedShowtimes, deselectShowtime }) => {
             <div
               key={index}
               onClick={() => deselectShowtime(showtime.id)}
-              className="tems-center flex w-full justify-evenly rounded-md bg-slate-200 p-3 shadow-md"
+              className="tems-center flex w-full justify-evenly rounded-md bg-slate-200 p-3 shadow-md dark:bg-slate-700"
             >
               <Paragraph size="xs">{showtime.time}</Paragraph>
             </div>

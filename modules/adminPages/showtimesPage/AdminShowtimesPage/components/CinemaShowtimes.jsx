@@ -65,7 +65,7 @@ const CinemaShowtimes = ({ showMenu, toggleShowMenu }) => {
               (showtimesToDelete.includes(showtime.time) &&
                 deleteMode &&
                 "bg-red-300") +
-              " flex h-10 w-full items-center justify-evenly rounded-lg bg-slate-100 p-2 shadow-md"
+              " flex h-10 w-full items-center justify-evenly rounded-lg bg-slate-100 p-2 shadow-md dark:bg-slate-700"
             }
           >
             <div className="w-2/12 text-center lg:w-1/12">

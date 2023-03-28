@@ -35,7 +35,7 @@ export const AvailableCinemaShowtimes = ({ selectShowtime }) => {
             <button
               key={showtime.id}
               onClick={() => selectShowtime(showtime)}
-              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md"
+              className="flex h-10 w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md dark:bg-slate-700"
             >
               <Paragraph size="xs">{showtime.time}</Paragraph>
             </button>

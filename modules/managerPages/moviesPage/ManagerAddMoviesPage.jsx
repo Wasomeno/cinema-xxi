@@ -24,7 +24,7 @@ const ManagerAddMoviesPage = () => {
   });
 
   return (
-    <AnimatedContainer className="h-screen p-4">
+    <AnimatedContainer className="h-screen bg-opacity-95 p-4 dark:bg-slate-800">
       <ManagerDashboardHeader withBackButton>Add Movie</ManagerDashboardHeader>
       <FormContainer onSubmit={addMovieMutation.mutate}>
         <div className="my-2 flex w-full items-center justify-center gap-2 lg:w-4/6">

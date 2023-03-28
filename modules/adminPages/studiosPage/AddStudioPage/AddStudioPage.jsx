@@ -17,7 +17,7 @@ export const AddStudioPage = () => {
     number: studio,
   });
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
+    <AnimatedContainer className="h-screen bg-opacity-95 p-4 dark:bg-slate-800">
       <AdminHeader withBackButton>Add Studio</AdminHeader>
       <div className="my-4">
         <FormContainer onSubmit={addStudioMutation.mutate}>

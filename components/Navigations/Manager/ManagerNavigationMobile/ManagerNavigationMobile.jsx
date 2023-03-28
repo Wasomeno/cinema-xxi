@@ -19,7 +19,7 @@ export const ManagerNavigationMobile = () => {
 
   return (
     <>
-      <div className="sticky bottom-0 z-10 flex w-full items-center justify-center bg-slate-200">
+      <div className="sticky bottom-0 z-10 flex w-full items-center justify-center bg-slate-200 dark:bg-slate-700">
         <ManagerNavigationMobileLink
           activeRoute={activeRoute}
           route="manager"

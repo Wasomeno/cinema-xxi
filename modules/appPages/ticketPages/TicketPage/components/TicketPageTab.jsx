@@ -2,7 +2,7 @@ import { Paragraph } from "@/components/shared/Texts";
 
 const TicketPageTab = ({ activeTab, toggleActiveTab }) => {
   return (
-    <div className="relative flex h-full items-center justify-center border-t-2 border-t-slate-200 bg-slate-50 text-slate-900 shadow-md">
+    <div className="relative flex h-full items-center justify-center border-t-2 border-t-slate-200 bg-slate-50 text-slate-900 shadow-md dark:bg-slate-600 dark:text-slate-50">
       <div
         onClick={() => activeTab && toggleActiveTab()}
         className={
@@ -26,7 +26,7 @@ const TicketPageTab = ({ activeTab, toggleActiveTab }) => {
 
       <span
         className={
-          "absolute bottom-0 h-0.5 w-3/6 rounded-full bg-slate-900 transition duration-300" +
+          "absolute bottom-0 h-0.5 w-3/6 rounded-full bg-slate-900 transition duration-300 dark:bg-slate-100" +
           " " +
           (!activeTab ? "left-0" : "right-0")
         }

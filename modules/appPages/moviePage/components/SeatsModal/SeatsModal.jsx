@@ -27,7 +27,7 @@ export const SeatsModal = () => {
           clearSeats();
         }}
       />
-      <AnimatedContainer className="fixed bottom-0 left-1/2 z-40 h-5/6 w-full -translate-x-1/2 overflow-y-scroll rounded-t-lg bg-white lg:bottom-1/2 lg:top-1/2 lg:w-5/6 lg:-translate-y-1/2">
+      <AnimatedContainer className="fixed bottom-0 left-1/2 z-40 h-5/6 w-full -translate-x-1/2 overflow-y-scroll rounded-t-lg bg-slate-50 dark:bg-slate-700 lg:bottom-1/2 lg:top-1/2 lg:w-5/6 lg:-translate-y-1/2">
         <div className="flex items-center justify-center gap-5">
           <h5 className="p-2 font-poppins text-sm lg:text-base">
             {selectedShowtime.movie.title}

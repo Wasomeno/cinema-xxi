@@ -21,7 +21,7 @@ export const AddStudioMoviesPage = () => {
   });
 
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
+    <AnimatedContainer className="h-screen overflow-y-scroll bg-opacity-95 p-4 dark:bg-slate-800">
       <AdminHeader withBackButton>Add Movies</AdminHeader>
       <div className="flex justify-center">
         <div className="flex w-11/12 flex-col items-center gap-4 lg:w-4/6">

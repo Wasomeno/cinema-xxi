@@ -18,7 +18,7 @@ const CinemaList = ({ deleteMode, toggleDeleteMode, cinemas, region }) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="my-2 w-2/6 border-b-2 border-b-blue-600 py-1">
+        <div className="my-2 w-2/6 border-b-2 border-b-blue-900 py-1">
           <p className="font-poppins text-xs font-medium lg:text-sm">
             Cinema List
           </p>
@@ -41,7 +41,7 @@ const CinemaList = ({ deleteMode, toggleDeleteMode, cinemas, region }) => {
                   (cinemasToDelete.includes(cinema.id) &&
                     deleteMode &&
                     "bg-red-300 ") +
-                  "flex h-16 w-full items-center justify-center rounded-md bg-slate-200 p-2 shadow-md"
+                  "flex h-16 w-full items-center justify-center rounded-md bg-slate-200 p-2 shadow-md dark:bg-slate-700"
                 }
               >
                 <p className="font-poppins text-sm font-medium">

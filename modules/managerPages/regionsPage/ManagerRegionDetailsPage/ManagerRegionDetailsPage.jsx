@@ -6,9 +6,8 @@ import { MoonLoader } from "react-spinners";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import ManagerHeader from "@/components/Headers/ManagerHeader";
-import EllipsisVertical from "@/components/Icons/EllipsisVertical";
+import { ManagerSubHeader } from "@/components/Headers/ManagerSubHeader";
 import { useRegionDetails } from "@/components/reactQuery/queries/Region/useRegionDetails";
-import { Paragraph } from "@/components/shared/Texts";
 
 import CinemaList from "./components/CinemaList";
 
@@ -38,25 +37,13 @@ export const ManagerRegionDetailsPage = () => {
     );
 
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
+    <AnimatedContainer className="h-screen overflow-y-scroll bg-opacity-95 p-4 dark:bg-slate-800">
       <ManagerHeader withBackButton>{regionDetails.data?.name}</ManagerHeader>
       <div className="flex justify-center">
         <div className="w-full md:w-5/6 lg:w-4/6">
-          <div className="my-2 flex items-center justify-between">
-            <div className="w-2/6">
-              <p className="font-poppins text-xs font-medium lg:text-sm">
-                Region Details
-              </p>
-            </div>
-            <div className="relative">
-              <button
-                className=" h-8 w-8 rounded-full bg-slate-100 shadow-md"
-                onClick={toggleShowMenu}
-              >
-                <EllipsisVertical />
-              </button>
-            </div>
-          </div>
+          <ManagerSubHeader toggleShowMenu={toggleShowMenu}>
+            Region Details
+          </ManagerSubHeader>
           <div className="p-2">
             <div className="h-48 rounded-lg bg-slate-400" />
           </div>

@@ -10,6 +10,8 @@ import ChevronRight from "@/components/Icons/ChevronRight";
 import { useRegionMovies } from "@/components/reactQuery/queries/Movie/useRegionMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
+const RegionListModal = dynamic(() => import("./components/RegionListModal"));
+
 export const AppHomePage = () => {
   const [showRegionList, toggleShowRegionList] = useToggle(false);
   const [selectedRegion, setSelectedRegion] = useState({
@@ -19,11 +21,9 @@ export const AppHomePage = () => {
 
   const moviesInRegion = useRegionMovies({ regionId: selectedRegion?.id });
 
-  const RegionListModal = dynamic(() => import("./components/RegionListModal"));
-
   return (
     <>
-      <AnimatedContainer className="z-5 relative h-screen scroll-p-8 overflow-y-scroll">
+      <AnimatedContainer className="z-5 relative h-screen scroll-p-8 overflow-y-scroll bg-opacity-95 transition-all duration-200 dark:bg-slate-800">
         <div className="flex items-center justify-center p-3 lg:h-3/6">
           <div className="relative h-40 w-full rounded-lg bg-slate-400  shadow-md md:h-52 lg:h-72 lg:w-5/6"></div>
         </div>
@@ -33,14 +33,14 @@ export const AppHomePage = () => {
               onClick={toggleShowRegionList}
               className="flex w-6/12  items-center justify-between rounded-md border border-slate-300 bg-slate-50 p-2 text-start font-poppins text-xs md:w-3/12 lg:text-sm"
             >
-              <span>{selectedRegion?.name}</span>
+              <span className="text-slate-900">{selectedRegion?.name}</span>
               <span
                 className={
                   (showRegionList && "rotate-90" + " ") +
                   "transition duration-200"
                 }
               >
-                <ChevronRight size="4" />
+                <ChevronRight color="stroke-slate-900" size="4" />
               </span>
             </button>
           </div>

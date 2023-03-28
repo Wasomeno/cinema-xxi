@@ -69,7 +69,7 @@ export const AllMovies = ({ showMenu, toggleShowMenu }) => {
             className={
               (moviesToDelete.includes(movie.id) && deleteMode
                 ? "bg-red-200"
-                : "bg-slate-200") +
+                : "bg-slate-200 dark:bg-slate-700 ") +
               " " +
               "relative flex w-full items-center justify-evenly rounded-md p-2 shadow-md transition duration-300 lg:w-full"
             }

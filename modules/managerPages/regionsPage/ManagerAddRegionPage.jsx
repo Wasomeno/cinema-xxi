@@ -14,7 +14,7 @@ const ManagerAddRegionPage = () => {
   const addRegionMutation = addRegion({ regionName: regionName });
 
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
+    <AnimatedContainer className="h-screen overflow-y-scroll bg-slate-800 bg-opacity-95 p-4">
       <ManagerDashboardHeader withBackButton>Add Region</ManagerDashboardHeader>
       <FormContainer onSubmit={addRegionMutation.mutate}>
         <div className="my-4 flex w-full flex-col items-center justify-center gap-2 text-center lg:w-3/6">

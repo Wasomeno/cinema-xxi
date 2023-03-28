@@ -1,3 +1,6 @@
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
 const CustomizeIcon = (Icon) => {
   const CustomizedIcon = ({ size, color }) => {
     return (
@@ -6,17 +9,9 @@ const CustomizeIcon = (Icon) => {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        className={
-          "w-" +
-          (size ? size : "6") +
-          " " +
-          "h-" +
-          (size ? size : "6") +
-          " " +
-          "mx-auto" +
-          " " +
-          color
-        }
+        className={twMerge(
+          clsx("w-" + (size ? size : "6"), "h-" + (size ? size : "6"), color)
+        )}
       >
         <Icon />
       </svg>

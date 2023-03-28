@@ -13,7 +13,11 @@ const layouts = {
   admin: dynamic(() =>
     import("./Layouts/AdminLayout").then((component) => component.AdminLayout)
   ),
-  manager: dynamic(() => import("./Layouts/ManagerLayout")),
+  manager: dynamic(() =>
+    import("./Layouts/ManagerLayout").then(
+      (component) => component.ManagerLayout
+    )
+  ),
   app: dynamic(() => import("./Layouts/AppLayout")),
 };
 

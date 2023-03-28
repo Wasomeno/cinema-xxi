@@ -29,7 +29,7 @@ export const AddStudioShowtimesPage = () => {
   });
 
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll p-4">
+    <AnimatedContainer className="h-screen overflow-y-scroll bg-opacity-95 p-4 dark:bg-slate-800">
       <AdminHeader withBackButton>
         Add Studio {query.studio} Showtimes
       </AdminHeader>

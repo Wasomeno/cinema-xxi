@@ -1,4 +1,4 @@
-import React from "react";
+import { FormInput } from "@/components/shared/Forms";
 
 const CinemaNameInput = ({ cinemaName, setCinemaName }) => {
   return (
@@ -6,12 +6,12 @@ const CinemaNameInput = ({ cinemaName, setCinemaName }) => {
       <label id="cinemaName" className="font-poppins text-xs lg:text-sm">
         Cinema Name
       </label>
-      <input
+      <FormInput
         id="cinemaName"
         value={cinemaName}
-        onChange={(event) => setCinemaName(event.target.value)}
+        setValue={setCinemaName}
         type="text"
-        className="h-8 w-full rounded-lg border border-slate-400 p-2 font-openSans text-xs md:text-sm"
+        width="5/6"
       />
     </div>
   );

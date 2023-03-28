@@ -23,7 +23,7 @@ export const ManagerAddRegionCinemaPage = () => {
   });
 
   return (
-    <AnimatedContainer className="h-screen p-4">
+    <AnimatedContainer className="h-screen bg-opacity-95 p-4 dark:bg-slate-800">
       <ManagerHeader withBackButton>
         Add Cinema ({"Region " + regionId})
       </ManagerHeader>

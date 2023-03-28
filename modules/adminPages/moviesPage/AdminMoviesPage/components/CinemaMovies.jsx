@@ -70,7 +70,7 @@ const CinemaMovieList = ({ showMenu, toggleShowMenu }) => {
               (moviesToDelete.includes(movie.id) && deleteMode
                 ? "bg-red-300 "
                 : "") +
-              "relative flex w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md transition duration-150 hover:scale-105 lg:w-full"
+              "relative flex w-full items-center justify-evenly rounded-md bg-slate-200 p-2 shadow-md transition duration-150 hover:scale-105 dark:bg-slate-700 lg:w-full"
             }
           >
             <div className="w-2/12 text-center lg:w-1/12">

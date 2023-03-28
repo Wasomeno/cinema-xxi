@@ -1,3 +1,6 @@
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export const FormContainer = ({ children, onSubmit }) => {
   return (
     <form
@@ -19,7 +22,7 @@ export const FormTextArea = ({ id, value, setValue, width }) => {
       value={value}
       onChange={(event) => setValue(event.target.value)}
       className={
-        "h-40 rounded-lg border border-slate-500 p-2 font-poppins text-xs lg:text-sm" +
+        "h-40 rounded-lg border border-slate-500 p-2 font-poppins text-xs dark:bg-slate-700 lg:text-sm" +
         " " +
         "w-" +
         width
@@ -41,10 +44,12 @@ export const FormInput = ({
       type={type}
       value={value}
       id={id}
-      className={
-        (width ? "w-" + width : "w-3/6") +
-        " h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs lg:text-sm"
-      }
+      className={twMerge(
+        clsx(
+          width ? "w-" + width : "w-3/6",
+          "h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs dark:bg-slate-700 lg:text-sm"
+        )
+      )}
       placeholder={placeholder}
       onChange={(event) => setValue(event.target.value)}
     />
@@ -58,7 +63,7 @@ export const FormSubmit = ({ width, value }) => {
       value={value}
       className={
         (width ? "w-" + width : "w-full") +
-        " rounded-lg bg-slate-900 p-2 font-poppins text-xs font-medium text-white lg:text-sm"
+        " rounded-lg bg-slate-800 p-2 font-poppins text-xs font-medium text-white dark:bg-gray-600 lg:text-sm"
       }
     />
   );

@@ -38,7 +38,7 @@ export const CinemaStudios = ({ showMenu, toggleShowMenu }) => {
         <Link
           key={studio.id}
           href={"/admin/studios/" + studio.id}
-          className="flex h-14 w-full items-center justify-center rounded-md bg-slate-200 p-2 shadow-sm"
+          className="flex h-14 w-full items-center justify-center rounded-md bg-slate-200 p-2 shadow-sm dark:bg-slate-700"
         >
           <div className="w-2/6 text-center">
             <Paragraph size="sm">{"Studio " + studio.studio}</Paragraph>

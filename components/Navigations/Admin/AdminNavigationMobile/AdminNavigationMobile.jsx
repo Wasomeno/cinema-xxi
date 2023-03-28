@@ -19,7 +19,7 @@ export const AdminNavigationMobile = () => {
 
   return (
     <>
-      <div className="sticky bottom-0 z-10 flex max-w-screen-sm items-center justify-start overflow-x-scroll bg-slate-100 shadow-md">
+      <div className="sticky bottom-0 z-10 flex w-full items-center justify-start overflow-x-scroll bg-slate-100 shadow-md dark:bg-slate-700">
         <AdminNavigationMobileLink
           href="admin"
           icon="house"

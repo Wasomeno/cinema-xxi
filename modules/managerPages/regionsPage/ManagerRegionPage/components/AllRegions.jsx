@@ -39,13 +39,13 @@ const AllRegions = ({ deleteMode, toggleDeleteMode }) => {
   return (
     <>
       <div className="my-1 mb-2 flex items-center justify-evenly border-b border-b-slate-600 p-2">
-        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-1/12">
+        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 dark:text-slate-400 lg:w-1/12">
           Id
         </p>
-        <p className="w-4/12 text-center font-poppins text-xs text-slate-500 lg:w-3/12">
+        <p className="w-4/12 text-center font-poppins text-xs text-slate-500 dark:text-slate-400 lg:w-3/12">
           Name
         </p>
-        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 lg:w-2/12">
+        <p className="w-2/12 text-center font-poppins text-xs text-slate-500 dark:text-slate-400 lg:w-2/12">
           Cinema Amount
         </p>
       </div>

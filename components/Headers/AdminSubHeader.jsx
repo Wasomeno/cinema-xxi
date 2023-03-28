@@ -1,6 +1,4 @@
-import useToggle from "hooks/useToggle";
-
-import EllipsisVertical from "./Icons/EllipsisVertical";
+import EllipsisVertical from "../Icons/EllipsisVertical";
 
 export const AdminSubHeader = ({ toggleShowMenu, children }) => {
   return (
@@ -13,10 +11,13 @@ export const AdminSubHeader = ({ toggleShowMenu, children }) => {
         </div>
         <span className="relative">
           <button
-            className="relative z-30 h-8 w-8 rounded-full bg-slate-100 shadow-md"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 shadow-md dark:bg-slate-700"
             onClick={toggleShowMenu}
           >
-            <EllipsisVertical />
+            <EllipsisVertical
+              size="5"
+              color="stroke-slate-800 dark:stroke-slate-50"
+            />
           </button>
         </span>
       </div>
