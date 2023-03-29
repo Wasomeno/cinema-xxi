@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import AnimatedContainer from "@/components/AnimatedContainer";
 import DataContainer from "@/components/DataContainer";
 import ManagerDashboardHeader from "@/components/Headers/ManagerHeader";
-import { ManagerSubHeader } from "@/components/ManagerSubHeader";
+import { ManagerSubHeader } from "@/components/Headers/ManagerSubHeader";
 import { useCinemaAdmins } from "@/components/reactQuery/queries/Admin/useCinemaAdmins";
 import { Paragraph } from "@/components/shared/Texts";
 
