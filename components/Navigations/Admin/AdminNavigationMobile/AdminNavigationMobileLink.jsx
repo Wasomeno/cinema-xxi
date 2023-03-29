@@ -21,7 +21,7 @@ export const AdminNavigationMobileLink = ({
           size="5"
           color={
             activeRoute === href
-              ? "stroke-blue-800"
+              ? "stroke-blue-500 dark:stroke-blue-300"
               : "stroke-slate-800 dark:stroke-slate-50"
           }
         />
@@ -30,10 +30,10 @@ export const AdminNavigationMobileLink = ({
         <p
           className={
             (activeRoute === href
-              ? "text-blue-800"
+              ? "text-blue-500 dark:text-blue-300"
               : "text-slate-800 dark:text-slate-50") +
             " " +
-            "font-poppins text-xs"
+            "font-poppins text-xs font-normal tracking-wide dark:font-light "
           }
         >
           {children}

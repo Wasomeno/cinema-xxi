@@ -12,11 +12,14 @@ export const TicketDetailsPage = () => {
   const ticketDetails = useTicketDetails(query?.ticketId, user);
 
   return (
-    <AnimatedContainer className="h-screen px-4 py-2 ">
+    <AnimatedContainer className="h-screen bg-slate-50 bg-opacity-95 px-4 py-2 dark:bg-slate-800 ">
       <div className="my-4 w-full">
         <div className="flex w-4/6 items-center justify-start gap-1">
           <button onClick={back} className="w-1/6">
-            <ChevronLeft color="black" size="4" />
+            <ChevronLeft
+              color="stroke-slate-800 dark:stroke-slate-300"
+              size="4"
+            />
           </button>
           <span className="w-3/6 font-poppins text-xs">
             Transaction Details

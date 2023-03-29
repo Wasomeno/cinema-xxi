@@ -2,7 +2,7 @@ import { Paragraph } from "@/components/shared/Texts";
 
 const AdminStatusLoading = () => {
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+    <div className="flex h-screen w-screen flex-col items-center justify-center gap-4 bg-slate-50 bg-opacity-95 dark:bg-slate-800">
       <Paragraph size="sm" style="medium">
         Fetching Admin Status
       </Paragraph>

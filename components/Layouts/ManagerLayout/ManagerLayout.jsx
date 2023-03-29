@@ -29,7 +29,7 @@ export const ManagerLayout = ({ children }) => {
 
   if (managerStatus.isLoading && isConnected)
     return (
-      <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+      <div className="flex h-screen w-screen flex-col items-center justify-center gap-4 bg-slate-50 bg-opacity-95 dark:bg-slate-800">
         <Paragraph size="sm" style="medium">
           Fetching Manager Status
         </Paragraph>
@@ -41,12 +41,7 @@ export const ManagerLayout = ({ children }) => {
       </div>
     );
 
-  if (!managerStatus.data && isConnected)
-    return (
-      <div className="relative flex flex-col items-center justify-center">
-        <NotValidManager />
-      </div>
-    );
+  if (!managerStatus.data && isConnected) return <NotValidManager />;
 
   return (
     <>

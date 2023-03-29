@@ -20,7 +20,7 @@ export const CinemaListPage = () => {
           onChange={(event) => {
             setSearch(event.target.value);
           }}
-          className="w-5/6 rounded-md bg-slate-100 p-2 text-xs md:w-4/6 lg:w-3/6 lg:text-base"
+          className="w-5/6 rounded-md bg-slate-100 p-2 text-xs focus:outline-none dark:bg-slate-600 md:w-4/6 lg:w-3/6 lg:text-base"
           placeholder="Search cinema"
         />
       </div>

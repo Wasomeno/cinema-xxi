@@ -47,7 +47,7 @@ export const FormInput = ({
       className={twMerge(
         clsx(
           width ? "w-" + width : "w-3/6",
-          "h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs dark:bg-slate-700 lg:text-sm"
+          "h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs focus:outline-none dark:bg-slate-700 lg:text-sm"
         )
       )}
       placeholder={placeholder}

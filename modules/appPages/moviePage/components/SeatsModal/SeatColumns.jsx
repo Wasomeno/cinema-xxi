@@ -42,7 +42,7 @@ const SeatColumns = () => {
             disabled={showtimeSeats.seatsTaken.data?.seatsTaken.includes(seat)}
             onClick={() => isSeatSelected(parseInt(seat))}
             className={
-              "col-span-1 rounded-lg p-2 text-center font-poppins text-sm font-medium transition duration-150 ease-in-out" +
+              "col-span-1 flex h-8 items-center justify-center rounded-lg text-center font-poppins text-sm font-medium transition duration-150 ease-in-out" +
               " " +
               (selectedSeats.includes(parseInt(seat))
                 ? "bg-blue-400 text-slate-900 shadow-md backdrop-blur-md dark:text-slate-100"
@@ -55,7 +55,7 @@ const SeatColumns = () => {
           </button>
         ))}
       </DataContainer>
-      <div className="mx-auto my-4 w-5/6 rounded-full bg-slate-700 p-2 text-center dark:bg-slate-300 md:w-9/12 lg:w-7/12">
+      <div className="mx-auto my-4 w-5/6 rounded-full bg-slate-700 p-2 text-center dark:bg-slate-500 md:w-9/12 lg:w-7/12">
         <p className="font-poppins text-xs text-slate-50 lg:text-sm">Screen</p>
       </div>
     </div>

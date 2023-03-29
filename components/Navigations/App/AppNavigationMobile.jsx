@@ -19,14 +19,16 @@ const AppNavigationMobile = () => {
         <House
           size="5"
           color={
-            !currentPath || query.movieId ? "stroke-blue-300" : "stroke-white"
+            !currentPath || query.movieId
+              ? "stroke-blue-300"
+              : "stroke-slate-50"
           }
         />
         <p
           className={twMerge(
             clsx(
               "font-poppins text-xs tracking-wider dark:text-white",
-              currentPath === undefined && "dark:text-blue-300"
+              !currentPath || query.movieId ? "dark:text-blue-300" : ""
             )
           )}
         >
@@ -39,7 +41,9 @@ const AppNavigationMobile = () => {
       >
         <RectangeStack
           size="5"
-          color={currentPath === "cinemas" ? "stroke-blue-300" : "stroke-white"}
+          color={
+            currentPath === "cinemas" ? "stroke-blue-300" : "stroke-slate-50"
+          }
         />
 
         <p
@@ -59,7 +63,9 @@ const AppNavigationMobile = () => {
       >
         <Ticket
           size="5"
-          color={currentPath === "tickets" ? "stroke-blue-300" : "stroke-white"}
+          color={
+            currentPath === "tickets" ? "stroke-blue-300" : "stroke-slate-50"
+          }
         />
         <p
           className={twMerge(

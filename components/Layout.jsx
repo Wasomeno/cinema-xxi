@@ -24,7 +24,7 @@ const layouts = {
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["500", "300"],
+  weight: ["300", "400", "500"],
 });
 
 const openSans = Open_Sans({
@@ -40,7 +40,13 @@ const Layout = ({ children }) => {
 
   return (
     <main
-      className={poppins.variable + " " + openSans.variable + " " + "h-screen"}
+      className={
+        poppins.variable +
+        " " +
+        openSans.variable +
+        " " +
+        "h-screen bg-slate-50 bg-opacity-95 dark:bg-slate-800"
+      }
     >
       {basePath === "" || basePath === "about" ? (
         children

@@ -19,14 +19,20 @@ export const ManagerNavigationMobileLink = ({
       <span>
         <MemoizedIcon
           size="5"
-          color={activeRoute === route ? "stroke-blue-800" : "stroke-black"}
+          color={
+            activeRoute === route
+              ? "stroke-blue-500 dark:stroke-blue-300"
+              : "stroke-slate-800 dark:stroke-slate-50"
+          }
         />
       </span>
       <span className="text-center">
         <p
           className={
-            (activeRoute === route ? "text-blue-800 " : "") +
-            "font-poppins text-xs"
+            (activeRoute === route
+              ? "text-blue-500 dark:text-blue-300 "
+              : "text-slate-800 dark:text-slate-50") +
+            " font-poppins text-xs tracking-wider"
           }
         >
           {text}

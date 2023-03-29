@@ -98,7 +98,10 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
         <div className="flex flex-col items-start gap-2">
           <button className="flex w-full justify-between rounded-md bg-slate-400 bg-opacity-25 p-3 font-poppins text-sm text-slate-900 first-letter:items-center dark:text-slate-50">
             <span>Transactions</span>
-            <ChevronRight color="stroke-slate-900" size="4" />
+            <ChevronRight
+              color="stroke-slate-900 dark:stroke-slate-400"
+              size="5"
+            />
           </button>
           <div className="flex w-full items-center justify-between rounded-md bg-slate-400 bg-opacity-25 p-3 font-poppins text-sm text-slate-900 dark:text-slate-50">
             <span>Theme</span>
@@ -112,7 +115,7 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
               }}
               className={twMerge(
                 "relative flex h-5 w-2/12 items-center justify-between rounded-full transition-all duration-300 ease-in-out",
-                currentTheme === "light" && "bg-gray-300",
+                currentTheme === "light" && "bg-gray-400",
                 currentTheme === "dark" && "bg-slate-800"
               )}
             >

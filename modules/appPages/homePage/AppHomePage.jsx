@@ -23,33 +23,38 @@ export const AppHomePage = () => {
 
   return (
     <>
-      <AnimatedContainer className="z-5 relative h-screen scroll-p-8 overflow-y-scroll bg-opacity-95 transition-all duration-200 dark:bg-slate-800">
-        <div className="flex items-center justify-center p-3 lg:h-3/6">
+      <AnimatedContainer className="z-5 relative flex h-screen scroll-p-8 flex-col gap-4 overflow-y-scroll bg-opacity-95 p-4 transition-all duration-200 dark:bg-slate-800">
+        <div className="flex items-center justify-center lg:h-3/6">
           <div className="relative h-40 w-full rounded-lg bg-slate-400  shadow-md md:h-52 lg:h-72 lg:w-5/6"></div>
         </div>
         <div className="flex justify-center">
-          <div className="w-full px-3 lg:w-5/6">
+          <div className="w-full lg:w-5/6">
             <button
               onClick={toggleShowRegionList}
-              className="flex w-6/12  items-center justify-between rounded-md border border-slate-300 bg-slate-50 p-2 text-start font-poppins text-xs md:w-3/12 lg:text-sm"
+              className="flex w-6/12  items-center justify-between rounded-md border border-slate-300 bg-slate-50 p-2 text-start font-poppins text-xs dark:border-slate-500 dark:bg-slate-700 md:w-3/12 lg:text-sm"
             >
-              <span className="text-slate-900">{selectedRegion?.name}</span>
+              <span className="text-slate-800 dark:text-slate-50">
+                {selectedRegion?.name}
+              </span>
               <span
                 className={
                   (showRegionList && "rotate-90" + " ") +
                   "transition duration-200"
                 }
               >
-                <ChevronRight color="stroke-slate-900" size="4" />
+                <ChevronRight
+                  color="stroke-slate-700 dark:stroke-slate-400"
+                  size="4"
+                />
               </span>
             </button>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-3">
-          <div className="w-full px-2 lg:w-5/6">
+        <div className="flex flex-col items-center justify-center">
+          <div className="w-full lg:w-5/6">
             <h2 className="text-sm md:text-base">Movies on Show</h2>
           </div>
-          <div className="flex w-full justify-center p-2 lg:w-5/6">
+          <div className="flex w-full justify-center lg:w-5/6">
             <DataContainer
               object="movies"
               loading={moviesInRegion.isLoading}

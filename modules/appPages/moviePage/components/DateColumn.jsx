@@ -1,3 +1,6 @@
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
 import { Paragraph } from "@/components/shared/Texts";
 
 import {
@@ -35,12 +38,13 @@ export const DateColumn = () => {
               <button
                 key={index}
                 onClick={() => setSelectedDate(details.date)}
-                className={
-                  "h-10 w-10 cursor-pointer rounded-lg border-2 border-slate-700 transition duration-300 ease-in-out dark:border-slate-300 dark:bg-slate-500 lg:h-14 lg:w-14 lg:rounded-lg" +
-                  " " +
-                  (selectedDate === details.date &&
-                    "bg-slate-600 text-white dark:bg-slate-100 dark:text-slate-800")
-                }
+                className={twMerge(
+                  clsx(
+                    "h-10 w-10 cursor-pointer rounded-lg border-2 border-slate-700 transition duration-300 ease-in-out dark:border-slate-400 dark:bg-slate-600 lg:h-14 lg:w-14 lg:rounded-lg",
+                    selectedDate === details.date &&
+                      "bg-slate-600 text-white dark:bg-slate-200 dark:text-slate-800"
+                  )
+                )}
               >
                 <Paragraph size="xs" style="medium">
                   {details.date}
