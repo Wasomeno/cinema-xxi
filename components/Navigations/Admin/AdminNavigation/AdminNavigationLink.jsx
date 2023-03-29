@@ -18,7 +18,7 @@ export const AdminNavigationLink = ({
         push(href);
         setShowNav(false);
       }}
-      className="flex h-16 w-full items-center justify-center p-2 transition duration-300 ease-in-out hover:bg-slate-300"
+      className="flex h-16 w-full items-center justify-center p-2 transition duration-300 ease-in-out hover:bg-slate-300 dark:hover:bg-slate-800"
     >
       <motion.span
         initial={{ width: "100%" }}
@@ -26,7 +26,7 @@ export const AdminNavigationLink = ({
         transition={{ duration: 0.25, ease: "easeInOut" }}
         className={"flex justify-center"}
       >
-        <Icon size="5" color={"stroke-black"} />
+        <Icon size="5" color="stroke-slate-800 dark:stroke-slate-300" />
       </motion.span>
       <AnimatePresence>
         {showNav && (

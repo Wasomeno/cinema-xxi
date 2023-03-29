@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import useToggle from "hooks/useToggle";
 import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
 import { useToast } from "stores/toastStore";
@@ -34,11 +34,11 @@ export const ManagerNavigation = () => {
       animate={{ width: showNav ? "280px" : "70px" }}
       transition={{ ease: "easeInOut", duration: "0.3" }}
       className={
-        "fixed top-0 left-0 z-10 hidden h-full bg-slate-100 shadow-md md:block"
+        "fixed top-0 left-0 z-10 hidden h-full bg-slate-100 shadow-md dark:bg-gray-700 md:block"
       }
     >
       <button
-        className="top-24 -right-4 z-10 h-7 w-7 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md md:absolute md:flex"
+        className="top-24 -right-4 z-10 h-7 w-7 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md dark:bg-slate-500 md:absolute md:flex"
         onClick={toggleShowNav}
       >
         <span className={(showNav ? "rotate-180 " : "") + "p-2"}>
@@ -47,10 +47,10 @@ export const ManagerNavigation = () => {
       </button>
       <div
         className={
-          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300"
+          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300 dark:bg-gray-700"
         }
       >
-        <div className="h-12 w-12 rounded-full bg-slate-500" />
+        <div className="h-12 w-12 rounded-full bg-slate-500 dark:bg-slate-300" />
         <motion.div
           className="flex flex-col items-center justify-center gap-2"
           initial={{ opacity: 0 }}
@@ -64,18 +64,6 @@ export const ManagerNavigation = () => {
             <p className="font-poppins text-sm text-slate-500">
               {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
             </p>
-            <button
-              onClick={copyAddress}
-              className="rounded-lg bg-slate-700 p-1.5"
-            >
-              <ClipboardDocument color="stroke-slate-50" size="4" />
-            </button>
-            <button
-              onClick={openEtherScan}
-              className="rounded-lg bg-slate-700 p-1.5"
-            >
-              <ArrowTopRight color="stroke-slate-50" size="4" />
-            </button>
           </div>
         </motion.div>
       </div>
@@ -106,7 +94,18 @@ export const ManagerNavigation = () => {
           <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-800">
             <Power size="4" color="stroke-slate-50" />
           </span>
-          {showNav && <span className="w-3/6">Disconnect</span>}
+          <AnimatePresence>
+            {showNav && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.25, delay: 0.25, ease: "easeInOut" }}
+                className="w-3/6"
+              >
+                Disconnect
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
       </div>
     </motion.div>

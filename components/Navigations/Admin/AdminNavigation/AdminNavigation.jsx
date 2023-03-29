@@ -19,23 +19,23 @@ export const AdminNavigation = () => {
       animate={{ width: showNav ? "280px" : "70px" }}
       transition={{ ease: "easeInOut", duration: "0.3" }}
       className={
-        "fixed top-0 left-0 z-10 hidden h-full bg-slate-100 shadow-md md:block"
+        "fixed top-0 left-0 z-10 hidden h-full bg-slate-100 shadow-md dark:bg-gray-700 md:block"
       }
     >
       <button
-        className="top-24 -right-4 z-10 h-7 w-7 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md md:absolute md:flex"
+        className="top-24 -right-4 z-10 h-7 w-7 items-center justify-center rounded-lg bg-blue-300 text-center shadow-md dark:bg-slate-500 md:absolute md:flex"
         onClick={() => setShowNav(!showNav)}
       >
         <span className={(showNav ? "rotate-180 " : "") + "p-2"}>
-          <ChevronRight size="4" />
+          <ChevronRight size="5" color="stroke-slate-800" />
         </span>
       </button>
       <div
         className={
-          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300"
+          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300 dark:bg-gray-700"
         }
       >
-        <div className="h-12 w-12 rounded-full bg-slate-500" />
+        <div className="h-12 w-12 rounded-full bg-slate-500 dark:bg-slate-300" />
         <motion.div
           className="text-center"
           initial={{ opacity: 0 }}
@@ -43,7 +43,7 @@ export const AdminNavigation = () => {
           transition={{ duration: 0.2, ease: "easeInOut" }}
         >
           <p className="font-poppins text-sm font-medium">Admin</p>
-          <p className="font-poppins text-sm text-slate-500">
+          <p className="font-poppins text-sm text-slate-500 dark:text-slate-200">
             {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
           </p>
         </motion.div>
@@ -87,8 +87,8 @@ export const AdminNavigation = () => {
           onClick={disconnect}
           className="flex h-1/6 items-center justify-center p-2"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-800">
-            <Power />
+          <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-700 dark:bg-slate-500">
+            <Power size="4" color="stroke-slate-50" />
           </span>
           {showNav && <span className="w-3/6">Disconnect</span>}
         </button>
