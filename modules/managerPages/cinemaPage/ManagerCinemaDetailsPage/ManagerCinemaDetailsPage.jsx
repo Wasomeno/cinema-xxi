@@ -7,26 +7,23 @@ import { useCinemaDetails } from "@/components/reactQuery/queries/Cinema/useCine
 
 import CinemaDetailsCard from "./components/CinemaDetailsCard";
 
-export const ManagerCinemaDetailsPage = () => {
-  const { query } = useRouter();
-  const cinemaDetails = useCinemaDetails(query?.cinemaId);
-
-  if (cinemaDetails.isLoading)
-    return (
-      <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
-        <p className="font-poppins text-xs">Fetching cinema details</p>
-        <MoonLoader
-          loading={cinemaDetails.isLoading}
-          size="30"
-          color="black"
-          speedMultiplier={0.75}
-        />
-      </div>
-    );
+export const ManagerCinemaDetailsPage = ({ cinemaDetails }) => {
+  // if (cinemaDetails.isLoading)
+  //   return (
+  //     <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
+  //       <p className="font-poppins text-xs">Fetching cinema details</p>
+  //       <MoonLoader
+  //         loading={cinemaDetails.isLoading}
+  //         size="30"
+  //         color="black"
+  //         speedMultiplier={0.75}
+  //       />
+  //     </div>
+  //   );
 
   return (
     <AnimatedContainer className="h-screen p-4">
-      <ManagerHeader withBackButton>{cinemaDetails.data?.name}</ManagerHeader>
+      <ManagerHeader withBackButton>{cinemaDetails.name}</ManagerHeader>
       <div className="flex justify-center">
         <div className="w-full lg:w-4/6">
           <div className="mt-3 w-full">
@@ -41,35 +38,35 @@ export const ManagerCinemaDetailsPage = () => {
                 <div className="grid w-96 grid-cols-2 gap-4 lg:w-full">
                   <CinemaDetailsCard
                     title="Studios"
-                    value={cinemaDetails.data?.studio.length}
+                    value={cinemaDetails.studio.length}
                   />
                   <CinemaDetailsCard
                     title="Movies"
-                    value={cinemaDetails.data?.movie.length}
+                    value={cinemaDetails.movie.length}
                     withLink
                     link={
                       "/manager/region/" +
-                      query?.regionId +
+                      cinemaDetails.regionId +
                       "/" +
-                      query?.cinemaId +
+                      cinemaDetails.id +
                       "/movies"
                     }
                   />
                   <CinemaDetailsCard
                     title="Showtimes"
-                    value={cinemaDetails.data?.showtimes.length}
+                    value={cinemaDetails.showtimes.length}
                     withLink
                     link={
                       "/manager/region/" +
-                      query?.regionId +
+                      cinemaDetails.regionId +
                       "/" +
-                      query?.cinemaId +
+                      cinemaDetails.id +
                       "/showtimes"
                     }
                   />
                   <CinemaDetailsCard
                     title="Capacity Total"
-                    value={cinemaDetails.data?.studio.reduce(
+                    value={cinemaDetails.studio.reduce(
                       (currentTotal, details) => {
                         return details.capacity + currentTotal;
                       },
@@ -82,19 +79,19 @@ export const ManagerCinemaDetailsPage = () => {
                 <div className="grid w-96 grid-cols-2 gap-4 lg:w-full">
                   <CinemaDetailsCard
                     title="Admins"
-                    value={cinemaDetails.data?.admin?.length}
+                    value={10}
                     withLink
                     link={
                       "/manager/region/" +
-                      query?.regionId +
+                      cinemaDetails.regionId +
                       "/" +
-                      query?.cinemaId +
+                      cinemaDetails.id +
                       "/admins"
                     }
                   />
                   <CinemaDetailsCard
                     title="Transactions"
-                    value={cinemaDetails.data?.transactions.length}
+                    value={cinemaDetails.transactions.length}
                   />
                 </div>
               </div>

@@ -29,7 +29,7 @@ const CinemaList = ({ deleteMode, toggleDeleteMode, cinemas, region }) => {
               <p className="font-poppins text-sm">No active cinemas</p>
             </div>
           ) : (
-            cinemas?.map((cinema) => (
+            cinemas.map((cinema) => (
               <button
                 key={cinema.id}
                 onClick={() =>

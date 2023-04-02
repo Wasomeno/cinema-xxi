@@ -23,8 +23,7 @@ export async function getStaticProps(context) {
 }
 
 const RegionDetails = ({ regionDetails }) => {
-  console.log(regionDetails);
-  return <ManagerRegionDetailsPage />;
+  return <ManagerRegionDetailsPage regionDetails={regionDetails} />;
 };
 
 export default RegionDetails;

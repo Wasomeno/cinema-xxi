@@ -42,8 +42,7 @@ export async function getStaticProps({ params }) {
 }
 
 const CinemaDetails = ({ cinemaDetails }) => {
-  console.log(cinemaDetails);
-  return <ManagerCinemaDetailsPage />;
+  return <ManagerCinemaDetailsPage cinemaDetails={cinemaDetails} />;
 };
 
 export default CinemaDetails;

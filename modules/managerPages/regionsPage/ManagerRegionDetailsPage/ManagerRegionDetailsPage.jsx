@@ -17,28 +17,26 @@ const ManagerRegionDetailsMenu = dynamic(() =>
   )
 );
 
-export const ManagerRegionDetailsPage = () => {
-  const { query } = useRouter();
+export const ManagerRegionDetailsPage = ({ regionDetails }) => {
   const [showMenu, toggleShowMenu] = useToggle(false);
   const [deleteMode, toggleDeleteMode] = useToggle(false);
-  const regionDetails = useRegionDetails({ region: query?.regionId });
 
-  if (regionDetails.isLoading)
-    return (
-      <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
-        <p className="font-poppins text-xs">Fetching region details</p>
-        <MoonLoader
-          loading={regionDetails.isLoading}
-          size="30"
-          color="black"
-          speedMultiplier={0.75}
-        />
-      </div>
-    );
+  // if (regionDetails.isLoading)
+  //   return (
+  //     <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
+  //       <p className="font-poppins text-xs">Fetching region details</p>
+  //       <MoonLoader
+  //         loading={regionDetails.isLoading}
+  //         size="30"
+  //         color="black"
+  //         speedMultiplier={0.75}
+  //       />
+  //     </div>
+  //   );
 
   return (
     <AnimatedContainer className="h-screen overflow-y-scroll bg-opacity-95 p-4 dark:bg-slate-800">
-      <ManagerHeader withBackButton>{regionDetails.data?.name}</ManagerHeader>
+      <ManagerHeader withBackButton>{regionDetails.name}</ManagerHeader>
       <div className="flex justify-center">
         <div className="w-full md:w-5/6 lg:w-4/6">
           <ManagerSubHeader toggleShowMenu={toggleShowMenu}>
@@ -48,8 +46,8 @@ export const ManagerRegionDetailsPage = () => {
             <div className="h-48 rounded-lg bg-slate-400" />
           </div>
           <CinemaList
-            cinemas={regionDetails.data?.cinema}
-            region={query?.regionId}
+            cinemas={regionDetails.cinema}
+            region={regionDetails.id}
             deleteMode={deleteMode}
             toggleDeleteMode={toggleDeleteMode}
           />
@@ -58,7 +56,7 @@ export const ManagerRegionDetailsPage = () => {
       <AnimatePresence>
         {showMenu && (
           <ManagerRegionDetailsMenu
-            region={query?.regionId}
+            region={regionDetails.id}
             toggleDeleteMode={toggleDeleteMode}
             toggleShowMenu={toggleShowMenu}
           />
