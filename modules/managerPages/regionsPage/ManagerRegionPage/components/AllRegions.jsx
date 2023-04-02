@@ -1,35 +1,32 @@
 import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import dynamic from "next/dynamic";
-import { MoonLoader } from "react-spinners";
 
 import { deleteRegion } from "@/components/reactQuery/mutations/Region/deleteRegion";
-import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions";
 import { Paragraph } from "@/components/shared/Texts";
 
 import RegionListCard from "./RegionListCard";
 
 const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
 
-const AllRegions = ({ deleteMode, toggleDeleteMode }) => {
-  const regions = useAllRegions();
+const AllRegions = ({ regions, deleteMode, toggleDeleteMode }) => {
   const [regionsToDelete, selectRegionsToDelete, deselectRegionsToDelete] =
     useSelectDeselect([]);
 
-  if (regions.isLoading)
-    return (
-      <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
-        <p className="font-poppins text-xs">Fetching all regions</p>
-        <MoonLoader
-          loading={regions.isLoading}
-          size="30"
-          color="black"
-          speedMultiplier={0.75}
-        />
-      </div>
-    );
+  // if (regions.isLoading)
+  //   return (
+  //     <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
+  //       <p className="font-poppins text-xs">Fetching all regions</p>
+  //       <MoonLoader
+  //         loading={regions.isLoading}
+  //         size="30"
+  //         color="black"
+  //         speedMultiplier={0.75}
+  //       />
+  //     </div>
+  //   );
 
-  if (regions.data?.length < 1)
+  if (regions.length < 1)
     return (
       <div className="flex h-80 w-full items-center justify-center">
         <Paragraph size="sm">No active region</Paragraph>
@@ -50,7 +47,7 @@ const AllRegions = ({ deleteMode, toggleDeleteMode }) => {
         </p>
       </div>
       <div className="mt-3 flex h-5/6 flex-col items-center justify-start gap-3">
-        {regions.data?.map((region) => (
+        {regions.map((region) => (
           <RegionListCard
             key={region.id}
             region={region}

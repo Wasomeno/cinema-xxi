@@ -1,7 +1,18 @@
+import { prisma } from "lib/prisma";
 import { AppHomePage } from "modules/appPages/homePage";
 
-const CinemaApp = () => {
-  return <AppHomePage />;
+export async function getServerSideProps() {
+  const firstRegion = await prisma.region.findFirst();
+  return {
+    props: {
+      firstRegion: firstRegion,
+    },
+  };
+}
+
+const CinemaApp = ({ firstRegion }) => {
+  console.log(firstRegion);
+  return <AppHomePage firstRegion={firstRegion} />;
 };
 
 export default CinemaApp;

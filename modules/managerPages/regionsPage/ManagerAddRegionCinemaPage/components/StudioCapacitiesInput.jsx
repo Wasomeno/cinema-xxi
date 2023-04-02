@@ -12,7 +12,7 @@ const StudioCapacitiesInput = ({ studioCapacities, setStudioCapacities }) => {
             key={index}
             id="studioCapacities"
             type="number"
-            className="col-span-1 h-8 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs dark:bg-slate-700 md:text-sm"
+            className="col-span-1 h-8 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs focus:outline-none dark:bg-slate-700 md:text-sm"
             placeholder={"Studio " + parseInt(index + 1)}
             value={studio}
             onChange={(e) =>

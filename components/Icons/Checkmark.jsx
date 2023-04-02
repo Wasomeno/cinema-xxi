@@ -1,14 +1,20 @@
+import clsx from "clsx";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 const CheckMark = ({ size, color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill={color ? color : "black"}
-      className={
-        "w-" + (size ? size : "6") + " h-" + (size ? size : "6") + " mx-auto"
-      }
+      className={twMerge(
+        clsx(
+          "w-" + (size ? size : "6"),
+          "h-" + (size ? size : "6"),
+          "fill-" + (color ? color : "slate-800"),
+          "mx-auto"
+        )
+      )}
     >
       <path
         fillRule="evenodd"

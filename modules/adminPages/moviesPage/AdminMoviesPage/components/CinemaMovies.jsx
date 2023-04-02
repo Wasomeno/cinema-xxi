@@ -36,8 +36,16 @@ const CinemaMovieList = ({ showMenu, toggleShowMenu }) => {
 
   if (cinemaMovies.data?.movie < 1)
     return (
-      <div className="flex h-72 items-center">
+      <div className="flex h-72 items-center justify-center">
         <Paragraph size="sm">No Active Movies</Paragraph>
+        <AnimatePresence>
+          {showMenu && (
+            <CinemaMovieMenu
+              toggleDeleteMode={toggleDeleteMode}
+              toggleShowMenu={toggleShowMenu}
+            />
+          )}
+        </AnimatePresence>
       </div>
     );
 
@@ -101,22 +109,22 @@ const CinemaMovieList = ({ showMenu, toggleShowMenu }) => {
             )}
           </button>
         ))}
+        <AnimatePresence>
+          {showMenu && (
+            <CinemaMovieMenu
+              toggleDeleteMode={toggleDeleteMode}
+              toggleShowMenu={toggleShowMenu}
+            />
+          )}
+          {deleteMode && (
+            <DeleteModal
+              toggleDeleteMode={toggleDeleteMode}
+              objectToDelete={moviesToDelete}
+              object="movie"
+            />
+          )}
+        </AnimatePresence>
       </div>
-      <AnimatePresence>
-        {showMenu && (
-          <CinemaMovieMenu
-            toggleDeleteMode={toggleDeleteMode}
-            toggleShowMenu={toggleShowMenu}
-          />
-        )}
-        {deleteMode && (
-          <DeleteModal
-            toggleDeleteMode={toggleDeleteMode}
-            objectToDelete={moviesToDelete}
-            object="movie"
-          />
-        )}
-      </AnimatePresence>
     </>
   );
 };

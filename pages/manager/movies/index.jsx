@@ -1,7 +1,18 @@
+import { prisma } from "lib/prisma";
 import { ManagerMoviesPage } from "modules/managerPages/moviesPage/ManagerMoviesPage";
 
-const ManageMovies = () => {
-  return <ManagerMoviesPage />;
+export async function getServerSideProps() {
+  const movies = await prisma.movie.findMany();
+  return {
+    props: {
+      movies: movies,
+    },
+  };
+}
+
+const ManageMovies = ({ movies }) => {
+  console.log(movies);
+  return <ManagerMoviesPage movies={movies} />;
 };
 
 export default ManageMovies;

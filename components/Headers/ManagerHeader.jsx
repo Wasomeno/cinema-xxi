@@ -11,7 +11,7 @@ const ManagerHeader = ({ children, withBackButton }) => {
         {withBackButton && (
           <div className="col-span-1 text-center">
             <button
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 shadow-md dark:bg-slate-700"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 shadow-md dark:bg-slate-700"
               onClick={back}
             >
               <ChevronLeft

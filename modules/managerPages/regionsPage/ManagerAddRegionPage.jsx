@@ -14,19 +14,27 @@ const ManagerAddRegionPage = () => {
   const addRegionMutation = addRegion({ regionName: regionName });
 
   return (
-    <AnimatedContainer className="h-screen overflow-y-scroll bg-slate-800 bg-opacity-95 p-4">
-      <ManagerDashboardHeader withBackButton>Add Region</ManagerDashboardHeader>
-      <FormContainer onSubmit={addRegionMutation.mutate}>
-        <div className="my-4 flex w-full flex-col items-center justify-center gap-2 text-center lg:w-3/6">
-          <label id="regionId" className="font-poppins text-xs lg:text-sm">
-            Region Name
-          </label>
-          <FormInput type="text" value={regionName} setValue={setRegionName} />
-        </div>
-        <div className="w-5/6 text-center lg:w-3/6">
-          <FormSubmit value="Submit" width="3/6" />
-        </div>
-      </FormContainer>
+    <AnimatedContainer className="flex h-screen flex-col items-center overflow-y-scroll bg-slate-50 bg-opacity-95 p-4 dark:bg-slate-800">
+      <div className="w-5/6">
+        <ManagerDashboardHeader withBackButton>
+          Add Region
+        </ManagerDashboardHeader>
+        <FormContainer onSubmit={addRegionMutation.mutate}>
+          <div className="my-4 flex w-full flex-col items-center justify-center gap-2 text-center lg:w-3/6">
+            <label id="regionId" className="font-poppins text-xs lg:text-sm">
+              Region Name
+            </label>
+            <FormInput
+              type="text"
+              value={regionName}
+              setValue={setRegionName}
+            />
+          </div>
+          <div className="w-5/6 text-center lg:w-3/6">
+            <FormSubmit value="Submit" width="3/6" />
+          </div>
+        </FormContainer>
+      </div>
     </AnimatedContainer>
   );
 };

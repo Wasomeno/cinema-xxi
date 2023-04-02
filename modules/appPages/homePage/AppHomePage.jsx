@@ -12,13 +12,9 @@ import { Paragraph } from "@/components/shared/Texts";
 
 const RegionListModal = dynamic(() => import("./components/RegionListModal"));
 
-export const AppHomePage = () => {
+export const AppHomePage = ({ firstRegion }) => {
   const [showRegionList, toggleShowRegionList] = useToggle(false);
-  const [selectedRegion, setSelectedRegion] = useState({
-    name: "Region Test",
-    id: 1,
-  });
-
+  const [selectedRegion, setSelectedRegion] = useState(firstRegion);
   const moviesInRegion = useRegionMovies({ regionId: selectedRegion?.id });
 
   return (

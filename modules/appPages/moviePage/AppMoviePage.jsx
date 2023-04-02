@@ -16,15 +16,13 @@ const TicketConfirmationModal = dynamic(() =>
   import("./components/TicketConfirmationModal")
 );
 
-export const AppMoviePage = () => {
-  const { modalState, router } = useMoviePageValueContext();
-  const { movieId } = router?.query;
-  const fetchedMovieDetails = useMovieDetails({ movieId: movieId });
+export const AppMoviePage = ({ movieDetails, movieShowtimes }) => {
+  const { modalState } = useMoviePageValueContext();
 
   return (
     <AnimatedContainer className="h-screen bg-opacity-95 p-4 dark:bg-slate-800">
       <div className="mb-2 text-center">
-        <Title>{fetchedMovieDetails.data?.title}</Title>
+        <Title>{movieDetails.title}</Title>
       </div>
       <div className="flex w-full items-start justify-center gap-5 ">
         <div className="flex w-5/12 justify-center p-2 sm:h-full sm:w-3/12 md:h-full md:w-4/12 lg:h-full lg:w-4/12 xl:w-3/12">
@@ -32,7 +30,7 @@ export const AppMoviePage = () => {
         </div>
       </div>
       <DateColumn />
-      <MovieShowtimesList />
+      <MovieShowtimesList movieShowtimes={movieShowtimes} />
       <AnimatePresence>
         {modalState === "seats" && <SeatsModal />}
         {modalState === "ticket" && <TicketConfirmationModal />}

@@ -40,6 +40,14 @@ const CinemaShowtimes = ({ showMenu, toggleShowMenu }) => {
     return (
       <div className="flex h-72 items-center justify-center">
         <Paragraph size="sm">No active showtimes</Paragraph>
+        <AnimatePresence>
+          {showMenu && (
+            <CinemaShowtimesMenu
+              toggleDeleteMode={toggleDeleteMode}
+              toggleShowMenu={toggleShowMenu}
+            />
+          )}
+        </AnimatePresence>
       </div>
     );
 

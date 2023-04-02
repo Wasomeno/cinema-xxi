@@ -3,6 +3,7 @@ import { MoonLoader } from "react-spinners";
 
 import { useLoadingDetails } from "../stores/loadingStore";
 import AnimatedContainer from "./AnimatedContainer";
+import { Spinner } from "./Icons/Spinner";
 import { Paragraph } from "./shared/Texts";
 
 const Loading = () => {
@@ -17,7 +18,7 @@ const Loading = () => {
             <Paragraph size="sm" style="medium">
               {loadingText}
             </Paragraph>
-            <MoonLoader loading={loading} size="30px" color="black" />
+            <Spinner size="medium" />
             <div className="p-2 text-center">
               <Paragraph
                 text="Confirm the transaction in your wallet"

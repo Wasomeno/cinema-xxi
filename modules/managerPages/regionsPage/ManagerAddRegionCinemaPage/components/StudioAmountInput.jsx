@@ -33,7 +33,7 @@ const StudioAmountInput = ({
           className="rounded-lg bg-slate-900 p-1.5"
           onClick={decrementStudioAmount}
         >
-          <ChevronLeft size="4" color="stroke-slate-800 dark:stroke-slate-50" />
+          <ChevronLeft size="4" color="stroke-slate-50" />
         </button>
         <input
           type="number"
@@ -46,10 +46,7 @@ const StudioAmountInput = ({
           className="rounded-lg bg-slate-900 p-1.5"
           onClick={incrementStudioAmount}
         >
-          <ChevronRight
-            size="4"
-            color="stroke-slate-800 dark:stroke-slate-50"
-          />
+          <ChevronRight size="4" color="stroke-slate-50" />
         </button>
       </div>
     </div>

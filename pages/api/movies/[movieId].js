@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "lib/prisma";
 
 export default async function movieDetailsHandler(req, res) {
   const { movieId } = req.query;
-  const prisma = new PrismaClient();
   if (req.method === "GET") {
     const movieDetails = await prisma.movie.findUnique({
       where: { id: parseInt(movieId) },

@@ -11,19 +11,20 @@ import {
   useMoviePageValueContext,
 } from "./context/appMoviePageContext";
 
-export const MovieShowtimesList = () => {
-  const { router } = useMoviePageValueContext();
-  const { regionId, movieId } = router.query;
+export const MovieShowtimesList = ({ movieShowtimes }) => {
   const { setSelectedShowtime, setModalState } = useMoviePageActionContext();
+  const { selectedDate } = useMoviePageValueContext();
   const [activeShowtimeTab, setActiveShowtimeTab] = useState(null);
-  const fetchedMovieShowtimes = useRegionMovieShowtimes({
-    regionId: regionId,
-    movieId: movieId,
-  });
 
   function parseShowtime(time) {
-    const parsedShowtime = moment().startOf("day").add({ seconds: time });
-    return { hour: parsedShowtime.hour(), minutes: parsedShowtime.minutes() };
+    const parsedShowtime = moment({ date: selectedDate })
+      .startOf("day")
+      .add({ seconds: time });
+    return {
+      hour: parsedShowtime.hour(),
+      minutes: parsedShowtime.minutes(),
+      showtime: parsedShowtime,
+    };
   }
 
   function toggleActiveShowtimetab(index) {
@@ -46,12 +47,8 @@ export const MovieShowtimesList = () => {
           </h4>
         </div>
 
-        <DataContainer
-          className="flex flex-col items-center justify-start"
-          loading={fetchedMovieShowtimes.isLoading}
-          object="showtimes"
-        >
-          {fetchedMovieShowtimes.data?.map((cinema, index) => (
+        <div className="flex flex-col items-center justify-start">
+          {movieShowtimes.map((cinema, index) => (
             <div className="w-10/12" key={cinema.id}>
               {cinema.showtimes.length > 0 && (
                 <div
@@ -74,8 +71,12 @@ export const MovieShowtimesList = () => {
                     {cinema.showtimes.map((showtime) => (
                       <button
                         key={index}
+                        disabled={
+                          parseShowtime(showtime.time).showtime.unix() <
+                          moment().unix()
+                        }
                         onClick={() => selectShowtime(showtime)}
-                        className="my-2 rounded-lg bg-slate-200 p-2 px-3 text-center font-poppins text-xs transition duration-200 ease-in-out hover:bg-blue-300 dark:bg-slate-600 md:text-sm"
+                        className="my-2 rounded-lg bg-slate-50 p-2 px-3 text-center font-poppins text-xs transition duration-200 ease-in-out hover:bg-blue-300 disabled:bg-gray-300 disabled:text-gray-500 dark:bg-slate-600 md:text-sm"
                       >
                         {parseShowtime(showtime.time).hour} :
                         {parseShowtime(showtime.time).minutes}
@@ -86,7 +87,7 @@ export const MovieShowtimesList = () => {
               </AnimatePresence>
             </div>
           ))}
-        </DataContainer>
+        </div>
       </div>
     </div>
   );

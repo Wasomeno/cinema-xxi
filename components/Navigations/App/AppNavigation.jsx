@@ -56,7 +56,7 @@ const AppNavigation = () => {
           ) : (
             <button
               onClick={() => toggleShowWalletModal()}
-              className="rounded-lg bg-slate-900 p-2 px-4 font-poppins text-xs tracking-wider text-white"
+              className="rounded-lg bg-slate-900 p-2 px-4 font-poppins text-xs tracking-wider text-white dark:bg-slate-700"
             >
               Connect
             </button>

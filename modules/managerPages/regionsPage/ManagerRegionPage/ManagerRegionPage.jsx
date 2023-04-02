@@ -12,7 +12,7 @@ const ManagerRegionMenu = dynamic(() =>
   import("./components/ManagerRegionMenu")
 );
 
-export const ManagerRegionPage = () => {
+export const ManagerRegionPage = ({ regions }) => {
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const [showMenu, toggleShowMenu] = useToggle(false);
 
@@ -20,11 +20,12 @@ export const ManagerRegionPage = () => {
     <AnimatedContainer className="h-screen overflow-y-scroll bg-opacity-95  p-4 dark:bg-slate-800">
       <ManagerDashboardHeader>Manage Regions</ManagerDashboardHeader>
       <div className="flex justify-center">
-        <div className="w-full lg:w-4/6">
+        <div className="w-full lg:w-5/6">
           <ManagerSubHeader toggleShowMenu={toggleShowMenu}>
             Region list
           </ManagerSubHeader>
           <AllRegions
+            regions={regions}
             deleteMode={deleteMode}
             toggleDeleteMode={toggleDeleteMode}
           />

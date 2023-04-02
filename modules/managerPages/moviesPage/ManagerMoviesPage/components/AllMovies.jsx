@@ -14,25 +14,24 @@ const DeleteMoviesModal = dynamic(() =>
   import("./DeleteMoviesModal").then((component) => component.DeleteMoviesModal)
 );
 
-export const AllMovies = ({ showMenu, toggleShowMenu }) => {
-  const movies = useAllMovies();
+export const AllMovies = ({ movies, showMenu, toggleShowMenu }) => {
   const router = useRouter();
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
 
-  if (movies.isLoading)
-    return (
-      <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
-        <p className="font-poppins text-xs">Fetching all movies</p>
-        <MoonLoader
-          loading={movies.isLoading}
-          size="30"
-          color="black"
-          speedMultiplier={0.75}
-        />
-      </div>
-    );
+  // if (movies.isLoading)
+  //   return (
+  //     <div className="flex h-80 w-full flex-col items-center justify-center gap-4">
+  //       <p className="font-poppins text-xs">Fetching all movies</p>
+  //       <MoonLoader
+  //         loading={movies.isLoading}
+  //         size="30"
+  //         color="black"
+  //         speedMultiplier={0.75}
+  //       />
+  //     </div>
+  //   );
 
   if (movies.data?.length < 1)
     return (
@@ -58,7 +57,7 @@ export const AllMovies = ({ showMenu, toggleShowMenu }) => {
         </p>
       </div>
       <div className="flex flex-col items-center justify-start gap-4">
-        {movies.data?.map((movie) => (
+        {movies.map((movie) => (
           <button
             key={movie.id}
             onClick={() =>
