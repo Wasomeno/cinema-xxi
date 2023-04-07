@@ -3,7 +3,7 @@ import useToggle from "hooks/useToggle";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import UserMenuModal from "@/components/UserMenuModal";
+import AdminMenuModal from "@/components/AdminMenuModal";
 
 import { AdminNavigationMobileLink } from "./AdminNavigationMobileLink";
 
@@ -58,7 +58,7 @@ export const AdminNavigationMobile = () => {
       </div>
       <AnimatePresence>
         {showUserModal && (
-          <UserMenuModal toggleShowUserModal={toggleShowUserModal} />
+          <AdminMenuModal toggleShowUserModal={toggleShowUserModal} />
         )}
       </AnimatePresence>
     </>
