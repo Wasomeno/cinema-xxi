@@ -4,6 +4,7 @@ import client from "client/wagmiClient";
 import dynamic from "next/dynamic";
 import { Open_Sans, Poppins } from "next/font/google";
 import { useRouter } from "next/router";
+import { SessionProvider } from "next-auth/react";
 import { WagmiConfig } from "wagmi";
 
 const Loading = dynamic(() => import("./Loading"));
@@ -33,7 +34,7 @@ const openSans = Open_Sans({
   weight: ["500", "300"],
 });
 
-const Layout = ({ children }) => {
+const Layout = ({ children, session }) => {
   const router = useRouter();
   const basePath = router.pathname.split("/")[1];
   const ComponentLayout = layouts[basePath];
@@ -54,11 +55,13 @@ const Layout = ({ children }) => {
         basePath === "app" ||
         basePath === "manager" ? (
         <QueryClientProvider client={queryClientApp}>
-          <WagmiConfig client={client}>
-            <Loading />
-            <ComponentLayout>{children}</ComponentLayout>
-            <Toast />
-          </WagmiConfig>
+          <SessionProvider refetchOnWindowFocus={false} session={session}>
+            <WagmiConfig client={client}>
+              <Loading />
+              <ComponentLayout session={session}>{children}</ComponentLayout>
+              <Toast />
+            </WagmiConfig>
+          </SessionProvider>
         </QueryClientProvider>
       ) : (
         <>{children}</>
