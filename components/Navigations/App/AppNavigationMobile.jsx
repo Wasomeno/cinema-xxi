@@ -20,15 +20,17 @@ const AppNavigationMobile = () => {
           size="5"
           color={
             !currentPath || query.movieId
-              ? "stroke-blue-300"
-              : "stroke-slate-50"
+              ? "stroke-blue-500 dark:stroke-blue-300"
+              : "stroke-slate-700 dark:stroke-slate-50"
           }
         />
         <p
           className={twMerge(
             clsx(
-              "font-poppins text-xs tracking-wider dark:text-white",
-              !currentPath || query.movieId ? "dark:text-blue-300" : ""
+              "font-poppins text-xs tracking-wider",
+              !currentPath || query.movieId
+                ? "text-blue-500 dark:text-blue-300"
+                : "text-slate-800 dark:text-slate-50"
             )
           )}
         >
@@ -42,15 +44,19 @@ const AppNavigationMobile = () => {
         <RectangeStack
           size="5"
           color={
-            currentPath === "cinemas" ? "stroke-blue-300" : "stroke-slate-50"
+            currentPath === "cinemas"
+              ? "stroke-blue-500 dark:stroke-blue-300"
+              : "stroke-slate-700 dark:stroke-slate-50"
           }
         />
 
         <p
           className={twMerge(
             clsx(
-              "font-poppins text-xs tracking-wider dark:text-white",
-              currentPath === "cinemas" && "dark:text-blue-300"
+              "font-poppins text-xs tracking-wider",
+              currentPath === "cinemas"
+                ? "text-blue-500 dark:text-blue-300"
+                : "text-slate-800 dark:text-slate-50"
             )
           )}
         >
@@ -64,14 +70,18 @@ const AppNavigationMobile = () => {
         <Ticket
           size="5"
           color={
-            currentPath === "tickets" ? "stroke-blue-300" : "stroke-slate-50"
+            currentPath === "tickets"
+              ? "stroke-blue-500 dark:stroke-blue-300"
+              : "stroke-slate-700 dark:stroke-slate-50"
           }
         />
         <p
           className={twMerge(
             clsx(
-              "font-poppins text-xs tracking-wider dark:text-white",
-              currentPath === "tickets" && "dark:text-blue-300"
+              "font-poppins text-xs tracking-wider",
+              currentPath === "tickets"
+                ? "text-blue-500 dark:text-blue-300"
+                : "text-slate-800 dark:text-slate-50"
             )
           )}
         >
