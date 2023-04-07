@@ -9,16 +9,12 @@ const conditions = {
   success: {
     class:
       "from-green-800 via-green-700 to-green-600 dark:from-green-400 dark:via-green-300 dark:to-green-200",
-    icon: (
-      <CheckMark size="5 lg:w-7 lg:h-7" color="slate-100 dark:fill-slate-800" />
-    ),
+    icon: <CheckMark size="5 lg:w-7 lg:h-7" color="fill-slate-200" />,
   },
   error: {
     class:
       "from-red-800 via-red-700 to-red-600 dark:from-red-400 dark:via-red-300 dark:to-red-200",
-    icon: (
-      <Warning size="5 lg:w-7 lg:h-7" color="slate-100 dark:fill-slate-800" />
-    ),
+    icon: <Warning size="5 lg:w-7 lg:h-7" color="fill-slate-200" />,
   },
 };
 
