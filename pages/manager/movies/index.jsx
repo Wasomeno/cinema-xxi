@@ -11,7 +11,6 @@ export async function getServerSideProps() {
 }
 
 const ManageMovies = ({ movies }) => {
-  console.log(movies);
   return <ManagerMoviesPage movies={movies} />;
 };
 
