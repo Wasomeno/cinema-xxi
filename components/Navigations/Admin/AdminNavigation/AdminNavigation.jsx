@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
+import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
-import { useDisconnect } from "wagmi";
 
 import ChevronRight from "@/components/Icons/ChevronRight";
 import Power from "@/components/Icons/Power";
@@ -9,9 +8,8 @@ import Power from "@/components/Icons/Power";
 import { AdminNavigationLink } from "./AdminNavigationLink";
 
 export const AdminNavigation = () => {
-  const { user } = useUserConnectionDetails();
+  const { data: sessionData } = useSession();
   const [showNav, setShowNav] = useState(false);
-  const { disconnect } = useDisconnect();
 
   return (
     <motion.div
@@ -30,21 +28,21 @@ export const AdminNavigation = () => {
           <ChevronRight size="5" color="stroke-slate-800" />
         </span>
       </button>
-      <div
-        className={
-          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300 dark:bg-gray-700"
-        }
-      >
+      <div className="flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300 dark:bg-gray-700">
         <div className="h-12 w-12 rounded-full bg-slate-500 dark:bg-slate-300" />
         <motion.div
           className="text-center"
           initial={{ opacity: 0 }}
-          animate={{ opacity: showNav ? 1 : 0, display: 0 }}
+          animate={{
+            opacity: showNav ? 1 : 0,
+          }}
           transition={{ duration: 0.2, ease: "easeInOut" }}
         >
-          <p className="font-poppins text-sm font-medium">Admin</p>
-          <p className="font-poppins text-sm text-slate-500 dark:text-slate-200">
-            {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
+          <p className="w-60 font-poppins text-sm font-medium">
+            {sessionData.user.name}
+          </p>
+          <p className="my-2 w-60 font-poppins text-xs font-medium text-slate-300">
+            {showNav && sessionData.user.cinemaName}
           </p>
         </motion.div>
       </div>
@@ -84,13 +82,15 @@ export const AdminNavigation = () => {
           </AdminNavigationLink>
         </div>
         <button
-          onClick={disconnect}
-          className="flex h-1/6 items-center justify-center p-2"
+          onClick={() => signOut({ redirect: false })}
+          className="flex h-36 items-center justify-center p-2"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-700 dark:bg-slate-500">
             <Power size="4" color="stroke-slate-50" />
           </span>
-          {showNav && <span className="w-3/6">Disconnect</span>}
+          {showNav && (
+            <span className="w-3/6 font-poppins text-sm">Logout</span>
+          )}
         </button>
       </div>
     </motion.div>
