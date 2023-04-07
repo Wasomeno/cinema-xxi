@@ -4,7 +4,7 @@ import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import { ConnectWalletModal } from "@/components/ConnectWalletModal";
+import { ConnectWalletModal } from "./ConnectWalletModal";
 
 const UserMenuModal = dynamic(() => import("../../UserMenuModal"));
 
