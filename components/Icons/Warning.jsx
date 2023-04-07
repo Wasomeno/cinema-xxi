@@ -7,12 +7,11 @@ const Warning = ({ size, color }) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill={color ? color : "black"}
       className={twMerge(
         clsx(
           "w-" + (size ? size : "6"),
           "h-" + (size ? size : "6"),
-          "fill-" + (color ? color : "slate-800"),
+          color ? color : "fill-slate-800",
           "mx-auto"
         )
       )}

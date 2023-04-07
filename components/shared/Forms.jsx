@@ -47,7 +47,7 @@ export const FormInput = ({
       className={twMerge(
         clsx(
           width ? "w-" + width : "w-3/6",
-          "h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs focus:outline-none dark:bg-slate-700 lg:text-sm"
+          "h-8 rounded-lg border border-slate-500 p-2 font-poppins text-xs focus:outline-none dark:bg-slate-700 lg:text-xs"
         )
       )}
       placeholder={placeholder}
@@ -63,7 +63,7 @@ export const FormSubmit = ({ width, value }) => {
       value={value}
       className={
         (width ? "w-" + width : "w-full") +
-        " rounded-lg bg-slate-800 p-2 font-poppins text-xs font-medium text-white dark:bg-gray-600 lg:text-sm"
+        " cursor-pointer rounded-lg bg-slate-800 p-2 font-poppins text-xs font-medium text-white dark:bg-gray-600 lg:text-xs"
       }
     />
   );

@@ -19,7 +19,7 @@ const ActiveTicketList = ({ transactions }) => {
           <Link
             key={transaction.id}
             href={"/app/tickets/" + transaction.id}
-            className="flex w-full items-center justify-center gap-2 rounded-md bg-slate-50 p-2 lg:w-3/6"
+            className="flex w-full items-center justify-center gap-2 rounded-md bg-slate-50 p-2 dark:bg-slate-700 dark:text-slate-100 lg:w-3/6"
           >
             <div className="w-2/6 lg:w-3/12">
               <div className="h-36 w-full rounded-md bg-slate-500 lg:h-52" />

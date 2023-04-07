@@ -11,7 +11,7 @@ const CheckMark = ({ size, color }) => {
         clsx(
           "w-" + (size ? size : "6"),
           "h-" + (size ? size : "6"),
-          "fill-" + (color ? color : "slate-800"),
+          color ? color : "fill-slate-800",
           "mx-auto"
         )
       )}

@@ -28,7 +28,7 @@ export const ManagerCinemaDetailsPage = ({ cinemaDetails }) => {
         <div className="w-full lg:w-4/6">
           <div className="mt-3 w-full">
             <div className="my-3 w-3/6">
-              <p className="font-poppins text-xs font-medium text-slate-900 lg:text-sm">
+              <p className="font-poppins text-xs font-medium text-slate-900 dark:text-slate-50 lg:text-sm">
                 Details
               </p>
             </div>
@@ -99,7 +99,7 @@ export const ManagerCinemaDetailsPage = ({ cinemaDetails }) => {
           </div>
           <div className="mt-5 w-full">
             <div className="my-3 w-3/6">
-              <p className="font-poppins text-xs font-medium text-slate-900 lg:text-sm">
+              <p className="font-poppins text-xs font-medium text-slate-900 dark:text-slate-50 lg:text-sm">
                 Ticket Sales
               </p>
             </div>

@@ -1,6 +1,6 @@
 export const Title = ({ children }) => {
   return (
-    <h1 className="font-poppins text-sm tracking-wide md:text-base lg:text-lg">
+    <h1 className="font-poppins text-sm font-medium tracking-wide md:text-base lg:text-lg">
       {children}
     </h1>
   );
