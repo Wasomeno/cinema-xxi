@@ -38,8 +38,6 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
     toastError("Wallet Disconnected");
   }
 
-  console.log(currentTheme);
-
   if (isDisconnected) return;
   return (
     <>
