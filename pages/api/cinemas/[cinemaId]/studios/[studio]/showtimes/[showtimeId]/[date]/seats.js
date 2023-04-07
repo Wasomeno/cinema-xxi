@@ -1,6 +1,6 @@
 import { prisma } from "lib/prisma";
 
-export default async function shotimeSeatsHandler(req, res) {
+export default async function showtimeSeatsHandler(req, res) {
   if (req.method === "GET") {
     const { showtimeId, date } = req.query;
     const isDateExist = await prisma.seatsDates.findUnique({

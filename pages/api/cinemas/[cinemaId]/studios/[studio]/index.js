@@ -1,7 +1,7 @@
 import { prisma } from "lib/prisma";
 
 export default async function studioDetailsHandler(req, res) {
-  const { cinemaId, studio } = req.query;
+  const { studio } = req.query;
   if (req.method === "GET") {
     const studioDetails = await prisma.studio.findUnique({
       where: { id: parseInt(studio) },
