@@ -1,4 +1,4 @@
-import { regionKeys } from "../../queries/queryKeys/regionQueryKeys";
+import { regionQueryKeys } from "../../queries/queryKeys/regionQueryKeys";
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
@@ -7,7 +7,7 @@ export const deleteCinema = ({ regionId, cinemaIds }) => {
     context: "add",
     object: "cinema",
     invalidateQueries: true,
-    queryKeys: regionKeys.regionDetails(regionId),
+    queryKeys: regionQueryKeys.regionDetails(regionId),
   });
   const deleteCinemaMutation = mutation({
     url: "/api/cinemas",
