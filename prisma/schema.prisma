@@ -11,7 +11,7 @@ datasource db {
 model Region {
   id           Int           @id @default(autoincrement())
   name         String        @db.VarChar(255)
-  regionAdmins        String[]
+  regionAdmins String[]
   cinema       Cinema[]
   transactions Transaction[]
 }
@@ -69,51 +69,49 @@ model User {
   transactions Transaction[]
 }
 
-model Admin{
-  id Int @id @default(autoincrement())
-  username String @unique
+model Admin {
+  id       Int           @id @default(autoincrement())
+  username String        @unique
   password String
-  name String
+  name     String
   cinemaId Int
-  cinema Cinema @relation(fields: [cinemaId], references: [id])
-  actions AdminAction[]
+  cinema   Cinema        @relation(fields: [cinemaId], references: [id])
+  actions  AdminAction[]
 }
 
-model Manager{
-  id Int @id @default(autoincrement())
-  username String @unique
+model Manager {
+  id       Int             @id @default(autoincrement())
+  username String          @unique
   password String
-  name String
-  actions ManagerAction[]
+  name     String
+  actions  ManagerAction[]
 }
 
-model ManagerAction{
-  id Int @id @default(autoincrement())
+model ManagerAction {
+  id         Int     @id @default(autoincrement())
   actionName String
-  managerId Int
-  manager Manager @relation(fields: [managerId],references: [id])
+  managerId  Int
+  manager    Manager @relation(fields: [managerId], references: [id])
 }
 
-model AdminAction{
-  id Int @id @default(autoincrement())
+model AdminAction {
+  id         Int    @id @default(autoincrement())
   actionName String
-  adminId Int
-  admin Admin @relation(fields: [adminId],references: [id])
+  adminId    Int
+  admin      Admin  @relation(fields: [adminId], references: [id])
 }
-
-
 
 model Transaction {
   id          Int      @id @default(autoincrement())
   user        String
   total       Float
   createdAt   DateTime @default(now()) @db.Timestamp(6)
-  ticketIds   String[]
   cinemaId    Int
   movieId     Int
   regionId    Int
   showtime    BigInt
   studio      Int
+  ticketIds   String[]
   cinema      Cinema   @relation(fields: [cinemaId], references: [id])
   movie       Movie    @relation(fields: [movieId], references: [id])
   region      Region   @relation(fields: [regionId], references: [id])
