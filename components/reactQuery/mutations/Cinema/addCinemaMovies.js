@@ -1,10 +1,10 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { useSession } from "next-auth/react";
 
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
 export function useAddCinemaMovies({ movies }) {
-  const adminDetails = useAdminDetailsContext();
+  const { data: sessionData } = useSession();
   const sideEffects = createSideEffects({
     context: "add",
     object: "movies",
@@ -13,7 +13,7 @@ export function useAddCinemaMovies({ movies }) {
   });
   const movieIds = movies.map((movie) => ({ id: movie.id }));
   const addCinemaMoviesMutation = mutation({
-    url: "/api/cinemas/" + adminDetails?.cinema + "/movies",
+    url: "/api/cinemas/" + sessionData.cinema + "/movies",
     body: {
       movieIds: movieIds,
     },

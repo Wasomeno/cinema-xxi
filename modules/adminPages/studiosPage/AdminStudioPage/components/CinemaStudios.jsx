@@ -1,6 +1,6 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
 import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { MoonLoader } from "react-spinners";
 
 import { useCinemaStudios } from "@/components/reactQuery/queries/Cinema/useCinemaStudios";
@@ -9,8 +9,8 @@ import { Paragraph } from "@/components/shared/Texts";
 import { CinemaStudiosMenu } from "./CinemaStudiosMenu";
 
 export const CinemaStudios = ({ showMenu, toggleShowMenu }) => {
-  const adminDetails = useAdminDetailsContext();
-  const cinemaStudios = useCinemaStudios(adminDetails?.cinema);
+  const { data: sessionData } = useSession();
+  const cinemaStudios = useCinemaStudios(sessionData.user.cinemaId);
 
   if (cinemaStudios.isLoading)
     return (

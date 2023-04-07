@@ -1,8 +1,8 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
 import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
 import { MoonLoader } from "react-spinners";
 
 import { deleteShowtimes } from "@/components/reactQuery/mutations/Cinema/deleteShowtimes";
@@ -14,9 +14,9 @@ import CinemaShowtimesMenu from "./CinemaShowtimesMenu";
 const DeleteModal = dynamic(() => import("@/components/DeleteModal"));
 
 const CinemaShowtimes = ({ showMenu, toggleShowMenu }) => {
-  const adminDetails = useAdminDetailsContext();
   const [deleteMode, toggleDeleteMode] = useToggle(false);
-  const cinemaShowtimes = useCinemaShowTimes(adminDetails?.cinema);
+  const { data: sessionData } = useSession();
+  const cinemaShowtimes = useCinemaShowTimes(sessionData.user.cinemaId);
   const [
     showtimesToDelete,
     selectShowtimesToDelete,

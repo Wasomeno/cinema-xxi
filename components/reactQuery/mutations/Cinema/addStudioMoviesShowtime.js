@@ -1,11 +1,11 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { useSession } from "next-auth/react";
 
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
 export const addStudioMoviesShowtime = ({ studioId, showtime, movie }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const adminDetails = useAdminDetailsContext();
+  const { data: sessionData } = useSession();
   const sideEfffects = createSideEffects({
     context: "add",
     object: "movies",
@@ -16,7 +16,7 @@ export const addStudioMoviesShowtime = ({ studioId, showtime, movie }) => {
   const addStudioMoviesShowtimeMutation = mutation({
     url:
       "/api/cinemas/" +
-      adminDetails?.cinema +
+      sessionData.cinemaId +
       "/studios/" +
       studioId +
       "/movies",

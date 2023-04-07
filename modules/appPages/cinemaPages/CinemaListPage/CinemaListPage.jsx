@@ -39,7 +39,7 @@ export const CinemaListPage = () => {
           allCinema.data?.map((cinema) => (
             <Link
               href={"/app/cinemas/" + cinema.id}
-              className="w-5/6 rounded-md bg-slate-100 p-2 px-3 text-center shadow-md dark:bg-slate-700 md:w-4/6 lg:w-3/6"
+              className="flex h-10 w-5/6 items-center justify-center rounded-md bg-gray-100 text-center shadow-md shadow-slate-300 dark:bg-slate-700 md:w-4/6 lg:w-3/6"
               key={cinema.id}
             >
               <p className="font-poppins text-xs lg:text-sm">{cinema.name}</p>

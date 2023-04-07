@@ -1,12 +1,12 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { useSession } from "next-auth/react";
 import { MoonLoader } from "react-spinners";
 
 import { useCinemaShowTimes } from "@/components/reactQuery/queries/Cinema/useCinemaShowTimes";
 import { Paragraph } from "@/components/shared/Texts";
 
 export const AvailableCinemaShowtimes = ({ selectShowtime }) => {
-  const adminDetails = useAdminDetailsContext();
-  const cinemaShowtimes = useCinemaShowTimes(adminDetails?.cinema);
+  const { data: sessionData } = useSession();
+  const cinemaShowtimes = useCinemaShowTimes(sessionData.cinemaId);
 
   return (
     <div className="w-full">

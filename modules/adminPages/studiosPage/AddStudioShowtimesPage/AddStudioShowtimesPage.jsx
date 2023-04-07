@@ -10,7 +10,6 @@ import { SelectedShowtimes } from "./components/SelectedShowtimes";
 
 export const AddStudioShowtimesPage = () => {
   const { query } = useRouter();
-
   const [selectedShowtimes, setSelectedShowtimes] = useState([]);
 
   function selectShowtime(showtime) {

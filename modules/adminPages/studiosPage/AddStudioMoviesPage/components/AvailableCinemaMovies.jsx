@@ -1,12 +1,12 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { useSession } from "next-auth/react";
 
 import { MovieListClickable } from "@/components/MovieListCard";
 import { useCinemaMovies } from "@/components/reactQuery/queries/Cinema/useCinemaMovies";
 import { Paragraph } from "@/components/shared/Texts";
 
 export const AvailableCinemaMovies = ({ selectMovie }) => {
-  const adminDetails = useAdminDetailsContext();
-  const moviesInCinema = useCinemaMovies(adminDetails?.cinema);
+  const { data: sessionData } = useSession();
+  const moviesInCinema = useCinemaMovies(sessionData.cinemaId);
 
   return (
     <div className="w-full">

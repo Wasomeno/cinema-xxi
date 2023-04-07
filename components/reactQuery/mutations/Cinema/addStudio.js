@@ -1,10 +1,10 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { useSession } from "next-auth/react";
 
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
 export function useAddStudio({ number, capacity }) {
-  const adminDetails = useAdminDetailsContext();
+  const { data: sessionData } = useSession();
   const sideEffects = createSideEffects({
     context: "add",
     object: "studio",
@@ -13,7 +13,7 @@ export function useAddStudio({ number, capacity }) {
   });
 
   const addStudioMutation = mutation({
-    url: "/api/cinemas/" + adminDetails?.cinema + "/studios",
+    url: "/api/cinemas/" + sessionData.cinemaId + "/studios",
     method: "POST",
     body: {
       studioNumber: number,

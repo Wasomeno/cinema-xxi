@@ -1,11 +1,11 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
+import { useSession } from "next-auth/react";
 
 import { createSideEffects } from "../createSideEffects";
 import mutation from "../mutation";
 
 export const addStudioShowtimes = ({ studioId, showtimes }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const adminDetails = useAdminDetailsContext();
+  const { data: sessionData } = useSession();
 
   const showtimeIds = showtimes.map((showtime) => ({
     id: showtime.id,
@@ -21,13 +21,13 @@ export const addStudioShowtimes = ({ studioId, showtimes }) => {
   const addStudioShowtimesMutation = mutation({
     url:
       "/api/cinemas/" +
-      adminDetails?.cinema +
+      sessionData.cinemaId +
       "/studios/" +
       studioId +
       "/showtimes",
     method: "POST",
     body: {
-      cinemaId: adminDetails?.cinema,
+      cinemaId: sessionData.cinemaId,
       studioId: studioId,
       showtimeIds: showtimeIds,
     },

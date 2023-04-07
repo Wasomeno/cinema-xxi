@@ -1,9 +1,9 @@
-import { useAdminDetailsContext } from "context/AdminDetails/useAdminDetailsContext";
 import { AnimatePresence } from "framer-motion";
 import { useSelectDeselect } from "hooks/useSelectDeselect";
 import useToggle from "hooks/useToggle";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { MoonLoader } from "react-spinners";
 
 import { useCinemaMovies } from "@/components/reactQuery/queries/Cinema/useCinemaMovies";
@@ -15,8 +15,8 @@ const DeleteModal = dynamic(() => import("./DeleteMoviesModal"));
 
 const CinemaMovieList = ({ showMenu, toggleShowMenu }) => {
   const router = useRouter();
-  const adminDetails = useAdminDetailsContext();
-  const cinemaMovies = useCinemaMovies(adminDetails?.cinema);
+  const { data: sessionData } = useSession();
+  const cinemaMovies = useCinemaMovies(sessionData.user.cinemaId);
   const [deleteMode, toggleDeleteMode] = useToggle(false);
   const [moviesToDelete, selectMoviesToDelete, deselectMoviesToDelete] =
     useSelectDeselect([]);
