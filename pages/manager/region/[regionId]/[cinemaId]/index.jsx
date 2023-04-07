@@ -1,21 +1,7 @@
 import { prisma } from "lib/prisma";
 import { ManagerCinemaDetailsPage } from "modules/managerPages/cinemaPage/ManagerCinemaDetailsPage";
 
-export async function getStaticPaths() {
-  const regions = await prisma.region.findMany({ include: { cinema: true } });
-  const regionAndCinemaIds = regions.map((region) => {
-    return region.cinema.map((cinema) => ({
-      params: {
-        regionId: region.id.toString(),
-        cinemaId: cinema.id.toString(),
-      },
-    }));
-  });
-
-  return { paths: regionAndCinemaIds.flat(), fallback: "blocking" };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const cinemaDetails = await prisma.cinema.findUnique({
     where: { id: parseInt(params.cinemaId) },
     include: {
@@ -37,7 +23,6 @@ export async function getStaticProps({ params }) {
         })),
       },
     },
-    revalidate: 30,
   };
 }
 
