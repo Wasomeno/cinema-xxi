@@ -20,7 +20,7 @@ model Cinema {
   id           Int           @id @default(autoincrement())
   regionId     Int
   name         String        @db.VarChar(255)
-  admins       String[]
+  admins       Admin[]
   region       Region        @relation(fields: [regionId], references: [id])
   seats        Seats[]
   showtimes    Showtime[]
@@ -68,6 +68,40 @@ model User {
   name         String
   transactions Transaction[]
 }
+
+model Admin{
+  id Int @id @default(autoincrement())
+  username String @unique
+  password String
+  name String
+  cinemaId Int
+  cinema Cinema @relation(fields: [cinemaId], references: [id])
+  actions AdminAction[]
+}
+
+model Manager{
+  id Int @id @default(autoincrement())
+  username String @unique
+  password String
+  name String
+  actions ManagerAction[]
+}
+
+model ManagerAction{
+  id Int @id @default(autoincrement())
+  actionName String
+  managerId Int
+  manager Manager @relation(fields: [managerId],references: [id])
+}
+
+model AdminAction{
+  id Int @id @default(autoincrement())
+  actionName String
+  adminId Int
+  admin Admin @relation(fields: [adminId],references: [id])
+}
+
+
 
 model Transaction {
   id          Int      @id @default(autoincrement())
