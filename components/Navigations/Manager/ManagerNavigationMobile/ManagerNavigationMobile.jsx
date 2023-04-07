@@ -3,7 +3,7 @@ import useToggle from "hooks/useToggle";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import UserMenuModal from "@/components/UserMenuModal";
+import ManagerMenuModal from "@/components/ManagerMenuModal";
 
 import { ManagerNavigationMobileLink } from "./ManagerNavigationMobileLink";
 
@@ -19,7 +19,7 @@ export const ManagerNavigationMobile = () => {
 
   return (
     <>
-      <div className="sticky bottom-0 z-10 flex w-full items-center justify-center bg-slate-200 dark:bg-slate-700">
+      <div className="sticky bottom-0 z-10 flex w-full items-center justify-center bg-slate-200 shadow-md shadow-slate-700 backdrop-blur-md dark:bg-slate-700">
         <ManagerNavigationMobileLink
           activeRoute={activeRoute}
           route="manager"
@@ -47,7 +47,7 @@ export const ManagerNavigationMobile = () => {
       </div>
       <AnimatePresence>
         {showManagerMenuModal && (
-          <UserMenuModal toggleShowUserModal={toggleShowManagerMenuModal} />
+          <ManagerMenuModal toggleShowUserModal={toggleShowManagerMenuModal} />
         )}
       </AnimatePresence>
     </>
