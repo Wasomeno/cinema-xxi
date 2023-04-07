@@ -1,33 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import useToggle from "hooks/useToggle";
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
-import { useToast } from "stores/toastStore";
-import { useDisconnect } from "wagmi";
+import { signOut, useSession } from "next-auth/react";
 
-import ArrowTopRight from "@/components/Icons/ArrowTopRight";
 import ChevronRight from "@/components/Icons/ChevronRight";
-import ClipboardDocument from "@/components/Icons/ClipboardDocument";
 import Power from "@/components/Icons/Power";
 
 import { ManagerNavigationLink } from "./ManagerNavigationLink";
 
 export const ManagerNavigation = () => {
-  const { user } = useUserConnectionDetails();
-  const { disconnect } = useDisconnect();
+  const { data: sessionData } = useSession();
   const [showNav, toggleShowNav] = useToggle();
-  const [toastSuccess] = useToast();
-
-  function openEtherScan() {
-    window
-      .open("https://sepolia.etherscan.io/address/" + user, "_blank")
-      .focus();
-  }
-
-  function copyAddress() {
-    navigator.clipboard.writeText(user);
-    toastSuccess("Address Copied");
-  }
-
   return (
     <motion.div
       initial={{ width: "30px" }}
@@ -45,11 +27,7 @@ export const ManagerNavigation = () => {
           <ChevronRight color="stroke-slate-900" size="4" />
         </span>
       </button>
-      <div
-        className={
-          "flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300 dark:bg-gray-700"
-        }
-      >
+      <div className="flex h-36 flex-col items-center justify-center gap-2 border-b border-b-gray-400 bg-slate-100 transition duration-300 dark:bg-gray-700">
         <div className="h-12 w-12 rounded-full bg-slate-500 dark:bg-slate-300" />
         <motion.div
           className="flex flex-col items-center justify-center gap-2"
@@ -58,13 +36,8 @@ export const ManagerNavigation = () => {
           transition={{ duration: 0.2, ease: "easeInOut" }}
         >
           <p className="text-center font-poppins text-sm font-medium">
-            Manager
+            {sessionData.user.name}
           </p>
-          <div className="flex items-center justify-center gap-2">
-            <p className="font-poppins text-sm text-slate-500">
-              {user.slice(0, 5)}.....{user.slice(-5, -1) + user.slice(-1)}
-            </p>
-          </div>
         </motion.div>
       </div>
       <div className="flex h-5/6 flex-col justify-between">
@@ -86,10 +59,17 @@ export const ManagerNavigation = () => {
           >
             Manage Region
           </ManagerNavigationLink>
+          <ManagerNavigationLink
+            href="/manager/actions"
+            icon="house"
+            showNav={showNav}
+          >
+            Actions
+          </ManagerNavigationLink>
         </div>
         <button
-          onClick={disconnect}
-          className="flex h-1/6 items-center justify-center p-2"
+          onClick={() => signOut({ redirect: false })}
+          className="flex h-36 items-center justify-center p-2"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-md bg-slate-800">
             <Power size="4" color="stroke-slate-50" />
@@ -100,9 +80,9 @@ export const ManagerNavigation = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.25, delay: 0.25, ease: "easeInOut" }}
-                className="w-3/6"
+                className="w-3/6 font-poppins text-sm"
               >
-                Disconnect
+                Logout
               </motion.span>
             )}
           </AnimatePresence>
