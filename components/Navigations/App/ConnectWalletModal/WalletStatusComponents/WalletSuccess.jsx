@@ -16,7 +16,7 @@ export const WalletSuccess = ({ toggleWalletModal }) => {
         <p className="font-poppins text-sm text-white">Wallet Connected</p>
       </div>
       <div>
-        <CheckMark size="16" color="darkGreen" />
+        <CheckMark size="16" color="fill-green-700" />
       </div>
     </div>
   );

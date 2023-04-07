@@ -1,7 +1,8 @@
 import React from "react";
 import { useConnect } from "wagmi";
 
-import AnimatedContainer from "../AnimatedContainer";
+import AnimatedContainer from "@/components/AnimatedContainer";
+
 import {
   WalletError,
   WalletIdle,
