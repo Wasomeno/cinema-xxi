@@ -1,31 +1,60 @@
-import { AnimatePresence } from "framer-motion";
-import useToggle from "hooks/useToggle";
+import { useState } from "react";
+import { MoonLoader } from "react-spinners";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
-import { ConnectWalletModal } from "@/components/ConnectWalletModal";
+import { Spinner } from "@/components/Icons/Spinner";
+import { loginMutation } from "@/components/reactQuery/mutations/login";
+import {
+  FormContainer,
+  FormInput,
+  FormSubmit,
+} from "@/components/shared/Forms";
 
 export const AdminLoginPage = () => {
-  const [showWalletModal, toggleShowWalletModal] = useToggle(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const login = loginMutation({ username, password, role: "admin" });
+
   return (
     <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-4 bg-slate-50 bg-opacity-95 dark:bg-slate-800">
-      <div className="">
-        <h1 className="font-poppins text-base font-medium lg:text-lg">
+      <div className="flex h-80 w-5/6 flex-col items-center justify-center gap-4 rounded-md bg-neutral-300 p-4 shadow-md backdrop-blur-md dark:bg-slate-700 lg:w-3/12">
+        <h5 className="font-poppins text-sm font-medium lg:text-base">
           Admin Login Page
-        </h1>
+        </h5>
+        <FormContainer onSubmit={login.mutate}>
+          <div className="flex w-5/6 flex-col justify-center gap-1">
+            <label id="usernameInput" className="font-poppins text-xs">
+              Username
+            </label>
+            <FormInput
+              type="text"
+              id="usernameInput"
+              width="full"
+              value={username}
+              setValue={setUsername}
+            />
+          </div>
+          <div className="flex w-5/6 flex-col justify-center gap-1">
+            <label id="passwordInput" className="font-poppins text-xs">
+              Password
+            </label>
+            <FormInput
+              type="password"
+              id="passwordInput"
+              width="full"
+              value={password}
+              setValue={setPassword}
+            />
+          </div>
+          <div className="my-2 flex w-full items-center justify-center">
+            {login.isLoading ? (
+              <Spinner size="medium" />
+            ) : (
+              <FormSubmit value="Submit" width="4/6" />
+            )}
+          </div>
+        </FormContainer>
       </div>
-      <div className="text-center">
-        <button
-          onClick={toggleShowWalletModal}
-          className="rounded-md bg-slate-800 p-3 px-4 font-poppins text-sm font-medium text-white dark:bg-slate-700 "
-        >
-          Connect Your Wallet
-        </button>
-      </div>
-      <AnimatePresence>
-        {showWalletModal && (
-          <ConnectWalletModal toggleWalletModal={toggleShowWalletModal} />
-        )}
-      </AnimatePresence>
     </AnimatedContainer>
   );
 };
