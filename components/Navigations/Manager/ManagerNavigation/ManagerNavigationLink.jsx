@@ -1,34 +1,28 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useIcon } from "hooks/useIcon";
+import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { twMerge } from "tailwind-merge";
 
-export const ManagerNavigationLink = ({ href, children, showNav, icon }) => {
-  const Icon = useIcon(icon);
+export const ManagerNavigationLink = ({ href, children, Icon }) => {
+  const { pathname } = useRouter();
   return (
     <Link
       href={href}
-      className="flex h-16 w-full items-center justify-center p-2 transition duration-300 ease-in-out hover:bg-slate-300 hover:dark:bg-slate-800"
+      className={twMerge(
+        clsx(
+          "hover:dark:bg-blue-6 flex h-16 w-full items-center justify-start overflow-hidden rounded-lg transition duration-300 ease-in-out hover:bg-blue-100 hover:dark:bg-slate-600",
+          pathname.includes(href) &&
+            href !== "/manager" &&
+            "bg-blue-100 dark:bg-slate-600"
+        )
+      )}
     >
-      <motion.span
-        initial={{ width: "100%" }}
-        animate={{ width: showNav ? "16.666667%" : "100%" }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
-        className={"flex justify-center"}
-      >
-        <Icon size="5" color="stroke-slate-800 dark:stroke-slate-300" />
-      </motion.span>
-      <AnimatePresence>
-        {showNav && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.25, delay: 0.25, ease: "easeInOut" }}
-            className="w-3/6 text-center"
-          >
-            <p className="font-poppins text-sm">{children}</p>
-          </motion.span>
-        )}
-      </AnimatePresence>
+      <span className="flex w-[90px] justify-center">
+        <Icon size="22" className="text-slate-400 dark:text-slate-300" />
+      </span>
+        <span className="w-5/6 text-sm font-medium text-slate-800 dark:text-slate-100">
+          {children}
+        </span>
     </Link>
   );
 };
