@@ -1,16 +1,17 @@
 import clsx from "clsx";
 import { useTheme } from "next-themes";
-import React from "react";
+import {
+  HiChevronRight,
+  HiOutlineClipboardDocument,
+  HiPower,
+} from "react-icons/hi2";
+import { RiShareBoxFill } from "react-icons/ri";
 import { useToast } from "stores/toastStore";
 import { twMerge } from "tailwind-merge";
 import { useAccount, useBalance, useDisconnect } from "wagmi";
 
 import AnimatedContainer from "./AnimatedContainer";
-import { Button } from "./Button";
-import ArrowTopRight from "./Icons/ArrowTopRight";
-import ChevronRight from "./Icons/ChevronRight";
-import ClipboardDocument from "./Icons/ClipboardDocument";
-import Power from "./Icons/Power";
+import { ModalContainer } from "./ModalContainer";
 
 const UserMenuModal = ({ toggleShowUserModal }) => {
   const [toastSuccess, toastError] = useToast();
@@ -20,6 +21,15 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
   const { disconnect } = useDisconnect();
 
   const currentTheme = theme === "system" ? systemTheme : theme;
+
+  const iconWrapper = (Icon) => (
+    <Icon
+      size="16"
+      className={twMerge(
+        clsx(theme === "dark" ? "text-slate-200" : "text-slate-700")
+      )}
+    />
+  );
 
   function openEtherScan() {
     window
@@ -40,49 +50,36 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
 
   if (isDisconnected) return;
   return (
-    <>
-      <AnimatedContainer
-        onClick={toggleShowUserModal}
-        className="z-15 fixed left-0 bottom-0 h-screen w-screen bg-black bg-opacity-70"
-      />
-      <AnimatedContainer className="fixed bottom-0 z-20 flex h-80 w-full flex-col gap-4 rounded-t-lg bg-slate-100 p-4 dark:bg-slate-800 md:top-12 md:right-5 md:h-96 md:w-80 md:rounded-lg">
+    <ModalContainer closeModal={toggleShowUserModal}>
+      <AnimatedContainer className="fixed bottom-0 z-20 flex h-80 w-full flex-col gap-4 rounded-t-lg bg-slate-100 p-4 dark:bg-slate-800 md:right-5 md:top-14 md:h-96 md:w-80 md:rounded-lg">
         <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25" />
         <div className="flex w-full items-center justify-between">
-          <div className="flex w-5/12 items-center justify-evenly md:w-3/6">
+          <div className="flex items-center justify-start gap-2.5 md:w-3/6">
             <div className="h-8 w-8 rounded-full border-2 bg-blue-400" />
             <p className="font-poppins text-sm font-medium tracking-wider text-slate-900 dark:text-slate-50">
               {address.slice(0, 4)}...
               {address.slice(-4, -1) + address.slice(-1)}
             </p>
           </div>
-          <div className="flex w-2/6 items-center justify-end gap-2 md:w-3/6">
-            <Button
+          <div className="flex items-center justify-end gap-2 md:w-3/6">
+            <button
               onClick={copyAddress}
-              className="bg-slate-200 dark:bg-slate-700"
-              size="small"
+              className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
             >
-              <ClipboardDocument
-                color="stroke-slate-900 dark:stroke-slate-50"
-                size="4"
-              />
-            </Button>
-            <Button
+              {iconWrapper(HiOutlineClipboardDocument)}
+            </button>
+            <button
               onClick={openEtherScan}
-              className="bg-slate-200 dark:bg-slate-700"
-              size="small"
+              className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
             >
-              <ArrowTopRight
-                color="stroke-slate-900 dark:stroke-slate-50"
-                size="4"
-              />
-            </Button>
-            <Button
+              {iconWrapper(RiShareBoxFill)}
+            </button>
+            <button
               onClick={disconnectWallet}
-              className="bg-slate-200 dark:bg-slate-700"
-              size="small"
+              className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
             >
-              <Power color="stroke-slate-900 dark:stroke-slate-50" size="4" />
-            </Button>
+              {iconWrapper(HiPower)}
+            </button>
           </div>
         </div>
         <div className="flex flex-col items-center gap-2">
@@ -94,14 +91,14 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
           </span>
         </div>
         <div className="flex flex-col items-start gap-2">
-          <button className="flex w-full justify-between rounded-md bg-slate-400 bg-opacity-25 p-3 font-poppins text-sm text-slate-900 first-letter:items-center dark:text-slate-50">
+          <button className="flex w-full justify-between rounded-lg bg-slate-200  p-3 font-poppins text-sm text-slate-900 shadow-sm dark:text-slate-50">
             <span>Transactions</span>
-            <ChevronRight
+            <HiChevronRight
               color="stroke-slate-900 dark:stroke-slate-400"
               size="5"
             />
           </button>
-          <div className="flex w-full items-center justify-between rounded-md bg-slate-400 bg-opacity-25 p-3 font-poppins text-sm text-slate-900 dark:text-slate-50">
+          <div className="flex w-full items-center justify-between rounded-lg bg-slate-200  p-3 font-poppins text-sm text-slate-900 shadow-sm dark:text-slate-50">
             <span>Theme</span>
             <button
               onClick={() => {
@@ -128,7 +125,7 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
           </div>
         </div>
       </AnimatedContainer>
-    </>
+    </ModalContainer>
   );
 };
 
