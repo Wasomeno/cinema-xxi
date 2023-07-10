@@ -1,32 +1,23 @@
 import { AnimatePresence } from "framer-motion";
-import { MoonLoader } from "react-spinners";
 
 import { useLoadingDetails } from "../stores/loadingStore";
 import AnimatedContainer from "./AnimatedContainer";
-import { Spinner } from "./Icons/Spinner";
-import { Paragraph } from "./shared/Texts";
+import { ModalContainer } from "./ModalContainer";
+import { Spinner } from "./Spinner";
 
 const Loading = () => {
   const [loading, loadingText] = useLoadingDetails();
-
   return (
     <AnimatePresence>
       {loading && (
-        <>
-          <AnimatedContainer className="fixed top-0 z-20 h-screen w-screen bg-slate-700 bg-opacity-80" />
-          <AnimatedContainer className="fixed top-1/2 left-1/2 z-30 flex h-72 w-64 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-5 rounded-lg bg-slate-100 shadow-md dark:bg-slate-800">
-            <Paragraph size="sm" style="medium">
+        <ModalContainer toggleModal={() => null}>
+          <AnimatedContainer className="fixed left-1/2 top-1/2 z-30 flex h-72 w-64 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-5 rounded-lg bg-slate-100 shadow-md dark:bg-slate-800 lg:h-80 lg:w-72">
+            <span className="font-poppins text-sm font-medium tracking-wide lg:text-base">
               {loadingText}
-            </Paragraph>
-            <Spinner size="medium" />
-            <div className="p-2 text-center">
-              <Paragraph
-                text="Confirm the transaction in your wallet"
-                size="sm"
-              />
-            </div>
+            </span>
+            <Spinner />
           </AnimatedContainer>
-        </>
+        </ModalContainer>
       )}
     </AnimatePresence>
   );
