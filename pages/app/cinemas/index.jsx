@@ -1,7 +1,11 @@
-import { CinemaListPage } from "modules/appPages/cinemaPages/CinemaListPage";
+import { CinemaSearchList } from "modules/appPages/cinemaPages/CinemaListPage";
 
-const CinemaList = () => {
-  return <CinemaListPage />;
-};
+import AppLayout from "@/components/Layouts/AppLayout";
 
-export default CinemaList;
+export default function AppCinemaSearchPage() {
+  return (
+    <AppLayout pageTitle="Search">
+      <CinemaSearchList />
+    </AppLayout>
+  );
+}
