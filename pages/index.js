@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex h-full flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       <div className="m-4 p-2">
         <h1 className="font-inter text-lg">Cinema Ticket Booking App</h1>
       </div>
