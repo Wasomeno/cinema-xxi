@@ -1,32 +1,12 @@
-import { useRouter } from "next/router";
-
-import ChevronLeft from "../Icons/ChevronLeft";
-import { Title } from "../shared/Texts";
-
-const AdminHeader = ({ withBackButton, children }) => {
-  const { back } = useRouter();
+const AdminHeader = ({ children }) => {
   return (
-    <>
-      <div className="grid h-14 w-full grid-cols-5 items-center justify-center gap-4">
-        {withBackButton && (
-          <div className="col-span-1 text-center">
-            <button
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 p-1 shadow-md dark:bg-slate-700"
-              onClick={() => back()}
-            >
-              <ChevronLeft
-                size="5"
-                color="stroke-slate-800 dark:stroke-slate-50"
-              />
-            </button>
-          </div>
-        )}
-        <div className="col-span-3 col-start-2 col-end-5 text-center">
-          <Title>{children}</Title>
-          <div className="mx-auto mt-2 h-1 w-3/6 rounded-full bg-blue-400" />
-        </div>
+    <div className="flex items-center justify-start">
+      <div className="space-y-1">
+        <h1 className="font-poppins text-sm font-medium sm:text-lg lg:text-xl">
+          {children}
+        </h1>
       </div>
-    </>
+    </div>
   );
 };
 
