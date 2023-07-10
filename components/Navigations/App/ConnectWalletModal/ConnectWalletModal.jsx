@@ -2,6 +2,7 @@ import React from "react";
 import { useConnect } from "wagmi";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
+import { ModalContainer } from "@/components/ModalContainer";
 
 import {
   WalletError,
@@ -20,13 +21,8 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
   };
   const WalletStatusComponent = walletComponents[status];
   return (
-    <>
-      <AnimatedContainer
-        className="fixed left-0 bottom-0 z-30 h-screen w-screen bg-black bg-opacity-70"
-        onClick={toggleWalletModal}
-      />
-      <AnimatedContainer className="fixed bottom-0 z-40 flex h-72 w-full flex-col items-center gap-2 rounded-t-lg bg-slate-800 p-4 lg:top-1/2 lg:left-1/2 lg:h-80 lg:w-80 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-lg">
-        <div className="h-1 w-2/6 rounded-full bg-slate-600 bg-opacity-25" />
+    <ModalContainer closeModal={toggleWalletModal}>
+      <AnimatedContainer className="fixed bottom-0 z-40 flex h-72 w-full flex-col items-center gap-2 rounded-t-lg bg-slate-50 p-4 dark:bg-slate-800 lg:left-1/2 lg:top-1/2 lg:h-80 lg:w-80 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-lg">
         <div className="h-5/6 w-full">
           <WalletStatusComponent
             connectors={connectors}
@@ -36,6 +32,6 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
           />
         </div>
       </AnimatedContainer>
-    </>
+    </ModalContainer>
   );
 };
