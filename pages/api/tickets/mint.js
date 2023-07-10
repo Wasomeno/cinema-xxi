@@ -3,58 +3,79 @@ import moment from "moment";
 
 export default async function mintTicketHandler(req, res) {
   if (req.method == "POST") {
-    const ticketDetails = req.body;
+    const {
+      selectedDate,
+      regionId,
+      studio,
+      movieId,
+      showtime,
+      cinemaId,
+      seatsId,
+      seatNumbers,
+      ticketIds,
+      total,
+      userAddress,
+    } = req.body;
     try {
-      const month = moment().month();
-      const year = moment().year();
-      const realShowtime = moment({ date: ticketDetails.selectedDate })
-        .add({
-          seconds: ticketDetails.showtime.time,
-        })
+      const realShowtime = moment({
+        date: selectedDate.date,
+        month: selectedDate.month,
+      })
+        .hour(showtime.showtime.hour)
+        .minute(showtime.showtime.minutes)
+        .second(0)
         .unix();
-      await prisma.showtime.update({
-        where: { id: ticketDetails.showtime.id },
-        data: {
-          showtimeSeats: {
-            upsert: {
-              where: { id: ticketDetails.seatsId },
-              create: {
-                cinema: { connect: { id: ticketDetails.cinemaId } },
-                seatsDates: {
-                  connectOrCreate: {
-                    where: { date: ticketDetails.selectedDate },
-                    create: {
-                      date: ticketDetails.selectedDate,
-                      month: month,
-                      year: year,
-                    },
-                  },
-                },
-                seatsTaken: ticketDetails.seatNumbers,
-              },
-              update: { seatsTaken: { push: ticketDetails.seatNumbers } },
-            },
-          },
+
+      const isSeatsAvailable = await prisma.seat.findMany({
+        where: {
+          showTimeToMovieId: parseInt(showtime.studioShowtimeId),
+          date: parseInt(selectedDate.date),
         },
       });
+
+      if (isSeatsAvailable.length) {
+        await prisma.showtimeToMovie.update({
+          where: { id: parseInt(showtime.studioShowtimeId) },
+          data: {
+            seats: {
+              update: {
+                where: { id: seatsId },
+                data: { seats_taken: { push: seatNumbers } },
+              },
+            },
+          },
+        });
+      } else {
+        await prisma.showtimeToMovie.update({
+          where: { id: parseInt(showtime.studioShowtimeId) },
+          data: {
+            seats: {
+              create: { date: selectedDate.date, seats_taken: seatNumbers },
+            },
+          },
+        });
+      }
+
       await prisma.transaction.create({
         data: {
-          cinema: { connect: { id: ticketDetails.cinemaId } },
-          movie: { connect: { id: ticketDetails.movieId } },
-          region: { connect: { id: ticketDetails.regionId } },
+          cinema: { connect: { id: cinemaId } },
+          movie: { connect: { id: movieId } },
+          region: { connect: { id: regionId } },
           showtime: realShowtime,
           userDetails: {
             connectOrCreate: {
-              where: { address: ticketDetails.userAddress },
-              create: { address: ticketDetails.userAddress, name: "TEst" },
+              where: { address: userAddress },
+              create: { address: userAddress, name: "TEst" },
             },
           },
-          studio: ticketDetails.studio,
-          ticketIds: { set: ticketDetails.ticketIds },
-          total: ticketDetails.total,
+          studio: studio,
+          ticketIds: { set: ticketIds },
+          total: total,
         },
       });
-      res.status(200).json({ code: 200, text: "Succesfully minted tickets" });
+      res
+        .status(200)
+        .json({ code: 200, message: "Succesfully minted tickets" });
     } catch (error) {
       res.status(500).json(error.message);
     }
