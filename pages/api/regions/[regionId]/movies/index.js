@@ -6,12 +6,14 @@ export default async function regionMoviesHandler(req, res) {
     const regionCinemas = await prisma.region.findUnique({
       where: { id: parseInt(regionId) },
       select: {
-        cinema: {
-          select: { movie: { include: { showtime: true } } },
+        cinemas: {
+          select: { cinema_movie: { select: { movies: true } } },
         },
       },
     });
-    const regionMovies = regionCinemas.cinema.flatMap((cinema) => cinema.movie);
-    res.status(200).json(regionMovies);
+    const movies = regionCinemas.cinemas.map((cinema) => cinema.cinema_movie);
+    res
+      .status(200)
+      .json(movies.flatMap((movie) => (movie === null ? [] : movie?.movies)));
   }
 }
