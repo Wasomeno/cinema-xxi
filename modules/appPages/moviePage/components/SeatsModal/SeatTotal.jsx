@@ -1,50 +1,40 @@
-import { useTicketPriceTotal } from "hooks/useTicketPriceTotal";
-import moment from "moment";
-
-import { Paragraph } from "@/components/shared/Texts";
+import { useDateTime } from "hooks/useDateTime";
 
 import {
   useMoviePageActionContext,
   useMoviePageValueContext,
 } from "../context/appMoviePageContext";
 
-const SeatTotal = () => {
-  const { deselectSeat, setModalState } = useMoviePageActionContext();
-  const { selectedSeats, selectedDate } = useMoviePageValueContext();
-  const dayOfWeek = moment({ date: selectedDate }).day();
-  const ticketPriceTotal = useTicketPriceTotal(dayOfWeek, selectedSeats.length);
+const SeatTotal = ({ selectedSeats, selectedDate, onSeatsConfirmation }) => {
+  const dateTime = useDateTime({ date: selectedDate.date });
+
+  function getTicketPriceTotal(day, seatsAmount) {
+    const total = seatsAmount * (day > 5 ? 0.0012 : 0.001);
+    return seatsAmount < 1 ? 0 : total;
+  }
 
   return (
-    <div className="relative bottom-2 left-1/2 flex h-52 w-5/6 -translate-x-1/2 flex-col justify-around rounded-md border-2 border-blue-100 p-2 shadow-md">
-      <div className="flex h-4/6 items-start justify-center">
-        <div className="w-6/12">
-          <div className="mb-2 text-center">
-            <Paragraph size="xs" style="medium">
-              Total
-            </Paragraph>
-          </div>
-          <div className="text-center">
-            <Paragraph size="xs">{ticketPriceTotal} ETH</Paragraph>
-          </div>
+    <div className="flex w-full flex-col justify-around rounded-lg border bg-slate-100 p-4 lg:w-4/6">
+      <div className="flex items-start">
+        <div className="flex h-20 w-3/6 flex-col items-center gap-2">
+          <span className="text-sm">Total price</span>
+          <span className="text-xs lg:text-sm">
+            {getTicketPriceTotal(dateTime.getDay(), selectedSeats.length)} ETH
+          </span>
         </div>
-        <div className="w-6/12">
-          <div className="mb-2 text-center">
-            <Paragraph size="xs" style="medium">
-              Selected Seats
-            </Paragraph>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {selectedSeats.length < 1 ? (
-              <Paragraph size="xs">No Seats Selected</Paragraph>
+        <div className="flex w-3/6 flex-col items-center gap-2">
+          <span className="text-sm">Selected seats</span>
+          <div className="flex items-center justify-center gap-2">
+            {!selectedSeats.length ? (
+              <span className="text-xs">No seats selected</span>
             ) : (
-              selectedSeats.map((seat) => (
-                <div
-                  key={seat}
-                  className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-400"
-                  onClick={() => deselectSeat(seat)}
+              selectedSeats.map((seatNumber, index) => (
+                <span
+                  key={index}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-200 text-xs"
                 >
-                  <Paragraph size="xs">{seat}</Paragraph>
-                </div>
+                  {seatNumber}
+                </span>
               ))
             )}
           </div>
@@ -56,9 +46,9 @@ const SeatTotal = () => {
           onClick={() => {
             setModalState("ticket");
           }}
-          className="w-3/6 rounded-md border border-slate-400 p-2 font-poppins text-xs disabled:bg-slate-500 disabled:text-slate-400 md:text-sm"
+          className="w-3/6 rounded-lg bg-blue-200 p-2 font-poppins text-xs text-slate-800 transition duration-200 enabled:hover:bg-blue-300  disabled:bg-opacity-50 disabled:text-opacity-50 md:text-sm"
         >
-          Confirm Tickets
+          Confirm Seats
         </button>
       </div>
     </div>
