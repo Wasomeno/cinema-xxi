@@ -21,5 +21,18 @@ export default async function cinemaDetailsHandler(req, res) {
         showtime: transaction.showtime.toString(),
       })),
     });
+  } else if (req.method === "PATCH") {
+    const { cinemaName } = req.body;
+    try {
+      await prisma.cinema.update({
+        where: { id: parseInt(cinemaId) },
+        data: { name: cinemaName },
+      });
+      res
+        .status(200)
+        .json({ code: 200, message: "Successfully updated cinema" });
+    } catch (error) {
+      res.status(500).json({ code: 500, error });
+    }
   }
 }
