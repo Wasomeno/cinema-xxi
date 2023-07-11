@@ -9,4 +9,18 @@ export default async function regionDetailsHandler(req, res) {
     });
     res.status(200).json(regionDetails);
   }
+  if (req.method === "PUT") {
+    const { name } = req.body;
+    try {
+      await prisma.region.update({
+        where: { id: parseInt(regionId) },
+        data: { name },
+      });
+      res
+        .status(200)
+        .json({ code: 200, message: "Succesfully updated region" });
+    } catch (error) {
+      res.status(500).json({ code: 500, message: error });
+    }
+  }
 }
