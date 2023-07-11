@@ -11,22 +11,15 @@ export default async function cinemaHandler(req, res) {
         data: {
           name: cinemaName,
           regionId: regionId,
-          studio: { createMany: { data: studioDetails } },
+          studios: { createMany: { data: studioDetails } },
         },
       });
-      res
-        .status(200)
-        .json({ code: "200", text: "Successfully added cinema " + cinemaName });
+      res.status(200).json({
+        code: "200",
+        message: `Successfully added ${cinemaName}`,
+      });
     } catch (error) {
       res.status(500).json(error);
-    }
-  } else if (req.method === "DELETE") {
-    const { cinemaIds } = req.body;
-    try {
-      await prisma.cinema.deleteMany({ where: { id: { in: cinemaIds } } });
-      res.status(200).json({ code: "200", text: "Succesfully deleted cinema" });
-    } catch (error) {
-      res.status(500).json(error.message);
     }
   }
 }
