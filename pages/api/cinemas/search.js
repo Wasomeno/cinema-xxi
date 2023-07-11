@@ -3,7 +3,7 @@ import { prisma } from "lib/prisma";
 export default async function cinemaSearchHandler(req, res) {
   if (req.method === "POST") {
     const { searchTerm } = req.body;
-    const getCinemas = async () => {
+    async function getCinemas() {
       if (searchTerm === "") {
         const allCinema = await prisma.cinema.findMany();
         return allCinema;
@@ -13,7 +13,7 @@ export default async function cinemaSearchHandler(req, res) {
         });
         return searchedCinema;
       }
-    };
+    }
     const cinemas = await getCinemas();
     res.status(200).json(cinemas);
   }
