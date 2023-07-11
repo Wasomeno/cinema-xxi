@@ -3,24 +3,11 @@ import { queryClientApp } from "client/reactQueryClient";
 import client from "client/wagmiClient";
 import dynamic from "next/dynamic";
 import { Open_Sans, Poppins } from "next/font/google";
-import { useRouter } from "next/router";
-import { SessionProvider } from "next-auth/react";
+import { twMerge } from "tailwind-merge";
 import { WagmiConfig } from "wagmi";
 
 const Loading = dynamic(() => import("./Loading"));
 const Toast = dynamic(() => import("./Toast"));
-
-const layouts = {
-  admin: dynamic(() =>
-    import("./Layouts/AdminLayout").then((component) => component.AdminLayout)
-  ),
-  manager: dynamic(() =>
-    import("./Layouts/ManagerLayout").then(
-      (component) => component.ManagerLayout
-    )
-  ),
-  app: dynamic(() => import("./Layouts/AppLayout")),
-};
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -34,38 +21,22 @@ const openSans = Open_Sans({
   weight: ["500", "300"],
 });
 
-const Layout = ({ children, session }) => {
-  const router = useRouter();
-  const basePath = router.pathname.split("/")[1];
-  const ComponentLayout = layouts[basePath];
-
+const Layout = ({ children }) => {
   return (
     <main
-      className={
-        poppins.variable +
-        " " +
-        openSans.variable +
-        " " +
-        "h-screen bg-slate-50 bg-opacity-95 dark:bg-slate-800"
-      }
-    >
-      {basePath === "" || basePath === "about" ? (
-        children
-      ) : basePath === "admin" ||
-        basePath === "app" ||
-        basePath === "manager" ? (
-        <QueryClientProvider client={queryClientApp}>
-          <SessionProvider refetchOnWindowFocus={false} session={session}>
-            <WagmiConfig client={client}>
-              <Loading />
-              <ComponentLayout session={session}>{children}</ComponentLayout>
-              <Toast />
-            </WagmiConfig>
-          </SessionProvider>
-        </QueryClientProvider>
-      ) : (
-        <>{children}</>
+      className={twMerge(
+        poppins.variable,
+        openSans.variable,
+        "bg-slate-100 antialiased dark:bg-slate-800"
       )}
+    >
+      <QueryClientProvider client={queryClientApp}>
+        <WagmiConfig client={client}>
+          <Loading />
+          {children}
+          <Toast />
+        </WagmiConfig>
+      </QueryClientProvider>
       <div id="modal-portal-container" />
     </main>
   );
