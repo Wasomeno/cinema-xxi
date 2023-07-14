@@ -1,4 +1,4 @@
-import { CinemaSearch } from "modules/appPages/cinemaPages/CinemaListPage";
+import { CinemaSearch } from "modules/appPages/cinemaPages/CinemaSearch";
 
 import AppLayout from "@/components/Layouts/AppLayout";
 
