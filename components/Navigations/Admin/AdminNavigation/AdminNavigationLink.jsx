@@ -1,45 +1,29 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useIcon } from "hooks/useIcon";
+import clsx from "clsx";
+import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { twMerge } from "tailwind-merge";
 
-export const AdminNavigationLink = ({
-  href,
-  children,
-  icon,
-  showNav,
-  setShowNav,
-}) => {
-  const { push } = useRouter();
-  const Icon = useIcon(icon);
+export const AdminNavigationLink = ({ href, children, Icon }) => {
+  const { pathname } = useRouter();
   return (
-    <button
-      onClick={() => {
-        push(href);
-        setShowNav(false);
-      }}
-      className="flex h-16 w-full items-center justify-center p-2 transition duration-300 ease-in-out hover:bg-slate-300 dark:hover:bg-slate-800"
+    <Link
+      href={href}
+      className={twMerge(
+        clsx(
+          "hover:dark:bg-blue-6 flex h-16 w-full items-center justify-start overflow-hidden rounded-lg transition duration-300 ease-in-out hover:bg-blue-100 hover:dark:bg-slate-600",
+          pathname === href && "bg-blue-100 dark:bg-slate-600"
+        )
+      )}
     >
-      <motion.span
-        initial={{ width: "100%" }}
-        animate={{ width: showNav ? "16.666667%" : "100%" }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
-        className={"flex justify-center"}
-      >
-        <Icon size="5" color="stroke-slate-800 dark:stroke-slate-300" />
-      </motion.span>
+      <span className="flex w-[90px] justify-center">
+        <Icon size="22" className="text-slate-500 dark:text-slate-300" />
+      </span>
       <AnimatePresence>
-        {showNav && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.25, delay: 0.25, ease: "easeInOut" }}
-            className="w-3/6 text-center"
-          >
-            <p className="font-poppins text-sm">{children}</p>
-          </motion.span>
-        )}
+        <span className="w-5/6 font-openSans text-sm font-medium tracking-wide">
+          {children}
+        </span>
       </AnimatePresence>
-    </button>
+    </Link>
   );
 };
