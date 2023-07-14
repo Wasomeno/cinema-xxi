@@ -4,7 +4,7 @@ import { prisma } from "lib/prisma";
 import MovieDateSection from "modules/appPages/moviePage/components/MovieDateSection";
 import MovieSection from "modules/appPages/moviePage/components/MovieSection";
 import MovieShowtimeSection from "modules/appPages/moviePage/components/MovieShowtimeSection";
-import SeatsModal from "modules/appPages/moviePage/components/SeatsModal/SeatsModal";
+import SeatsModal from "modules/appPages/moviePage/components/SeatsModal";
 import TicketConfirmationModal from "modules/appPages/moviePage/components/TicketConfirmationModal";
 import { useState } from "react";
 
@@ -101,7 +101,7 @@ export default function AppMovieShowtimesPage({
 
   return (
     <AppLayout pageTitle={`${movieDetails.title} Showtimes`}>
-      <AnimatedContainer className="flex h-screen w-full flex-col items-center gap-6 bg-slate-50 p-4">
+      <AnimatedContainer className="flex h-screen w-full flex-col items-center gap-6 bg-white p-4">
         <MovieSection
           image={<MovieSection.Image image={movieDetails.image} />}
           title={<MovieSection.Title title={movieDetails.title} />}
