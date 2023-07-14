@@ -55,10 +55,6 @@ function Seats({
       "/seats",
   });
 
-  function clearSeats() {
-    setSelectedSeats([]);
-  }
-
   function selectSeat(seatNumber) {
     setSelectedSeats((current) => [...current, seatNumber]);
   }
@@ -78,11 +74,8 @@ function Seats({
   }
 
   useEffect(() => {
-    setSeatsId(showtimeSeats.data?.id);
-    return () => {
-      clearSeats();
-    };
-  }, []);
+    if (!showtimeSeats.isLoading) setSeatsId(showtimeSeats.data?.id);
+  }, [showtimeSeats.isLoading]);
 
   return (
     <div className="flex w-full flex-col items-center overflow-x-scroll lg:w-4/6">
