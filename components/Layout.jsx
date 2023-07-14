@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
       className={twMerge(
         poppins.variable,
         openSans.variable,
-        "bg-slate-100 antialiased dark:bg-slate-800"
+        "bg-white antialiased dark:bg-slate-800"
       )}
     >
       <QueryClientProvider client={queryClientApp}>
