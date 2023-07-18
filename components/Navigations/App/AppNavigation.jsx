@@ -15,7 +15,7 @@ const AppNavigation = () => {
 
   return (
     <>
-      <div className="sticky top-0 left-0 z-10 flex w-full items-center justify-between bg-slate-50 p-2 dark:bg-slate-900 lg:h-16">
+      <div className="sticky left-0 top-0 z-10 flex w-full items-center justify-between border-b bg-slate-50 p-2 dark:bg-slate-900 lg:h-16">
         <div className="w-2/12 p-2 text-center">
           <span className="font-inter border-2 border-slate-900 bg-slate-50 px-2 text-xs tracking-widest text-slate-900 sm:text-base md:text-base">
             XXI
@@ -35,13 +35,13 @@ const AppNavigation = () => {
             Cinemas
           </Link>
           <Link
-            href="/app/tickets"
+            href="/app/transactions"
             className="w-1/6 p-2 text-center font-poppins text-xs tracking-wider md:text-sm"
           >
-            Tickets
+            Transactions
           </Link>
         </div>
-        <div className="w-3/12 text-center lg:w-2/12">
+        <div className="w-2/12 text-center lg:w-2/12">
           {isConnected ? (
             <button
               onClick={() => toggleShowUserModal()}
