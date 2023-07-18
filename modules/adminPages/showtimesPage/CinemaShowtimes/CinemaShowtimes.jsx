@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { cinemaReducer } from "hooks/createReducer";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { useReducer } from "react";
 
 import AdminHeader from "@/components/Headers/AdminHeader";
@@ -34,8 +35,9 @@ const showtimeDefaultState = {
 
 export const CinemaShowtimes = () => {
   const [state, dispatch] = useReducer(cinemaReducer, showtimeDefaultState);
+  const {query} = useRouter();
   return (
-    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-slate-50 p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Showtimes</AdminHeader>
       <ShowtimesTable dispatch={dispatch} />
       <AnimatePresence>
@@ -44,9 +46,8 @@ export const CinemaShowtimes = () => {
             closeModal={() => dispatch({ type: "close_add_modal" })}
           />
         )}
-        {state.showEditModal && (
+        {query.edit && (
           <EditCinemaShowtimeModal
-            showtimeDetails={state.dataDetails}
             closeModal={() => dispatch({ type: "close_edit_modal" })}
           />
         )}
