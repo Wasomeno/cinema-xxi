@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -9,7 +10,6 @@ import TableRowMenu from "@/components/TableRowMenu";
 
 export const StudioTable = ({ dispatch }) => {
   const [selectedRow, setSelectedRow] = useState({});
-
   const session = useSession();
   const cinemaStudios = query({
     queryKey: cinemaStudioQueryKeys.allStudio,
@@ -60,17 +60,11 @@ export const StudioTable = ({ dispatch }) => {
                 >
                   View Studio Details
                 </TableRowMenu.Link>
-                <TableRowMenu.Button
-                  onClick={() => {
-                    dispatch({
-                      type: "set_data_details",
-                      details: cinemaStudios.data[row.id],
-                    });
-                    dispatch({ type: "open_edit_modal" });
-                  }}
+                <TableRowMenu.Link
+                  href={`/admin/studios?id=${row.original.id}&edit=true`}
                 >
                   Edit Studio Details
-                </TableRowMenu.Button>
+                </TableRowMenu.Link>
               </TableRowMenu>
             )}
           />
