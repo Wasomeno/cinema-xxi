@@ -58,17 +58,11 @@ export const ShowtimesTable = ({ dispatch }) => {
             setSelectedRow={setSelectedRow}
             rowMenu={(row) => (
               <TableRowMenu>
-                <TableRowMenu.Button
-                  onClick={() => {
-                    dispatch({
-                      type: "set_data_details",
-                      details: cinemaShowtimes.data[row.id],
-                    });
-                    dispatch({ type: "open_edit_modal" });
-                  }}
+                <TableRowMenu.Link
+                  href={`/admin/showtimes?id=${row.original.id}&edit=true`}
                 >
                   Edit Showtime
-                </TableRowMenu.Button>
+                </TableRowMenu.Link>
               </TableRowMenu>
             )}
           />
