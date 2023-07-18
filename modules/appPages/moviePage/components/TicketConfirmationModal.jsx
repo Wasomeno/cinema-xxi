@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import { ModalContainer } from "@/components/ModalContainer";
-import { useMintTicket } from "@/components/reactQuery/mutations/Ticket/mintTicket";
+import { useMintTicket } from "@/components/reactQuery/mutations/Ticket/useMintTicket";
 
 const TicketConfirmationModal = ({
   closeModal,
