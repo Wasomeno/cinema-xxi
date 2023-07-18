@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 export const useUserConnectionDetails = () => {
@@ -11,7 +11,7 @@ export const useUserConnectionDetails = () => {
     isConnecting: false,
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setDetails((currentDetails) => ({
       ...currentDetails,
       user: account.address,
