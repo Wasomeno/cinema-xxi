@@ -16,8 +16,6 @@ export const EditCinemaShowtimeModal = () => {
     url: `/api/cinemas/${sessionData.user.cinemaId}/showtimes/${router.query?.id}`,
   });
 
-  console.log(router.query, sessionData.user.cinemaId);
-
   const [hour, setHour] = useState();
   const [minutes, setMinutes] = useState();
 
