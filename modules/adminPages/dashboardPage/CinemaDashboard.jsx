@@ -36,7 +36,7 @@ export const CinemaDashboard = () => {
   });
 
   return (
-    <AnimatedContainer className="flex min-h-screen flex-1 flex-col rounded-lg border bg-slate-50 p-4 dark:border-slate-500 dark:bg-slate-700">
+    <AnimatedContainer className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white  p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>{session.data?.user.cinemaName}</AdminHeader>
       <div className="my-4 flex w-full flex-wrap items-center justify-start gap-4 lg:flex-nowrap">
         <div className="flex w-full flex-col items-center gap-4 rounded-lg border border-slate-300 p-4 lg:w-3/6">
