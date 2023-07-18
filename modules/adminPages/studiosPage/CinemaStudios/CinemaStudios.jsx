@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { cinemaReducer } from "hooks/createReducer";
+import { useRouter } from "next/router";
 import { useReducer } from "react";
 
 import AdminHeader from "@/components/Headers/AdminHeader";
@@ -20,9 +21,9 @@ const studioDefaultState = {
 
 export const CinemaStudios = () => {
   const [state, dispatch] = useReducer(cinemaReducer, studioDefaultState);
-
+  const { query } = useRouter();
   return (
-    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-slate-50 p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex min-h-screen flex-1 flex-col bg-white rounded-lg border p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Studios</AdminHeader>
       <StudioTable dispatch={dispatch} />
       <AnimatePresence>
@@ -31,12 +32,7 @@ export const CinemaStudios = () => {
             closeModal={() => dispatch({ type: "close_add_modal" })}
           />
         )}
-        {state.showEditModal && (
-          <EditStudioModal
-            studioDetails={state.dataDetails}
-            closeModal={() => dispatch({ type: "close_edit_modal" })}
-          />
-        )}
+        {query.edit && <EditStudioModal />}
         {state.showDeleteModal && (
           <DeleteStudioModal
             selectedStudio={state.selectedData}
