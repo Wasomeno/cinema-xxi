@@ -1,92 +1,98 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { HiOutlineHome } from "react-icons/hi";
+import { HiOutlineRectangleStack, HiOutlineTicket } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
-
-import House from "@/components/Icons/House";
-import RectangeStack from "@/components/Icons/RectangeStack";
-import Ticket from "@/components/Icons/Ticket";
 
 const AppNavigationMobile = () => {
   const { pathname, query } = useRouter();
   const currentPath = pathname.split("/")[2];
   return (
-    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly bg-slate-300 shadow-md backdrop-blur-md dark:bg-slate-900 md:hidden">
+    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly border-t bg-slate-50 shadow-md backdrop-blur-md dark:bg-slate-600 md:hidden">
       <Link
         href="/app"
-        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
+        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 transition duration-200"
       >
-        <House
-          size="5"
-          color={
-            !currentPath || query.movieId
-              ? "stroke-blue-500 dark:stroke-blue-300"
-              : "stroke-slate-700 dark:stroke-slate-50"
-          }
-        />
-        <p
+        <HiOutlineHome
+          size="18"
           className={twMerge(
             clsx(
               "font-poppins text-xs tracking-wider",
               !currentPath || query.movieId
                 ? "text-blue-500 dark:text-blue-300"
-                : "text-slate-800 dark:text-slate-50"
+                : "text-slate-400 dark:text-slate-50"
+            )
+          )}
+        />
+        <span
+          className={twMerge(
+            clsx(
+              "font-poppins text-xs tracking-wider",
+              !currentPath || query.movieId
+                ? "text-blue-500 dark:text-blue-300"
+                : "text-slate-400 dark:text-slate-50"
             )
           )}
         >
           Home
-        </p>
+        </span>
       </Link>
       <Link
         href="/app/cinemas"
-        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
+        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 transition duration-200"
       >
-        <RectangeStack
-          size="5"
-          color={
-            currentPath === "cinemas"
-              ? "stroke-blue-500 dark:stroke-blue-300"
-              : "stroke-slate-700 dark:stroke-slate-50"
-          }
-        />
-
-        <p
+        <HiOutlineRectangleStack
+          size="18"
           className={twMerge(
             clsx(
               "font-poppins text-xs tracking-wider",
               currentPath === "cinemas"
                 ? "text-blue-500 dark:text-blue-300"
-                : "text-slate-800 dark:text-slate-50"
+                : "text-slate-400 dark:text-slate-50"
+            )
+          )}
+        />
+        <span
+          className={twMerge(
+            clsx(
+              "font-poppins text-xs tracking-wider",
+              currentPath === "cinemas"
+                ? "text-blue-500 dark:text-blue-300"
+                : "text-slate-400 dark:text-slate-50"
             )
           )}
         >
           Cinemas
-        </p>
+        </span>
       </Link>
       <Link
         href="/app/tickets"
-        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 p-2 transition duration-200"
+        className="flex h-full w-3/6 flex-col items-center justify-center gap-1 transition duration-200"
       >
-        <Ticket
-          size="5"
-          color={
-            currentPath === "tickets"
-              ? "stroke-blue-500 dark:stroke-blue-300"
-              : "stroke-slate-700 dark:stroke-slate-50"
-          }
-        />
-        <p
+        <HiOutlineTicket
+          size="18"
           className={twMerge(
             clsx(
               "font-poppins text-xs tracking-wider",
-              currentPath === "tickets"
+              currentPath === "transactions"
                 ? "text-blue-500 dark:text-blue-300"
-                : "text-slate-800 dark:text-slate-50"
+                : "text-slate-400 dark:text-slate-50"
+            )
+          )}
+        />
+        <span
+          className={twMerge(
+            clsx(
+              "font-poppins text-xs tracking-wider",
+              currentPath === "transactions"
+                ? "text-blue-500 dark:text-blue-300"
+                : "text-slate-400 dark:text-slate-50"
             )
           )}
         >
-          Tickets
-        </p>
+          Transactions
+        </span>
       </Link>
     </div>
   );
