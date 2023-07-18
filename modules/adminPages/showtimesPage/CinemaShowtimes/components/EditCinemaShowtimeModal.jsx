@@ -1,16 +1,25 @@
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FormModalContainer from "@/components/FormModalContainer";
 import mutation from "@/components/reactQuery/mutations/mutation";
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
+import { query } from "@/components/reactQuery/queries/query";
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys";
 
-export const EditCinemaShowtimeModal = ({ showtimeDetails, closeModal }) => {
-  const [hour, setHour] = useState(showtimeDetails.hour);
-  const [minutes, setMinutes] = useState(showtimeDetails.minutes);
-
+export const EditCinemaShowtimeModal = () => {
+  const router = useRouter();
   const { data: sessionData } = useSession();
+  const showtime = query({
+    queryKey: ["showtime", router.query?.id],
+    url: `/api/cinemas/${sessionData.user.cinemaId}/showtimes/${router.query?.id}`,
+  });
+
+  console.log(router.query, sessionData.user.cinemaId);
+
+  const [hour, setHour] = useState();
+  const [minutes, setMinutes] = useState();
 
   const sideEffects = useSideEffects({
     text: "Updating showtime",
@@ -21,7 +30,7 @@ export const EditCinemaShowtimeModal = ({ showtimeDetails, closeModal }) => {
     url: `/api/cinemas/${sessionData.user.cinemaId}/showtimes`,
     method: "PUT",
     body: {
-      id: showtimeDetails.id,
+      id: router.query.id,
       hour,
       minutes,
     },
@@ -38,11 +47,18 @@ export const EditCinemaShowtimeModal = ({ showtimeDetails, closeModal }) => {
     setMinutes(value);
   }
 
+  useEffect(() => {
+    if (!showtime.isLoading) {
+      setHour(showtime.data?.hour);
+      setMinutes(showtime.data?.minutes);
+    }
+  }, [showtime.isLoading]);
+
   return (
     <FormModalContainer
       onSubmit={updateShowtimeMutation.mutate}
       title="Edit Showtime"
-      closeModal={closeModal}
+      closeModal={() => router.back()}
     >
       <div className="flex items-center justify-center gap-2">
         <div className="flex flex-col items-center gap-1">
