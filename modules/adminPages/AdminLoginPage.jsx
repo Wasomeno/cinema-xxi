@@ -1,27 +1,37 @@
+import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { MoonLoader } from "react-spinners";
+import { useMutation } from "wagmi";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
-import { Spinner } from "@/components/Icons/Spinner";
-import { loginMutation } from "@/components/reactQuery/mutations/login";
-import {
-  FormContainer,
-  FormInput,
-  FormSubmit,
-} from "@/components/shared/Forms";
+import { FormContainer, FormInput, FormSubmit } from "@/components/Forms";
+import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
 
 export const AdminLoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const login = loginMutation({ username, password, role: "admin" });
+
+  const sideEffects = useSideEffects({
+    text: "Signing in",
+  });
+
+  const signInMutation = useMutation(
+    () =>
+      signIn("credentials", {
+        username,
+        password,
+        role: "admin",
+        callbackUrl: "/admin",
+      }),
+    sideEffects
+  );
 
   return (
-    <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-4 bg-slate-50 bg-opacity-95 dark:bg-slate-800">
-      <div className="flex h-80 w-5/6 flex-col items-center justify-center gap-4 rounded-md bg-neutral-300 p-4 shadow-md backdrop-blur-md dark:bg-slate-700 lg:w-3/12">
+    <AnimatedContainer className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-100 dark:bg-slate-800">
+      <div className="flex h-80 w-96 flex-col items-center justify-center gap-4 rounded-lg border bg-gray-50 p-4 shadow-sm dark:bg-slate-700">
         <h5 className="font-poppins text-sm font-medium lg:text-base">
           Admin Login Page
         </h5>
-        <FormContainer onSubmit={login.mutate}>
+        <FormContainer onSubmit={signInMutation.mutate}>
           <div className="flex w-5/6 flex-col justify-center gap-1">
             <label id="usernameInput" className="font-poppins text-xs">
               Username
@@ -47,11 +57,7 @@ export const AdminLoginPage = () => {
             />
           </div>
           <div className="my-2 flex w-full items-center justify-center">
-            {login.isLoading ? (
-              <Spinner size="medium" />
-            ) : (
-              <FormSubmit value="Submit" width="4/6" />
-            )}
+            <FormSubmit value="Submit" width="4/6" />
           </div>
         </FormContainer>
       </div>
