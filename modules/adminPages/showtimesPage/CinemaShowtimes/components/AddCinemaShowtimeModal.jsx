@@ -42,6 +42,7 @@ export const AddCinemaShowtimeModal = ({ closeModal }) => {
       onSubmit={addCinemaShowtime.mutate}
       title="Add Showtime"
       closeModal={closeModal}
+      className="lg:w-2/6 lg:h-4/6"
     >
       <div className="flex flex-wrap items-center justify-center gap-2 lg:flex-nowrap">
         <div className="flex w-3/6 flex-col items-center gap-1">
