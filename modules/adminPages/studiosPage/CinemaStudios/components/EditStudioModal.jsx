@@ -45,7 +45,8 @@ export const EditStudioModal = () => {
     <FormModalContainer
       title="Edit Studio"
       onSubmit={() => updateStudio.mutate()}
-      closeModal={() => router.back()}
+      closeModal={() => router.push("/admin/studios")}
+      className="lg:w-2/6 lg:h-4/6"
     >
       <FormModalContainer.Input
         type="text"
