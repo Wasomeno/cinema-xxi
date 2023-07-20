@@ -11,6 +11,7 @@ import TableRowMenu from "@/components/TableRowMenu";
 export const StudioTable = ({ dispatch }) => {
   const [selectedRow, setSelectedRow] = useState({});
   const session = useSession();
+  const router = useRouter();
   const cinemaStudios = query({
     queryKey: cinemaStudioQueryKeys.allStudio,
     url: "/api/cinemas/" + session.data?.user.cinemaId + "/studios",
@@ -60,11 +61,15 @@ export const StudioTable = ({ dispatch }) => {
                 >
                   View Studio Details
                 </TableRowMenu.Link>
-                <TableRowMenu.Link
-                  href={`/admin/studios?id=${row.original.id}&edit=true`}
+                <TableRowMenu.Button
+                  onClick={() =>
+                    router.push(
+                      `/admin/studios?id=${row.original.id}&edit=true`
+                    )
+                  }
                 >
                   Edit Studio Details
-                </TableRowMenu.Link>
+                </TableRowMenu.Button>
               </TableRowMenu>
             )}
           />
