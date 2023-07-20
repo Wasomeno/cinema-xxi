@@ -2,7 +2,12 @@ import { prisma } from "lib/prisma";
 
 export default async function cinemaAdminHandler(req, res) {
   const { adminId } = req.query;
-  if (req.method === "PATCH") {
+  if (req.method === "GET") {
+    const adminDetails = await prisma.admin.findUnique({
+      where: { id: parseInt(adminId) },
+    });
+    res.status(200).json(adminDetails);
+  } else if (req.method === "PATCH") {
     const { name, username, password } = req.body;
     try {
       await prisma.admin.update({
