@@ -32,6 +32,7 @@ export const AddCinemaAdminModal = ({ closeModal }) => {
       onSubmit={addCinemaAdmin.mutate}
       title="Add Admin"
       closeModal={closeModal}
+      className="lg:w-2/6 lg:h-4/6"
     >
       <FormModalContainer.Input
         type="text"
