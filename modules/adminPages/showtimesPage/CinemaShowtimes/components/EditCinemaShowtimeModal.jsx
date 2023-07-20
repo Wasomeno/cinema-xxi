@@ -56,7 +56,8 @@ export const EditCinemaShowtimeModal = () => {
     <FormModalContainer
       onSubmit={updateShowtimeMutation.mutate}
       title="Edit Showtime"
-      closeModal={() => router.back()}
+      closeModal={() => router.push("/admin/showtimes")}
+      className="lg:w-2/6 lg:h-4/6"
     >
       <div className="flex items-center justify-center gap-2">
         <div className="flex flex-col items-center gap-1">
