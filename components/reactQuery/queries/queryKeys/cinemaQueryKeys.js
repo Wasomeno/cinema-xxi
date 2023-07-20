@@ -6,4 +6,7 @@ export const cinemaQueryKeys = {
   cinemaShowtimes: (cinemaId) => cinemaDetailsKeys("showtimes", cinemaId),
   cinemaMovies: (cinemaId) => cinemaDetailsKeys("movies", cinemaId),
   cinemaAdmins: (cinemaId) => cinemaDetailsKeys("admins", cinemaId),
+  cinemaTransactions: (cinemaId) => cinemaDetailsKeys("transactions", cinemaId),
+  cinemaMonthlyTransactions: (cinemaId, month) =>
+    cinemaDetailsKeys("transactions", cinemaId, month),
 };
