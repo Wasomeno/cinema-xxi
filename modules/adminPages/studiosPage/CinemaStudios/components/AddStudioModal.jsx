@@ -32,7 +32,7 @@ export const AddStudioModal = ({ closeModal }) => {
       title="Add Studio"
       onSubmit={addStudio.mutate}
       closeModal={closeModal}
-      className="lg:h-4note/6 lg:w-2/6"
+      className="lg:h-4/6 lg:w-2/6"
     >
       <FormModalContainer.Input
         type="number"
