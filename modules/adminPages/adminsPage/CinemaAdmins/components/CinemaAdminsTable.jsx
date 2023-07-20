@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -10,6 +11,7 @@ import TableRowMenu from "@/components/TableRowMenu";
 export const CinemaAdminsTable = ({ dispatch }) => {
   const [selectedRow, setSelectedRow] = useState({});
   const session = useSession();
+  const router = useRouter();
 
   const cinemaAdmins = query({
     url: `/api/cinemas/${session.data?.user.cinemaId}/admins`,
@@ -61,13 +63,9 @@ export const CinemaAdminsTable = ({ dispatch }) => {
             rowMenu={(row) => (
               <TableRowMenu>
                 <TableRowMenu.Button
-                  onClick={() => {
-                    dispatch({
-                      type: "set_data_details",
-                      details: cinemaAdmins.data[row.id],
-                    });
-                    dispatch({ type: "open_edit_modal" });
-                  }}
+                  onClick={() =>
+                    router.push(`/admin/admins?id=${row.original.id}&edit=true`)
+                  }
                 >
                   Edit Admin
                 </TableRowMenu.Button>
