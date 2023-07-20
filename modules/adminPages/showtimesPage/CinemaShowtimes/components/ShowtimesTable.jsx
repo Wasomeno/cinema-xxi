@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -9,6 +10,7 @@ import TableRowMenu from "@/components/TableRowMenu";
 
 export const ShowtimesTable = ({ dispatch }) => {
   const [selectedRow, setSelectedRow] = useState({});
+  const router = useRouter();
   const session = useSession();
 
   const cinemaShowtimes = query({
@@ -58,11 +60,15 @@ export const ShowtimesTable = ({ dispatch }) => {
             setSelectedRow={setSelectedRow}
             rowMenu={(row) => (
               <TableRowMenu>
-                <TableRowMenu.Link
-                  href={`/admin/showtimes?id=${row.original.id}&edit=true`}
+                <TableRowMenu.Button
+                  onClick={() =>
+                    router.push(
+                      `/admin/showtimes?id=${row.original.id}&edit=true`
+                    )
+                  }
                 >
                   Edit Showtime
-                </TableRowMenu.Link>
+                </TableRowMenu.Button>
               </TableRowMenu>
             )}
           />
