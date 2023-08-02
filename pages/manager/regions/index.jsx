@@ -21,7 +21,7 @@ const regionDefaultState = {
 const Regions = () => {
   const [state, dispatch] = useReducer(cinemaReducer, regionDefaultState);
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-slate-50 p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:border-slate-500 dark:bg-slate-700">
       <ManagerHeader>Manage Regions</ManagerHeader>
       <AllRegionsTable dispatch={dispatch} />
       <AnimatePresence>

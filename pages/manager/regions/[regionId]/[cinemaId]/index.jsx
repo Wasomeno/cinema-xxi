@@ -30,7 +30,7 @@ export async function getServerSideProps({ params }) {
 
 const CinemaDetails = ({ cinemaDetails }) => {
   return (
-    <AnimatedContainer className="h-screen p-4">
+    <AnimatedContainer className="p-4 bg-white">
       <ManagerHeader withBackButton>{cinemaDetails.name}</ManagerHeader>
       <div className="flex justify-center">
         <div className="w-full lg:w-4/6">

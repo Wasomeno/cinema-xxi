@@ -43,7 +43,7 @@ const RegionDetails = ({ regionDetails }) => {
   );
 
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-slate-50 p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:bg-slate-700">
+    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:bg-slate-700">
       <ManagerHeader withBackButton>{regionDetails.name}</ManagerHeader>
       <AnimatedContainer className="flex justify-center">
         <div className="w-full">

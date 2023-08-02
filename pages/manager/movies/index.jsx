@@ -13,11 +13,6 @@ const AddMoviesModal = dynamic(
     (await import("@/components/Manager/Movies/AddMoviesModal")).AddMoviesModal
 );
 
-const EditMovieModal = dynamic(
-  async () =>
-    (await import("@/components/Manager/Movies/EditMovieModal")).EditMovieModal
-);
-
 const DeleteMoviesModal = dynamic(
   async () =>
     (await import("@/components/Manager/Movies/DeleteMoviesModal"))
@@ -36,7 +31,7 @@ const movieDefaultState = {
 const Movies = () => {
   const [state, dispatch] = useReducer(cinemaReducer, movieDefaultState);
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-slate-50 p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:border-slate-500 dark:bg-slate-700">
       <ManagerHeader>Manage Movies</ManagerHeader>
       <AllMoviesTable dispatch={dispatch} />
       <AnimatePresence>
@@ -67,16 +62,9 @@ const Movies = () => {
             </div>
           </TableRowDetailsModal>
         )}
-
         {state.showAddModal && (
           <AddMoviesModal
             closeModal={() => dispatch({ type: "close_add_modal" })}
-          />
-        )}
-        {state.showEditModal && (
-          <EditMovieModal
-            closeModal={() => dispatch({ type: "close_edit_modal" })}
-            movieDetails={state.dataDetails}
           />
         )}
         {state.showDeleteModal && (
