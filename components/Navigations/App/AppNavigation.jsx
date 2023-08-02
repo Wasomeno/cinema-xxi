@@ -41,7 +41,7 @@ const AppNavigation = () => {
             Transactions
           </Link>
         </div>
-        <div className="w-2/12 text-center lg:w-2/12">
+        <div className="w-auto text-center lg:w-2/12">
           {isConnected ? (
             <button
               onClick={() => toggleShowUserModal()}
@@ -56,7 +56,7 @@ const AppNavigation = () => {
           ) : (
             <button
               onClick={() => toggleShowWalletModal()}
-              className="rounded-lg bg-slate-900 p-2 px-4 font-poppins text-xs tracking-wider text-white dark:bg-slate-700"
+              className="rounded-lg bg-slate-900 p-2 px-4 font-poppins text-xs lg:text-sm tracking-wider text-white dark:bg-slate-700"
             >
               Connect
             </button>
