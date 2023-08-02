@@ -37,7 +37,7 @@ export const CinemaStudioDetails = ({ studioDetails }) => {
   );
 
   return (
-    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Studio {studioDetails.studio} Showtimes</AdminHeader>
       <StudioShowtimesTable dispatch={dispatch} />
       <AnimatePresence>
