@@ -67,7 +67,7 @@ const AppNavigationMobile = () => {
         </span>
       </Link>
       <Link
-        href="/app/tickets"
+        href="/app/transactions"
         className="flex h-full w-3/6 flex-col items-center justify-center gap-1 transition duration-200"
       >
         <HiOutlineTicket
