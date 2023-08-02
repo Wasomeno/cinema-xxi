@@ -5,31 +5,16 @@ export default async function moviesHandler(req, res) {
     const movies = await prisma.movie.findMany();
     res.status(200).json(movies);
   } else if (req.method === "POST") {
-    const { title, duration, synopsis, cast } = req.body;
+    const { selectedMovies } = req.body;
     try {
-      await prisma.movie.create({
-        data: {
-          synopsis: synopsis,
-          casts: cast,
-          title: title,
-          duration: parseInt(duration),
-          watchedAmount: 0,
-        },
+      await prisma.movie.createMany({
+        data: [...selectedMovies],
       });
-      res.status(200).json({ code: "200", text: "Successfully Added Movie" });
+      res
+        .status(200)
+        .json({ code: "200", message: "Successfully Added Movie" });
     } catch (error) {
       await res.status(500).send(error.message);
-    }
-  } else if (req.method === "DELETE") {
-    const { movieIds } = req.body;
-    try {
-      await prisma.movie.deleteMany({ where: { id: { in: movieIds } } });
-      res.status(200).json({
-        code: "200",
-        text: "Successfully deleted movies",
-      });
-    } catch (error) {
-      res.status(500).json(error.message);
     }
   }
 }
