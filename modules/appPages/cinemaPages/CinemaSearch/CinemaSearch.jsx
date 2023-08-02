@@ -13,7 +13,7 @@ export const CinemaSearch = () => {
 
   if (!isConnected) return <WalletNotConnected />;
   return (
-    <AnimatedContainer className="flex min-h-screen flex-1 flex-col items-start gap-4 bg-white p-5 dark:bg-slate-800 lg:p-10">
+    <AnimatedContainer className="flex flex-1 flex-col items-start gap-4 bg-white p-5 dark:bg-slate-800 lg:p-10">
       <div className="w-full">
         <div className="mb-4 space-y-1.5 text-start">
           <h1 className="font-poppins text-base lg:text-3xl">Search Cinemas</h1>
