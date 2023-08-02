@@ -1,7 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { cinemaReducer } from "hooks/createReducer";
 import { useRouter } from "next/router";
-import { useReducer } from "react";
 
 import AdminHeader from "@/components/Headers/AdminHeader";
 
@@ -10,32 +8,20 @@ import { CinemaAdminsTable } from "./components/CinemaAdminsTable";
 import { DeleteCinemaAdminsModal } from "./components/DeleteCinemaAdminsModal";
 import { EditCinemaAdminModal } from "./components/EditCinemaAdminModal";
 
-const adminsDefaultState = {
-  showAddModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  showDetailsModal: false,
-  selectedData: [],
-  dataDetails: {},
-};
-
 export const CinemaAdmins = () => {
-  const [state, dispatch] = useReducer(cinemaReducer, adminsDefaultState);
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   return (
-    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Admins</AdminHeader>
-      <CinemaAdminsTable dispatch={dispatch} />
+      <CinemaAdminsTable />
       <AnimatePresence>
-        {state.showAddModal && (
-          <AddCinemaAdminModal
-            closeModal={() => dispatch({ type: "close_add_modal" })}
-          />
+        {query.add && (
+          <AddCinemaAdminModal closeModal={() => push("/admin/admins")} />
         )}
         {query.edit && <EditCinemaAdminModal />}
-        {state.showDeleteModal && (
+        {query.delete && (
           <DeleteCinemaAdminsModal
-            closeModal={() => dispatch({ type: "close_delete_modal" })}
+            closeModal={() => push("/admin/admins")}
             selectedAdmins={state.selectedData}
           />
         )}
