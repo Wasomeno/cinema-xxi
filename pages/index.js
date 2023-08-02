@@ -1,8 +1,12 @@
+import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
+      <Head>
+        <title>Cinema App</title>
+      </Head>
       <div className="m-4 p-2">
         <h1 className="font-inter text-lg">Cinema Ticket Booking App</h1>
       </div>
