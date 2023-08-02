@@ -13,7 +13,7 @@ const AppLayout = ({ children, pageTitle }) => {
         <meta property="description" content="App page" />
       </Head>
       <AppNavigation />
-      <div className="relative">{children}</div>
+      <div className="relative flex-1 flex flex-col">{children}</div>
       {viewport.width < 768 && <AppNavigationMobile />}
     </div>
   );
