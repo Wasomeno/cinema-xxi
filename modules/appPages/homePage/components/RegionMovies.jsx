@@ -38,12 +38,12 @@ export const RegionMovies = ({ selectedRegion }) => {
                 }
                 className="flex flex-col items-center gap-3"
               >
-                <div className="relative h-48 w-36 bg-slate-200 shadow-sm lg:h-64 lg:w-48">
+                <div className="relative rounded-lg h-48 w-36 bg-slate-200 shadow-sm lg:h-64 lg:w-48">
                   <Image
                     src={movie.image_url}
                     alt="movie-image"
-                    fill
                     className="rounded-lg"
+                    fill
                   />
                 </div>
                 <span className="q w-32 text-center font-poppins text-xs tracking-wider lg:w-40 lg:text-sm">
