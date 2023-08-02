@@ -1,10 +1,10 @@
 import { AnimatePresence } from "framer-motion";
-import { cinemaReducer } from "hooks/createReducer";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useReducer } from "react";
+import { useState } from "react";
 
 import AdminHeader from "@/components/Headers/AdminHeader";
+import TableRowMenu from "@/components/TableRowMenu";
 
 import { ShowtimesTable } from "./components/ShowtimesTable";
 
@@ -24,36 +24,41 @@ const DeleteShowtimeModal = dynamic(
     (await import("./components/DeleteShowtimeModal")).DeleteShowtimeModal
 );
 
-const showtimeDefaultState = {
-  showAddModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  showDetailsModal: false,
-  selectedData: [],
-  dataDetails: {},
-};
-
 export const CinemaShowtimes = () => {
-  const [state, dispatch] = useReducer(cinemaReducer, showtimeDefaultState);
-  const {query} = useRouter();
+  const [selectedShowtimes, setSelectedShowtimes] = useState([]);
+  const router = useRouter();
   return (
-    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-col w-full rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Showtimes</AdminHeader>
-      <ShowtimesTable dispatch={dispatch} />
+      <ShowtimesTable
+        selectedShowtimes={selectedShowtimes}
+        setSelectedShowtimes={setSelectedShowtimes}
+        rowMenu={(row) => (
+          <TableRowMenu>
+            <TableRowMenu.Button
+              onClick={() =>
+                router.push(`/admin/showtimes?id=${row.original.id}&edit=true`)
+              }
+            >
+              Edit Showtime
+            </TableRowMenu.Button>
+          </TableRowMenu>
+        )}
+      />
       <AnimatePresence>
-        {state.showAddModal && (
+        {router.query.add && (
           <AddCinemaShowtimeModal
-            closeModal={() => dispatch({ type: "close_add_modal" })}
+            closeModal={() => router.push("/admin/showtimes")}
           />
         )}
-        {query.edit && (
+        {router.query.edit && (
           <EditCinemaShowtimeModal
-            closeModal={() => dispatch({ type: "close_edit_modal" })}
+            closeModal={() => router.push("/admin/showtimes")}
           />
         )}
-        {state.showDeleteModal && (
+        {router.query.delete && (
           <DeleteShowtimeModal
-            closeModal={() => dispatch({ type: "close_edit_modal" })}
+            closeModal={() => router.push("/admin/showtimes")}
             selectedShowtimes={state.selectedDatas}
           />
         )}
