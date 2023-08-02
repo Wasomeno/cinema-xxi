@@ -36,7 +36,7 @@ export const AdminLayout = ({ children, pageTitle }) => {
   }
 
   return (
-    <div className="flex  min-h-screen flex-1 flex-col">
+    <div className="flex min-h-screen bg-slate-50 flex-1 flex-col">
       <Head>
         <title>
           {sessionData?.user.cinemaName} | {pageTitle}
@@ -44,9 +44,9 @@ export const AdminLayout = ({ children, pageTitle }) => {
         <meta property="description" content="Admin page" />
       </Head>
       <AdminToolbar />
-      <div className="flex justify-center gap-4 p-4">
+      <div className="flex flex-1 justify-center gap-4 p-4">
         <AdminNavigation />
-        <div className="h-full w-full overflow-y-scroll rounded-lg">
+        <div className="w-full flex  flex-1 overflow-y-scroll rounded-lg">
           {children}
         </div>
       </div>
