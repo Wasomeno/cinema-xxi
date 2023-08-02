@@ -15,9 +15,9 @@ export const AppHome = ({ firstRegion }) => {
   const [showRegionList, toggleShowRegionList] = useToggle(false);
 
   return (
-    <AnimatedContainer className="z-5 relative flex h-screen scroll-p-8 flex-col gap-4 overflow-y-scroll bg-white p-4 transition-all duration-200 dark:bg-slate-800">
+    <AnimatedContainer className="z-5 relative flex flex-1 scroll-p-8 flex-col gap-4 overflow-y-scroll bg-white p-4 transition-all duration-200 dark:bg-slate-800">
       <div className="flex items-center justify-center">
-        <AppBannerSlider />
+        {/* <AppBannerSlider /> */}
       </div>
       <div className="flex justify-center">
         <div className="w-full lg:w-5/6">
