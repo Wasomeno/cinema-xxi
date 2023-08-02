@@ -7,10 +7,16 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { BsXCircleFill } from "react-icons/bs";
-import { HiPlus, HiTrash } from "react-icons/hi2";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiPlus,
+  HiTrash,
+} from "react-icons/hi2";
 
 import AnimatedContainer from "@/components/AnimatedContainer";
 import { query } from "@/components/reactQuery/queries/query";
@@ -19,16 +25,12 @@ import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinem
 import { MoviesTableRowSkeletons } from "./MoviesTableRowSkeletons";
 import { MoviesTableSorter } from "./MoviesTableSorter";
 
-export const MoviesTable = ({
-  rowMenu,
-  setSelectedMovies,
-  selectedMovies,
-  openAddModal,
-  openDeleteModal,
-}) => {
+export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
   const [sorting, setSorting] = useState();
 
   const { data: sessionData } = useSession();
+
+  const router = useRouter();
 
   const cinemaMovies = query({
     queryKey: cinemaQueryKeys.cinemaMovies(sessionData?.user.cinemaId),
@@ -134,7 +136,7 @@ export const MoviesTable = ({
   const table = useReactTable({
     data: cinemaMovies.data,
     columns: cinemaMoviesTableColumns,
-    state: { sorting },
+    state: { sorting, pagination: { pageSize: 3, pageIndex: 0 } },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -157,13 +159,13 @@ export const MoviesTable = ({
         </div>
         <div className="flex w-72 items-center justify-end gap-2">
           <button
-            onClick={() => openAddModal()}
+            onClick={() => router.push("/admin/movies?add=true")}
             className="rounded-lg bg-green-600 p-2 text-slate-100 transition duration-150 disabled:bg-opacity-50"
           >
             <HiPlus className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           </button>
           <button
-            onClick={() => openDeleteModal()}
+            onClick={() => router.push("/admin/movies?delete=true")}
             disabled={!selectedMovies.length}
             className="rounded-lg bg-red-600 p-2 text-sm text-slate-100 transition duration-150 disabled:bg-opacity-50"
           >
@@ -236,6 +238,22 @@ export const MoviesTable = ({
               : null}
           </tbody>
         </table>
+      </div>
+      <div className="flex mt-4 items-center gap-4">
+        <button
+          disabled={!cinemaMovies.isLoading && !table.getCanPreviousPage()}
+          onClick={() => table.previousPage()}
+          className="p-2 rounded-lg disabled:opacity-50 flex-items-center justify-center bg-slate-50 border"
+        >
+          <HiChevronLeft />
+        </button>
+        <button
+          disabled={!cinemaMovies.isLoading && !table.getCanNextPage()}
+          onClick={() => console.log(table.nextPage)}
+          className="p-2 rounded-lg disabled:opacity-50 flex-items-center justify-center bg-slate-50 border"
+        >
+          <HiChevronRight />
+        </button>
       </div>
     </AnimatedContainer>
   );
