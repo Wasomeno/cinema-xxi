@@ -15,7 +15,7 @@ const FormModalContainer = ({
     <ModalContainer closeModal={closeModal}>
       <AnimatedContainer
         className={twMerge(
-          "fixed inset-x-1/2 inset-y-1/2 z-30 h-full w-full -translate-x-1/2  -translate-y-1/2 rounded-lg bg-slate-100 px-6 py-4 shadow-md dark:bg-slate-700 sm:h-3/6 sm:w-4/6 lg:h-5/6 lg:w-4/6",
+          "fixed inset-x-1/2 inset-y-1/2 z-30 h-full w-full -translate-x-1/2  -translate-y-1/2 rounded-lg bg-white px-6 py-4 shadow-md dark:bg-slate-700 sm:h-3/6 sm:w-4/6 lg:h-5/6 lg:w-4/6",
           className
         )}
       >
