@@ -15,7 +15,7 @@ export const ManagerNavigation = () => {
   }, [pathname]);
 
   return (
-    <div className="sticky left-0 top-0 z-10 rounded-lg border bg-slate-50 dark:border-slate-500 dark:bg-gray-700">
+    <div className="sticky z-10 rounded-lg border bg-white dark:border-slate-500 dark:bg-gray-700">
       <div className="flex w-[240px] flex-col justify-start">
         <div className="flex h-3/6 flex-col justify-start gap-3 overflow-hidden p-3">
           <ManagerNavigationLink
