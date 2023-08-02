@@ -8,7 +8,7 @@ import { query } from "@/components/reactQuery/queries/query";
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys";
 import TableRowMenu from "@/components/TableRowMenu";
 
-export const CinemaAdminsTable = ({ dispatch }) => {
+export const CinemaAdminsTable = () => {
   const [selectedRow, setSelectedRow] = useState({});
   const session = useSession();
   const router = useRouter();
@@ -44,11 +44,11 @@ export const CinemaAdminsTable = ({ dispatch }) => {
         <DataSection>
           <DataSection.Toolbar>
             <DataSection.Toolbar.AddButton
-              onClick={() => dispatch({ type: "open_add_modal" })}
+              onClick={() => router.push("/admin/admins?add=true")}
             />
             <DataSection.Toolbar.DeleteButton
               disabled={!Object.keys(selectedRow).length}
-              onClick={() => dispatch({ type: "open_delete_modal" })}
+              onClick={() => router.push("/admin/admins?delete=true")}
             />
           </DataSection.Toolbar>
           <DataSection.Table
@@ -57,9 +57,6 @@ export const CinemaAdminsTable = ({ dispatch }) => {
             dataStatus={cinemaAdmins.status}
             selectedRow={selectedRow}
             setSelectedRow={setSelectedRow}
-            setSelectedData={(data) =>
-              dispatch({ type: "set_selected_data", selectedData: data })
-            }
             rowMenu={(row) => (
               <TableRowMenu>
                 <TableRowMenu.Button
