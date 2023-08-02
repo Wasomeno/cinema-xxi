@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export const query = ({ queryKey, url, enabledCondition }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const result = useQuery(
+  return useQuery(
     queryKey,
-    () => fetch(url, { method: "GET" }).then((result) => result.json()),
-    { enabled: enabledCondition }
+    async () => {
+      const { data } = await axios.get(url);
+      return data;
+    },
+    {
+      enabled: enabledCondition,
+    }
   );
-  return result;
 };
