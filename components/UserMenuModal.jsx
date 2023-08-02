@@ -91,13 +91,6 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
           </span>
         </div>
         <div className="flex flex-col items-start gap-2">
-          <button className="flex w-full justify-between rounded-lg bg-slate-200  p-3 font-poppins text-sm text-slate-900 shadow-sm dark:text-slate-50">
-            <span>Transactions</span>
-            <HiChevronRight
-              color="stroke-slate-900 dark:stroke-slate-400"
-              size="5"
-            />
-          </button>
           <div className="flex w-full items-center justify-between rounded-lg bg-slate-200  p-3 font-poppins text-sm text-slate-900 shadow-sm dark:text-slate-50">
             <span>Theme</span>
             <button
