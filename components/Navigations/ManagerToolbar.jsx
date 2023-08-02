@@ -7,7 +7,7 @@ import { ThemeSwitcher } from "../ThemeSwitcher";
 export const ManagerToolbar = () => {
   const [showMenuModal, setShowMenuModal] = useState(false);
   return (
-    <div className="flex items-center justify-between border-b bg-slate-50 px-4 py-4 dark:border-b-slate-500 dark:bg-slate-700">
+    <div className="flex items-center justify-between border-b bg-white px-4 py-4 dark:border-b-slate-500 dark:bg-slate-700">
       <div className="flex w-5/6 items-center justify-start gap-4">
         <div className="lg:w-[240px]">
           <span className="border-2 border-slate-800 px-2 py-1.5 font-poppins text-xs font-semibold tracking-wider dark:border-slate-100 lg:px-4 lg:text-lg">

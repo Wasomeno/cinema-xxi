@@ -7,7 +7,7 @@ import { AdminNavigationLink } from "./AdminNavigationLink";
 
 export const AdminNavigation = () => {
   return (
-    <div className="sticky top-0 z-10 hidden w-[240px] rounded-lg border bg-slate-50 dark:border-slate-500 dark:bg-gray-700 lg:block">
+    <div className="sticky top-0 left-0 z-10 hidden w-[240px] rounded-lg border bg-white dark:border-slate-500 dark:bg-gray-700 lg:block">
       <div className="flex h-5/6 flex-col justify-start">
         <div className="flex flex-col justify-evenly gap-2 overflow-hidden p-3">
           <AdminNavigationLink href="/admin" Icon={HiHome}>

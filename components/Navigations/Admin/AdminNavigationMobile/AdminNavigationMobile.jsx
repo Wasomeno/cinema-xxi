@@ -9,7 +9,7 @@ import { AdminNavigationMobileLink } from "./AdminNavigationMobileLink";
 export const AdminNavigationMobile = () => {
   const { pathname } = useRouter();
   return (
-    <div className="sticky bottom-0 z-10 flex w-screen items-center justify-start overflow-x-scroll border bg-slate-50 shadow-md dark:bg-slate-700 sm:justify-evenly sm:p-1.5 lg:hidden">
+    <div className="sticky bottom-0 z-10 flex w-screen items-center justify-start overflow-x-scroll border bg-white shadow-md dark:bg-slate-700 sm:justify-evenly sm:p-1.5 lg:hidden">
       <AdminNavigationMobileLink
         href="admin"
         Icon={HiHome}
