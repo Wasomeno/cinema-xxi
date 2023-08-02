@@ -1,8 +1,7 @@
 import { AnimatePresence } from "framer-motion";
-import { cinemaReducer } from "hooks/createReducer";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useReducer, useState } from "react";
+import { useState } from "react";
 
 import AdminHeader from "@/components/Headers/AdminHeader";
 import TableRowMenu from "@/components/TableRowMenu";
@@ -20,26 +19,14 @@ const DeleteCinemaMovieModal = dynamic(
     (await import("./components/DeleteCinemaMovieModal")).DeleteCinemaMovieModal
 );
 
-const movieDefaultState = {
-  showAddModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  showDetailsModal: false,
-  selectedData: [],
-  dataDetails: {},
-};
-
 export const CinemaMovies = () => {
   const [selectedMovies, setSelectedMovies] = useState([]);
-  const [state, dispatch] = useReducer(cinemaReducer, movieDefaultState);
   const router = useRouter();
 
   return (
-    <div className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Movies</AdminHeader>
       <MoviesTable
-        openAddModal={() => dispatch({ type: "open_add_modal" })}
-        openDeleteModal={() => dispatch({ type: "open_delete_modal" })}
         setSelectedMovies={setSelectedMovies}
         selectedMovies={selectedMovies}
         rowMenu={(movieId) => (
@@ -55,20 +42,20 @@ export const CinemaMovies = () => {
         )}
       />
       <AnimatePresence>
-        {router.query?.view && (
+        {router.query.view && (
           <CinemaMovieDetailsModal
             closeModal={() => router.push("/admin/movies")}
             movieId={router.query?.id}
           />
         )}
-        {state.showAddModal && (
+        {router.query.add && (
           <AddCinemaMovieModal
-            closeModal={() => dispatch({ type: "close_add_modal" })}
+            closeModal={() => router.push("/admin/movies")}
           />
         )}
-        {state.showDeleteModal && (
+        {router.query.delete && (
           <DeleteCinemaMovieModal
-            closeModal={() => dispatch({ type: "close_delete_modal" })}
+            closeModal={() => router.push("/admin/movies")}
             selectedMovies={selectedMovies}
           />
         )}
