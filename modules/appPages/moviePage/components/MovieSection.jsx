@@ -31,7 +31,7 @@ function Title({ title }) {
 
 function Plot({ plot }) {
   return (
-    <p className="text-xs tracking-wide text-neutral-600 lg:w-96 lg:text-sm">
+    <p className="text-xs tracking-wide text-slate-700 dark:text-white lg:w-96 lg:text-sm">
       {plot}
     </p>
   );
