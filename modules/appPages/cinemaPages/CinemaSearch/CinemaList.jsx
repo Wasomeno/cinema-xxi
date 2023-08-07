@@ -19,7 +19,7 @@ export const CinemaList = ({ search }) => {
   });
 
   const skeletons = useSkeleton(
-    <div className="h-8 w-full animate-pulse rounded-lg bg-slate-200 lg:h-10" />,
+    <div className="h-8 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-700 lg:h-10" />,
     5
   );
 
@@ -32,7 +32,7 @@ export const CinemaList = ({ search }) => {
             <Link
               key={cinema.id}
               href={`/app/cinemas/${cinema.id}`}
-              className="w-full rounded-lg border border-slate-300 bg-gray-50 p-2 font-poppins text-xs tracking-wider transition duration-300 hover:bg-blue-100 lg:text-sm"
+              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 py-2 px-4 text-xs font-openSans font-medium transition duration-300 hover:bg-blue-100 lg:text-sm"
             >
               {cinema.name}
             </Link>
