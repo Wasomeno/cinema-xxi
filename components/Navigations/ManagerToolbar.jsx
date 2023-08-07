@@ -1,13 +1,13 @@
-import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState } from "react"
+import { AnimatePresence } from "framer-motion"
 
-import ManagerMenuModal from "../ManagerMenuModal";
-import { ThemeSwitcher } from "../ThemeSwitcher";
+import ManagerMenuModal from "../ManagerMenuModal"
+import { ThemeSwitcher } from "../ThemeSwitcher"
 
 export const ManagerToolbar = () => {
-  const [showMenuModal, setShowMenuModal] = useState(false);
+  const [showMenuModal, setShowMenuModal] = useState(false)
   return (
-    <div className="flex items-center justify-between border-b bg-white px-4 py-4 dark:border-b-slate-500 dark:bg-slate-700">
+    <div className="flex items-center justify-between border-b bg-white px-4 py-4 dark:border-b-slate-700 dark:bg-slate-900">
       <div className="flex w-5/6 items-center justify-start gap-4">
         <div className="lg:w-[240px]">
           <span className="border-2 border-slate-800 px-2 py-1.5 font-poppins text-xs font-semibold tracking-wider dark:border-slate-100 lg:px-4 lg:text-lg">
@@ -17,7 +17,7 @@ export const ManagerToolbar = () => {
         <div className="w-4/6 lg:w-3/6">
           <input
             type="text  "
-            className="w-full rounded-lg border border-slate-300 bg-slate-100 p-2 text-xs lg:text-sm"
+            className="w-full rounded-lg border bg-slate-100 p-2 text-xs dark:border-slate-600 dark:bg-slate-800 lg:text-sm"
             placeholder="Search for features..."
           />
         </div>
@@ -37,5 +37,5 @@ export const ManagerToolbar = () => {
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}
