@@ -1,7 +1,7 @@
-import { AnimatePresence } from "framer-motion";
-import { useDateTime } from "hooks/useDateTime";
-import { useState } from "react";
-import { HiChevronRight } from "react-icons/hi2";
+import { useState } from "react"
+import { AnimatePresence } from "framer-motion"
+import { useDateTime } from "hooks/useDateTime"
+import { HiChevronRight } from "react-icons/hi2"
 
 export default function MovieShowtimeSection({ children }) {
   return (
@@ -13,16 +13,16 @@ export default function MovieShowtimeSection({ children }) {
         {children}
       </div>
     </div>
-  );
+  )
 }
 
 function CinemaCard({ cinema, children }) {
-  const [tabOpen, setTabOpen] = useState(false);
+  const [tabOpen, setTabOpen] = useState(false)
   return (
     <>
       <div
         onClick={() => setTabOpen((current) => !current)}
-        className="flex w-full items-center justify-between rounded-lg border bg-slate-100 p-2 px-4 dark:bg-slate-600"
+        className="flex w-full items-center justify-between rounded-lg border bg-slate-100 p-2 px-4 dark:border-slate-600 dark:bg-slate-800"
       >
         <h5 className="font-poppins text-xs font-medium md:text-sm">
           {cinema.name}
@@ -33,25 +33,25 @@ function CinemaCard({ cinema, children }) {
       </div>
       <AnimatePresence>
         {tabOpen && (
-          <div className="my-2 flex w-full items-center gap-4 rounded-lg border bg-slate-100 p-2 dark:bg-slate-500">
+          <div className="flex w-full items-center gap-2.5 rounded-lg border bg-slate-100 p-2 dark:border-slate-600 dark:bg-slate-800">
             {children}
           </div>
         )}
       </AnimatePresence>
     </>
-  );
+  )
 }
 
 function ShowtimeCard({ showtime, selectedDate, onClick }) {
-  const dateTime = useDateTime({});
+  const dateTime = useDateTime({})
 
   function parseShowtime(hour, minute) {
-    const timeNow = new Date();
-    timeNow.setDate(selectedDate.date);
-    timeNow.setMonth(selectedDate.month);
-    timeNow.setHours(hour);
-    timeNow.setMinutes(minute);
-    return timeNow.getTime();
+    const timeNow = new Date()
+    timeNow.setDate(selectedDate.date)
+    timeNow.setMonth(selectedDate.month)
+    timeNow.setHours(hour)
+    timeNow.setMinutes(minute)
+    return timeNow.getTime()
   }
   return (
     <button
@@ -59,12 +59,12 @@ function ShowtimeCard({ showtime, selectedDate, onClick }) {
         parseShowtime(showtime.hour, showtime.minutes) < dateTime.getTime()
       }
       onClick={onClick}
-      className="my-2 rounded-md bg-slate-200 p-2 px-3 text-center font-poppins text-xs shadow-sm transition duration-200 ease-in-out hover:bg-blue-300 disabled:bg-gray-300 disabled:text-gray-500 dark:bg-slate-600 md:text-sm"
+      className="rounded-md bg-slate-200 p-2 px-3 text-center font-poppins text-xs shadow-sm transition duration-200 ease-in-out hover:bg-slate-300 disabled:bg-gray-300 disabled:text-gray-500 dark:bg-slate-600 dark:hover:bg-slate-500 md:text-sm"
     >
       {showtime.hour} :{showtime.minutes}
     </button>
-  );
+  )
 }
 
-MovieShowtimeSection.CinemaCard = CinemaCard;
-MovieShowtimeSection.ShowtimeCard = ShowtimeCard;
+MovieShowtimeSection.CinemaCard = CinemaCard
+MovieShowtimeSection.ShowtimeCard = ShowtimeCard
