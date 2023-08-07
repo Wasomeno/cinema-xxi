@@ -37,7 +37,7 @@ export const ManagerLayout = ({ children, pageTitle = "" }) => {
           {children}
         </div>
       </div>
-      {viewport.width < 1024 && viewport.height > 400 && (
+      {viewport.width < 1024 && viewport.height > 500 && (
         <ManagerNavigationMobile />
       )}
     </div>

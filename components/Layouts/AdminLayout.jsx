@@ -35,7 +35,9 @@ export const AdminLayout = ({ children, pageTitle }) => {
           {children}
         </div>
       </div>
-      {viewport.height > 400 && <AdminNavigationMobile />}
+      {viewport.width < 1024 && viewport.height > 500 && (
+        <AdminNavigationMobile />
+      )}
     </div>
   )
 }
