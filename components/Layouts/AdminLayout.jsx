@@ -11,18 +11,7 @@ import { Spinner } from "../Spinner"
 
 export const AdminLayout = ({ children, pageTitle }) => {
   const { data: sessionData, status } = useSession()
-  const router = useRouter()
   const viewport = useViewport()
-
-  if (router.pathname === "/admin/login")
-    return (
-      <>
-        <Head>
-          <title>Cinema Admin Login</title>
-        </Head>
-        {children}
-      </>
-    )
 
   if (status === "loading")
     return (
@@ -30,10 +19,6 @@ export const AdminLayout = ({ children, pageTitle }) => {
         <Spinner />
       </AnimatedContainer>
     )
-
-  if (status !== "loading" && sessionData?.user.role !== "admin") {
-    router.push("/admin/login")
-  }
 
   return (
     <div className="flex min-h-screen flex-1 flex-col bg-slate-50 dark:bg-slate-950">
