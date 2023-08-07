@@ -1,78 +1,76 @@
-import { AnimatePresence } from "framer-motion";
-import { cinemaReducer } from "hooks/createReducer";
-import { prisma } from "lib/prisma";
-import { useReducer } from "react";
+import { useState } from "react"
+import { useRouter } from "next/router"
+import { AnimatePresence } from "framer-motion"
+import { prisma } from "lib/prisma"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import ManagerHeader from "@/components/Headers/ManagerHeader";
-import { ManagerLayout } from "@/components/Layouts/ManagerLayout";
-import { AddCinemaModal } from "@/components/Manager/Cinemas/AddCinemaModal";
-import { DeleteCinemasModal } from "@/components/Manager/Cinemas/DeleteCinemasModal";
-import { RegionCinemasTable } from "@/components/Manager/Cinemas/RegionCinemasTable";
-import { RegionChartSection } from "@/components/Manager/Regions/RegionChartSection";
+import AnimatedContainer from "@/components/AnimatedContainer"
+import ManagerHeader from "@/components/Headers/ManagerHeader"
+import { ManagerLayout } from "@/components/Layouts/ManagerLayout"
+import { AddCinemaModal } from "@/components/Manager/Cinemas/AddCinemaModal"
+import { CinemaDetailsModal } from "@/components/Manager/Cinemas/CinemaDetailsModal"
+import { DeleteCinemasModal } from "@/components/Manager/Cinemas/DeleteCinemasModal"
+import { RegionCinemasTable } from "@/components/Manager/Cinemas/RegionCinemasTable"
+import { RegionChartSection } from "@/components/Manager/Regions/RegionChartSection"
 
 export async function getStaticPaths() {
-  const regions = await prisma.region.findMany();
+  const regions = await prisma.region.findMany()
   const regionParams = regions.map((region) => ({
     params: { regionId: region.id.toString() },
-  }));
-  return { paths: regionParams, fallback: true };
+  }))
+  return { paths: regionParams, fallback: true }
 }
 
 export async function getStaticProps(context) {
-  const { params } = context;
+  const { params } = context
   const regionDetails = await prisma.region.findUnique({
     where: { id: parseInt(params.regionId) },
-  });
-  return { props: { regionDetails: regionDetails } };
+  })
+  return { props: { regionDetails: regionDetails } }
 }
 
-const regionDetailsDefaultState = {
-  showAddModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  showDetailsModal: false,
-  selectedData: [],
-  dataDetails: {},
-};
-
 const RegionDetails = ({ regionDetails }) => {
-  const [state, dispatch] = useReducer(
-    cinemaReducer,
-    regionDetailsDefaultState
-  );
-
+  const [selectedCinemas, setSelectedCinemas] = useState([])
+  const router = useRouter()
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll rounded-lg border bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:bg-slate-700">
+    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
       <ManagerHeader withBackButton>{regionDetails.name}</ManagerHeader>
       <AnimatedContainer className="flex justify-center">
-        <div className="w-full">
+        <div className="w-full space-y-4">
           <RegionChartSection region={regionDetails.id} />
-          <RegionCinemasTable regionId={regionDetails.id} dispatch={dispatch} />
+          <RegionCinemasTable
+            regionId={regionDetails.id}
+            selectedCinemas={selectedCinemas}
+            setSelectedCinemas={setSelectedCinemas}
+          />
         </div>
       </AnimatedContainer>
       <AnimatePresence>
-        {state.showAddModal && (
+        {router.query.view && <CinemaDetailsModal />}
+        {router.query.add && (
           <AddCinemaModal
-            closeModal={() => dispatch({ type: "close_add_modal" })}
+            closeModal={() =>
+              router.push(`/manager/regions/${regionDetails.id}`)
+            }
           />
         )}
-        {state.showDeleteModal && (
+        {router.query.delete && (
           <DeleteCinemasModal
             regionId={regionDetails.id}
-            closeModal={() => dispatch({ type: "close_delete_modal" })}
-            selectedCinemas={state.selectedData}
+            closeModal={() =>
+              router.push(`/manager/regions/${regionDetails.id}`)
+            }
+            selectedCinemas={selectedCinemas}
           />
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}
 
 export default function RegionDetailsPage({ regionDetails }) {
   return (
     <ManagerLayout pageTitle={`Regions - ${regionDetails.name}`}>
       <RegionDetails regionDetails={regionDetails} />
     </ManagerLayout>
-  );
+  )
 }
