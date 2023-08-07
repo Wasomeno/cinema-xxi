@@ -2,7 +2,7 @@ import { VscDebugDisconnect } from "react-icons/vsc";
 
 export const WalletNotConnected = () => {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-2 bg-white">
+    <div className="flex flex-1 flex-col items-center justify-center gap-2">
       <span className="font-poppins lg:text-base text-sm text-slate-400">
         Connect your wallet first
       </span>
