@@ -8,8 +8,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { MoviesTableRowSkeletons } from "modules/adminPages/moviesPage/cinemaMovies/components/MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "modules/adminPages/moviesPage/cinemaMovies/components/MoviesTableSorter"
+import { MoviesTableRowSkeletons } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableRowSkeletons"
+import { MoviesTableSorter } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableSorter"
 import { useSession } from "next-auth/react"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
