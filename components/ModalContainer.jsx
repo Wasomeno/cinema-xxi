@@ -13,7 +13,7 @@ export const ModalContainer = ({ children, className, closeModal, title }) => {
       />
       <AnimatedContainer
         className={twMerge(
-          "fixed z-30 flex flex-1 flex-col rounded-lg bg-white px-6 py-4 shadow-md dark:bg-slate-800",
+          "fixed bottom-0 z-40 flex w-full flex-1 flex-col rounded-none rounded-t-lg bg-white px-6 py-4 shadow-md dark:bg-slate-800 lg:rounded-lg",
           className
         )}
       >
@@ -49,7 +49,7 @@ export const CenteredModalContainer = ({
       />
       <AnimatedContainer
         className={twMerge(
-          "fixed inset-x-1/2 bottom-0 z-30 flex h-[90%] w-full -translate-x-1/2 flex-col rounded-lg  bg-white px-6 py-4 shadow-md dark:bg-slate-800 sm:h-3/6 sm:w-4/6 lg:inset-y-1/2 lg:h-5/6 lg:w-4/6 lg:-translate-y-1/2",
+          "fixed inset-x-1/2 bottom-0 z-40 flex h-[90%] w-full -translate-x-1/2 flex-col rounded-none rounded-t-lg bg-white px-6 py-4 shadow-md dark:bg-slate-800 sm:h-3/6 sm:w-4/6 lg:inset-y-1/2 lg:h-5/6 lg:w-4/6 lg:-translate-y-1/2 lg:rounded-lg",
           className
         )}
       >
