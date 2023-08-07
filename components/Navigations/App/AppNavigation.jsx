@@ -28,7 +28,7 @@ const AppNavigation = () => {
   const [showUserModal, toggleShowUserModal] = useToggle(false)
 
   return (
-    <div className="sticky top-0 z-10 flex w-full items-center justify-between border-b px-4 py-2 dark:border-b-slate-800 lg:h-16">
+    <div className="sticky top-0 z-10 flex w-full items-center justify-between border-b bg-white px-4 py-2 dark:border-b-slate-700 dark:bg-slate-900 lg:h-16">
       <div className="w-auto p-2 text-center lg:w-1/12">
         <span className="font-inter border-2 border-slate-900 bg-slate-50 px-2 text-xs tracking-widest text-slate-900 sm:text-base md:text-base">
           XXI
