@@ -25,13 +25,13 @@ export default function MovieDateSection({ selectedDate, setSelectedDate }) {
             <button
               className={twMerge(
                 clsx(
-                  "h-10 w-10 cursor-pointer rounded-lg border border-slate-500 transition duration-300 ease-in-out dark:border-slate-400 dark:bg-slate-600 lg:h-14 lg:w-14 lg:rounded-lg",
+                  "h-10 w-10 cursor-pointer rounded-lg border border-slate-500 transition duration-300 ease-in-out dark:border-slate-500 dark:bg-slate-800 lg:h-14 lg:w-14 lg:rounded-lg",
                   selectedDate?.date === details.date &&
-                    "bg-blue-200 text-slate-800 dark:bg-slate-200 dark:text-slate-800"
+                    "bg-blue-200 text-slate-800 dark:bg-blue-300 border-slate-400 dark:border-slate-100 dark:text-black"
                 )
               )}
             >
-              <span className="font-poppins text-xs font-medium tracking-wider">
+              <span className="font-poppins text-xs font-medium">
                 {details.date}
               </span>
             </button>
