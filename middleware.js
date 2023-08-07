@@ -14,4 +14,16 @@ export default withAuth({
   },
 })
 
-export const config = { matcher: ["/admin", "/manager"] }
+export const config = {
+  matcher: [
+    "/admin",
+    "/admin/movies",
+    "/admin/showtimes/",
+    "/admin/studios",
+    "/admin/admins",
+    "/manager",
+    "/manager/regions",
+    "/manager/movies",
+    "/manager/regions/:path*",
+  ],
+}
