@@ -28,49 +28,43 @@ export async function getStaticProps(context) {
   return { props: { regionDetails: regionDetails } }
 }
 
-const RegionDetails = ({ regionDetails }) => {
+export default function RegionDetailsPage({ regionDetails }) {
   const [selectedCinemas, setSelectedCinemas] = useState([])
   const router = useRouter()
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
-      <ManagerHeader withBackButton>{regionDetails.name}</ManagerHeader>
-      <AnimatedContainer className="flex justify-center">
-        <div className="w-full space-y-4">
-          <RegionChartSection region={regionDetails.id} />
-          <RegionCinemasTable
-            regionId={regionDetails.id}
-            selectedCinemas={selectedCinemas}
-            setSelectedCinemas={setSelectedCinemas}
-          />
-        </div>
-      </AnimatedContainer>
-      <AnimatePresence>
-        {router.query.view && <CinemaDetailsModal />}
-        {router.query.add && (
-          <AddCinemaModal
-            closeModal={() =>
-              router.push(`/manager/regions/${regionDetails.id}`)
-            }
-          />
-        )}
-        {router.query.delete && (
-          <DeleteCinemasModal
-            regionId={regionDetails.id}
-            closeModal={() =>
-              router.push(`/manager/regions/${regionDetails.id}`)
-            }
-            selectedCinemas={selectedCinemas}
-          />
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
-
-export default function RegionDetailsPage({ regionDetails }) {
-  return (
-    <ManagerLayout pageTitle={`Regions - ${regionDetails.name}`}>
-      <RegionDetails regionDetails={regionDetails} />
+    <ManagerLayout pageTitle={`Regions - ${regionDetails?.name}`}>
+      <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
+        <ManagerHeader withBackButton>{regionDetails?.name}</ManagerHeader>
+        <AnimatedContainer className="flex justify-center">
+          <div className="w-full space-y-4">
+            <RegionChartSection region={regionDetails?.id} />
+            <RegionCinemasTable
+              regionId={regionDetails?.id}
+              selectedCinemas={selectedCinemas}
+              setSelectedCinemas={setSelectedCinemas}
+            />
+          </div>
+        </AnimatedContainer>
+        <AnimatePresence>
+          {router.query.view && <CinemaDetailsModal />}
+          {router.query.add && (
+            <AddCinemaModal
+              closeModal={() =>
+                router.push(`/manager/regions/${regionDetails?.id}`)
+              }
+            />
+          )}
+          {router.query.delete && (
+            <DeleteCinemasModal
+              regionId={regionDetails?.id}
+              closeModal={() =>
+                router.push(`/manager/regions/${regionDetails?.id}`)
+              }
+              selectedCinemas={selectedCinemas}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </ManagerLayout>
   )
 }
