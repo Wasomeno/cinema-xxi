@@ -28,16 +28,19 @@ export const Transactions = () => {
 
   if (!isConnected) return <WalletNotConnected />;
   return (
-    <AnimatedContainer className="relative flex min-h-screen flex-1 flex-col bg-white bg-opacity-95 p-5 dark:bg-slate-800 lg:p-10">
+    <AnimatedContainer className="relative flex min-h-screen flex-1 flex-col bg-opacity-95 p-5 lg:p-10">
       <div className="mb-4 space-y-1.5 text-start">
-        <h1 className="font-poppins text-base lg:text-3xl">Transactions</h1>
+        <h1 className="font-openSans font-medium text-base lg:text-3xl">
+          Transactions
+        </h1>
       </div>
       <div className="flex gap-2">
         <button
           onClick={() => setActiveTab("tickets")}
           className={twMerge(
-            "rounded-lg bg-slate-100 px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
-            activeTab === "tickets" && "bg-blue-100 text-slate-800"
+            "rounded-lg bg-slate-100  px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
+            activeTab === "tickets" &&
+              "bg-blue-100 dark:bg-blue-300 text-slate-800"
           )}
         >
           Active Tickets
@@ -46,7 +49,8 @@ export const Transactions = () => {
           onClick={() => setActiveTab("history")}
           className={twMerge(
             "rounded-lg bg-slate-100 px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
-            activeTab === "history" && "bg-blue-100 text-slate-800"
+            activeTab === "history" &&
+              "bg-blue-100 dark:bg-blue-300 text-slate-800"
           )}
         >
           Transactions History
@@ -70,7 +74,7 @@ export const Transactions = () => {
           : null}
 
         {!transactions.isLoading && !transactions.data?.length ? (
-          <div className="flex h-72 w-full  flex-col items-center justify-center gap-1.5">
+          <div className="flex h-80 w-full  flex-col items-center justify-center gap-1.5">
             <span className="text-slate-400">No Transactions</span>
             <RxCrossCircled size="32" className="text-slate-400" />
           </div>
