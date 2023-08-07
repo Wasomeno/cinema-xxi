@@ -1,61 +1,46 @@
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import { Autoplay, Navigation } from "swiper";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import "swiper/css"
+
+import { useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
+import { Autoplay, Navigation } from "swiper/modules"
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
 
 export function AppBannerSlider() {
-  const [showNavigation, setShowNavigation] = useState(false);
+  const [showNavigation, setShowNavigation] = useState(false)
   return (
     <div
       className="swiper-container relative w-full lg:w-5/6"
-      onMouseOver={() => setShowNavigation(true)}
+      onMouseEnter={() => setShowNavigation(true)}
       onMouseLeave={() => setShowNavigation(false)}
     >
       <Swiper
         className="h-40 w-full lg:h-80"
         autoplay={{ disableOnInteraction: false }}
-        navigation={{ enabled: true, nextEl: ".btn-next", prevEl: ".btn-prev" }}
+        navigation={{ enabled: true }}
         modules={[Navigation, Autoplay]}
         loop={true}
         spaceBetween={50}
       >
         <SwiperSlide className="flex h-full w-full items-center justify-center shadow-sm">
-          <Image
-            src="https://media.21cineplex.com/webcontent/gallery/pictures/167816028263406_925x527.jpg"
-            fill
-            alt="promo-banner"
-            className="rounded-lg"
-          />
+          <div className="h-full w-full rounded-lg bg-slate-100 dark:bg-slate-700" />
         </SwiperSlide>
         <SwiperSlide className="flex h-full w-full items-center justify-center shadow-sm">
-          <Image
-            src="https://media.21cineplex.com/webcontent/gallery/pictures/168622916559421_925x527.jpg"
-            fill
-            alt="promo-banner"
-            className="rounded-lg"
-          />
+          <div className="h-full w-full rounded-lg bg-slate-100 dark:bg-slate-700" />
         </SwiperSlide>
         <SwiperSlide className="flex h-full w-full items-center justify-center shadow-sm">
-          <Image
-            src="https://media.21cineplex.com/webcontent/gallery/pictures/16826667719906_925x527.jpg"
-            fill
-            alt="promo-banner"
-            className="rounded-lg"
-          />
+          <div className="h-full w-full rounded-lg bg-slate-100 dark:bg-slate-700" />
         </SwiperSlide>
         <AnimatePresence>
           {showNavigation && <AppBannerSliderNavigation />}
         </AnimatePresence>
       </Swiper>
     </div>
-  );
+  )
 }
 
 const AppBannerSliderNavigation = () => {
-  const swiper = useSwiper();
+  const swiper = useSwiper()
   return (
     <>
       <motion.button
@@ -79,5 +64,5 @@ const AppBannerSliderNavigation = () => {
         <BsChevronRight size="20" />
       </motion.button>
     </>
-  );
-};
+  )
+}
