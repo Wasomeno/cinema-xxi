@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { useRouter } from "next/router"
 import {
   flexRender,
   getCoreRowModel,
@@ -5,38 +7,48 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
-import { useSkeleton } from "hooks/useSkeleton";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { BsXCircleFill } from "react-icons/bs";
-import {
-  HiChevronLeft,
-  HiChevronRight,
-  HiPlus,
-  HiTrash,
-} from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
+} from "@tanstack/react-table"
+import { useSkeleton } from "hooks/useSkeleton"
+import { useSession } from "next-auth/react"
+import { BsXCircleFill } from "react-icons/bs"
+import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
+import { twMerge } from "tailwind-merge"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import { query } from "@/components/reactQuery/queries/query";
-import { cinemaStudioQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaStudioQueryKeys";
+import AnimatedContainer from "@/components/AnimatedContainer"
+import { query } from "@/components/reactQuery/queries/query"
+import { cinemaStudioQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaStudioQueryKeys"
+import Table from "@/components/Table"
+import TableRowMenu from "@/components/TableRowMenu"
 
-export const StudioTable = ({
-  tableToolbar,
-  rowMenu,
-  setSelectedStudios,
-  selectedStudios,
-}) => {
-  const [sorting, setSorting] = useState();
-  const session = useSession();
-  const router = useRouter();
+export const StudioTable = ({ setSelectedStudios, selectedStudios }) => {
+  const [sorting, setSorting] = useState()
+  const session = useSession()
+  const router = useRouter()
   const cinemaStudios = query({
     queryKey: cinemaStudioQueryKeys.allStudio,
     url: "/api/cinemas/" + session.data?.user.cinemaId + "/studios",
     enabledCondition: session.data !== undefined,
-  });
+  })
+
+  function selectAllStudios(studioIds) {
+    !cinemaStudios.isLoading && setSelectedStudios(studioIds)
+  }
+
+  function deselectAllStudios() {
+    !cinemaStudios.isLoading && setSelectedStudios([])
+  }
+
+  function selectStudio(studioId) {
+    !cinemaStudios.isLoading &&
+      setSelectedStudios((current) => [...current, studioId])
+  }
+
+  function deselectStudio(studioId) {
+    const filteredStudios = selectedStudios.filter(
+      (selectedStudioId) => selectedStudioId !== studioId
+    )
+    !cinemaStudios.isLoading && setSelectedStudios(filteredStudios)
+  }
 
   const cinemaStudioTableColumns = [
     {
@@ -45,39 +57,39 @@ export const StudioTable = ({
         return (
           <input
             type="checkbox"
-            className="h-4 w-4 cursor-pointer accent-blue-300 dark:accent-gray-300"
+            className="h-4 w-4 cursor-pointer accent-blue-300 dark:accent-blue-800"
             checked={
               !cinemaStudios.isLoading &&
               table.getCoreRowModel().rows.length === selectedStudios.length
             }
             onChange={() =>
               table.getCoreRowModel().rows.length === selectedStudios.length
-                ? deselectAllMovies()
-                : selectAllMovie(
+                ? deselectAllStudios()
+                : selectAllStudios(
                     table.getCoreRowModel().rows.map((row) => row.original.id)
                   )
             }
           />
-        );
+        )
       },
       cell: ({ row }) => {
         return (
           <div className="px-1">
             <input
               type="checkbox"
-              className="h-4 w-4 cursor-pointer rounded-md accent-blue-300 dark:accent-gray-300"
+              className="h-4 w-4 cursor-pointer rounded-md accent-blue-300 dark:accent-blue-800"
               checked={
                 !cinemaStudios.isLoading &&
                 selectedStudios.includes(row.original.id)
               }
               onChange={() =>
                 selectedStudios.includes(row.original.id)
-                  ? deselectMovie(row.original.id)
-                  : selectMovie(row.original.id)
+                  ? deselectStudio(row.original.id)
+                  : selectStudio(row.original.id)
               }
             />
           </div>
-        );
+        )
       },
     },
     { accessorKey: "id", header: "Id", cell: (info) => info.getValue() },
@@ -91,7 +103,21 @@ export const StudioTable = ({
       header: "Capacity",
       cell: (info) => info.getValue(),
     },
-  ];
+    {
+      id: "menu",
+      cell: ({ row }) => (
+        <TableRowMenu>
+          <TableRowMenu.Button
+            onClick={() => {
+              router.push(`/admin/studios/${row.original.id}`)
+            }}
+          >
+            View Studio
+          </TableRowMenu.Button>
+        </TableRowMenu>
+      ),
+    },
+  ]
 
   const table = useReactTable({
     data: cinemaStudios.data,
@@ -102,7 +128,7 @@ export const StudioTable = ({
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-  });
+  })
 
   const rowSkeletons = useSkeleton(
     <tr>
@@ -124,7 +150,7 @@ export const StudioTable = ({
       ))}
     </tr>,
     5
-  );
+  )
 
   return (
     <div className="flex justify-center">
@@ -137,28 +163,28 @@ export const StudioTable = ({
               onChange={(event) =>
                 table.getColumn("studio").setFilterValue(event.target.value)
               }
-              className="h-8 w-44 rounded-md border p-2 text-xs lg:w-96 lg:text-sm"
+              className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
             />
           </div>
           <div className="flex w-72 items-center justify-end gap-2">
             <button
               onClick={() => router.push("/admin/studios?add=true")}
-              className="rounded-lg bg-green-600 p-2 text-slate-100 transition duration-150 disabled:bg-opacity-50"
+              className="rounded-lg bg-green-600 p-2 text-slate-100 transition duration-150 disabled:bg-opacity-50 dark:bg-green-800"
             >
               <HiPlus className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             </button>
             <button
               onClick={() => router.push("/admin/studios?delete=true")}
               disabled={!selectedStudios.length}
-              className="rounded-lg bg-red-600 p-2 text-sm text-slate-100 transition duration-150 disabled:bg-opacity-50"
+              className="rounded-lg bg-red-600 p-2 text-sm text-slate-100 transition duration-150 disabled:bg-opacity-50 dark:bg-red-800"
             >
               <HiTrash className="h-3 w-3 sm:h-4 sm:w-4 lg:h-3.5 lg:w-3.5" />
             </button>
           </div>
         </div>
         <div className="overflow-x-scroll rounded-lg">
-          <table className="w-full border-collapse border border-slate-200 bg-slate-50 text-left text-sm text-gray-500 shadow-md dark:border-slate-400 dark:bg-slate-600 dark:text-slate-100">
-            <thead className="bg-blue-100 dark:bg-slate-500">
+          <Table>
+            <Table.Head>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
@@ -176,12 +202,12 @@ export const StudioTable = ({
                           </div>
                         )}
                       </th>
-                    );
+                    )
                   })}
                 </tr>
               ))}
-            </thead>
-            <tbody className="relative divide-y divide-slate-200 border-t border-slate-200 dark:divide-slate-400 dark:border-slate-400">
+            </Table.Head>
+            <Table.Body>
               {cinemaStudios.isLoading &&
                 rowSkeletons.map((skeleton) => skeleton)}
               {!cinemaStudios.isLoading &&
@@ -213,32 +239,32 @@ export const StudioTable = ({
                                 cell.getContext()
                               )}
                             </td>
-                          );
+                          )
                         })}
                       </tr>
-                    );
+                    )
                   })
                 : null}
-            </tbody>
-          </table>
+            </Table.Body>
+          </Table>
         </div>
-        <div className="flex mt-4 items-center gap-4">
+        <div className="mt-4 flex items-center gap-4">
           <button
             disabled={!cinemaStudios.isLoading && !table.getCanPreviousPage()}
             onClick={() => table.previousPage()}
-            className="p-2 rounded-lg disabled:opacity-50 flex-items-center justify-center bg-slate-50 border"
+            className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2  disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
           >
             <HiChevronLeft />
           </button>
           <button
             disabled={!cinemaStudios.isLoading && !table.getCanNextPage()}
             onClick={() => table.nextPage()}
-            className="p-2 rounded-lg disabled:opacity-50 flex-items-center justify-center bg-slate-50 border"
+            className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
           >
             <HiChevronRight />
           </button>
         </div>
       </AnimatedContainer>
     </div>
-  );
-};
+  )
+}
