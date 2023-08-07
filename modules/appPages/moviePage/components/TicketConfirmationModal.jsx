@@ -35,7 +35,7 @@ const TicketConfirmationModal = ({
     <CenteredModalContainer
       title="Ticket Details"
       closeModal={closeModal}
-      className="flex h-5/6 w-full flex-col justify-between rounded-t-lg md:h-4/6 md:w-3/12 md:rounded-lg lg:h-4/6 lg:w-4/12"
+      className="flex h-5/6 w-full flex-col justify-between md:h-4/6 md:w-3/12 lg:h-4/6 lg:w-4/12"
     >
       <div className="flex flex-1 flex-col gap-4">
         <div className="flex h-2/6 items-center justify-between">
