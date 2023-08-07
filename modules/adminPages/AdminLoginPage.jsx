@@ -27,11 +27,13 @@ export const AdminLoginPage = () => {
   )
 
   return (
-    <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-6 bg-slate-100">
+    <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-6 bg-slate-100 dark:bg-slate-900">
       <Head>
         <title>Admin Login</title>
       </Head>
-      <h1 className="font-openSans text-2xl font-medium">Admin Login</h1>
+      <h1 className="font-openSans text-lg font-medium lg:text-2xl">
+        Admin Login
+      </h1>
       <Form onSubmit={login.mutate} className="flex w-72 flex-col gap-2">
         <Form.Input
           type="string"
