@@ -1,30 +1,29 @@
-import { useSkeleton } from "hooks/useSkeleton";
-import { useSession } from "next-auth/react";
-import { HiCheckCircle } from "react-icons/hi2";
+import { useSkeleton } from "hooks/useSkeleton"
+import { useSession } from "next-auth/react"
+import { HiCheckCircle } from "react-icons/hi2"
 
-import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies";
-import { query } from "@/components/reactQuery/queries/query";
-import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys";
+import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies"
+import { query } from "@/components/reactQuery/queries/query"
+import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 
 export const AvailableMovieList = ({
   selectedMovies,
   selectMovie,
   deselectMovie,
 }) => {
-  const allMovies = useAllMovies();
+  const allMovies = useAllMovies()
 
-  const { data: session } = useSession();
+  const { data: session } = useSession()
   const cinemaMovies = query({
     queryKey: cinemaQueryKeys.cinemaMovies(session.user?.cinemaId),
     url: `/api/cinemas/${session.user.cinemaId}/movies`,
-  });
-
-  console.log(allMovies.data, cinemaMovies.data);
+  })
 
   const skeletons = useSkeleton(
     <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 lg:h-12" />,
     5
-  );
+  )
+
   return (
     <div className="flex h-5/6 flex-col gap-2">
       {allMovies.isLoading
@@ -37,13 +36,11 @@ export const AvailableMovieList = ({
                 (cinemaMovie) => cinemaMovie.id === movie.id
               )}
               onClick={() => {
-                if (selectedMovies.includes(movie.id)) {
-                  deselectMovie(movie.id);
-                } else {
-                  selectMovie(movie.id);
-                }
+                selectedMovies.includes(movie.id)
+                  ? deselectMovie(movie.id)
+                  : selectMovie(movie.id)
               }}
-              className="relative disabled:opacity-50 disabled:cursor-default flex w-full cursor-pointer items-center justify-center rounded-lg border bg-slate-50 p-3 shadow-sm"
+              className="relative flex w-full cursor-pointer items-center justify-center rounded-lg border bg-slate-50 p-3 shadow-sm disabled:cursor-default disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
             >
               {selectedMovies.includes(movie.id) && (
                 <span className="absolute left-10">
@@ -56,5 +53,5 @@ export const AvailableMovieList = ({
             </button>
           ))}
     </div>
-  );
-};
+  )
+}
