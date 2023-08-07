@@ -1,53 +1,31 @@
-import { useViewport } from "hooks/useViewport";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-import { useMemo } from "react";
+import Head from "next/head"
+import { useRouter } from "next/router"
+import { useViewport } from "hooks/useViewport"
+import { useSession } from "next-auth/react"
 
-import { ManagerToolbar } from "../Navigations/ManagerToolbar";
-import { Spinner } from "../Spinner";
-
-const ManagerNavigation = dynamic(() =>
-  import("../Navigations/Manager/ManagerNavigation").then(
-    (component) => component.ManagerNavigation
-  )
-);
-
-const ManagerNavigationMobile = dynamic(() =>
-  import("../Navigations/Manager/ManagerNavigationMobile").then(
-    (component) => component.ManagerNavigationMobile
-  )
-);
+import { ManagerNavigation } from "../Navigations/Manager/ManagerNavigation"
+import { ManagerNavigationMobile } from "../Navigations/Manager/ManagerNavigationMobile"
+import { ManagerToolbar } from "../Navigations/ManagerToolbar"
+import { Spinner } from "../Spinner"
 
 export const ManagerLayout = ({ children, pageTitle = "" }) => {
-  const router = useRouter();
-  const { data: sessionData, status } = useSession();
-  const viewport = useViewport();
+  const router = useRouter()
+  const { data: sessionData, status } = useSession()
+  const viewport = useViewport()
 
   if (status === "loading")
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
         <Spinner />
       </div>
-    );
+    )
 
   if (status !== "loading" && sessionData?.user.role !== "manager") {
-    router.push("/manager/login");
+    router.push("/manager/login")
   }
 
-  if (router.pathname === "/manager/login")
-    return (
-      <>
-        <Head>
-          <title>Manager Login</title>
-        </Head>
-        {children}
-      </>
-    );
-
   return (
-    <div className="flex min-h-screen flex-1 flex-col">
+    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950">
       <Head>
         <title>Manager | {pageTitle}</title>
         <meta property="description" content="Manager page" />
@@ -55,7 +33,7 @@ export const ManagerLayout = ({ children, pageTitle = "" }) => {
       <ManagerToolbar />
       <div className="flex flex-1 justify-center gap-4 p-4">
         {viewport.width > 1024 && <ManagerNavigation />}
-        <div className="flex w-full flex-col overflow-y-scroll rounded-lg">
+        <div className="flex w-full overflow-y-scroll rounded-lg border bg-white dark:border-slate-700 dark:bg-slate-900">
           {children}
         </div>
       </div>
@@ -63,5 +41,5 @@ export const ManagerLayout = ({ children, pageTitle = "" }) => {
         <ManagerNavigationMobile />
       )}
     </div>
-  );
-};
+  )
+}
