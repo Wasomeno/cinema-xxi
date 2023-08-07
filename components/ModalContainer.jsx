@@ -54,7 +54,7 @@ export const CenteredModalContainer = ({
         )}
       >
         {title && (
-          <div className="my-2 flex items-center justify-between">
+          <div className="my-2 flex w-full items-center justify-between">
             <h3 className="font-poppins text-sm font-medium lg:text-base">
               {title}
             </h3>
