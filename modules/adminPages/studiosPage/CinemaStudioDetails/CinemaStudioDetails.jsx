@@ -1,46 +1,18 @@
-import { AnimatePresence } from "framer-motion";
-import { cinemaReducer } from "hooks/createReducer";
-import dynamic from "next/dynamic";
-import { useReducer } from "react";
+import dynamic from "next/dynamic"
+import { AnimatePresence } from "framer-motion"
 
-import AdminHeader from "@/components/Headers/AdminHeader";
+import AdminHeader from "@/components/Headers/AdminHeader"
 
-import { DeleteStudioShowtimesModal } from "./components/DeleteStudioShowtimesModal";
-import { StudioShowtimeDetailsModal } from "./components/StudioShowtimeDetailsModal";
-import { StudioShowtimesTable } from "./components/StudioShowtimesTable";
-
-const AddStudioShowtimeModal = dynamic(() =>
-  import("./components/AddStudioShowtimeModal").then(
-    (component) => component.AddStudioShowtimeModal
-  )
-);
-
-const EditStudioShowtimeModal = dynamic(() =>
-  import("./components/EditStudioShowtimeModal").then(
-    (component) => component.EditStudioShowtimeModal
-  )
-);
-
-const studioDetailsDefaultState = {
-  showAddModal: false,
-  showEditModal: false,
-  showDeleteModal: false,
-  showDetailsModal: false,
-  selectedData: [],
-  dataDetails: {},
-};
+import { DeleteStudioShowtimesModal } from "./components/DeleteStudioShowtimesModal"
+import { StudioShowtimeDetailsModal } from "./components/StudioShowtimeDetailsModal"
+import { StudioShowtimesTable } from "./components/StudioShowtimesTable"
 
 export const CinemaStudioDetails = ({ studioDetails }) => {
-  const [state, dispatch] = useReducer(
-    cinemaReducer,
-    studioDetailsDefaultState
-  );
-
   return (
     <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
       <AdminHeader>Studio {studioDetails.studio} Showtimes</AdminHeader>
-      <StudioShowtimesTable dispatch={dispatch} />
-      <AnimatePresence>
+      {/* <StudioShowtimesTable dispatch={dispatch} /> */}
+      {/* <AnimatePresence>
         {state.showDetailsModal && (
           <StudioShowtimeDetailsModal
             closeModal={() => dispatch({ type: "close_details_modal" })}
@@ -64,7 +36,7 @@ export const CinemaStudioDetails = ({ studioDetails }) => {
             selectedShowtimes={state.selectedData}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
-  );
-};
+  )
+}
