@@ -1,50 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 
-import FormModalContainer from "@/components/FormModalContainer";
-import mutation from "@/components/reactQuery/mutations/mutation";
-import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
-import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys";
+import { Form } from "@/components/Forms"
+import { CenteredModalContainer } from "@/components/ModalContainer"
+import mutation from "@/components/reactQuery/mutations/mutation"
+import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
+import { query } from "@/components/reactQuery/queries/query"
+import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
 
-export const EditRegionModal = ({ regionDetails, closeModal }) => {
-  const [name, setName] = useState(regionDetails.name);
+export const EditRegionModal = ({ closeModal }) => {
+  const [name, setName] = useState("")
+  const router = useRouter()
 
   const sideEffects = useSideEffects({
     text: "Updating Region",
     queryKeys: regionQueryKeys.allRegion,
-  });
+  })
+
+  const region = query({
+    queryKey: regionQueryKeys.regionDetails(router.query.id),
+    url: `/api/regions/${router.query.id}`,
+  })
 
   const updateRegion = mutation({
     method: "PUT",
-    url: "/api/regions/" + regionDetails.id,
+    url: "/api/regions/" + 1,
     body: {
       name,
     },
     sideEffects,
-  });
+  })
+
+  useEffect(() => {
+    if (region.isSuccess) {
+      setName(region.data.name)
+    }
+  }, [region.isLoading])
 
   return (
-    <FormModalContainer
-      title="Edit Movie"
-      onSubmit={updateRegion.mutate}
+    <CenteredModalContainer
+      title="Edit Region"
       closeModal={closeModal}
+      className="lg:h-3/6 lg:w-2/6"
     >
-      <div className="flex flex-col gap-2">
-        <label id="regionName" className="text-sm tracking-wider">
-          Name
-        </label>
-        <input
+      <Form
+        onSubmit={updateRegion.mutate}
+        className="flex flex-1 flex-col justify-between"
+      >
+        <Form.Input
           id="regionName"
+          labelText="Region Name"
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
           className="rounded-md border border-slate-600 bg-transparent p-1"
         />
-      </div>
-      <div className="my-3 text-center">
-        <button className="h-10 w-44 rounded-lg bg-green-700 bg-opacity-75 font-poppins text-sm font-medium">
-          Submit
-        </button>
-      </div>
-    </FormModalContainer>
-  );
-};
+        <Form.Submit text="Submit" />
+      </Form>
+    </CenteredModalContainer>
+  )
+}

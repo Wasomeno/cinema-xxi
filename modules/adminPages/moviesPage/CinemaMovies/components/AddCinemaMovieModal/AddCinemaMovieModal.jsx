@@ -1,7 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-import FormModalContainer from "@/components/FormModalContainer";
+import { Form } from "@/components/Forms";
+import { CenteredModalContainer } from "@/components/ModalContainer";
 import mutation from "@/components/reactQuery/mutations/mutation";
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys";
@@ -27,28 +28,24 @@ export const AddCinemaMovieModal = ({ closeModal }) => {
   });
 
   return (
-    <FormModalContainer
-      onSubmit={addCinemaMovies.mutate}
-      title="Add Movies"
-      closeModal={closeModal}
-    >
-      <div>
-        <span className="font-poppins text-xs lg:text-sm">
-          Available Movies
-        </span>
-      </div>
-      <AvailableMovieList
-        selectedMovies={selectedMovies}
-        selectMovie={(movieId) =>
-          setSelectedMovies((current) => [...current, movieId])
-        }
-        deselectMovie={(movieId) =>
-          setSelectedMovies((current) =>
-            current.filter((selectedMovieId) => selectedMovieId !== movieId)
-          )
-        }
-      />
-      <FormModalContainer.Submit text="Submit" />
-    </FormModalContainer>
+    <CenteredModalContainer title="Add Movies" closeModal={closeModal}>
+      <Form
+        onSubmit={addCinemaMovies.mutate}
+        className="flex-1 flex flex-col justify-between"
+      >
+        <AvailableMovieList
+          selectedMovies={selectedMovies}
+          selectMovie={(movieId) =>
+            setSelectedMovies((current) => [...current, movieId])
+          }
+          deselectMovie={(movieId) =>
+            setSelectedMovies((current) =>
+              current.filter((selectedMovieId) => selectedMovieId !== movieId)
+            )
+          }
+        />
+        <Form.Submit text="Submit" />
+      </Form>
+    </CenteredModalContainer>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import FormModalContainer from "@/components/FormModalContainer";
+import { Form } from "@/components/Forms";
+import { CenteredModalContainer } from "@/components/ModalContainer";
 import mutation from "@/components/reactQuery/mutations/mutation";
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
 import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys";
@@ -20,18 +21,23 @@ export const AddRegionModal = ({ closeModal }) => {
   });
 
   return (
-    <FormModalContainer
+    <CenteredModalContainer
       title="Add Region"
       closeModal={closeModal}
-      onSubmit={addRegion.mutate}
+      className="lg:w-2/6 lg:h-3/6"
     >
-      <FormModalContainer.Input
-        type="text"
-        labelText="Region Name"
-        value={regionName}
-        setValue={setRegionName}
-      />
-      <FormModalContainer.Submit text="Submit" />
-    </FormModalContainer>
+      <Form
+        onSubmit={addRegion.mutate}
+        className="flex flex-1 flex-col justify-between"
+      >
+        <Form.Input
+          type="text"
+          labelText="Region Name"
+          value={regionName}
+          setValue={setRegionName}
+        />
+        <Form.Submit text="Submit" />
+      </Form>
+    </CenteredModalContainer>
   );
 };

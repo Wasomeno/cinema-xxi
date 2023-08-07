@@ -1,28 +1,29 @@
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import { useSession } from "next-auth/react"
 
-import FormModalContainer from "@/components/FormModalContainer";
-import mutation from "@/components/reactQuery/mutations/mutation";
-import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
-import { query } from "@/components/reactQuery/queries/query";
-import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys";
+import { Form } from "@/components/Forms"
+import { CenteredModalContainer } from "@/components/ModalContainer"
+import mutation from "@/components/reactQuery/mutations/mutation"
+import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
+import { query } from "@/components/reactQuery/queries/query"
+import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 
 export const EditCinemaShowtimeModal = () => {
-  const router = useRouter();
-  const { data: sessionData } = useSession();
+  const router = useRouter()
+  const { data: sessionData } = useSession()
   const showtime = query({
     queryKey: ["showtime", router.query?.id],
     url: `/api/cinemas/${sessionData.user.cinemaId}/showtimes/${router.query?.id}`,
-  });
+  })
 
-  const [hour, setHour] = useState();
-  const [minutes, setMinutes] = useState();
+  const [hour, setHour] = useState()
+  const [minutes, setMinutes] = useState()
 
   const sideEffects = useSideEffects({
     text: "Updating showtime",
     queryKeys: cinemaQueryKeys.cinemaShowtimes(sessionData.user.cinemaId),
-  });
+  })
 
   const updateShowtimeMutation = mutation({
     url: `/api/cinemas/${sessionData.user.cinemaId}/showtimes`,
@@ -33,53 +34,58 @@ export const EditCinemaShowtimeModal = () => {
       minutes,
     },
     sideEffects,
-  });
+  })
 
   function hourHandler(value) {
-    if (value >= 22) return;
-    setHour(value);
+    if (value >= 22) return
+    setHour(value)
   }
 
   function minutesHandler(value) {
-    if (value < 0 || value >= 59) return;
-    setMinutes(value);
+    if (value < 0 || value >= 59) return
+    setMinutes(value)
   }
 
   useEffect(() => {
     if (!showtime.isLoading) {
-      setHour(showtime.data?.hour);
-      setMinutes(showtime.data?.minutes);
+      setHour(showtime.data?.hour)
+      setMinutes(showtime.data?.minutes)
     }
-  }, [showtime.isLoading]);
+  }, [showtime.isLoading])
 
   return (
-    <FormModalContainer
-      onSubmit={updateShowtimeMutation.mutate}
+    <CenteredModalContainer
       title="Edit Showtime"
       closeModal={() => router.push("/admin/showtimes")}
-      className="lg:w-2/6 lg:h-4/6"
+      className="lg:h-4/6 lg:w-2/6"
     >
-      <div className="flex items-center justify-center gap-2">
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-sm">Hour</span>
-          <input
-            type="number"
-            value={hour}
-            onChange={(event) => hourHandler(event.target.value)}
-            className="h-14 rounded-lg text-center text-lg shadow-sm"
-          />
+      <Form
+        onSubmit={updateShowtimeMutation.mutate}
+        className="flex flex-1 flex-col items-center justify-between gap-4 overflow-y-scroll"
+      >
+        <div className="flex h-5/6 items-center justify-center gap-2">
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-sm">Hour</span>
+            <input
+              type="number"
+              value={hour}
+              onChange={(event) => hourHandler(event.target.value)}
+              className="h-14 rounded-lg border text-center text-lg shadow-sm dark:border-slate-600"
+            />
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-sm">Minutes</span>
+            <input
+              type="number"
+              value={minutes}
+              onChange={(event) => minutesHandler(event.target.value)}
+              className="h-14 rounded-lg border text-center text-lg shadow-sm dark:border-slate-600"
+            />
+          </div>
         </div>
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-sm">Minutes</span>
-          <input
-            type="number"
-            value={minutes}
-            onChange={(event) => minutesHandler(event.target.value)}
-            className="h-14 rounded-lg text-center text-lg shadow-sm"
-          />
-        </div>
-      </div>
-      <FormModalContainer.Submit text="Submit" />
-    </FormModalContainer>
-  );
-};
+
+        <Form.Submit text="Submit" />
+      </Form>
+    </CenteredModalContainer>
+  )
+}

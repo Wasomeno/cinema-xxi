@@ -1,21 +1,22 @@
-import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState } from "react"
+import { useSession } from "next-auth/react"
 
-import FormModalContainer from "@/components/FormModalContainer";
-import mutation from "@/components/reactQuery/mutations/mutation";
-import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
-import { cinemaStudioQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaStudioQueryKeys";
+import { Form } from "@/components/Forms"
+import { CenteredModalContainer } from "@/components/ModalContainer"
+import mutation from "@/components/reactQuery/mutations/mutation"
+import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
+import { cinemaStudioQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaStudioQueryKeys"
 
 export const AddStudioModal = ({ closeModal }) => {
-  const [studio, setStudio] = useState("");
-  const [studioCapacity, setStudioCapacity] = useState("");
-  const { data: sessionData } = useSession();
+  const [studio, setStudio] = useState("")
+  const [studioCapacity, setStudioCapacity] = useState("")
+  const { data: sessionData } = useSession()
 
   const sideEffects = useSideEffects({
     context: "add",
     object: "studio",
     queryKeys: cinemaStudioQueryKeys.allStudio,
-  });
+  })
 
   const addStudio = mutation({
     url: `/api/cinemas/${sessionData.user.cinemaId}/studios`,
@@ -25,28 +26,35 @@ export const AddStudioModal = ({ closeModal }) => {
       studioCapacity,
     },
     sideEffects: sideEffects,
-  });
+  })
 
   return (
-    <FormModalContainer
+    <CenteredModalContainer
       title="Add Studio"
-      onSubmit={addStudio.mutate}
       closeModal={closeModal}
       className="lg:h-4/6 lg:w-2/6"
     >
-      <FormModalContainer.Input
-        type="number"
-        labelText="Studio Number"
-        value={studio}
-        setValue={setStudio}
-      />
-      <FormModalContainer.Input
-        type="number"
-        labelText="Studio Capacity"
-        value={studioCapacity}
-        setValue={setStudioCapacity}
-      />
-      <FormModalContainer.Submit text="Submit" />
-    </FormModalContainer>
-  );
-};
+      <Form
+        onSubmit={addStudio.mutate}
+        className="flex w-full flex-1 flex-col items-center justify-between"
+      >
+        <div className="w-full space-y-2">
+          <Form.Input
+            type="number"
+            labelText="Studio Number"
+            value={studio}
+            setValue={setStudio}
+          />
+          <Form.Input
+            type="number"
+            labelText="Studio Capacity"
+            value={studioCapacity}
+            setValue={setStudioCapacity}
+          />
+        </div>
+
+        <Form.Submit text="Submit" />
+      </Form>
+    </CenteredModalContainer>
+  )
+}
