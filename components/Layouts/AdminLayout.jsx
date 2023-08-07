@@ -1,18 +1,18 @@
-import { useViewport } from "hooks/useViewport";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import Head from "next/head"
+import { useRouter } from "next/router"
+import { useViewport } from "hooks/useViewport"
+import { useSession } from "next-auth/react"
 
-import AnimatedContainer from "../AnimatedContainer";
-import { AdminNavigation } from "../Navigations/Admin/AdminNavigation";
-import { AdminNavigationMobile } from "../Navigations/Admin/AdminNavigationMobile";
-import { AdminToolbar } from "../Navigations/Admin/AdminToolbar";
-import { Spinner } from "../Spinner";
+import AnimatedContainer from "../AnimatedContainer"
+import { AdminNavigation } from "../Navigations/Admin/AdminNavigation"
+import { AdminNavigationMobile } from "../Navigations/Admin/AdminNavigationMobile"
+import { AdminToolbar } from "../Navigations/Admin/AdminToolbar"
+import { Spinner } from "../Spinner"
 
 export const AdminLayout = ({ children, pageTitle }) => {
-  const { data: sessionData, status } = useSession();
-  const router = useRouter();
-  const viewport = useViewport();
+  const { data: sessionData, status } = useSession()
+  const router = useRouter()
+  const viewport = useViewport()
 
   if (router.pathname === "/admin/login")
     return (
@@ -22,21 +22,21 @@ export const AdminLayout = ({ children, pageTitle }) => {
         </Head>
         {children}
       </>
-    );
+    )
 
   if (status === "loading")
     return (
       <AnimatedContainer className="flex min-h-screen items-center justify-center bg-white">
         <Spinner />
       </AnimatedContainer>
-    );
+    )
 
   if (status !== "loading" && sessionData?.user.role !== "admin") {
-    router.push("/admin/login");
+    router.push("/admin/login")
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50 flex-1 flex-col">
+    <div className="flex min-h-screen flex-1 flex-col bg-slate-50 dark:bg-slate-950">
       <Head>
         <title>
           {sessionData?.user.cinemaName} | {pageTitle}
@@ -46,11 +46,11 @@ export const AdminLayout = ({ children, pageTitle }) => {
       <AdminToolbar />
       <div className="flex flex-1 justify-center gap-4 p-4">
         <AdminNavigation />
-        <div className="w-full flex  flex-1 overflow-y-scroll rounded-lg">
+        <div className="flex w-full flex-1 overflow-y-scroll rounded-lg border bg-white dark:border-slate-700 dark:bg-slate-900">
           {children}
         </div>
       </div>
       {viewport.height > 400 && <AdminNavigationMobile />}
     </div>
-  );
-};
+  )
+}
