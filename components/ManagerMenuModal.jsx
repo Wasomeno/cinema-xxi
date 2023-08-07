@@ -10,7 +10,7 @@ const ManagerMenuModal = ({ closeModal }) => {
   return (
     <ModalContainer
       closeModal={closeModal}
-      className="fixed bottom-0 z-20 flex h-80 w-full flex-col gap-4 rounded-t-lg bg-slate-100 p-4 dark:bg-slate-700 lg:right-5 lg:top-14 lg:h-96 lg:w-80 lg:rounded-lg"
+      className="flex h-80 w-full flex-col gap-4 p-4 lg:right-5 lg:top-14 lg:h-96 lg:w-80"
     >
       <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25" />
       <div className="flex w-full items-center justify-between">

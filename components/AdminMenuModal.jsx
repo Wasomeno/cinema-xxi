@@ -11,7 +11,7 @@ const AdminMenuModal = ({ closeModal }) => {
   return (
     <ModalContainer
       closeModal={closeModal}
-      className="bottom-0 z-20 flex h-80 w-full flex-col gap-4 rounded-t-lg bg-slate-100 p-4 dark:bg-slate-700 md:right-5 md:top-12 md:h-96 md:w-80 md:rounded-lg"
+      className="flex h-80 w-full flex-col gap-4 p-4 md:right-5 md:top-12 md:h-96 md:w-80"
     >
       <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25" />
       <div className="flex w-full items-center justify-between">
@@ -29,13 +29,6 @@ const AdminMenuModal = ({ closeModal }) => {
             <HiPower size="16" />
           </button>
         </div>
-      </div>
-
-      <div className="flex flex-col items-start gap-2">
-        <button className="flex w-full justify-between rounded-md bg-slate-400 bg-opacity-25 p-3 font-poppins text-sm text-slate-900 first-letter:items-center dark:text-slate-50">
-          <span>Actions</span>
-          <HiOutlineChevronRight size="5" />
-        </button>
       </div>
     </ModalContainer>
   )

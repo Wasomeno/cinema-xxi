@@ -41,7 +41,7 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
   return (
     <ModalContainer
       closeModal={toggleShowUserModal}
-      className="bottom-0 h-80 w-full gap-4 rounded-t-lg p-4 md:right-5 md:top-14 md:h-96 md:w-80 md:rounded-lg"
+      className="h-80 w-full gap-4 p-4 md:right-5 md:top-14 md:h-96 md:w-80"
     >
       <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25" />
       <div className="flex w-full items-center justify-between">
