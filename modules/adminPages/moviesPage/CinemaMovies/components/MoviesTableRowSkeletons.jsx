@@ -1,8 +1,8 @@
-import { useSkeleton } from "hooks/useSkeleton";
-import React from "react";
-import { twMerge } from "tailwind-merge";
+import React from "react"
+import { useSkeleton } from "hooks/useSkeleton"
+import { twMerge } from "tailwind-merge"
 
-const MoviesTableRowSkeleton = ({ table }) => {
+const MovieTableRowSkeleton = ({ table }) => {
   return (
     <tr>
       {table.getAllColumns().map((column, index) => (
@@ -22,10 +22,10 @@ const MoviesTableRowSkeleton = ({ table }) => {
         </td>
       ))}
     </tr>
-  );
-};
+  )
+}
 
 export const MoviesTableRowSkeletons = ({ table }) => {
-  const Skeletons = useSkeleton(<MoviesTableRowSkeleton table={table} />, 5);
-  return Skeletons;
-};
+  const Skeletons = useSkeleton(<MovieTableRowSkeleton table={table} />, 5)
+  return Skeletons
+}
