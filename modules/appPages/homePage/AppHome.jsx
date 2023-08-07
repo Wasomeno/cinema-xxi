@@ -23,7 +23,7 @@ export const AppHome = ({ firstRegion }) => {
         <div className="w-full lg:w-5/6">
           <button
             onClick={toggleShowRegionList}
-            className="flex w-6/12  items-center justify-between rounded-md border border-slate-300 bg-slate-50 p-2 text-start font-poppins text-xs dark:border-slate-700 dark:bg-slate-900 md:w-3/12 lg:text-sm"
+            className="flex w-6/12  items-center justify-between rounded-md border bg-slate-50 p-2 text-start font-poppins text-xs dark:border-slate-700 dark:bg-slate-900 md:w-3/12 lg:text-sm"
           >
             <span className="text-slate-800 dark:text-slate-50">
               {selectedRegion?.name}
