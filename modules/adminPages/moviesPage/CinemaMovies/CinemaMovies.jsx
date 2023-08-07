@@ -1,30 +1,30 @@
-import { AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState } from "react"
+import dynamic from "next/dynamic"
+import { useRouter } from "next/router"
+import { AnimatePresence } from "framer-motion"
 
-import AdminHeader from "@/components/Headers/AdminHeader";
-import TableRowMenu from "@/components/TableRowMenu";
+import AdminHeader from "@/components/Headers/AdminHeader"
+import TableRowMenu from "@/components/TableRowMenu"
 
-import { CinemaMovieDetailsModal } from "./components/CinemaMovieDetailsModal";
-import { MoviesTable } from "./components/MoviesTable";
+import { CinemaMovieDetailsModal } from "./components/CinemaMovieDetailsModal"
+import { MoviesTable } from "./components/MoviesTable"
 
 const AddCinemaMovieModal = dynamic(
   async () =>
     (await import("./components/AddCinemaMovieModal")).AddCinemaMovieModal
-);
+)
 
 const DeleteCinemaMovieModal = dynamic(
   async () =>
     (await import("./components/DeleteCinemaMovieModal")).DeleteCinemaMovieModal
-);
+)
 
 export const CinemaMovies = () => {
-  const [selectedMovies, setSelectedMovies] = useState([]);
-  const router = useRouter();
+  const [selectedMovies, setSelectedMovies] = useState([])
+  const router = useRouter()
 
   return (
-    <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex w-full flex-1 flex-col rounded-lg p-4">
       <AdminHeader>Movies</AdminHeader>
       <MoviesTable
         setSelectedMovies={setSelectedMovies}
@@ -33,7 +33,7 @@ export const CinemaMovies = () => {
           <TableRowMenu>
             <TableRowMenu.Button
               onClick={() => {
-                router.push(`/admin/movies?id=${movieId}&view=true`);
+                router.push(`/admin/movies?id=${movieId}&view=true`)
               }}
             >
               View Movie
@@ -61,5 +61,5 @@ export const CinemaMovies = () => {
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}

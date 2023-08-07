@@ -1,34 +1,34 @@
-import { AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState } from "react"
+import dynamic from "next/dynamic"
+import { useRouter } from "next/router"
+import { AnimatePresence } from "framer-motion"
 
-import AdminHeader from "@/components/Headers/AdminHeader";
-import TableRowMenu from "@/components/TableRowMenu";
+import AdminHeader from "@/components/Headers/AdminHeader"
+import TableRowMenu from "@/components/TableRowMenu"
 
-import { ShowtimesTable } from "./components/ShowtimesTable";
+import { ShowtimesTable } from "./components/ShowtimesTable"
 
 const AddCinemaShowtimeModal = dynamic(
   async () =>
     (await import("./components/AddCinemaShowtimeModal")).AddCinemaShowtimeModal
-);
+)
 
 const EditCinemaShowtimeModal = dynamic(
   async () =>
     (await import("./components/EditCinemaShowtimeModal"))
       .EditCinemaShowtimeModal
-);
+)
 
 const DeleteShowtimeModal = dynamic(
   async () =>
     (await import("./components/DeleteShowtimeModal")).DeleteShowtimeModal
-);
+)
 
 export const CinemaShowtimes = () => {
-  const [selectedShowtimes, setSelectedShowtimes] = useState([]);
-  const router = useRouter();
+  const [selectedShowtimes, setSelectedShowtimes] = useState([])
+  const router = useRouter()
   return (
-    <div className="flex flex-col w-full rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex w-full flex-1 flex-col rounded-lg p-4">
       <AdminHeader>Showtimes</AdminHeader>
       <ShowtimesTable
         selectedShowtimes={selectedShowtimes}
@@ -59,10 +59,10 @@ export const CinemaShowtimes = () => {
         {router.query.delete && (
           <DeleteShowtimeModal
             closeModal={() => router.push("/admin/showtimes")}
-            selectedShowtimes={state.selectedDatas}
+            selectedShowtimes={selectedShowtimes}
           />
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}

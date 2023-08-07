@@ -1,42 +1,42 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { Line } from "react-chartjs-2";
+import { useState } from "react"
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
+import { useSession } from "next-auth/react"
+import { Line } from "react-chartjs-2"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import { ChartComponent } from "@/components/ChartComponent";
-import AdminHeader from "@/components/Headers/AdminHeader";
-import { query } from "@/components/reactQuery/queries/query";
+import AnimatedContainer from "@/components/AnimatedContainer"
+import { ChartComponent } from "@/components/ChartComponent"
+import AdminHeader from "@/components/Headers/AdminHeader"
+import { query } from "@/components/reactQuery/queries/query"
 
 function getMonths() {
-  let months = [];
+  let months = []
   for (let i = 0; i < 12; i++) {
-    const time = new Date();
+    const time = new Date()
     const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
       time.setMonth(i)
-    );
-    months.push({ index: time.getMonth(), month });
+    )
+    months.push({ index: time.getMonth(), month })
   }
-  return months;
+  return months
 }
 
 export const CinemaDashboard = () => {
-  const timeNow = new Date();
+  const timeNow = new Date()
   const [selectedMonth, setSelectedMonth] = useState(
     getMonths()[timeNow.getMonth()]
-  );
+  )
 
-  const session = useSession();
+  const session = useSession()
   const cinemaMonthlyTransactions = query({
     queryKey: [selectedMonth.month],
     url: `/api/cinemas/${session.data?.user.cinemaId}/transactions/${
       selectedMonth.index + 1
     }`,
     enabledCondition: session.data !== undefined,
-  });
+  })
 
   return (
-    <AnimatedContainer className="flex min-h-screen flex-1 flex-col rounded-lg border bg-white  p-4 dark:border-slate-500 dark:bg-slate-700">
+    <AnimatedContainer className="flex flex-1 flex-col rounded-lg p-4">
       <AdminHeader>{session.data?.user.cinemaName}</AdminHeader>
       <div className="my-4 flex w-full flex-wrap items-center justify-start gap-4 lg:flex-nowrap">
         <div className="flex w-full flex-col items-center gap-4 rounded-lg border border-slate-300 p-4 lg:w-3/6">
@@ -107,5 +107,5 @@ export const CinemaDashboard = () => {
         </div>
       </div>
     </AnimatedContainer>
-  );
-};
+  )
+}

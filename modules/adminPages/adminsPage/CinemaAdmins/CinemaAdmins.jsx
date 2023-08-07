@@ -1,19 +1,24 @@
-import { AnimatePresence } from "framer-motion";
-import { useRouter } from "next/router";
+import { useState } from "react"
+import { useRouter } from "next/router"
+import { AnimatePresence } from "framer-motion"
 
-import AdminHeader from "@/components/Headers/AdminHeader";
+import AdminHeader from "@/components/Headers/AdminHeader"
 
-import { AddCinemaAdminModal } from "./components/AddCinemaAdminModal";
-import { CinemaAdminsTable } from "./components/CinemaAdminsTable";
-import { DeleteCinemaAdminsModal } from "./components/DeleteCinemaAdminsModal";
-import { EditCinemaAdminModal } from "./components/EditCinemaAdminModal";
+import { AddCinemaAdminModal } from "./components/AddCinemaAdminModal"
+import { CinemaAdminsTable } from "./components/CinemaAdminsTable"
+import { DeleteCinemaAdminsModal } from "./components/DeleteCinemaAdminsModal"
+import { EditCinemaAdminModal } from "./components/EditCinemaAdminModal"
 
 export const CinemaAdmins = () => {
-  const { query, push } = useRouter();
+  const [selectedAdmins, setSelectedAdmins] = useState([])
+  const { query, push } = useRouter()
   return (
-    <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col rounded-lg p-4">
       <AdminHeader>Admins</AdminHeader>
-      <CinemaAdminsTable />
+      <CinemaAdminsTable
+        selectedAdmins={selectedAdmins}
+        setSelectedAdmins={setSelectedAdmins}
+      />
       <AnimatePresence>
         {query.add && (
           <AddCinemaAdminModal closeModal={() => push("/admin/admins")} />
@@ -22,10 +27,10 @@ export const CinemaAdmins = () => {
         {query.delete && (
           <DeleteCinemaAdminsModal
             closeModal={() => push("/admin/admins")}
-            selectedAdmins={state.selectedData}
+            selectedAdmins={selectedAdmins}
           />
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}
