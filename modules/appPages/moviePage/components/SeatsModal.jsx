@@ -1,30 +1,26 @@
-import { useDateTime } from "hooks/useDateTime";
-import { useSkeleton } from "hooks/useSkeleton";
-import { useEffect } from "react";
-import { HiXMark } from "react-icons/hi2";
-import { twMerge } from "tailwind-merge";
+import { useEffect } from "react"
+import { useDateTime } from "hooks/useDateTime"
+import { useSkeleton } from "hooks/useSkeleton"
+import { twMerge } from "tailwind-merge"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import { ModalContainer } from "@/components/ModalContainer";
-import { query } from "@/components/reactQuery/queries/query";
+import { CenteredModalContainer } from "@/components/ModalContainer"
+import { query } from "@/components/reactQuery/queries/query"
 
-import SeatSkeleton from "./SeatSkeleton";
+import SeatSkeleton from "./SeatSkeleton"
 
 export default function SeatsModal({ title, closeModal, seats, seatsTotal }) {
   return (
-    <ModalContainer closeModal={closeModal}>
-      <AnimatedContainer className="fixed bottom-0 left-1/2 z-40 flex h-5/6 w-full -translate-x-1/2 flex-col items-center justify-between gap-4 overflow-y-scroll rounded-t-lg bg-slate-50 p-6 dark:bg-slate-700 lg:bottom-1/2 lg:top-1/2 lg:w-5/6 lg:-translate-y-1/2 lg:rounded-lg">
-        <button onClick={closeModal} className="absolute right-2 top-2 p-2">
-          <HiXMark className="h-5 w-5 lg:h-6 lg:w-6" />
-        </button>
-        <div className="flex flex-col items-center justify-center gap-4">
-          <h5 className="font-poppins text-sm lg:text-lg">{title}</h5>
-          {seats}
-        </div>
+    <CenteredModalContainer
+      title={title}
+      closeModal={closeModal}
+      className="w-full items-center gap-4 overflow-y-scroll rounded-t-lg lg:w-3/6 lg:rounded-lg"
+    >
+      <div className="flex w-full flex-1 flex-col justify-between gap-10">
+        {seats}
         {seatsTotal}
-      </AnimatedContainer>
-    </ModalContainer>
-  );
+      </div>
+    </CenteredModalContainer>
+  )
 }
 
 function Seats({
@@ -34,7 +30,7 @@ function Seats({
   selectedDate,
   selectedShowtime,
 }) {
-  const seatSkeletons = useSkeleton(<SeatSkeleton />, 60);
+  const seatSkeletons = useSkeleton(<SeatSkeleton />, 60)
   const showtimeSeats = query({
     queryKey: [
       "takenSeats",
@@ -53,67 +49,66 @@ function Seats({
       "/" +
       selectedDate.date +
       "/seats",
-  });
+  })
 
   function selectSeat(seatNumber) {
-    setSelectedSeats((current) => [...current, seatNumber]);
+    setSelectedSeats((current) => [...current, seatNumber])
   }
 
   function deselectSeat(seatNumber) {
     setSelectedSeats((current) =>
       current.filter((currentSeatNumber) => currentSeatNumber !== seatNumber)
-    );
+    )
   }
 
   function generateSeats() {
-    let seats = [];
+    let seats = []
     for (let i = 0; i < showtimeSeats.data?.studio.capacity; ++i) {
-      seats[i] = i + 1;
+      seats[i] = i + 1
     }
-    return seats;
+    return seats
   }
 
   useEffect(() => {
-    if (!showtimeSeats.isLoading) setSeatsId(showtimeSeats.data?.id);
-  }, [showtimeSeats.isLoading]);
+    if (!showtimeSeats.isLoading) setSeatsId(showtimeSeats.data?.id)
+  }, [showtimeSeats.isLoading])
 
   return (
-    <div className="flex w-full flex-col items-center overflow-x-scroll lg:w-4/6">
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        {showtimeSeats.isLoading
-          ? seatSkeletons.map((skeleton) => skeleton)
-          : generateSeats().map((seatNumber, index) => (
-              <button
-                key={index}
-                disabled={showtimeSeats.data?.seats_taken.includes(seatNumber)}
-                onClick={() => {
-                  selectedSeats.includes(seatNumber)
-                    ? deselectSeat(seatNumber)
-                    : selectSeat(seatNumber);
-                }}
-                className={twMerge(
-                  "h-10 w-10 cursor-pointer rounded-lg bg-slate-200 text-slate-800 shadow-sm transition duration-200 disabled:cursor-default disabled:bg-opacity-40 disabled:text-opacity-40",
-                  selectedSeats.includes(seatNumber) && "bg-blue-200"
-                )}
-              >
-                <span className="m-auto text-sm">{seatNumber}</span>
-              </button>
-            ))}
-      </div>
+    <div className="grid w-full grid-cols-12 gap-3">
+      {showtimeSeats.isLoading
+        ? seatSkeletons.map((skeleton) => skeleton)
+        : generateSeats().map((seatNumber, index) => (
+            <button
+              key={index}
+              disabled={showtimeSeats.data?.seats_taken.includes(seatNumber)}
+              onClick={() => {
+                selectedSeats.includes(seatNumber)
+                  ? deselectSeat(seatNumber)
+                  : selectSeat(seatNumber)
+              }}
+              className={twMerge(
+                "col-span-2 h-8  cursor-pointer rounded-lg bg-slate-200 shadow-sm transition duration-200 disabled:cursor-default disabled:bg-opacity-40 disabled:text-opacity-40 dark:bg-slate-800 lg:col-span-1",
+                selectedSeats.includes(seatNumber) &&
+                  "bg-blue-200 dark:bg-blue-800"
+              )}
+            >
+              <span className="m-auto text-xs lg:text-sm">{seatNumber}</span>
+            </button>
+          ))}
     </div>
-  );
+  )
 }
 
 function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
-  const dateTime = useDateTime({ date: selectedDate.date });
+  const dateTime = useDateTime({ date: selectedDate.date })
 
   function getTicketPriceTotal(day, seatsAmount) {
-    const total = seatsAmount * (day > 5 ? 0.0012 : 0.001);
-    return seatsAmount < 1 ? 0 : total;
+    const total = seatsAmount * (day > 5 ? 0.0012 : 0.001)
+    return seatsAmount < 1 ? 0 : total
   }
 
   return (
-    <div className="flex w-full flex-col justify-around rounded-lg border bg-slate-100 p-4 lg:w-4/6">
+    <div className="flex h-32 w-full flex-col justify-around rounded-lg border bg-slate-100 p-4 dark:border-slate-500 dark:bg-slate-700">
       <div className="flex items-start">
         <div className="flex h-20 w-3/6 flex-col items-center gap-2">
           <span className="text-sm">Total price</span>
@@ -130,7 +125,7 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
               selectedSeats.map((seatNumber, index) => (
                 <span
                   key={index}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-200 text-xs"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-200 text-xs dark:bg-blue-800"
                 >
                   {seatNumber}
                 </span>
@@ -143,14 +138,14 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
         <button
           disabled={selectedSeats.length < 1}
           onClick={onSeatsConfirmation}
-          className="w-3/6 rounded-lg bg-blue-200 p-2 font-poppins text-xs text-slate-800 transition duration-200 enabled:hover:bg-blue-300  disabled:bg-opacity-50 disabled:text-opacity-50 md:text-sm"
+          className="w-3/6 rounded-lg bg-blue-200 p-2 font-poppins text-xs text-slate-800 transition duration-200 enabled:hover:bg-blue-300 disabled:bg-opacity-50 disabled:text-opacity-50 dark:bg-slate-50 dark:enabled:hover:bg-slate-300 md:text-sm"
         >
           Confirm Seats
         </button>
       </div>
     </div>
-  );
+  )
 }
 
-SeatsModal.Seats = Seats;
-SeatsModal.SeatsTotal = SeatsTotal;
+SeatsModal.Seats = Seats
+SeatsModal.SeatsTotal = SeatsTotal
