@@ -19,7 +19,7 @@ const RegionListModal = ({
     <CenteredModalContainer
       title="Region List"
       closeModal={toggleShowRegionList}
-      className="lg:h-4/6 lg:w-2/6"
+      className="h-72 lg:h-4/6 lg:w-2/6"
     >
       <div className="flex flex-col items-center gap-2 overflow-y-scroll">
         {allRegion.isLoading && skeletons.map((skeleton) => skeleton)}
