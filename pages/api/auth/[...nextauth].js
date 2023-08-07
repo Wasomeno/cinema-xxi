@@ -1,8 +1,11 @@
-import { prisma } from "lib/prisma";
-import NextAuth from "next-auth/next";
-import Credentials from "next-auth/providers/credentials";
+import { prisma } from "lib/prisma"
+import NextAuth from "next-auth/next"
+import Credentials from "next-auth/providers/credentials"
 
 export const authOptions = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       name: "Credentials",
@@ -13,61 +16,81 @@ export const authOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
+      async authorize(credentials) {
         try {
-          let userDetails = {};
-          const { username, password, role } = credentials;
-
+          let userDetails = {}
+          const { username, password, role } = credentials
           if (role === "manager") {
             userDetails = await prisma.manager.findUnique({
               where: { username: username },
-            });
-          }
-
-          if (role === "admin") {
+            })
+            if (!username || !password) {
+              const error = new Error("password or username can't be empty")
+              error.code = 500
+              throw error
+            } else if (userDetails.password !== password) {
+              throw new Error("password don't match")
+            } else {
+              return {
+                ...userDetails,
+                role,
+                cinemaName: role === "admin" && userDetails.cinema.name,
+              }
+            }
+          } else if (role === "admin") {
             userDetails = await prisma.admin.findUnique({
               where: { username: username },
-              include: { cinema: true },
-            });
+              include: { cinema: { select: { id: true, name: true } } },
+            })
+            if (!username || !password) {
+              const error = new Error("password or username can't be empty")
+              error.code = 500
+              throw error
+            } else if (userDetails.password !== password) {
+              throw new Error("password don't match")
+            } else {
+              return {
+                ...userDetails,
+                role,
+                cinemaName: role === "admin" && userDetails.cinema.name,
+              }
+            }
+          } else {
+            throw new Error("roles does not exists")
           }
-
-          if (!username || !password) {
-            const error = new Error("password or username can't be empty");
-            error.code = 404;
-            throw error;
-          }
-          if (userDetails.password !== password) {
-            throw new Error("password don't match");
-          }
-          return { ...userDetails, role: role };
         } catch (error) {
-          throw error;
+          throw error
         }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, account, user }) {
-      if (account && user.role === "admin") {
-        token.userDetails = {
-          id: user.id,
-          cinemaId: user.cinema.id,
-          cinemaName: user.cinema.name,
-        };
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.username = user.username
+        token.name = user.name
+        token.role = user.role
+        user.role === "admin" &&
+          ((token.cinemaId = user.cinemaId),
+          (token.cinemaName = user.cinemaName))
       }
-      if (account && user.role === "manager") {
-        token.userDetails = {
-          id: user.id,
-        };
-      }
-      return token;
+      return token
     },
-    async session({ session, token, user }) {
-      session.user = { ...session.user, ...token.userDetails };
-      return session;
+    async session({ session, token }) {
+      session.user = { ...token }
+      return session
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
+}
 
-export default NextAuth(authOptions);
+export default async function auth(req, res) {
+  const url = req.query?.callbackUrl
+  return await NextAuth(req, res, {
+    ...authOptions,
+    pages: {
+      signIn: url?.startsWith("/admin") ? "/admin/login" : "/manager/login",
+    },
+  })
+}
