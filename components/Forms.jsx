@@ -1,22 +1,50 @@
-import clsx from "clsx";
-import React from "react";
-import { twMerge } from "tailwind-merge";
+import React from "react"
+import { twMerge } from "tailwind-merge"
 
-export const FormContainer = ({ children, onSubmit }) => {
+export const Form = ({ children, onSubmit, className }) => {
   return (
     <form
       onSubmit={(event) => {
-        event.preventDefault();
-        onSubmit();
+        event.preventDefault()
+        onSubmit()
       }}
-      className="flex w-full flex-col items-center justify-start gap-2"
+      className={className}
     >
       {children}
     </form>
-  );
-};
+  )
+}
 
-export const FormTextArea = ({ id, value, setValue, width }) => {
+const Input = ({ type = "", labelText = "", value, setValue }) => {
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <label className="text-xs lg:text-sm">{labelText}</label>
+      <input
+        type={type}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        className="rounded-lg border border-slate-600 bg-transparent px-2 py-2 text-xs lg:text-sm"
+      />
+    </div>
+  )
+}
+
+const Submit = ({ text = "", className }) => {
+  return (
+    <div className="my-3 text-center">
+      <button
+        className={twMerge(
+          "h-10 w-44 rounded-lg border border-slate-300 text-xs font-medium transition duration-200 hover:bg-green-200 dark:border-slate-700 dark:hover:bg-green-800 lg:text-sm",
+          className
+        )}
+      >
+        {text}
+      </button>
+    </div>
+  )
+}
+
+const TextArea = ({ id, value, setValue, width }) => {
   return (
     <textarea
       id={id}
@@ -29,43 +57,9 @@ export const FormTextArea = ({ id, value, setValue, width }) => {
         width
       }
     />
-  );
-};
+  )
+}
 
-export const FormInput = ({
-  type,
-  className,
-  value,
-  setValue,
-  id,
-  ...props
-}) => {
-  return (
-    <input
-      type={type}
-      value={value}
-      id={id}
-      className={twMerge(
-        clsx(
-          "h-8 w-full rounded-md border border-slate-500 p-2 font-poppins text-xs focus:outline-none dark:bg-slate-700 lg:text-xs",
-          className
-        )
-      )}
-      onChange={(event) => setValue(event.target.value)}
-      {...props}
-    />
-  );
-};
-
-export const FormSubmit = ({ width, value }) => {
-  return (
-    <input
-      type="submit"
-      value={value}
-      className={
-        (width ? "w-" + width : "w-full") +
-        " cursor-pointer rounded-lg bg-slate-800 p-2 font-poppins text-xs font-medium text-white dark:bg-gray-600 lg:text-xs"
-      }
-    />
-  );
-};
+Form.Submit = Submit
+Form.Input = Input
+Form.TextArea = TextArea
