@@ -101,7 +101,7 @@ export default function AppMovieShowtimesPage({
 
   return (
     <AppLayout pageTitle={`${movieDetails.title} Showtimes`}>
-      <AnimatedContainer className="flex h-screen w-full flex-col items-center gap-6 bg-white p-4">
+      <AnimatedContainer className="flex flex-1 w-full flex-col items-center gap-6 p-4">
         <MovieSection
           image={<MovieSection.Image image={movieDetails.image} />}
           title={<MovieSection.Title title={movieDetails.title} />}
