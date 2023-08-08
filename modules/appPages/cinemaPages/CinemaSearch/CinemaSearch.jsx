@@ -13,8 +13,8 @@ export const CinemaSearch = () => {
 
   if (!isConnected) return <WalletNotConnected />
   return (
-    <AnimatedContainer className="flex-1">
-      <div className="mt-2.5 space-y-1.5 px-5 text-start lg:mt-5 lg:px-10">
+    <AnimatedContainer className="flex-1 py-5 lg:py-10">
+      <div className="mb-2.5 space-y-1.5 px-5 text-start lg:px-10">
         <h1 className="font-poppins text-base font-semibold lg:text-3xl">
           Search Cinemas
         </h1>
@@ -22,7 +22,7 @@ export const CinemaSearch = () => {
           Search for cinema of your choosing
         </p>
       </div>
-      <div className="sticky top-[59px] bg-white px-5 py-2 dark:bg-slate-950 lg:static lg:w-3/6 lg:px-10 lg:py-3">
+      <div className="sticky top-[59px] bg-white px-5 dark:bg-slate-950 lg:static lg:w-3/6 lg:px-10">
         <input
           type="text"
           onChange={(event) => {
@@ -32,7 +32,7 @@ export const CinemaSearch = () => {
           placeholder="Search cinema..."
         />
       </div>
-      <div className="px-5 lg:w-3/6 lg:px-10">
+      <div className="mt-2.5 px-5  lg:w-3/6 lg:px-10">
         <CinemaList search={search} />
       </div>
     </AnimatedContainer>

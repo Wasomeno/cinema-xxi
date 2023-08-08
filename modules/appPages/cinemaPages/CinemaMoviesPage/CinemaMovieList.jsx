@@ -1,17 +1,19 @@
 import Image from "next/image"
 import Link from "next/link"
-import { BsArrowLeft, BsArrowLeftShort } from "react-icons/bs"
+import { useRouter } from "next/router"
+import { BsArrowLeftShort } from "react-icons/bs"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
 
 export const CinemaMovieList = ({ cinemaDetails }) => {
+  const { back } = useRouter()
   return (
-    <AnimatedContainer>
-      <div className="sticky top-[59px] flex items-center gap-2 bg-white px-5 py-4 dark:bg-slate-950 lg:static lg:px-10">
-        <button className="lg:hidden">
+    <AnimatedContainer className="flex-1 py-2.5 lg:py-10">
+      <div className="sticky top-[59px] flex items-center gap-2 bg-white px-5 py-2.5 dark:bg-slate-950 lg:static lg:mb-2.5 lg:px-10">
+        <button className="lg:hidden" onClick={back}>
           <BsArrowLeftShort size={24} />
         </button>
-        <h1 className=" font-poppins font-semibold lg:text-3xl">
+        <h1 className="font-poppins text-sm font-semibold lg:text-3xl">
           {cinemaDetails.name}
         </h1>
       </div>
