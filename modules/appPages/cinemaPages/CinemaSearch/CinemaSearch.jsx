@@ -1,40 +1,40 @@
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
-import { useState } from "react";
+import { useState } from "react"
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import { WalletNotConnected } from "@/components/WalletNotConnected";
+import AnimatedContainer from "@/components/AnimatedContainer"
+import { WalletNotConnected } from "@/components/WalletNotConnected"
 
-import { CinemaList } from "./CinemaList";
+import { CinemaList } from "./CinemaList"
 
 export const CinemaSearch = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("")
 
-  const { isConnected } = useUserConnectionDetails();
+  const { isConnected } = useUserConnectionDetails()
 
-  if (!isConnected) return <WalletNotConnected />;
+  if (!isConnected) return <WalletNotConnected />
   return (
-    <AnimatedContainer className="flex flex-1 flex-col items-start gap-4 p-5 lg:p-10">
-      <div className="w-full">
-        <div className="mb-4 space-y-1.5 text-start">
-          <h1 className="font-openSans font-medium text-base lg:text-3xl">
-            Search Cinemas
-          </h1>
-          <p className="text-xs lg:text-base">
-            Search for cinema of your choosing
-          </p>
-        </div>
-        <div className="flex w-full flex-col gap-4">
-          <input
-            type="text"
-            onChange={(event) => {
-              setTimeout(() => setSearch(event.target.value), 1000);
-            }}
-            className="w-full rounded-lg border dark:border-slate-700 dark:bg-slate-900 bg-white p-2 text-xs focus:outline-none lg:text-base"
-            placeholder="Search cinema..."
-          />
-          <CinemaList search={search} />
-        </div>
+    <AnimatedContainer className="flex-1">
+      <div className="mt-2.5 space-y-1.5 px-5 text-start lg:mt-5 lg:px-10">
+        <h1 className="font-poppins text-base font-semibold lg:text-3xl">
+          Search Cinemas
+        </h1>
+        <p className="text-xs lg:text-base">
+          Search for cinema of your choosing
+        </p>
+      </div>
+      <div className="sticky top-[59px] bg-white px-5 py-2 dark:bg-slate-950 lg:static lg:w-3/6 lg:px-10 lg:py-3">
+        <input
+          type="text"
+          onChange={(event) => {
+            setTimeout(() => setSearch(event.target.value), 1000)
+          }}
+          className="w-full rounded-lg border bg-white p-2 text-xs focus:outline-none dark:border-slate-700 dark:bg-slate-900 lg:text-base"
+          placeholder="Search cinema..."
+        />
+      </div>
+      <div className="px-5 lg:w-3/6 lg:px-10">
+        <CinemaList search={search} />
       </div>
     </AnimatedContainer>
-  );
-};
+  )
+}
