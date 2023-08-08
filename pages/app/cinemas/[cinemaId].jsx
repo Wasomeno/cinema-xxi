@@ -1,19 +1,19 @@
-import { prisma } from "lib/prisma";
-import { CinemaMovieList } from "modules/appPages/cinemaPages/CinemaMoviesPage";
+import { prisma } from "lib/prisma"
+import { CinemaMovieList } from "modules/appPages/cinemaPages/CinemaMoviesPage"
 
-import AppLayout from "@/components/Layouts/AppLayout";
+import AppLayout from "@/components/Layouts/AppLayout"
 
 export async function getStaticPaths() {
-  const cinemas = await prisma.cinema.findMany();
+  const cinemas = await prisma.cinema.findMany()
   const cinemaPaths = cinemas.map((cinema) => ({
     params: { cinemaId: cinema.id.toString() },
-  }));
+  }))
 
-  return { paths: cinemaPaths, fallback: "blocking" };
+  return { paths: cinemaPaths, fallback: "blocking" }
 }
 
 export async function getStaticProps(context) {
-  const { params } = context;
+  const { params } = context
   const cinemaDetails = await prisma.cinema.findUnique({
     where: { id: parseInt(params.cinemaId) },
     include: {
@@ -21,7 +21,7 @@ export async function getStaticProps(context) {
         select: { movies: true },
       },
     },
-  });
+  })
 
   return {
     props: {
@@ -32,14 +32,13 @@ export async function getStaticProps(context) {
           : [],
       },
     },
-    revalidate: 30,
-  };
+  }
 }
 
 export default function CinemaMoviesPage({ cinemaDetails }) {
   return (
-    <AppLayout pageTitle={`${cinemaDetails.name} Movie List`}>
+    <AppLayout pageTitle={`${cinemaDetails.name} Movies`}>
       <CinemaMovieList cinemaDetails={cinemaDetails} />
     </AppLayout>
-  );
+  )
 }
