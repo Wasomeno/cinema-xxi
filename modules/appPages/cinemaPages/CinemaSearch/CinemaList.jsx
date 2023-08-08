@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { useSkeleton } from "hooks/useSkeleton";
-import Link from "next/link";
-import React from "react";
-import { HiXMark } from "react-icons/hi2";
+import React from "react"
+import Link from "next/link"
+import { useQuery } from "@tanstack/react-query"
+import { useSkeleton } from "hooks/useSkeleton"
+import { HiXMark } from "react-icons/hi2"
 
 export const CinemaList = ({ search }) => {
   const allCinema = useQuery({
@@ -14,17 +14,17 @@ export const CinemaList = ({ search }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ searchTerm: search }),
-      }).then((response) => response.json());
+      }).then((response) => response.json())
     },
-  });
+  })
 
   const skeletons = useSkeleton(
     <div className="h-8 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-700 lg:h-10" />,
     5
-  );
+  )
 
   return (
-    <div className="flex w-full flex-col gap-2 overflow-y-scroll lg:w-3/6">
+    <div className="flex w-full flex-col gap-2 overflow-y-scroll">
       {allCinema.isLoading && skeletons.map((skeleton) => skeleton)}
 
       {!allCinema.isLoading && allCinema.data?.length
@@ -32,7 +32,7 @@ export const CinemaList = ({ search }) => {
             <Link
               key={cinema.id}
               href={`/app/cinemas/${cinema.id}`}
-              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 py-2 px-4 text-xs font-openSans font-medium transition duration-300 hover:bg-blue-100 lg:text-sm"
+              className="w-full rounded-lg border border-slate-300 bg-gray-50 px-4 py-2 font-openSans text-xs font-medium transition duration-300 hover:bg-blue-100 dark:border-slate-700 dark:bg-slate-800 lg:text-sm"
             >
               {cinema.name}
             </Link>
@@ -50,5 +50,5 @@ export const CinemaList = ({ search }) => {
         </div>
       ) : null}
     </div>
-  );
-};
+  )
+}
