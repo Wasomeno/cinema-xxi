@@ -1,36 +1,36 @@
-import { useSkeleton } from "hooks/useSkeleton";
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
-import { useState } from "react";
-import { RxCrossCircled } from "react-icons/rx";
-import { twMerge } from "tailwind-merge";
+import { useState } from "react"
+import { useSkeleton } from "hooks/useSkeleton"
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
+import { RxCrossCircled } from "react-icons/rx"
+import { twMerge } from "tailwind-merge"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import { query } from "@/components/reactQuery/queries/query";
-import { WalletNotConnected } from "@/components/WalletNotConnected";
+import AnimatedContainer from "@/components/AnimatedContainer"
+import { query } from "@/components/reactQuery/queries/query"
+import { WalletNotConnected } from "@/components/WalletNotConnected"
 
 import {
   TransactionCard,
   TransactionCardSkeleton,
-} from "./components/TransactionCard";
-import { TransactionDetailsModal } from "./components/TransactionDetailsModal";
+} from "./components/TransactionCard"
+import { TransactionDetailsModal } from "./components/TransactionDetailsModal"
 
 export const Transactions = () => {
-  const [activeTab, setActiveTab] = useState("tickets");
+  const [activeTab, setActiveTab] = useState("tickets")
 
-  const { user, isConnected } = useUserConnectionDetails();
+  const { user, isConnected } = useUserConnectionDetails()
   const transactions = query({
     queryKey: ["transactions"],
     url: `/api/users/${user}/transactions`,
     enabledCondition: user !== "" && user !== undefined,
-  });
+  })
 
-  const skeletons = useSkeleton(<TransactionCardSkeleton />, 5);
+  const skeletons = useSkeleton(<TransactionCardSkeleton />, 5)
 
-  if (!isConnected) return <WalletNotConnected />;
+  if (!isConnected) return <WalletNotConnected />
   return (
     <AnimatedContainer className="relative flex min-h-screen flex-1 flex-col bg-opacity-95 p-5 lg:p-10">
       <div className="mb-4 space-y-1.5 text-start">
-        <h1 className="font-openSans font-medium text-base lg:text-3xl">
+        <h1 className="font-poppins text-base font-semibold lg:text-3xl">
           Transactions
         </h1>
       </div>
@@ -40,7 +40,7 @@ export const Transactions = () => {
           className={twMerge(
             "rounded-lg bg-slate-100  px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
             activeTab === "tickets" &&
-              "bg-blue-100 dark:bg-blue-300 text-slate-800"
+              "bg-blue-100 text-slate-800 dark:bg-blue-300"
           )}
         >
           Active Tickets
@@ -50,7 +50,7 @@ export const Transactions = () => {
           className={twMerge(
             "rounded-lg bg-slate-100 px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
             activeTab === "history" &&
-              "bg-blue-100 dark:bg-blue-300 text-slate-800"
+              "bg-blue-100 text-slate-800 dark:bg-blue-300"
           )}
         >
           Transactions History
@@ -82,5 +82,5 @@ export const Transactions = () => {
       </div>
       <TransactionDetailsModal />
     </AnimatedContainer>
-  );
-};
+  )
+}
