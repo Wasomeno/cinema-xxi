@@ -1,24 +1,24 @@
-import { useSkeleton } from "hooks/useSkeleton";
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useToast } from "stores/toastStore";
+import Image from "next/image"
+import { useRouter } from "next/router"
+import { useSkeleton } from "hooks/useSkeleton"
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
+import { useToast } from "stores/toastStore"
 
-import { query } from "@/components/reactQuery/queries/query";
-import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys";
+import { query } from "@/components/reactQuery/queries/query"
+import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
 
-import { MovieSkeleton } from "./MovieSkeleton";
+import { MovieSkeleton } from "./MovieSkeleton"
 
 export const RegionMovies = ({ selectedRegion }) => {
   const moviesInRegion = query({
     queryKey: regionQueryKeys.regionMovies(selectedRegion.id),
     url: "/api/regions/" + selectedRegion.id + "/movies",
-  });
-  const { isConnected } = useUserConnectionDetails();
-  const router = useRouter();
-  const [, toastError] = useToast();
+  })
+  const { isConnected } = useUserConnectionDetails()
+  const router = useRouter()
+  const toast = useToast()
 
-  const movieSkeletons = useSkeleton(<MovieSkeleton />, 5);
+  const movieSkeletons = useSkeleton(<MovieSkeleton />, 5)
 
   return (
     <div className="flex flex-col items-center justify-center gap-3">
@@ -34,11 +34,11 @@ export const RegionMovies = ({ selectedRegion }) => {
                 onClick={() =>
                   isConnected
                     ? router.push(`/app/${selectedRegion.id}/${movie.id}`)
-                    : toastError("Connect your wallet first")
+                    : toast.error("Connect your wallet first")
                 }
                 className="flex flex-col items-center gap-3"
               >
-                <div className="relative rounded-lg h-48 w-36 bg-slate-200 shadow-sm lg:h-64 lg:w-48">
+                <div className="relative h-48 w-36 rounded-lg bg-slate-200 shadow-sm lg:h-64 lg:w-48">
                   <Image
                     src={movie.image_url}
                     alt="movie-image"
@@ -53,5 +53,5 @@ export const RegionMovies = ({ selectedRegion }) => {
             ))}
       </div>
     </div>
-  );
-};
+  )
+}
