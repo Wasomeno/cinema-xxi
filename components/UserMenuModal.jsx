@@ -8,7 +8,7 @@ import { useAccount, useBalance, useDisconnect } from "wagmi"
 import { ModalContainer } from "./ModalContainer"
 
 const UserMenuModal = ({ toggleShowUserModal }) => {
-  const [toastSuccess, toastError] = useToast()
+  const toast = useToast()
   const { address, isDisconnected } = useAccount()
   const { setTheme, theme, systemTheme } = useTheme()
   const { data: walletBalance } = useBalance({ address: address })
@@ -28,13 +28,13 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
 
   function copyAddress() {
     navigator.clipboard.writeText(address)
-    toastSuccess("Address Copied")
+    toast("Address Copied")
   }
 
   function disconnectWallet() {
-    toggleShowUserModal()
     disconnect()
-    toastError("Wallet Disconnected")
+    toggleShowUserModal()
+    toast.error("Wallet Disconnected")
   }
 
   if (isDisconnected) return
