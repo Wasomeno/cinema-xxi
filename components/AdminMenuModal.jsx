@@ -1,7 +1,6 @@
 import { signOut, useSession } from "next-auth/react"
-import { HiOutlineChevronRight, HiPower } from "react-icons/hi2"
+import { HiPower } from "react-icons/hi2"
 
-import AnimatedContainer from "./AnimatedContainer"
 import { ModalContainer } from "./ModalContainer"
 
 const AdminMenuModal = ({ closeModal }) => {
@@ -23,8 +22,8 @@ const AdminMenuModal = ({ closeModal }) => {
         </div>
         <div className="flex w-2/6 items-center justify-end gap-2 md:w-3/6">
           <button
-            onClick={() => signOut({ redirect: false })}
-            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
+            onClick={() => signOut({ redirect: "/admin/login" })}
+            className="rounded-lg bg-slate-100 p-2 dark:bg-slate-700"
           >
             <HiPower size="16" />
           </button>
