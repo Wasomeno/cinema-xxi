@@ -2,23 +2,44 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import { useMutation } from "@tanstack/react-query"
 import { signIn, useSession } from "next-auth/react"
+import { useLoading } from "stores/loadingStore"
+import { useToast } from "stores/toastStore"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
 import { Form } from "@/components/Forms"
-import { Spinner } from "@/components/Spinner"
 
 const ManagerLoginPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const session = useSession()
   const router = useRouter()
-  const login = useMutation(() =>
-    signIn("credentials", {
-      username,
-      password,
-      role: "manager",
-      callbackUrl: "/manager",
-    })
+
+  const [setLoading, setLoadingText] = useLoading()
+  const toast = useToast()
+
+  const login = useMutation(
+    async () =>
+      await signIn("credentials", {
+        username,
+        password,
+        role: "manager",
+        callbackUrl: "/manager",
+      }),
+    {
+      onMutate() {
+        setLoading(true)
+        setLoadingText("Signing in")
+      },
+      onError(error) {
+        console.log(error)
+        setLoading(false)
+        toast.error("Sign in Failed, Try again later")
+      },
+      onSuccess() {
+        setLoading(false)
+        toast.success("Sign in Success")
+      },
+    }
   )
 
   if (session.data?.user.role === "manager") router.push("/manager")
