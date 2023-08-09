@@ -105,7 +105,7 @@ const TicketConfirmationModal = ({
           closeModal()
           mintTicketMutation.mutate()
         }}
-        className="w-full rounded-lg border border-slate-400 p-3 font-poppins text-sm font-medium text-slate-800 shadow-md transition duration-200 hover:bg-blue-200 dark:border-slate-500 dark:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-900"
+        className="w-full rounded-lg border border-slate-400 p-3 font-poppins text-xs font-medium text-slate-800 shadow-md transition duration-200 hover:bg-blue-200 dark:border-slate-500 dark:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-900 lg:text-sm"
       >
         Mint Tickets
       </button>
