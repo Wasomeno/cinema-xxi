@@ -1,28 +1,43 @@
-import { create } from "zustand";
+import { HiCheckCircle } from "react-icons/hi"
+import { RiErrorWarningFill } from "react-icons/ri"
+import { create } from "zustand"
 
 const toastStore = create((set) => ({
   show: false,
   text: "",
-  condition: "",
-  error: (string) => {
-    set(() => ({ text: string, show: true, condition: "error" }));
-    setTimeout(() => set(() => ({ show: false })), 2500);
+  icon: <></>,
+  default: (text, icon) => {
+    set(() => ({ show: true, text: text, icon: icon ?? <></> }))
+    setTimeout(() => set(() => ({ show: false })), 2500)
   },
-  success: (string) => {
-    set(() => ({ text: string, show: true, condition: "success" }));
-    setTimeout(() => set(() => ({ show: false })), 2500);
+  success: (text, icon) => {
+    set(() => ({
+      show: true,
+      text: text,
+      icon: icon ?? <HiCheckCircle className="text-green-600" />,
+    }))
+    setTimeout(() => set(() => ({ show: false })), 2500)
   },
-}));
+  error: (text, icon) => {
+    set(() => ({
+      show: true,
+      text: text,
+      icon: icon ?? <RiErrorWarningFill className="text-red-600" />,
+    }))
+    setTimeout(() => set(() => ({ show: false })), 2500)
+  },
+}))
 
 export const useToast = () => {
-  const toggleSuccess = toastStore((state) => state.success);
-  const toggleError = toastStore((state) => state.error);
-  return [toggleSuccess, toggleError];
-};
+  const toast = toastStore((state) => state.default)
+  toast.success = toastStore((state) => state.success)
+  toast.error = toastStore((state) => state.error)
+  return toast
+}
 
 export const useToastDetails = () => {
-  const getShow = toastStore((state) => state.show);
-  const getText = toastStore((state) => state.text);
-  const getCondition = toastStore((state) => state.condition);
-  return [getShow, getText, getCondition];
-};
+  const show = toastStore((state) => state.show)
+  const text = toastStore((state) => state.text)
+  const icon = toastStore((state) => state.icon)
+  return { show, text, icon }
+}
