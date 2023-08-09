@@ -13,7 +13,7 @@ export default function SeatsModal({ title, closeModal, seats, seatsTotal }) {
     <CenteredModalContainer
       title={title}
       closeModal={closeModal}
-      className="w-full items-center gap-4 overflow-y-scroll rounded-t-lg lg:w-3/6 lg:rounded-lg"
+      className="w-full items-center gap-4 overflow-y-scroll rounded-t-lg py-0 pt-4 lg:w-3/6 lg:rounded-lg"
     >
       <div className="flex w-full flex-1 flex-col justify-between gap-10">
         {seats}
@@ -87,7 +87,7 @@ function Seats({
                   : selectSeat(seatNumber)
               }}
               className={twMerge(
-                "col-span-2 h-8  cursor-pointer rounded-lg bg-slate-200 shadow-sm transition duration-200 disabled:cursor-default disabled:bg-opacity-40 disabled:text-opacity-40 dark:bg-slate-800 lg:col-span-1",
+                "col-span-2 h-8  cursor-pointer rounded-lg bg-slate-200 shadow-sm transition duration-200 disabled:cursor-default disabled:bg-opacity-40 disabled:text-opacity-40 dark:bg-slate-900 lg:col-span-1",
                 selectedSeats.includes(seatNumber) &&
                   "bg-blue-200 dark:bg-blue-800"
               )}
@@ -108,16 +108,18 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
   }
 
   return (
-    <div className="flex h-32 w-full flex-col justify-around rounded-lg border bg-slate-100 p-4 dark:border-slate-500 dark:bg-slate-700">
-      <div className="flex items-start">
-        <div className="flex h-20 w-3/6 flex-col items-center gap-2">
-          <span className="text-sm">Total price</span>
-          <span className="text-xs lg:text-sm">
-            {getTicketPriceTotal(dateTime.getDay(), selectedSeats.length)} ETH
-          </span>
+    <div className="sticky bottom-0 flex w-full flex-col gap-4 border-t bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+      <div className="flex items-center">
+        <div className="flex w-3/6 flex-col items-center gap-2">
+          <span className="text-xs lg:text-sm">Total price</span>
+          <div className="flex h-8 items-center">
+            <span className="text-base">
+              {getTicketPriceTotal(dateTime.getDay(), selectedSeats.length)} ETH
+            </span>
+          </div>
         </div>
         <div className="flex w-3/6 flex-col items-center gap-2">
-          <span className="text-sm">Selected seats</span>
+          <span className="text-xs lg:text-sm">Selected seats</span>
           <div className="flex items-center justify-center gap-2">
             {!selectedSeats.length ? (
               <span className="text-xs">No seats selected</span>
@@ -134,15 +136,13 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
           </div>
         </div>
       </div>
-      <div className="text-center">
-        <button
-          disabled={selectedSeats.length < 1}
-          onClick={onSeatsConfirmation}
-          className="w-3/6 rounded-lg bg-blue-200 p-2 font-poppins text-xs text-slate-800 transition duration-200 enabled:hover:bg-blue-300 disabled:bg-opacity-50 disabled:text-opacity-50 dark:bg-slate-50 dark:enabled:hover:bg-slate-300 md:text-sm"
-        >
-          Confirm Seats
-        </button>
-      </div>
+      <button
+        disabled={selectedSeats.length < 1}
+        onClick={onSeatsConfirmation}
+        className="w-full rounded-lg border border-slate-400 p-3 font-poppins text-xs font-medium text-slate-800 shadow-md transition duration-200 hover:bg-blue-200 dark:border-slate-500 dark:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-900"
+      >
+        Confirm Seats
+      </button>
     </div>
   )
 }
