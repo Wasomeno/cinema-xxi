@@ -1,9 +1,9 @@
-import "../styles/globals.css";
+import "../styles/globals.css"
 
-import { SessionProvider } from "next-auth/react";
-import { ThemeProvider } from "next-themes";
+import { SessionProvider } from "next-auth/react"
+import { ThemeProvider } from "next-themes"
 
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout"
 
 function MyApp({ Component, pageProps, session }) {
   return (
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps, session }) {
         </Layout>
       </ThemeProvider>
     </SessionProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
