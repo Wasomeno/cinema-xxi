@@ -1,38 +1,39 @@
-import axios from "axios";
-import { AnimatePresence } from "framer-motion";
-import { prisma } from "lib/prisma";
-import MovieDateSection from "modules/appPages/moviePage/components/MovieDateSection";
-import MovieSection from "modules/appPages/moviePage/components/MovieSection";
-import MovieShowtimeSection from "modules/appPages/moviePage/components/MovieShowtimeSection";
-import SeatsModal from "modules/appPages/moviePage/components/SeatsModal";
-import TicketConfirmationModal from "modules/appPages/moviePage/components/TicketConfirmationModal";
-import { useState } from "react";
+import { useState } from "react"
+import axios from "axios"
+import { AnimatePresence } from "framer-motion"
+import { useDateTime } from "hooks/useDateTime"
+import { prisma } from "lib/prisma"
+import MovieDateSection from "modules/appPages/moviePage/components/MovieDateSection"
+import MovieSection from "modules/appPages/moviePage/components/MovieSection"
+import MovieShowtimeSection from "modules/appPages/moviePage/components/MovieShowtimeSection"
+import SeatsModal from "modules/appPages/moviePage/components/SeatsModal"
+import TicketConfirmationModal from "modules/appPages/moviePage/components/TicketConfirmationModal"
 
-import AnimatedContainer from "@/components/AnimatedContainer";
-import AppLayout from "@/components/Layouts/AppLayout";
+import AnimatedContainer from "@/components/AnimatedContainer"
+import AppLayout from "@/components/Layouts/AppLayout"
 
 export async function getStaticPaths() {
-  const movies = await prisma.movie.findMany();
-  const regions = await prisma.region.findMany();
+  const movies = await prisma.movie.findMany()
+  const regions = await prisma.region.findMany()
 
   const regionAndMovieIds = regions.map((region) => {
     const ids = movies.map((movie) => ({
       params: { regionId: region.id.toString(), movieId: movie.id.toString() },
-    }));
-    return ids;
-  });
+    }))
+    return ids
+  })
 
-  const flattedIds = regionAndMovieIds.flat();
+  const flattedIds = regionAndMovieIds.flat()
 
-  return { paths: flattedIds, fallback: "blocking" };
+  return { paths: flattedIds, fallback: "blocking" }
 }
 
 export async function getStaticProps(context) {
-  const { params } = context;
+  const { params } = context
 
   const movieDetails = await axios.get(
     `https://imdb-api.projects.thetuhin.com/title/${params.movieId}`
-  );
+  )
 
   const movieShowtimes = await prisma.region.findUnique({
     where: { id: parseInt(params.regionId) },
@@ -59,7 +60,7 @@ export async function getStaticProps(context) {
         },
       },
     },
-  });
+  })
 
   const movieShowtimesFlat = movieShowtimes.cinemas.flatMap((cinema) => ({
     id: cinema.id,
@@ -76,7 +77,7 @@ export async function getStaticProps(context) {
             movie: info.movie,
           }))
         ),
-  }));
+  }))
 
   return {
     props: {
@@ -84,24 +85,31 @@ export async function getStaticProps(context) {
       movieShowtimes: movieShowtimesFlat,
     },
     revalidate: 30,
-  };
+  }
 }
 
 export default function AppMovieShowtimesPage({
   movieDetails,
   movieShowtimes,
 }) {
-  const [seatModalOpen, setSeatModalOpen] = useState(false);
-  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [seatModalOpen, setSeatModalOpen] = useState(false)
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false)
 
-  const [selectedDate, setSelectedDate] = useState({});
-  const [selectedShowtime, setSelectedShowtime] = useState({});
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [seatsId, setSeatsId] = useState();
+  const [selectedDate, setSelectedDate] = useState({})
+  const [selectedShowtime, setSelectedShowtime] = useState({})
+  const [selectedSeats, setSelectedSeats] = useState([])
+  const [seatsId, setSeatsId] = useState()
+
+  const dateTime = useDateTime({
+    date: selectedDate.date,
+    month: selectedDate.month,
+    hours: selectedShowtime.showtime?.hour,
+    minutes: selectedShowtime.showtime?.minutes,
+  })
 
   return (
     <AppLayout pageTitle={`${movieDetails.title} Showtimes`}>
-      <AnimatedContainer className="flex flex-1 w-full flex-col items-center gap-6 p-4">
+      <AnimatedContainer className="flex w-full flex-1 flex-col items-center gap-6 p-4">
         <MovieSection
           image={<MovieSection.Image image={movieDetails.image} />}
           title={<MovieSection.Title title={movieDetails.title} />}
@@ -120,8 +128,8 @@ export default function AppMovieShowtimesPage({
                   showtime={studioShowtime.showtime}
                   selectedDate={selectedDate}
                   onClick={() => {
-                    setSelectedShowtime(studioShowtime);
-                    setSeatModalOpen(true);
+                    setSelectedShowtime(studioShowtime)
+                    setSeatModalOpen(true)
                   }}
                 />
               ))}
@@ -132,7 +140,11 @@ export default function AppMovieShowtimesPage({
       <AnimatePresence>
         {seatModalOpen && (
           <SeatsModal
-            title={selectedShowtime.movie.title}
+            title={`${
+              selectedShowtime.movie.title
+            } ${dateTime.toDateString()}, ${selectedShowtime?.showtime.hour}:${
+              selectedShowtime?.showtime.minutes
+            } PM`}
             closeModal={() => setSeatModalOpen(false)}
             seats={
               <SeatsModal.Seats
@@ -148,8 +160,8 @@ export default function AppMovieShowtimesPage({
                 selectedDate={selectedDate}
                 selectedSeats={selectedSeats}
                 onSeatsConfirmation={() => {
-                  setSeatModalOpen(false);
-                  setConfirmModalOpen(true);
+                  setSeatModalOpen(false)
+                  setConfirmModalOpen(true)
                 }}
               />
             }
@@ -158,13 +170,13 @@ export default function AppMovieShowtimesPage({
         {confirmModalOpen && (
           <TicketConfirmationModal
             closeModal={() => setConfirmModalOpen(false)}
-            seatsId={seatsId}
             selectedDate={selectedDate}
             selectedSeats={selectedSeats}
             selectedShowtime={selectedShowtime}
+            seatsId={seatsId}
           />
         )}
       </AnimatePresence>
     </AppLayout>
-  );
+  )
 }
