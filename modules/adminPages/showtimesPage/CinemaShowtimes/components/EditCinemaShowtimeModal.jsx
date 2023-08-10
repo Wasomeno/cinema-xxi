@@ -57,10 +57,13 @@ export const EditCinemaShowtimeModal = () => {
     <CenteredModalContainer
       title="Edit Showtime"
       closeModal={() => router.push("/admin/showtimes")}
-      className="lg:h-4/6 lg:w-2/6"
+      className="h-3/6 lg:h-4/6 lg:w-2/6"
     >
       <Form
-        onSubmit={updateShowtimeMutation.mutate}
+        onSubmit={() => {
+          router.push("/admin/showtimes")
+          updateShowtimeMutation.mutate()
+        }}
         className="flex flex-1 flex-col items-center justify-between gap-4 overflow-y-scroll"
       >
         <div className="flex h-5/6 items-center justify-center gap-2">
@@ -70,7 +73,7 @@ export const EditCinemaShowtimeModal = () => {
               type="number"
               value={hour}
               onChange={(event) => hourHandler(event.target.value)}
-              className="h-14 rounded-lg border text-center text-lg shadow-sm dark:border-slate-600"
+              className="h-14 w-full rounded-lg border text-center text-lg shadow-sm dark:border-slate-600 lg:w-5/6"
             />
           </div>
           <div className="flex flex-col items-center gap-1">
@@ -79,7 +82,7 @@ export const EditCinemaShowtimeModal = () => {
               type="number"
               value={minutes}
               onChange={(event) => minutesHandler(event.target.value)}
-              className="h-14 rounded-lg border text-center text-lg shadow-sm dark:border-slate-600"
+              className="h-14 w-full rounded-lg border text-center text-lg shadow-sm dark:border-slate-600 lg:w-5/6"
             />
           </div>
         </div>

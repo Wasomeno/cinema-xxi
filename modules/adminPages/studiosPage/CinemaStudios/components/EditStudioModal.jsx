@@ -49,7 +49,10 @@ export const EditStudioModal = () => {
       className="lg:h-4/6 lg:w-2/6"
     >
       <Form
-        onSubmit={() => updateStudio.mutate()}
+        onSubmit={() => {
+          updateStudio.mutate()
+          router.push("/admin/studios")
+        }}
         className="flex flex-1 flex-col justify-between"
       >
         <div className="space-y-2">
