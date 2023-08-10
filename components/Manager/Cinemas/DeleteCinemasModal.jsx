@@ -1,7 +1,7 @@
-import { DeleteDataModal } from "@/components/DeleteDataModal";
-import mutation from "@/components/reactQuery/mutations/mutation";
-import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects";
-import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys";
+import { DeleteDataModal } from "@/components/DeleteDataModal"
+import mutation from "@/components/reactQuery/mutations/mutation"
+import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
+import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
 
 export const DeleteCinemasModal = ({
   regionId,
@@ -11,15 +11,15 @@ export const DeleteCinemasModal = ({
   const sideEffects = useSideEffects({
     text: "Deleting cinemas",
     queryKeys: regionQueryKeys.regionDetails(regionId),
-  });
+  })
   const deleteCinemaMutation = mutation({
-    url: "/api/cinemas",
-    method: "DELETE",
+    url: "/api/cinemas/delete",
+    method: "POST",
     body: {
-      cinemaIds: selectedCinemas.map((cinema) => ({ id: cinema.id })),
+      cinemaIds: selectedCinemas,
     },
     sideEffects,
-  });
+  })
 
   return (
     <DeleteDataModal
@@ -28,5 +28,5 @@ export const DeleteCinemasModal = ({
       closeModal={closeModal}
       deleteFunction={deleteCinemaMutation.mutate}
     />
-  );
-};
+  )
+}
