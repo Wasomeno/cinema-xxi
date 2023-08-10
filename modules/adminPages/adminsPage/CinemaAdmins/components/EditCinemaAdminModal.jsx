@@ -50,12 +50,17 @@ export const EditCinemaAdminModal = () => {
 
   return (
     <CenteredModalContainer
-      onSubmit={updateCinemaAdmin.mutate}
       title="Edit Admin"
       closeModal={() => router.push(`/admin/admins`)}
       className="lg:h-4/6 lg:w-2/6"
     >
-      <Form className="flex flex-1 flex-col justify-between">
+      <Form
+        onSubmit={() => {
+          updateCinemaAdmin.mutate()
+          closeModal()
+        }}
+        className="flex flex-1 flex-col justify-between"
+      >
         <div className="space-y-2">
           <Form.Input
             type="text"

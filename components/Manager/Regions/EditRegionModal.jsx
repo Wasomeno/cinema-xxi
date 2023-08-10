@@ -44,7 +44,10 @@ export const EditRegionModal = ({ closeModal }) => {
       className="lg:h-3/6 lg:w-2/6"
     >
       <Form
-        onSubmit={updateRegion.mutate}
+        onSubmit={() => {
+          updateRegion.mutate()
+          closeModal()
+        }}
         className="flex flex-1 flex-col justify-between"
       >
         <Form.Input
