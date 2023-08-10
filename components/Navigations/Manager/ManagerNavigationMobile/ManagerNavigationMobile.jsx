@@ -6,7 +6,7 @@ import { ManagerNavigationMobileLink } from "./ManagerNavigationMobileLink"
 
 export const ManagerNavigationMobile = () => {
   return (
-    <div className="sticky bottom-0 z-10 flex w-full items-center justify-center border-t bg-slate-50 shadow-md dark:border-slate-700 dark:bg-slate-900">
+    <div className="sticky bottom-0 z-10 flex w-full items-center justify-center border-t bg-white shadow-md dark:border-slate-700 dark:bg-slate-900">
       <ManagerNavigationMobileLink href="/manager" Icon={HiHome}>
         Dashboard
       </ManagerNavigationMobileLink>
