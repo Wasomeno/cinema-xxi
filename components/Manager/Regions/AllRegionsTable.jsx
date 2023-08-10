@@ -120,7 +120,7 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
   const table = useReactTable({
     data: allRegions.data,
     columns: regionTableColumns,
-    state: { sorting, pagination: { pageSize: 3, pageIndex: 0 } },
+    state: { sorting, pagination: { pageSize: 5, pageIndex: 0 } },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
