@@ -46,7 +46,10 @@ export const AddCinemaModal = ({ closeModal }) => {
       className="lg:h-4/6 lg:w-2/6"
     >
       <Form
-        onSubmit={addCinema.mutate}
+        onSubmit={() => {
+          closeModal()
+          addCinema.mutate()
+        }}
         className="flex flex-1 flex-col justify-between"
       >
         <div className="flex flex-col gap-2">

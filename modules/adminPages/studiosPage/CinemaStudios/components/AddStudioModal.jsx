@@ -32,10 +32,13 @@ export const AddStudioModal = ({ closeModal }) => {
     <CenteredModalContainer
       title="Add Studio"
       closeModal={closeModal}
-      className="lg:h-4/6 lg:w-2/6"
+      className="h-4/6 lg:h-4/6 lg:w-2/6"
     >
       <Form
-        onSubmit={addStudio.mutate}
+        onSubmit={() => {
+          closeModal()
+          addStudio.mutate()
+        }}
         className="flex w-full flex-1 flex-col items-center justify-between"
       >
         <div className="w-full space-y-2">

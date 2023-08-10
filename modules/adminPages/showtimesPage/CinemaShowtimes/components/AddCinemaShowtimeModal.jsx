@@ -42,20 +42,23 @@ export const AddCinemaShowtimeModal = ({ closeModal }) => {
     <CenteredModalContainer
       title="Add Showtime"
       closeModal={closeModal}
-      className="lg:h-4/6 lg:w-2/6"
+      className="h-3/6 lg:h-4/6 lg:w-2/6"
     >
       <Form
-        onSubmit={addCinemaShowtime.mutate}
+        onSubmit={() => {
+          closeModal()
+          addCinemaShowtime.mutate()
+        }}
         className="flex flex-1 flex-col items-center justify-between gap-4 overflow-y-scroll"
       >
-        <div className="flex h-5/6 flex-wrap items-center justify-center gap-2 lg:flex-nowrap">
+        <div className="flex h-5/6 items-center justify-center gap-2">
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs lg:text-sm">Hour</span>
             <input
               type="number"
               value={hour}
               onChange={(event) => hourHandler(event.target.value)}
-              className="h-10 rounded-lg border text-center text-lg shadow-sm lg:h-14 lg:w-4/6"
+              className="h-10 w-full rounded-lg border text-center text-lg shadow-sm lg:h-14 lg:w-5/6"
             />
           </div>
           <div className="flex flex-col items-center gap-1">
@@ -64,7 +67,7 @@ export const AddCinemaShowtimeModal = ({ closeModal }) => {
               type="number"
               value={minutes}
               onChange={(event) => minutesHandler(event.target.value)}
-              className="h-10 rounded-lg border text-center text-lg shadow-sm lg:h-14 lg:w-4/6"
+              className="h-10 w-full rounded-lg border text-center text-lg shadow-sm lg:h-14 lg:w-5/6"
             />
           </div>
         </div>
