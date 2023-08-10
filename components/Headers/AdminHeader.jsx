@@ -7,7 +7,7 @@ const AdminHeader = ({ children }) => {
         </h1>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AdminHeader;
+export default AdminHeader
