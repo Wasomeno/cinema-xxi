@@ -5,10 +5,10 @@ export default async function moviesHandler(req, res) {
     const movies = await prisma.movie.findMany()
     res.status(200).json(movies)
   } else if (req.method === "POST") {
-    const { title, image_url } = req.body
+    const { id, title, image_url } = req.body
     try {
-      await prisma.movie.createMany({
-        data: { title, image_url },
+      await prisma.movie.create({
+        data: { id, title, image_url },
       })
       res.status(200).json({ code: "200", message: "Successfully Added Movie" })
     } catch (error) {
