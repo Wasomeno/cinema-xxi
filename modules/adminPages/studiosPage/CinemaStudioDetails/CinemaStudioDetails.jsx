@@ -1,42 +1,58 @@
+import { useState } from "react"
 import dynamic from "next/dynamic"
+import { useRouter } from "next/router"
 import { AnimatePresence } from "framer-motion"
 
 import AdminHeader from "@/components/Headers/AdminHeader"
 
+import { AddStudioShowtimeModal } from "./components/AddStudioShowtimeModal"
 import { DeleteStudioShowtimesModal } from "./components/DeleteStudioShowtimesModal"
+import { EditStudioShowtimeModal } from "./components/EditStudioShowtimeModal"
 import { StudioShowtimeDetailsModal } from "./components/StudioShowtimeDetailsModal"
 import { StudioShowtimesTable } from "./components/StudioShowtimesTable"
 
 export const CinemaStudioDetails = ({ studioDetails }) => {
+  const [selectedShowtimes, setSelectedShowtimes] = useState([])
+  const router = useRouter()
   return (
-    <div className="flex flex-1 flex-col rounded-lg border bg-white p-4 dark:border-slate-500 dark:bg-slate-700">
+    <div className="flex flex-1 flex-col p-4">
       <AdminHeader>Studio {studioDetails.studio} Showtimes</AdminHeader>
-      {/* <StudioShowtimesTable dispatch={dispatch} /> */}
-      {/* <AnimatePresence>
-        {state.showDetailsModal && (
+      <StudioShowtimesTable
+        selectedShowtimes={selectedShowtimes}
+        setSelectedShowtimes={setSelectedShowtimes}
+      />
+      <AnimatePresence>
+        {router.query.view && (
           <StudioShowtimeDetailsModal
-            closeModal={() => dispatch({ type: "close_details_modal" })}
+            closeModal={() =>
+              router.push(`/admin/studios/${router.query.studioId}`)
+            }
             showtimeDetails={state.dataDetails}
           />
         )}
-        {state.showAddModal && (
+        {router.query.add && (
           <AddStudioShowtimeModal
-            closeModal={() => dispatch({ type: "close_add_modal" })}
+            closeModal={() =>
+              router.push(`/admin/studios/${router.query.studioId}`)
+            }
           />
         )}
-        {state.showEditModal && (
+        {router.query.edit && (
           <EditStudioShowtimeModal
-            closeModal={() => dispatch({ type: "close_edit_modal" })}
-            showtimeDetails={state.dataDetails}
+            closeModal={() =>
+              router.push(`/admin/studios/${router.query.studioId}`)
+            }
           />
         )}
-        {state.showDeleteModal && (
+        {router.query.delete && (
           <DeleteStudioShowtimesModal
-            closeModal={() => dispatch({ type: "close_delete_modal" })}
-            selectedShowtimes={state.selectedData}
+            closeModal={() =>
+              router.push(`/admin/studios/${router.query.studioId}`)
+            }
+            selectedShowtimes={selectedShowtimes}
           />
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
     </div>
   )
 }
