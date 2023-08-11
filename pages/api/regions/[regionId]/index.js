@@ -1,4 +1,6 @@
 import { prisma } from "lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function regionDetailsHandler(req, res) {
   const { regionId } = req.query
@@ -11,7 +13,11 @@ export default async function regionDetailsHandler(req, res) {
   }
   if (req.method === "PUT") {
     const { name } = req.body
+    const session = await getServerSession(authOptions)
     try {
+      if (session.user.role !== "manager" || !session) {
+        res.status(500).json({ status: 500, message: "Session Invalid" })
+      }
       await prisma.region.update({
         where: { id: parseInt(regionId) },
         data: { name },
