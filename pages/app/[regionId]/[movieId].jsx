@@ -62,22 +62,24 @@ export async function getStaticProps(context) {
     },
   })
 
-  const movieShowtimesFlat = movieShowtimes.cinemas.flatMap((cinema) => ({
-    id: cinema.id,
-    regionId: cinema.regionId,
-    name: cinema.name,
-    showtimes: !cinema.cinema_movie
-      ? []
-      : cinema.cinema_movie?.movies.flatMap((movie) =>
-          movie.showtime_to_movie.map((info) => ({
-            studioShowtimeId: info.id,
-            showtime: info.showtime,
-            cinema: info.studio.cinema,
-            studio: info.studio,
-            movie: info.movie,
-          }))
-        ),
-  }))
+  const movieShowtimesFlat = movieShowtimes.cinemas
+    .filter((cinema) => cinema.cinema_movie?.movies.length > 0)
+    .flatMap((cinema) => ({
+      id: cinema.id,
+      regionId: cinema.regionId,
+      name: cinema.name,
+      showtimes: !cinema.cinema_movie
+        ? []
+        : cinema.cinema_movie?.movies.flatMap((movie) =>
+            movie.showtime_to_movie.map((studioShowtime) => ({
+              studioShowtimeId: studioShowtime.id,
+              showtime: studioShowtime.showtime,
+              cinema: studioShowtime.studio.cinema,
+              studio: studioShowtime.studio,
+              movie: studioShowtime.movie,
+            }))
+          ),
+    }))
 
   return {
     props: {
