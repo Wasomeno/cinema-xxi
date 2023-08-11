@@ -1,7 +1,9 @@
 import { prisma } from "lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function studioShowtimeHandler(req, res) {
-  const { studioShowtimeId } = req.query
+  const { cinemaId, studioShowtimeId } = req.query
   if (req.method === "GET") {
     const studioShowtime = await prisma.showtimeToMovie.findUnique({
       where: { id: parseInt(studioShowtimeId) },
@@ -10,7 +12,11 @@ export default async function studioShowtimeHandler(req, res) {
     res.status(200).json(studioShowtime)
   } else if (req.method === "PATCH") {
     const { showtimeId, movieId } = req.body
+    const session = await getServerSession(authOptions)
     try {
+      if (session.user.cinemaId !== cinemaId || !session) {
+        res.status(500).json({ status: 500, message: "Session Invalid" })
+      }
       await prisma.showtimeToMovie.update({
         where: { id: parseInt(studioShowtimeId) },
         data: {

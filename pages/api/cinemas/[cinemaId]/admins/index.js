@@ -1,18 +1,24 @@
-import { prisma } from "lib/prisma";
+import { prisma } from "lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function cinemaAdminsHandler(req, res) {
-  const { cinemaId } = req.query;
+  const { cinemaId } = req.query
 
   if (req.method === "GET") {
     const cinemaAdmins = await prisma.admin.findMany({
       where: { cinemaId: parseInt(cinemaId) },
-    });
-    res.status(200).json(cinemaAdmins);
+    })
+    res.status(200).json(cinemaAdmins)
   }
 
   if (req.method === "POST") {
-    const { name, username, password } = req.body;
+    const { name, username, password } = req.body
+    const session = await getServerSession(authOptions)
     try {
+      if (session.user.cinemaId !== cinemaId || !session) {
+        res.status(500).json({ status: 500, message: "Session Invalid" })
+      }
       await prisma.admin.create({
         data: {
           name,
@@ -20,12 +26,12 @@ export default async function cinemaAdminsHandler(req, res) {
           password,
           cinema: { connect: { id: parseInt(cinemaId) } },
         },
-      });
+      })
       res
         .status(200)
-        .json({ code: 200, message: "Succesfully added new admin" });
+        .json({ code: 200, message: "Succesfully added new admin" })
     } catch (error) {
-      res.status(400).json({ code: 400, error });
+      res.status(400).json({ code: 400, error })
     }
   }
 }

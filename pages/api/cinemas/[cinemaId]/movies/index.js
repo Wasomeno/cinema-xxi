@@ -1,20 +1,27 @@
-import { prisma } from "lib/prisma";
+import { prisma } from "lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function cinemaMoviesHandler(req, res) {
-  const { cinemaId } = req.query;
+  const { cinemaId } = req.query
   if (req.method === "GET") {
     const cinema = await prisma.cinema.findUnique({
       where: { id: parseInt(cinemaId) },
       select: { cinema_movie: { select: { movies: true } } },
-    });
-    const movies = cinema.cinema_movie ? cinema.cinema_movie.movies : [];
-    res.status(200).json(movies);
+    })
+    const movies = cinema.cinema_movie ? cinema.cinema_movie.movies : []
+    res.status(200).json(movies)
   } else if (req.method === "POST") {
-    const { movieIds } = req.body;
+    const { movieIds } = req.body
+    const session = await getServerSession(authOptions)
     try {
+      if (session.user.cinemaId !== cinemaId || !session) {
+        res.status(500).json({ status: 500, message: "Session Invalid" })
+      }
+
       const isCinemaMovieExists = await prisma.cinemaMovie.findUnique({
         where: { cinema_id: parseInt(cinemaId) },
-      });
+      })
       if (!isCinemaMovieExists) {
         await prisma.cinema.update({
           where: { id: parseInt(cinemaId) },
@@ -26,7 +33,7 @@ export default async function cinemaMoviesHandler(req, res) {
               },
             },
           },
-        });
+        })
       } else {
         await prisma.cinema.update({
           where: { id: parseInt(cinemaId) },
@@ -37,13 +44,13 @@ export default async function cinemaMoviesHandler(req, res) {
               },
             },
           },
-        });
+        })
       }
       res
         .status(200)
-        .json({ code: "200", message: "Successfully added new movies" });
+        .json({ code: "200", message: "Successfully added new movies" })
     } catch (error) {
-      res.status(500).json(error.message);
+      res.status(500).json(error.message)
     }
   }
 }
