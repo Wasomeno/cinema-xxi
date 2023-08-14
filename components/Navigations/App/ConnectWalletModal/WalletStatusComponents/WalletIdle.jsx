@@ -1,20 +1,28 @@
+import Image from "next/image"
+
 export const WalletIdle = ({ connectors, connect }) => {
   return (
     <>
       <div className="my-2">
-        <p className="font-poppins text-sm">Connect a Wallet</p>
+        <h3 className="font-poppins text-sm font-medium">Connect a Wallet</h3>
       </div>
       <div className="my-2 flex flex-col gap-4">
         {connectors.map((connector, index) => (
           <button
             key={index}
             onClick={() => connect({ connector: connector, chainId: 11155111 })}
-            className="w-full rounded-lg bg-slate-200 p-3 font-poppins text-sm tracking-wide dark:bg-slate-700"
+            className="flex w-full items-center justify-center gap-4 rounded-lg border bg-slate-100 p-3 text-sm font-medium shadow-sm transition duration-200 hover:bg-opacity-50 dark:bg-slate-700"
           >
+            <Image
+              src="/images/metamask.svg"
+              alt="metamask-icon"
+              height={20}
+              width={20}
+            />
             Metamask Wallet
           </button>
         ))}
       </div>
     </>
-  );
-};
+  )
+}
