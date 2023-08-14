@@ -31,7 +31,7 @@ const RegionListModal = ({
                   setSelectedRegion(region)
                   toggleShowRegionList()
                 }}
-                className="relative flex w-full cursor-pointer justify-center rounded-lg bg-slate-200 p-2 text-sm tracking-wide dark:bg-slate-700"
+                className="relative flex w-full cursor-pointer justify-center rounded-lg bg-slate-200 p-2 text-sm tracking-wide dark:bg-slate-800"
               >
                 {selectedRegion.id === region.id && (
                   <span className="absolute left-4 top-1/2 -translate-y-1/2">
