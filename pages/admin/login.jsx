@@ -44,7 +44,7 @@ const LoginPage = () => {
 
   if (session.data?.user.role === "admin") router.push("/admin")
   return (
-    <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-6 bg-slate-100 dark:bg-slate-900">
+    <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-6 bg-white dark:bg-slate-900">
       <Head>
         <title>Admin Login</title>
       </Head>
