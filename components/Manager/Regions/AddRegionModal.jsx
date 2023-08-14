@@ -28,8 +28,8 @@ export const AddRegionModal = ({ closeModal }) => {
     >
       <Form
         onSubmit={() => {
-          addRegion.mutate()
           closeModal()
+          addRegion.mutate()
         }}
         className="flex flex-1 flex-col justify-between"
       >
