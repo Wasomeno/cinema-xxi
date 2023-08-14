@@ -26,7 +26,7 @@ export const CinemaStudios = () => {
         {query.edit && <EditStudioModal />}
         {query.delete && (
           <DeleteStudioModal
-            selectedStudio={state.selectedData}
+            selectedStudio={selectedStudios}
             closeModal={() => push("/admin/studios")}
           />
         )}
