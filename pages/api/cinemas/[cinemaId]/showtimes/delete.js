@@ -1,14 +1,14 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function deleteCinemaShowtime(req, res) {
   const { cinemaId } = req.query
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(req, res, authOptions)
   if (req.method === "POST") {
     const { showtimeIds } = req.body
     try {
-      if (session.user.cinemaId !== cinemaId || !session) {
+      if (session.user.cinemaId !== parseInt(cinemaId) || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
       }
       await prisma.showtime.deleteMany({ where: { id: { in: showtimeIds } } })

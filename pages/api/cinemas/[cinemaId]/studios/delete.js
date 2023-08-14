@@ -1,13 +1,13 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function deleteCinemaStudioHandler(req, res) {
   if (req.method === "POST") {
     const { cinemaId } = req.query
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(req, res, authOptions)
     try {
-      if (session.user.cinemaId !== cinemaId || !session) {
+      if (session.user.cinemaId !== parseInt(cinemaId) || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
       }
       const { studioIds } = req.body

@@ -1,6 +1,6 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function cinemaAdminsHandler(req, res) {
   const { cinemaId } = req.query
@@ -14,9 +14,9 @@ export default async function cinemaAdminsHandler(req, res) {
 
   if (req.method === "POST") {
     const { name, username, password } = req.body
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(req, res, authOptions)
     try {
-      if (session.user.cinemaId !== cinemaId || !session) {
+      if (session.user.cinemaId !== parseInt(cinemaId) || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
       }
       await prisma.admin.create({
@@ -31,7 +31,7 @@ export default async function cinemaAdminsHandler(req, res) {
         .status(200)
         .json({ code: 200, message: "Succesfully added new admin" })
     } catch (error) {
-      res.status(400).json({ code: 400, error })
+      res.status(500).json({ code: 500, error })
     }
   }
 }

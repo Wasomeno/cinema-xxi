@@ -1,14 +1,14 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function deleteCinemaAdminsHandler(req, res) {
   if (req.method === "POST") {
     const { cinemaId } = req.query
     const { adminIds } = req.body
     try {
-      const session = await getServerSession(authOptions)
-      if (session.user.cinemaId !== cinemaId || !session) {
+      const session = await getServerSession(req, res, authOptions)
+      if (session.user.cinemaId !== parseInt(cinemaId) || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
       }
       await prisma.admin.deleteMany({ where: { id: { in: adminIds } } })

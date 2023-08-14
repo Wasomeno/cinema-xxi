@@ -1,6 +1,6 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-import { authOptions } from "pages/api/auth/[...nextauth]"
 
 export default async function cinemaMoviesHandler(req, res) {
   const { cinemaId } = req.query
@@ -13,9 +13,9 @@ export default async function cinemaMoviesHandler(req, res) {
     res.status(200).json(movies)
   } else if (req.method === "POST") {
     const { movieIds } = req.body
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(req, res, authOptions)
     try {
-      if (session.user.cinemaId !== cinemaId || !session) {
+      if (session.user.cinemaId !== parseInt(cinemaId) || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
       }
 

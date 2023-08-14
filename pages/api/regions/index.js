@@ -1,7 +1,6 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-
-import { authOptions } from "../auth/[...nextauth]"
 
 export default async function regionHandler(req, res) {
   if (req.method === "GET") {
@@ -11,7 +10,7 @@ export default async function regionHandler(req, res) {
     res.status(200).json(regions)
   } else if (req.method === "POST") {
     const { regionName } = req.body
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(req, res, authOptions)
     try {
       if (session.user.role !== "manager" || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })

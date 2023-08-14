@@ -1,10 +1,9 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
-import { getServerSession } from "next-auth"
-import { authOptions } from "pages/api/auth/[...nextauth]"
+import { getServerSession } from "next-auth/next"
 
 export default async function cinemaShowtimesHandler(req, res) {
   const { cinemaId } = req.query
-  const session = await getServerSession(authOptions)
 
   if (req.method === "GET") {
     const cinemaShowtimes = await prisma.showtime.findMany({
@@ -12,10 +11,11 @@ export default async function cinemaShowtimesHandler(req, res) {
     })
     res.status(200).json(cinemaShowtimes)
   } else if (req.method === "POST") {
+    const session = await getServerSession(req, res, authOptions)
     try {
       const { hour, minutes } = req.body
 
-      if (session.user.cinemaId !== cinemaId || !session) {
+      if (session.user.cinemaId !== parseInt(cinemaId) || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
       }
 

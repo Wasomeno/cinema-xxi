@@ -1,7 +1,6 @@
+import { authOptions } from "lib/auth"
 import { prisma } from "lib/prisma"
 import { getServerSession } from "next-auth"
-
-import { authOptions } from "../auth/[...nextauth]"
 
 export default async function moviesHandler(req, res) {
   if (req.method === "GET") {
@@ -9,7 +8,7 @@ export default async function moviesHandler(req, res) {
     res.status(200).json(movies)
   } else if (req.method === "POST") {
     const { id, title, image_url } = req.body
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(req, res, authOptions)
     try {
       if (session.user.role !== "manager" || !session) {
         res.status(500).json({ status: 500, message: "Session Invalid" })
