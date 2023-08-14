@@ -32,7 +32,7 @@ export const CinemaList = ({ search }) => {
             <Link
               key={cinema.id}
               href={`/app/cinemas/${cinema.id}`}
-              className="w-full rounded-lg border border-slate-300 bg-gray-50 px-4 py-2 font-openSans text-xs font-medium transition duration-300 hover:bg-blue-100 dark:border-slate-700 dark:bg-slate-800 lg:text-sm"
+              className="w-full rounded-lg border border-slate-300 bg-gray-50 px-4 py-2 font-openSans text-xs font-medium transition duration-300 hover:bg-blue-100 dark:border-slate-800 dark:bg-slate-900 lg:text-sm"
             >
               {cinema.name}
             </Link>
