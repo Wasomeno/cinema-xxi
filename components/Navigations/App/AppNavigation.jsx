@@ -1,6 +1,4 @@
-import { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { AnimatePresence } from "framer-motion"
 import useToggle from "hooks/useToggle"
 import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
@@ -10,7 +8,7 @@ import { HiOutlineRectangleStack, HiOutlineTicket } from "react-icons/hi2"
 import UserMenuModal from "@/components/UserMenuModal"
 
 import { ConnectWalletModal } from "./ConnectWalletModal"
-import { SearchResultModal } from "./SearchResultModal"
+import { SearchModal } from "./SearchModal"
 
 export const appPaths = [
   {
@@ -102,9 +100,7 @@ const AppNavigation = () => {
         {showUserModal && (
           <UserMenuModal toggleShowUserModal={toggleShowUserModal} />
         )}
-        {showSearchModal && (
-          <SearchResultModal toggleModal={toggleShowSearchModal} />
-        )}
+        {showSearchModal && <SearchModal toggleModal={toggleShowSearchModal} />}
       </AnimatePresence>
     </div>
   )
