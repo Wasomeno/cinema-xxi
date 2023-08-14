@@ -14,7 +14,7 @@ export const TransactionCard = ({
   return (
     <Link
       href={href}
-      className="h-40 w-full rounded-lg border bg-slate-50 p-2 shadow-sm dark:border-slate-700 dark:bg-slate-900 lg:h-52 lg:w-[30rem]"
+      className="h-40 w-full rounded-lg border bg-slate-50 p-2 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:h-52 lg:w-[30rem]"
     >
       <div className="flex h-full items-center justify-between">
         <div className="relative h-full w-4/12">
