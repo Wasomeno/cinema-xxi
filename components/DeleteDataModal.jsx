@@ -23,8 +23,8 @@ export const DeleteDataModal = ({
       <div className="flex h-1/6 items-center justify-center gap-4">
         <button
           onClick={() => {
-            deleteFunction()
             closeModal()
+            deleteFunction()
           }}
           className="h-9 w-28 rounded-lg bg-green-600 text-xs text-slate-100 dark:bg-green-800 lg:text-sm"
         >
