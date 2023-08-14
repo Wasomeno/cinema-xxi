@@ -13,8 +13,7 @@ export const AddStudioModal = ({ closeModal }) => {
   const { data: sessionData } = useSession()
 
   const sideEffects = useSideEffects({
-    context: "add",
-    object: "studio",
+    text: "Adding new studio",
     queryKeys: cinemaStudioQueryKeys.allStudio,
   })
 
