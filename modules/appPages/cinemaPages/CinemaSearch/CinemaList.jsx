@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
 import { useSkeleton } from "hooks/useSkeleton"
@@ -6,7 +6,7 @@ import { HiXMark } from "react-icons/hi2"
 
 export const CinemaList = ({ search }) => {
   const allCinema = useQuery({
-    queryKey: ["cinemaSearch", search],
+    queryKey: ["cinemaSearch"],
     queryFn: async () => {
       return await fetch("/api/cinemas/search", {
         method: "POST",
@@ -23,11 +23,18 @@ export const CinemaList = ({ search }) => {
     5
   )
 
+  useEffect(() => {
+    let searchTimeout
+    if (search !== "") {
+      searchTimeout = setTimeout(() => allCinema.refetch(), 750)
+    }
+    return () => clearTimeout(searchTimeout)
+  }, [search])
+
   return (
     <div className="flex w-full flex-col gap-2 overflow-y-scroll">
-      {allCinema.isLoading && skeletons.map((skeleton) => skeleton)}
-
-      {!allCinema.isLoading && allCinema.data?.length
+      {allCinema.isFetching && skeletons.map((skeleton) => skeleton)}
+      {!allCinema.isFetching && allCinema.data?.length
         ? allCinema.data?.map((cinema) => (
             <Link
               key={cinema.id}
@@ -38,14 +45,13 @@ export const CinemaList = ({ search }) => {
             </Link>
           ))
         : null}
-
-      {!allCinema.isLoading && !allCinema.data?.length ? (
-        <div className="flex h-72 flex-col items-center justify-center gap-2">
-          <span className="font-poppins text-xs font-medium tracking-wide text-slate-800 text-opacity-50 lg:text-sm">
+      {!allCinema.isFetching && !allCinema.data?.length ? (
+        <div className="flex h-72 flex-col items-center justify-center gap-2 opacity-50">
+          <span className="font-poppins text-xs font-medium tracking-wide  lg:text-sm">
             Cinema Not Found
           </span>
           <span>
-            <HiXMark size="30" className="text-slate-800 text-opacity-50" />
+            <HiXMark size="25" />
           </span>
         </div>
       ) : null}

@@ -25,9 +25,7 @@ export const CinemaSearch = () => {
       <div className="sticky top-[59px] bg-white px-5 dark:bg-slate-950 lg:static lg:w-3/6 lg:px-10">
         <input
           type="text"
-          onChange={(event) => {
-            setTimeout(() => setSearch(event.target.value), 1000)
-          }}
+          onChange={(event) => setSearch(event.target.value)}
           className="w-full rounded-lg border bg-white p-2 text-xs focus:outline-none dark:border-slate-700 dark:bg-slate-900 lg:text-base"
           placeholder="Search cinema..."
         />
