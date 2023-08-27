@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth"
 export default async function regionHandler(req, res) {
   if (req.method === "GET") {
     const regions = await prisma.region.findMany({
-      include: { cinemas: true },
+      include: { _count: { select: { cinemas: true } } },
     })
     res.status(200).json(regions)
   } else if (req.method === "POST") {
