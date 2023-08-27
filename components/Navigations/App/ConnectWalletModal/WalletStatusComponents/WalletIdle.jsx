@@ -3,7 +3,7 @@ import Image from "next/image"
 export const WalletIdle = ({ connectors, connect }) => {
   return (
     <>
-      <div className="my-2">
+      <div className="mb-4">
         <h3 className="font-poppins text-sm font-medium">Connect a Wallet</h3>
       </div>
       <div className="my-2 flex flex-col gap-4">
@@ -11,7 +11,7 @@ export const WalletIdle = ({ connectors, connect }) => {
           <button
             key={index}
             onClick={() => connect({ connector: connector, chainId: 11155111 })}
-            className="flex w-full items-center justify-center gap-4 rounded-lg border bg-slate-100 p-3 text-sm font-medium shadow-sm transition duration-200 hover:bg-opacity-50 dark:bg-slate-700"
+            className="flex w-full items-center justify-center gap-4 rounded-lg border bg-slate-100 p-3 text-sm font-medium shadow-sm transition duration-200 hover:bg-opacity-50 dark:border-slate-600 dark:bg-slate-700"
           >
             <Image
               src="/images/metamask.svg"
