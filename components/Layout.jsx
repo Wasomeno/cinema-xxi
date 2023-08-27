@@ -1,7 +1,7 @@
 import { Open_Sans, Poppins } from "next/font/google"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { queryClientApp } from "client/reactQueryClient"
-import config from "client/wagmiClient"
+import wagmiConfig from "lib/wagmiConfig"
 import { twMerge } from "tailwind-merge"
 import { WagmiConfig } from "wagmi"
 
@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
       )}
     >
       <QueryClientProvider client={queryClientApp}>
-        <WagmiConfig config={config}>
+        <WagmiConfig config={wagmiConfig}>
           <Loading />
           {children}
           <Toast />
