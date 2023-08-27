@@ -3,7 +3,7 @@ import { RiShareBoxFill } from "react-icons/ri"
 import { useToast } from "stores/toastStore"
 import { useAccount, useBalance, useDisconnect } from "wagmi"
 
-import { ModalContainer } from "./ModalContainer"
+import { Modal } from "./Modal"
 import { ThemeSwitcher } from "./ThemeSwitcher"
 
 const UserMenuModal = ({ toggleShowUserModal }) => {
@@ -35,9 +35,9 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
 
   if (isDisconnected) return
   return (
-    <ModalContainer
+    <Modal
       closeModal={toggleShowUserModal}
-      className="h-80 w-full gap-4 border-t p-4 dark:border-slate-800 md:right-5 md:top-14 md:h-96 md:w-80 lg:border"
+      className="flex h-80 w-full flex-col gap-4 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800 md:right-5 md:top-14 md:h-96 md:w-80 lg:border"
     >
       <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25 lg:hidden" />
       <div className="flex w-full items-center justify-between">
@@ -51,19 +51,19 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
         <div className="flex items-center justify-end gap-2 md:w-3/6">
           <button
             onClick={copyAddress}
-            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-800"
+            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
           >
             {iconWrapper(HiOutlineClipboardDocument)}
           </button>
           <button
             onClick={openEtherScan}
-            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-800"
+            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
           >
             {iconWrapper(RiShareBoxFill)}
           </button>
           <button
             onClick={disconnectWallet}
-            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-800"
+            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
           >
             {iconWrapper(HiPower)}
           </button>
@@ -78,12 +78,12 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
         </span>
       </div>
       <div className="flex flex-col items-start gap-2">
-        <div className="flex w-full items-center justify-between rounded-lg bg-slate-200  p-3 font-openSans text-sm text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-50">
+        <div className="flex w-full items-center justify-between rounded-lg bg-slate-200  p-3 font-openSans text-sm text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-50">
           <span>Theme</span>
           <ThemeSwitcher />
         </div>
       </div>
-    </ModalContainer>
+    </Modal>
   )
 }
 

@@ -1,16 +1,16 @@
 import { signOut, useSession } from "next-auth/react"
 import { HiPower } from "react-icons/hi2"
 
-import { ModalContainer } from "./ModalContainer"
+import { Modal } from "./Modal"
 
 const ManagerMenuModal = ({ closeModal }) => {
   const { data: sessionData } = useSession()
 
   if (!sessionData) return
   return (
-    <ModalContainer
+    <Modal
       closeModal={closeModal}
-      className="flex h-80 w-full flex-col gap-4 p-4 lg:right-5 lg:top-14 lg:h-96 lg:w-80"
+      className="flex h-80 w-full flex-col gap-4 bg-slate-50 p-4 dark:bg-slate-800 lg:right-5 lg:top-14 lg:h-96 lg:w-80"
     >
       <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25" />
       <div className="flex w-full items-center justify-between">
@@ -30,7 +30,7 @@ const ManagerMenuModal = ({ closeModal }) => {
         </div>
       </div>
       <div className="flex flex-col items-start gap-2"></div>
-    </ModalContainer>
+    </Modal>
   )
 }
 
