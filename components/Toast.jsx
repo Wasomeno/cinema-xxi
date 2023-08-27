@@ -1,14 +1,26 @@
+import { useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useViewport } from "hooks/useViewport"
 
 import { useToastDetails } from "../stores/toastStore"
 
 const Toast = () => {
-  const toast = useToastDetails()
+  const toastDetails = useToastDetails()
   const viewport = useViewport()
+
+  useEffect(() => {
+    let toastTimeout
+    if (toastDetails.show) {
+      toastTimeout = setTimeout(() => toastDetails.setShow(false), 2500)
+    }
+    return () => {
+      clearTimeout(toastTimeout)
+    }
+  }, [toastDetails.show])
+
   return (
     <AnimatePresence>
-      {toast.show && (
+      {toastDetails.show && (
         <motion.div
           initial={{ opacity: 0, bottom: -5, scale: 0.3 }}
           animate={{
@@ -22,9 +34,9 @@ const Toast = () => {
             "fixed left-1/2 z-30 flex h-14 w-full items-center gap-4 rounded-t-lg border border-t bg-slate-50 px-4 text-center shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] dark:border-slate-800 dark:bg-slate-950 dark:shadow-slate-800 lg:left-1/2 lg:w-80 lg:rounded-lg lg:border"
           }
         >
-          <span>{toast.icon}</span>
+          <span>{toastDetails.icon}</span>
           <span className="font-poppins text-xs text-slate-800 dark:font-medium dark:text-slate-100 lg:text-sm">
-            {toast.text}
+            {toastDetails.text}
           </span>
         </motion.div>
       )}
