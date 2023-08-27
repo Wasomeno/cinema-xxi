@@ -1,11 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
-import { waitForTransaction } from "@wagmi/core";
-import { parseEther } from "ethers/lib/utils.js";
-import { ticketContract } from "hooks/createContract";
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
+import { useMutation } from "@tanstack/react-query"
+import { waitForTransaction } from "@wagmi/core"
+import { parseEther } from "ethers"
+import { ticketContract } from "hooks/createContract"
+import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
 
-import { useSideEffects } from "../useSideEffects";
+import { useSideEffects } from "../useSideEffects"
 
 export function useMintTicket({
   seatsId,
@@ -14,10 +14,9 @@ export function useMintTicket({
   selectedShowtime,
   total,
 }) {
-  const { user } = useUserConnectionDetails();
-  const router = useRouter();
-  // const contract = ticketContract();
-  // const totalParsed = parseEther(total.toString());
+  const { user } = useUserConnectionDetails()
+  const router = useRouter()
+  // const totalParsed = parseEther(total.toString())
   // const ticketDetails = {
   //   _day: dayOfWeek,
   //   _region: router.query.regionId,
@@ -25,26 +24,27 @@ export function useMintTicket({
   //   _studio: selectedShowtime.studio.studio,
   //   _showtime: selectedShowtime.time,
   //   _movie: selectedShowtime.movie.id,
-  // };
+  // }
 
   const sideEffects = useSideEffects({
     text: "Minting tickets",
     redirectUrl: "/app",
-  });
+  })
 
   const mintTicketMutation = useMutation(async () => {
-    // const mintTicket = await contract.mintTickets(
-    //   ticketDetails,
-    //   selectedSeats,
-    //   {
-    //     value: totalParsed,
-    //   }
-    // );
-
+    // const mintTicket = await ticketContract.write({
+    //   functionName: "mintTickets",
+    //   args: [
+    //     ticketDetails,
+    //     selectedSeats,
+    //     {
+    //       value: totalParsed,
+    //     },
+    //   ],
+    // })
     // await waitForTransaction({
     //   hash: mintTicket.hash,
-    // });
-
+    // })
     const databaseTicketDetails = await fetch("/api/tickets/mint", {
       method: "POST",
       headers: {
@@ -63,14 +63,14 @@ export function useMintTicket({
         ticketIds: ["test1", "test2"],
         total,
       }),
-    });
+    })
     if (!databaseTicketDetails.ok) {
       throw new Error("Mutation Error", {
         error: await databaseTicketDetails.json(),
-      });
+      })
     }
-    return databaseTicketDetails;
-  }, sideEffects);
+    return databaseTicketDetails
+  }, sideEffects)
 
-  return mintTicketMutation;
+  return mintTicketMutation
 }
