@@ -1,7 +1,12 @@
-import { HiXMark } from "react-icons/hi2";
+import { useEffect } from "react"
+import { HiXMark } from "react-icons/hi2"
 
 export const WalletError = ({ error, toggleWalletModal }) => {
-  setTimeout(() => toggleWalletModal(), 1500);
+  useEffect(() => {
+    const walletTimeout = setTimeout(() => toggleWalletModal(), 1500)
+    return () => clearTimeout(walletTimeout)
+  }, [])
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4">
       <div className="p-2">
@@ -14,5 +19,5 @@ export const WalletError = ({ error, toggleWalletModal }) => {
         <p className="font-poppins text-sm">{error.message}</p>
       </div>
     </div>
-  );
-};
+  )
+}
