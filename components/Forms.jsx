@@ -23,7 +23,7 @@ const Input = ({ type = "", labelText = "", value, setValue }) => {
         type={type}
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        className="rounded-lg border bg-slate-50 px-2 py-2 text-xs dark:border-slate-600 dark:bg-slate-800 lg:text-sm"
+        className="rounded-lg border bg-slate-50 px-2 py-2 text-xs dark:border-slate-600 dark:bg-slate-700 lg:text-sm"
       />
     </div>
   )
