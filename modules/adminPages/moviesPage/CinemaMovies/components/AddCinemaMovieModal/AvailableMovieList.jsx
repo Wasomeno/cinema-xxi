@@ -20,7 +20,7 @@ export const AvailableMovieList = ({
   })
 
   const skeletons = useSkeleton(
-    <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 lg:h-12" />,
+    <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-600 lg:h-12" />,
     5
   )
 
