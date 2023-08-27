@@ -20,6 +20,7 @@
     "chart.js": "^4.3.0",
     "clsx": "^2.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "ethers": "^6.7.1",
     "framer-motion": "^10.12.22",
     "moment": "^2.29.4",
     "next": "^13.2.3",
