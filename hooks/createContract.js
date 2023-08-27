@@ -1,23 +1,44 @@
-import { useContract, useProvider, useSigner } from "wagmi";
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+} from "wagmi"
 
-import RolesABI from "../abi/Roles.json";
-import TicketABI from "../abi/Ticket.json";
+import RolesABI from "../abi/Roles.json"
+import TicketABI from "../abi/Ticket.json"
 
 const createContract = (contractAddress, abi) => {
-  const { isLoading, data } = useSigner();
-  const provider = useProvider();
-  const contract = useContract({
-    address: contractAddress,
-    abi: abi,
-    signerOrProvider: isLoading ? provider : data,
-  });
-  return contract;
-};
+  function read({ functionName, args }) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useContractRead({
+      abi,
+      address: contractAddress,
+      functionName,
+      args,
+    })
+  }
 
-export const rolesContract = () => {
-  return createContract(process.env.ROLES_CONTRACT_ADDRESS, RolesABI.abi);
-};
+  function write({ functionName, args }) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { config } = usePrepareContractWrite({
+      abi,
+      address: contractAddress,
+      functionName,
+      args,
+    })
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useContractWrite(config, {})
+  }
 
-export const ticketContract = () => {
-  return createContract(process.env.TICKET_CONTRACT_ADDRESS, TicketABI.abi);
-};
+  return { read, write }
+}
+
+export const rolesContract = createContract(
+  process.env.ROLES_CONTRACT_ADDRESS,
+  RolesABI.abi
+)
+
+export const ticketContract = createContract(
+  process.env.TICKET_CONTRACT_ADDRESS,
+  TicketABI.abi
+)
