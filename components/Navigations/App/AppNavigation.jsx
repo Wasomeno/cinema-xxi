@@ -34,9 +34,9 @@ export const appPaths = [
 const AppNavigation = () => {
   const { isConnected, user } = useUserConnectionDetails()
 
-  const [showWalletModal, toggleShowWalletModal] = useToggle(false)
   const [showUserModal, toggleShowUserModal] = useToggle(false)
   const [showSearchModal, toggleShowSearchModal] = useToggle(false)
+  const [showWalletModal, toggleShowWalletModal] = useToggle(false)
 
   return (
     <div
@@ -73,7 +73,7 @@ const AppNavigation = () => {
         <div className="text-center">
           {isConnected ? (
             <button
-              onClick={() => toggleShowUserModal()}
+              onClick={toggleShowUserModal}
               className="flex items-center justify-center gap-2 rounded-full border border-transparent p-1 transition duration-300 ease-in-out"
             >
               <div className="h-8 w-8 rounded-full border-2 border-slate-300 bg-blue-400 md:h-8 md:w-8" />
@@ -84,7 +84,7 @@ const AppNavigation = () => {
             </button>
           ) : (
             <button
-              onClick={() => toggleShowWalletModal()}
+              onClick={toggleShowWalletModal}
               className="rounded-lg bg-slate-900 px-3 py-2 font-poppins text-xs font-medium text-white dark:bg-white dark:text-slate-950"
             >
               Connect Wallet
@@ -92,7 +92,6 @@ const AppNavigation = () => {
           )}
         </div>
       </div>
-
       <AnimatePresence>
         {showWalletModal && (
           <ConnectWalletModal toggleWalletModal={toggleShowWalletModal} />
