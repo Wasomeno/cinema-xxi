@@ -46,7 +46,13 @@ export default function RegionDetailsPage({ regionDetails }) {
           </div>
         </AnimatedContainer>
         <AnimatePresence>
-          {router.query.view && <CinemaDetailsModal />}
+          {router.query.view && (
+            <CinemaDetailsModal
+              closeModal={() =>
+                router.push(`/manager/regions/${regionDetails?.id}`)
+              }
+            />
+          )}
           {router.query.add && (
             <AddCinemaModal
               closeModal={() =>
