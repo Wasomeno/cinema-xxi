@@ -26,6 +26,12 @@ export const Transactions = () => {
 
   const skeletons = useSkeleton(<TransactionCardSkeleton />, 5)
 
+  const filteredTransactions = transactions.data?.filter((transaction) =>
+    activeTab === "tickets"
+      ? new Date(transaction.showtime * 1000).getMilliseconds() > Date.now()
+      : new Date(transaction.showtime * 1000).getMilliseconds() < Date.now()
+  )
+
   if (!isConnected) return <WalletNotConnected />
   return (
     <AnimatedContainer className="relative flex min-h-screen flex-1 flex-col bg-opacity-95 p-5 lg:p-10">
@@ -58,9 +64,8 @@ export const Transactions = () => {
       </div>
       <div className="mt-4 flex flex-col gap-2">
         {transactions.isLoading && skeletons.map((skeleton) => skeleton)}
-
         {!transactions.isLoading && transactions.data?.length
-          ? transactions.data.map((transaction) => (
+          ? filteredTransactions.map((transaction) => (
               <TransactionCard
                 href={`/app/transactions?id=${transaction.id}`}
                 key={transaction.id}
@@ -73,7 +78,7 @@ export const Transactions = () => {
             ))
           : null}
 
-        {!transactions.isLoading && !transactions.data?.length ? (
+        {!transactions.isLoading && !filteredTransactions.length ? (
           <div className="flex h-80 w-full  flex-col items-center justify-center gap-1.5">
             <span className="text-slate-400">No Transactions</span>
             <RxCrossCircled size="32" className="text-slate-400" />
