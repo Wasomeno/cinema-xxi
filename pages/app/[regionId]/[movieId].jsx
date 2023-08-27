@@ -142,11 +142,7 @@ export default function AppMovieShowtimesPage({
       <AnimatePresence>
         {seatModalOpen && (
           <SeatsModal
-            title={`${
-              selectedShowtime.movie.title
-            } ${dateTime.toDateString()}, ${selectedShowtime?.showtime.hour}:${
-              selectedShowtime?.showtime.minutes
-            } PM`}
+            title={`${selectedShowtime.movie.title}`}
             closeModal={() => setSeatModalOpen(false)}
             seats={
               <SeatsModal.Seats
