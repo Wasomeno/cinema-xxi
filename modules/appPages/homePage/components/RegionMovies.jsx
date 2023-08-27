@@ -2,6 +2,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useSkeleton } from "hooks/useSkeleton"
 import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
+import { TbMovieOff } from "react-icons/tb"
 import { useToast } from "stores/toastStore"
 
 import { query } from "@/components/reactQuery/queries/query"
@@ -14,11 +15,11 @@ export const RegionMovies = ({ selectedRegion }) => {
     queryKey: regionQueryKeys.regionMovies(selectedRegion.id),
     url: "/api/regions/" + selectedRegion.id + "/movies",
   })
-  const { isConnected } = useUserConnectionDetails()
   const router = useRouter()
   const toast = useToast()
 
-  const movieSkeletons = useSkeleton(<MovieSkeleton />, 5)
+  const { isConnected } = useUserConnectionDetails()
+  const movieSkeletons = useSkeleton(<MovieSkeleton />, 6)
 
   return (
     <div className="flex flex-col items-center justify-center gap-3">
@@ -26,9 +27,9 @@ export const RegionMovies = ({ selectedRegion }) => {
         <h2 className="text-sm md:text-base">Movies on Show</h2>
       </div>
       <div className="flex w-full justify-start gap-3 overflow-x-scroll lg:w-10/12">
-        {moviesInRegion.isLoading
-          ? movieSkeletons.map((skeleton) => skeleton)
-          : moviesInRegion.data?.map((movie) => (
+        {moviesInRegion.isLoading && movieSkeletons.map((skeleton) => skeleton)}
+        {!moviesInRegion.isLoading && moviesInRegion.data?.length > 0
+          ? moviesInRegion.data?.map((movie) => (
               <button
                 key={movie.id}
                 onClick={() =>
@@ -50,7 +51,14 @@ export const RegionMovies = ({ selectedRegion }) => {
                   {movie.title}
                 </span>
               </button>
-            ))}
+            ))
+          : null}
+        {!moviesInRegion.isLoading && moviesInRegion.data?.length < 1 ? (
+          <div className="flex h-52 w-full flex-col items-center justify-center gap-2 opacity-50">
+            <span className="text-sm font-medium">No Active movies</span>
+            <TbMovieOff size={25} />
+          </div>
+        ) : null}
       </div>
     </div>
   )
