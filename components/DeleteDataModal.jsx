@@ -1,6 +1,6 @@
 import { RxCrossCircled } from "react-icons/rx"
 
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal } from "@/components/Modal"
 
 export const DeleteDataModal = ({
   closeModal,
@@ -9,9 +9,9 @@ export const DeleteDataModal = ({
   deleteFunction,
 }) => {
   return (
-    <CenteredModalContainer
+    <CenteredModal
       closeModal={closeModal}
-      className="h-72 w-full lg:h-80 lg:w-80"
+      className="h-72 w-full bg-slate-50 dark:bg-slate-900 lg:h-80 lg:w-80"
     >
       <div className="flex h-5/6 w-full flex-col items-center justify-center gap-2">
         <h5 className="font-poppins text-sm font-medium tracking-wider lg:text-base">
@@ -37,6 +37,6 @@ export const DeleteDataModal = ({
           Cancel
         </button>
       </div>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

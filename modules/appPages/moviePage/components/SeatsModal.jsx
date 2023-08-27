@@ -3,23 +3,27 @@ import { useDateTime } from "hooks/useDateTime"
 import { useSkeleton } from "hooks/useSkeleton"
 import { twMerge } from "tailwind-merge"
 
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import { query } from "@/components/reactQuery/queries/query"
 
 import SeatSkeleton from "./SeatSkeleton"
 
 export default function SeatsModal({ title, closeModal, seats, seatsTotal }) {
   return (
-    <CenteredModalContainer
-      title={title}
+    <CenteredModal
       closeModal={closeModal}
-      className="w-full items-center gap-4 overflow-y-scroll rounded-t-lg py-0 pt-4 lg:w-3/6 lg:rounded-lg"
+      className="flex w-full flex-col gap-2 overflow-y-scroll rounded-t-lg bg-slate-50 p-0 dark:bg-slate-800 lg:w-3/6 lg:gap-4 lg:rounded-lg"
     >
-      <div className="flex w-full flex-1 flex-col justify-between gap-10">
+      <ModalHeader title={title} className="p-4" closeModal={closeModal} />
+      <div className="flex flex-1 flex-col justify-between overflow-x-scroll px-4">
         {seats}
-        {seatsTotal}
+        <div className="flex items-center justify-center rounded-full bg-neutral-300 p-2 dark:bg-gray-700">
+          <span className="text-xs font-medium">Screen</span>
+        </div>
       </div>
-    </CenteredModalContainer>
+
+      {seatsTotal}
+    </CenteredModal>
   )
 }
 
@@ -30,10 +34,10 @@ function Seats({
   selectedDate,
   selectedShowtime,
 }) {
-  const seatSkeletons = useSkeleton(<SeatSkeleton />, 60)
+  const seatSkeletons = useSkeleton(<SeatSkeleton />, 4)
   const showtimeSeats = query({
     queryKey: [
-      "takenSeats",
+      "showtimeSeats",
       selectedShowtime.cinema.id,
       selectedShowtime.studio.id,
       selectedShowtime.studioShowtimeId,
@@ -63,8 +67,18 @@ function Seats({
 
   function generateSeats() {
     let seats = []
+    let seatsSection = []
+    let seatIndex = 0
+    let otherIndex = 0
     for (let i = 0; i < showtimeSeats.data?.studio.capacity; ++i) {
-      seats[i] = i + 1
+      seatsSection[otherIndex] = i + 1
+      otherIndex += 1
+      if (i === (seatIndex + 1) * 15 - 1) {
+        seats[seatIndex] = seatsSection
+        seatsSection = []
+        otherIndex = 0
+        seatIndex += 1
+      }
     }
     return seats
   }
@@ -74,26 +88,37 @@ function Seats({
   }, [showtimeSeats.isLoading])
 
   return (
-    <div className="grid w-full grid-cols-12 gap-3">
+    <div className="grid w-[500px] grid-cols-2 gap-10 lg:w-auto">
       {showtimeSeats.isLoading
         ? seatSkeletons.map((skeleton) => skeleton)
-        : generateSeats().map((seatNumber, index) => (
-            <button
-              key={index}
-              disabled={showtimeSeats.data?.seats_taken.includes(seatNumber)}
-              onClick={() => {
-                selectedSeats.includes(seatNumber)
-                  ? deselectSeat(seatNumber)
-                  : selectSeat(seatNumber)
-              }}
-              className={twMerge(
-                "col-span-2 h-8  cursor-pointer rounded-lg bg-slate-200 shadow-sm transition duration-200 disabled:cursor-default disabled:bg-opacity-40 disabled:text-opacity-40 dark:bg-slate-900 lg:col-span-1",
-                selectedSeats.includes(seatNumber) &&
-                  "bg-blue-200 dark:bg-blue-800"
-              )}
+        : generateSeats().map((row, rowIndex) => (
+            <div
+              key={rowIndex}
+              className="grid grid-cols-5 justify-items-center gap-2 lg:w-auto"
             >
-              <span className="m-auto text-xs lg:text-sm">{seatNumber}</span>
-            </button>
+              {row.map((seatNumber, seatIndex) => (
+                <button
+                  key={seatIndex}
+                  disabled={showtimeSeats.data?.seats_taken.includes(
+                    seatNumber
+                  )}
+                  onClick={() => {
+                    selectedSeats.includes(seatNumber)
+                      ? deselectSeat(seatNumber)
+                      : selectSeat(seatNumber)
+                  }}
+                  className={twMerge(
+                    "h-10 w-10 rounded-lg bg-slate-200 shadow-sm transition duration-200 disabled:cursor-default disabled:bg-opacity-50 disabled:text-opacity-40 dark:bg-slate-700 lg:col-span-1",
+                    selectedSeats.includes(seatNumber) &&
+                      "bg-blue-200 dark:bg-blue-800"
+                  )}
+                >
+                  <span className="m-auto text-xs lg:text-sm">
+                    {seatNumber}
+                  </span>
+                </button>
+              ))}
+            </div>
           ))}
     </div>
   )
@@ -104,11 +129,11 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
 
   function getTicketPriceTotal(day, seatsAmount) {
     const total = seatsAmount * (day > 5 ? 0.0012 : 0.001)
-    return seatsAmount < 1 ? 0 : total
+    return seatsAmount < 1 ? 0 : total.toFixed(3)
   }
 
   return (
-    <div className="sticky bottom-0 flex w-full flex-col gap-4 border-t bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+    <div className="dark:border-t-700 sticky flex w-full flex-col gap-4 border-t bg-white px-4 py-4 dark:border-slate-700 dark:bg-slate-800">
       <div className="flex items-center">
         <div className="flex w-3/6 flex-col items-center gap-2">
           <span className="text-xs lg:text-sm">Total price</span>
@@ -120,14 +145,16 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
         </div>
         <div className="flex w-3/6 flex-col items-center gap-2">
           <span className="text-xs lg:text-sm">Selected seats</span>
-          <div className="flex items-center justify-center gap-2">
+          <div className="grid max-h-16 grid-cols-5 justify-center gap-x-10 gap-y-2 overflow-scroll lg:grid-cols-6 lg:gap-x-2">
             {!selectedSeats.length ? (
-              <span className="text-xs">No seats selected</span>
+              <span className="col-span-5 text-center text-xs lg:col-span-6">
+                No seats selected
+              </span>
             ) : (
               selectedSeats.map((seatNumber, index) => (
                 <span
                   key={index}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-200 text-xs dark:bg-blue-800"
+                  className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-200 text-xs dark:bg-blue-800"
                 >
                   {seatNumber}
                 </span>
@@ -139,7 +166,7 @@ function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
       <button
         disabled={selectedSeats.length < 1}
         onClick={onSeatsConfirmation}
-        className="w-full rounded-lg border border-slate-400 p-3 font-poppins text-xs font-medium text-slate-800 shadow-md transition duration-200 hover:bg-blue-200 dark:border-slate-500 dark:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-900"
+        className="w-full rounded-lg border border-slate-400 p-3 font-poppins text-xs font-medium text-slate-800 shadow-md transition duration-200 enabled:hover:bg-blue-200 disabled:opacity-50 dark:border-slate-500 dark:text-slate-50 enabled:dark:hover:bg-blue-800 dark:disabled:opacity-50"
       >
         Confirm Seats
       </button>

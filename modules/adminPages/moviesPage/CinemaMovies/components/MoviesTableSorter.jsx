@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import { TbArrowsDownUp } from "react-icons/tb"
 
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 
 const getSortings = (table) => [
   {
@@ -42,13 +42,15 @@ export const MoviesTableSorter = ({ table }) => {
       </div>
       <AnimatePresence>
         {modalOpen && (
-          <CenteredModalContainer
+          <CenteredModal
             closeModal={() => setModalOpen(false)}
-            className="h-auto w-full lg:h-3/6 lg:w-2/6"
+            className="h-auto w-full bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-3/6 lg:w-2/6"
           >
-            <div className="mb-4 flex justify-between">
-              <h4 className="font-poppins text-sm lg:text-base">Sorts</h4>
-            </div>
+            <ModalHeader
+              title="Sorts"
+              className="mb-4"
+              closeModal={() => setModalOpen(false)}
+            />
             <div className="flex flex-col gap-2">
               {sortings.map((sorting) => (
                 <button
@@ -58,13 +60,13 @@ export const MoviesTableSorter = ({ table }) => {
                     setSelectedSorting(sorting)
                     setModalOpen(false)
                   }}
-                  className="w-full justify-between rounded-md border bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-900 "
+                  className="w-full justify-between rounded-md border bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-800"
                 >
                   <span className="text-xs lg:text-sm"> {sorting.text}</span>
                 </button>
               ))}
             </div>
-          </CenteredModalContainer>
+          </CenteredModal>
         )}
       </AnimatePresence>
     </>

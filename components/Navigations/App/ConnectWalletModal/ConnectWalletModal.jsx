@@ -1,7 +1,7 @@
 import React from "react"
 import { useConnect } from "wagmi"
 
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal } from "@/components/Modal"
 
 import {
   WalletError,
@@ -19,10 +19,11 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
     idle: WalletIdle,
   }
   const WalletStatusComponent = walletComponents[status]
+
   return (
-    <CenteredModalContainer
+    <CenteredModal
       closeModal={toggleWalletModal}
-      className="flex h-72 w-full flex-col items-center gap-2 p-4 lg:h-80 lg:w-80"
+      className="flex h-72 w-full flex-col items-center gap-2 bg-slate-50 p-4 dark:bg-slate-800 lg:h-80 lg:w-80"
     >
       <div className="h-5/6 w-full">
         <WalletStatusComponent
@@ -32,6 +33,6 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
           toggleWalletModal={toggleWalletModal}
         />
       </div>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

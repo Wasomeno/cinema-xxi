@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useSession } from "next-auth/react"
 
 import { Form } from "@/components/Forms"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { query } from "@/components/reactQuery/queries/query"
@@ -49,11 +49,15 @@ export const EditCinemaAdminModal = () => {
   }, [adminDetails.isLoading])
 
   return (
-    <CenteredModalContainer
-      title="Edit Admin"
+    <CenteredModal
       closeModal={() => router.push(`/admin/admins`)}
-      className="lg:h-4/6 lg:w-2/6"
+      className="h-5/6 bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-4/6 lg:w-2/6"
     >
+      <ModalHeader
+        title="Edit Admin"
+        className="mb-4"
+        closeModal={() => router.push(`/admin/admins`)}
+      />
       <Form
         onSubmit={() => {
           updateCinemaAdmin.mutate()
@@ -83,6 +87,6 @@ export const EditCinemaAdminModal = () => {
         </div>
         <Form.Submit text="Submit" />
       </Form>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

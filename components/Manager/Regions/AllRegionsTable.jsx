@@ -96,9 +96,9 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
       cell: (info) => info.getValue(),
     },
     {
-      accessorKey: "cinemaAmount",
+      accessorKey: "_count",
       header: "Cinema Amount",
-      cell: (info) => info.getValue(),
+      cell: (info) => info.getValue().cinemas,
     },
     {
       id: "menu",

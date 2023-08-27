@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 
 import { Form } from "@/components/Forms"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
@@ -40,11 +40,15 @@ export const AddCinemaModal = ({ closeModal }) => {
   }
 
   return (
-    <CenteredModalContainer
-      title="Add Cinema"
+    <CenteredModal
       closeModal={closeModal}
-      className="lg:h-4/6 lg:w-2/6"
+      className="bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-4/6 lg:w-2/6"
     >
+      <ModalHeader
+        title={"Add Cinema"}
+        closeModal={closeModal}
+        className="mb-4"
+      />
       <Form
         onSubmit={() => {
           closeModal()
@@ -100,6 +104,6 @@ export const AddCinemaModal = ({ closeModal }) => {
         </div>
         <Form.Submit text="Submit " />
       </Form>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

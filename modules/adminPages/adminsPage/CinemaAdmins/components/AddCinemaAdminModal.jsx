@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useSession } from "next-auth/react"
 
 import { Form } from "@/components/Forms"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
@@ -29,11 +29,11 @@ export const AddCinemaAdminModal = ({ closeModal }) => {
   })
 
   return (
-    <CenteredModalContainer
-      title="Add Admin"
+    <CenteredModal
       closeModal={closeModal}
-      className="h-full lg:h-4/6 lg:w-2/6"
+      className="h-5/6 bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-4/6 lg:w-2/6"
     >
+      <ModalHeader title="Add Admin" className="mb-4" closeModal={closeModal} />
       <Form
         onSubmit={() => {
           addCinemaAdmin.mutate()
@@ -64,6 +64,6 @@ export const AddCinemaAdminModal = ({ closeModal }) => {
 
         <Form.Submit text="Submit" />
       </Form>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

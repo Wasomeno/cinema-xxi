@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useSession } from "next-auth/react"
-import { HiXMark } from "react-icons/hi2"
 import { IoCheckmarkCircle } from "react-icons/io5"
 
-import AnimatedContainer from "@/components/AnimatedContainer"
-import {
-  CenteredModalContainer,
-  ModalContainer,
-} from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { query } from "@/components/reactQuery/queries/query"
@@ -55,25 +50,32 @@ export const EditStudioShowtimeModal = ({ closeModal }) => {
   })
 
   useEffect(() => {
-    setSelectedMovie(selectedStudioShowtime.data.movie_id)
-    setSelectedShowtime(selectedStudioShowtime.data.showtime_id)
+    if (!selectedStudioShowtime.isLoading) {
+      setSelectedMovie(selectedStudioShowtime.data.movie_id)
+      setSelectedShowtime(selectedStudioShowtime.data.showtime_id)
+    }
   }, [selectedStudioShowtime.status])
 
   if (cinemaMovies.isLoading) return
   return (
-    <CenteredModalContainer
-      title="Edit Studio Showtime"
+    <CenteredModal
       closeModal={closeModal}
+      className="h-5/6  bg-slate-50 px-6 py-4  dark:bg-slate-900 lg:h-5/6 lg:w-4/6"
     >
+      <ModalHeader
+        title="Edit Studio Showtime"
+        closeModal={closeModal}
+        className="mb-4"
+      />
       <div className="relative flex h-5/6 w-full snap-x snap-proximity justify-start gap-4 overflow-x-scroll lg:justify-center">
         <div className="flex flex-1 snap-center flex-col gap-1.5">
           <h5 className="text-sm">Select movie</h5>
-          <div className="flex h-full w-80 flex-col rounded-lg border bg-slate-50 lg:w-full">
+          <div className="flex h-full w-80 flex-col rounded-lg border bg-slate-50 dark:border-slate-600 dark:bg-slate-800 lg:w-full">
             {cinemaMovies.data.map((movie) => (
               <button
                 onClick={() => setSelectedMovie(movie.id)}
                 key={movie.id}
-                className="relative border-b p-2 text-sm"
+                className="relative border-b p-2 text-sm dark:border-b-slate-700"
               >
                 {selectedMovie === movie.id && (
                   <span className="absolute left-5 top-1/2 -translate-y-1/2">
@@ -87,12 +89,12 @@ export const EditStudioShowtimeModal = ({ closeModal }) => {
         </div>
         <div className="flex snap-center flex-col gap-1.5 lg:flex-1">
           <h5 className="text-sm">Select Showtime</h5>
-          <div className="flex h-full w-80 flex-col rounded-lg border bg-slate-50 lg:w-full">
+          <div className="flex h-full w-80 flex-col rounded-lg border bg-slate-50 dark:border-slate-600 dark:bg-slate-800 lg:w-full">
             {cinemaShowtimes.data.map((showtime) => (
               <button
                 onClick={() => setSelectedShowtime(showtime.id)}
                 key={showtime.id}
-                className="relative border-b p-2 text-sm"
+                className="relative border-b p-2 text-sm dark:border-b-slate-700"
               >
                 {selectedShowtime === showtime.id && (
                   <span className="absolute left-5 top-1/2 -translate-y-1/2">
@@ -112,11 +114,11 @@ export const EditStudioShowtimeModal = ({ closeModal }) => {
             closeModal()
             updateStudioShowtime.mutate()
           }}
-          className="w-4/6 rounded-lg border border-slate-300 bg-green-100 py-2 font-poppins text-sm shadow-sm"
+          className="w-4/6 rounded-lg border py-2 font-poppins text-sm shadow-sm dark:border-slate-700"
         >
           Submit
         </button>
       </div>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

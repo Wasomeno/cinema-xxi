@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useSession } from "next-auth/react"
 
 import { Form } from "@/components/Forms"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
@@ -39,11 +39,15 @@ export const AddCinemaShowtimeModal = ({ closeModal }) => {
   }
 
   return (
-    <CenteredModalContainer
-      title="Add Showtime"
+    <CenteredModal
       closeModal={closeModal}
-      className="h-3/6 lg:h-4/6 lg:w-2/6"
+      className="flex h-3/6 flex-col justify-center bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-3/6 lg:w-2/6"
     >
+      <ModalHeader
+        title="Add Showtime"
+        className="mb-4"
+        closeModal={closeModal}
+      />
       <Form
         onSubmit={() => {
           closeModal()
@@ -73,6 +77,6 @@ export const AddCinemaShowtimeModal = ({ closeModal }) => {
         </div>
         <Form.Submit text="Submit" />
       </Form>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

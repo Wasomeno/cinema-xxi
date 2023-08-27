@@ -1,11 +1,13 @@
-import { HiXMark } from "react-icons/hi2";
-
-import { CenteredModalContainer } from "./ModalContainer";
+import { CenteredModal, ModalHeader } from "./Modal"
 
 export const TableRowDetailsModal = ({ title, children, closeModal }) => {
   return (
-    <CenteredModalContainer title={title} closeModal={closeModal}>
+    <CenteredModal
+      closeModal={closeModal}
+      className="bg-slate-50 px-6 py-4 dark:bg-slate-900"
+    >
+      <ModalHeader title={title} closeModal={closeModal} className="mb-4" />
       {children}
-    </CenteredModalContainer>
-  );
-};
+    </CenteredModal>
+  )
+}

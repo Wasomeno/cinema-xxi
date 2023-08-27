@@ -1,8 +1,7 @@
 import { useSkeleton } from "hooks/useSkeleton"
-import { HiCheck, HiXMark } from "react-icons/hi2"
+import { HiCheck } from "react-icons/hi2"
 
-import AnimatedContainer from "@/components/AnimatedContainer"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions"
 
 const RegionListModal = ({
@@ -12,15 +11,20 @@ const RegionListModal = ({
 }) => {
   const allRegion = useAllRegions()
   const skeletons = useSkeleton(
-    <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-700" />,
+    <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-600" />,
     5
   )
+
   return (
-    <CenteredModalContainer
-      title="Region List"
+    <CenteredModal
       closeModal={toggleShowRegionList}
-      className="h-72 lg:h-4/6 lg:w-2/6"
+      className="h-72 bg-slate-50 p-4 px-6 py-4 dark:bg-slate-800 lg:h-4/6 lg:w-2/6 "
     >
+      <ModalHeader
+        title="Region List"
+        className="mb-4"
+        closeModal={toggleShowRegionList}
+      />
       <div className="flex flex-col items-center gap-2 overflow-y-scroll">
         {allRegion.isLoading && skeletons.map((skeleton) => skeleton)}
         {!allRegion.isLoading && allRegion.status !== "error"
@@ -31,7 +35,7 @@ const RegionListModal = ({
                   setSelectedRegion(region)
                   toggleShowRegionList()
                 }}
-                className="relative flex w-full cursor-pointer justify-center rounded-lg bg-slate-200 p-2 text-sm tracking-wide dark:bg-slate-800"
+                className="relative flex w-full cursor-pointer justify-center rounded-lg bg-slate-200 p-2 text-sm tracking-wide dark:bg-slate-700"
               >
                 {selectedRegion.id === region.id && (
                   <span className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -44,7 +48,7 @@ const RegionListModal = ({
             ))
           : null}
       </div>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }
 

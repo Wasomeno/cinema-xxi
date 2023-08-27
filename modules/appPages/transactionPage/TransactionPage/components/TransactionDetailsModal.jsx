@@ -1,8 +1,6 @@
 import { useRouter } from "next/router"
-import { AnimatePresence } from "framer-motion"
-import { HiXMark } from "react-icons/hi2"
 
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal } from "@/components/Modal"
 
 export const TransactionDetailsModal = () => {
   const router = useRouter()
@@ -10,10 +8,10 @@ export const TransactionDetailsModal = () => {
 
   if (!id) return
   return (
-    <CenteredModalContainer
+    <CenteredModal
       title="Transaction Details"
       closeModal={() => router.push("/app/transactions")}
-      className="rounded-t-lg lg:h-4/6 lg:w-2/6 lg:rounded-lg"
-    ></CenteredModalContainer>
+      className="h-5/6 rounded-t-lg bg-slate-50 dark:bg-slate-800 lg:h-4/6 lg:w-2/6 lg:rounded-lg"
+    ></CenteredModal>
   )
 }

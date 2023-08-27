@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { useDateTime } from "hooks/useDateTime"
 
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import { useMintTicket } from "@/components/reactQuery/mutations/Ticket/useMintTicket"
 
 const TicketConfirmationModal = ({
@@ -32,11 +32,15 @@ const TicketConfirmationModal = ({
   }
 
   return (
-    <CenteredModalContainer
-      title="Ticket Details"
+    <CenteredModal
       closeModal={closeModal}
-      className="flex h-5/6 w-full flex-col justify-between md:h-4/6 md:w-3/12 lg:h-4/6 lg:w-4/12"
+      className="flex h-5/6 w-full flex-col justify-between bg-slate-50 dark:bg-slate-800 md:h-4/6 md:w-3/12 lg:h-4/6 lg:w-4/12"
     >
+      <ModalHeader
+        title="Ticket Details"
+        closeModal={closeModal}
+        className="mb-4"
+      />
       <div className="flex flex-1 flex-col gap-4">
         <div className="flex h-2/6 items-center justify-between">
           <div className="relative h-full w-4/12">
@@ -109,7 +113,7 @@ const TicketConfirmationModal = ({
       >
         Mint Tickets
       </button>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }
 

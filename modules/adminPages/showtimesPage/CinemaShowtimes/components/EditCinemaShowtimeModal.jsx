@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useSession } from "next-auth/react"
 
 import { Form } from "@/components/Forms"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { query } from "@/components/reactQuery/queries/query"
@@ -54,11 +54,15 @@ export const EditCinemaShowtimeModal = () => {
   }, [showtime.isLoading])
 
   return (
-    <CenteredModalContainer
-      title="Edit Showtime"
+    <CenteredModal
       closeModal={() => router.push("/admin/showtimes")}
-      className="h-3/6 lg:h-4/6 lg:w-2/6"
+      className="flex h-3/6 flex-col justify-center bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-3/6 lg:w-2/6"
     >
+      <ModalHeader
+        title="Edit Showtime"
+        className="mb-4"
+        closeModal={() => router.push("/admin/showtimes")}
+      />
       <Form
         onSubmit={() => {
           router.push("/admin/showtimes")
@@ -89,6 +93,6 @@ export const EditCinemaShowtimeModal = () => {
 
         <Form.Submit text="Submit" />
       </Form>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }

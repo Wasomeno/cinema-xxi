@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { Form } from "@/components/Forms"
-import { CenteredModalContainer } from "@/components/ModalContainer"
+import { CenteredModal, ModalHeader } from "@/components/Modal"
 import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { movieQueryKeys } from "@/components/reactQuery/queries/queryKeys/movieQueryKeys"
@@ -28,11 +28,11 @@ export const AddMoviesModal = ({ closeModal }) => {
   })
 
   return (
-    <CenteredModalContainer
-      title="Add Movie"
+    <CenteredModal
       closeModal={closeModal}
-      className="lg:h-4/6 lg:w-2/6"
+      className="bg-slate-50 px-6 py-4 dark:bg-slate-900 lg:h-4/6 lg:w-2/6"
     >
+      <ModalHeader title="Add Movie" className="mb-4" closeModal={closeModal} />
       <Form
         onSubmit={() => {
           addMovie.mutate()
@@ -62,6 +62,6 @@ export const AddMoviesModal = ({ closeModal }) => {
         </div>
         <Form.Submit text="Submit" />
       </Form>
-    </CenteredModalContainer>
+    </CenteredModal>
   )
 }
