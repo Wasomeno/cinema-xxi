@@ -33,6 +33,7 @@ const Layout = ({ children }) => {
         <WagmiConfig config={wagmiConfig}>
           <Loading />
           {children}
+          <div className="fixed" />
           <Toast />
         </WagmiConfig>
       </QueryClientProvider>
