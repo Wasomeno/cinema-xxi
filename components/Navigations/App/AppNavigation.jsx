@@ -1,13 +1,13 @@
 import Link from "next/link"
 import { AnimatePresence } from "framer-motion"
 import useToggle from "hooks/useToggle"
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
 import { HiOutlineSearch } from "react-icons/hi"
 import { HiOutlineRectangleStack, HiOutlineTicket } from "react-icons/hi2"
+import { useAccount } from "wagmi"
 
-import UserMenuModal from "@/components/UserMenuModal"
+import UserMenuModal from "@/components/App/UserMenuModal"
 
-import { ConnectWalletModal } from "./ConnectWalletModal"
+import { ConnectWalletModal } from "../../App/ConnectWalletModal"
 import { SearchModal } from "./SearchModal"
 
 export const appPaths = [
@@ -32,14 +32,14 @@ export const appPaths = [
 ]
 
 const AppNavigation = () => {
-  const { isConnected, user } = useUserConnectionDetails()
+  const { address, isConnected } = useAccount()
 
   const [showUserModal, toggleShowUserModal] = useToggle(false)
   const [showSearchModal, toggleShowSearchModal] = useToggle(false)
   const [showWalletModal, toggleShowWalletModal] = useToggle(false)
 
   return (
-    <div
+    <nav
       className={
         "sticky top-0 z-10 flex w-full items-center justify-between border-b bg-white px-4 py-2 dark:border-b-slate-800 dark:bg-slate-950 lg:h-16"
       }
@@ -78,8 +78,8 @@ const AppNavigation = () => {
             >
               <div className="h-8 w-8 rounded-full border-2 border-slate-300 bg-blue-400 md:h-8 md:w-8" />
               <span className="hidden font-poppins text-xs font-medium sm:hidden sm:text-sm md:block">
-                {user.slice(0, 6)}...
-                {user.slice(-6, -1) + user.slice(-1)}
+                {address.slice(0, 6)}...
+                {address.slice(-6, -1) + address.slice(-1)}
               </span>
             </button>
           ) : (
@@ -101,7 +101,7 @@ const AppNavigation = () => {
         )}
         {showSearchModal && <SearchModal toggleModal={toggleShowSearchModal} />}
       </AnimatePresence>
-    </div>
+    </nav>
   )
 }
 
