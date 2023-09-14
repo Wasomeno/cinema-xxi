@@ -17,9 +17,6 @@ export default function SeatsModal({ title, closeModal, seats, seatsTotal }) {
       <ModalHeader title={title} className="p-4" closeModal={closeModal} />
       <div className="flex flex-1 flex-col justify-between overflow-x-scroll px-4">
         {seats}
-        <div className="flex items-center justify-center rounded-full bg-neutral-300 p-2 dark:bg-gray-700">
-          <span className="text-xs font-medium">Screen</span>
-        </div>
       </div>
 
       {seatsTotal}
