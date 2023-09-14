@@ -26,6 +26,6 @@ const MovieTableRowSkeleton = ({ table }) => {
 }
 
 export const MoviesTableRowSkeletons = ({ table }) => {
-  const Skeletons = useSkeleton(<MovieTableRowSkeleton table={table} />, 5)
-  return Skeletons
+  const skeletons = useSkeleton(<MovieTableRowSkeleton table={table} />, 5)
+  return skeletons
 }
