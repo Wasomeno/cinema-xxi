@@ -29,7 +29,7 @@ const appPaths = [
 const AppNavigationMobile = () => {
   const { pathname } = useRouter()
   return (
-    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly border-t bg-white shadow-md backdrop-blur-md dark:border-slate-800 dark:bg-slate-950 md:hidden">
+    <div className="sticky bottom-0 z-10 flex h-16 w-full items-center justify-evenly border-t bg-white shadow-md backdrop-blur-md dark:border-slate-800 dark:bg-slate-950 md:hidden lg:hidden">
       {appPaths.map((path) => (
         <Link
           key={path.text}
