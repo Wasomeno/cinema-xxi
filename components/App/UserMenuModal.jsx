@@ -3,8 +3,8 @@ import { RiShareBoxFill } from "react-icons/ri"
 import { useToast } from "stores/toastStore"
 import { useAccount, useBalance, useDisconnect } from "wagmi"
 
-import { Modal } from "./Modal"
-import { ThemeSwitcher } from "./ThemeSwitcher"
+import { Modal } from "../Modal"
+import { ThemeSwitcher } from "../ThemeSwitcher"
 
 const UserMenuModal = ({ toggleShowUserModal }) => {
   const toast = useToast()

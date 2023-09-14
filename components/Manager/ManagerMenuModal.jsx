@@ -1,16 +1,16 @@
 import { signOut, useSession } from "next-auth/react"
 import { HiPower } from "react-icons/hi2"
 
-import { Modal } from "./Modal"
+import { Modal } from "../Modal"
 
-const AdminMenuModal = ({ closeModal }) => {
+const ManagerMenuModal = ({ closeModal }) => {
   const { data: sessionData } = useSession()
 
   if (!sessionData) return
   return (
     <Modal
       closeModal={closeModal}
-      className="dark:modal flex h-80 w-full flex-col gap-4 bg-slate-50 p-4 dark:bg-slate-800 md:right-5 md:top-12 md:h-96 md:w-80"
+      className="flex h-80 w-full flex-col gap-4 bg-slate-50 p-4 dark:bg-slate-800 lg:right-5 lg:top-14 lg:h-96 lg:w-80"
     >
       <div className="mx-auto h-1 w-2/6 rounded-full bg-gray-400 bg-opacity-25" />
       <div className="flex w-full items-center justify-between">
@@ -22,15 +22,16 @@ const AdminMenuModal = ({ closeModal }) => {
         </div>
         <div className="flex w-2/6 items-center justify-end gap-2 md:w-3/6">
           <button
-            onClick={() => signOut({ redirect: "/admin/login" })}
-            className="rounded-lg bg-slate-100 p-2 dark:bg-slate-700"
+            onClick={() => signOut({ redirect: "/manager/login" })}
+            className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
           >
             <HiPower size="16" />
           </button>
         </div>
       </div>
+      <div className="flex flex-col items-start gap-2"></div>
     </Modal>
   )
 }
 
-export default AdminMenuModal
+export default ManagerMenuModal
