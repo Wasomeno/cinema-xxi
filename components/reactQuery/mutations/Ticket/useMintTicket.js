@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import { waitForTransaction } from "@wagmi/core"
 import { parseEther } from "ethers"
 import { ticketContract } from "hooks/createContract"
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
+import { useAccount } from "wagmi"
 
 import { useSideEffects } from "../useSideEffects"
 
@@ -14,7 +14,7 @@ export function useMintTicket({
   selectedShowtime,
   total,
 }) {
-  const { user } = useUserConnectionDetails()
+  const { address } = useAccount()
   const router = useRouter()
   // const totalParsed = parseEther(total.toString())
   // const ticketDetails = {
@@ -51,7 +51,7 @@ export function useMintTicket({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userAddress: user,
+        userAddress: address,
         selectedDate,
         regionId: parseInt(router.query.regionId),
         cinemaId: parseInt(selectedShowtime.cinema.id),
