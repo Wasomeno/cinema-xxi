@@ -2,7 +2,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { AnimatePresence } from "framer-motion"
 
-import AdminMenuModal from "@/components/AdminMenuModal"
+import AdminMenuModal from "@/components/Admin/AdminMenuModal"
 import { ThemeSwitcher } from "@/components/ThemeSwitcher"
 
 export const AdminToolbar = () => {
