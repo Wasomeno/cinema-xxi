@@ -11,12 +11,12 @@ export function AppBannerSlider() {
   const [showNavigation, setShowNavigation] = useState(false)
   return (
     <div
-      className="swiper-container relative w-full lg:w-5/6"
+      className="swiper-container w-full lg:w-5/6"
       onMouseEnter={() => setShowNavigation(true)}
       onMouseLeave={() => setShowNavigation(false)}
     >
       <Swiper
-        className="h-40 w-full lg:h-96 lg:w-4/6"
+        className="h-40 w-full overflow-visible lg:h-96 lg:w-4/6"
         autoplay={{ disableOnInteraction: false }}
         navigation={{ enabled: true }}
         modules={[Navigation, Autoplay]}
@@ -24,7 +24,7 @@ export function AppBannerSlider() {
         spaceBetween={50}
       >
         <SwiperSlide className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg shadow-sm">
-          <div className="relative h-full w-full  bg-slate-100 dark:bg-slate-700">
+          <div className="relative h-full w-full bg-slate-100 dark:bg-slate-700">
             <Image
               fill
               src="https://ymudtpspkdopgzrtzevt.supabase.co/storage/v1/object/sign/banner_images/169269949110133_925x527.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJiYW5uZXJfaW1hZ2VzLzE2OTI2OTk0OTExMDEzM185MjV4NTI3LndlYnAiLCJpYXQiOjE2OTMwNzU3MzcsImV4cCI6MTcyNDYxMTczN30.Fx3twPkj0fQIpgekeSJa6OzuX1YZB-jjL8idFMahEdg&t=2023-08-26T18%3A48%3A57.142Z"
@@ -72,7 +72,7 @@ const AppBannerSliderNavigation = () => {
         animate={{ opacity: 1, bottom: "50%" }}
         exit={{ opacity: 0, bottom: "47%" }}
         transition={{ ease: "easeInOut", duration: 0.2, delay: 0.1 }}
-        className="btn-prev absolute left-0 z-20 flex  h-8 w-8 items-center justify-center rounded-full bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:h-10 lg:w-10"
+        className="btn-prev absolute -left-4 z-20 flex h-8 w-8  items-center justify-center rounded-full border bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:h-10 lg:w-10"
       >
         <BsChevronLeft size="20" />
       </motion.button>
@@ -82,7 +82,7 @@ const AppBannerSliderNavigation = () => {
         animate={{ opacity: 1, bottom: "50%" }}
         exit={{ opacity: 0, bottom: "47%" }}
         transition={{ ease: "easeInOut", duration: 0.2, delay: 0.1 }}
-        className="btn-next absolute right-0 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:h-10 lg:w-10"
+        className="btn-next absolute -right-4 z-20 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:h-10 lg:w-10"
       >
         <BsChevronRight size="20" />
       </motion.button>

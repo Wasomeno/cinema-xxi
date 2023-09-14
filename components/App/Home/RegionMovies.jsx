@@ -1,24 +1,24 @@
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useSkeleton } from "hooks/useSkeleton"
-import { useUserConnectionDetails } from "hooks/useUserConnectionDetails"
 import { TbMovieOff } from "react-icons/tb"
 import { useToast } from "stores/toastStore"
+import { useAccount } from "wagmi"
 
+import { MovieSkeleton } from "@/components/MovieSkeleton"
 import { query } from "@/components/reactQuery/queries/query"
 import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
-
-import { MovieSkeleton } from "./MovieSkeleton"
 
 export const RegionMovies = ({ selectedRegion }) => {
   const moviesInRegion = query({
     queryKey: regionQueryKeys.regionMovies(selectedRegion.id),
     url: "/api/regions/" + selectedRegion.id + "/movies",
   })
+
   const router = useRouter()
   const toast = useToast()
 
-  const { isConnected } = useUserConnectionDetails()
+  const { isConnected } = useAccount()
   const movieSkeletons = useSkeleton(<MovieSkeleton />, 6)
 
   return (
