@@ -1,4 +1,4 @@
-export default function Contact() {
+export default function About() {
   return (
     <div className="flex h-3/4 flex-col items-center justify-center">
       <div className="m-4">
@@ -12,5 +12,5 @@ export default function Contact() {
         </p>
       </div>
     </div>
-  );
+  )
 }
