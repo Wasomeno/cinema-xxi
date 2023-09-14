@@ -1,15 +1,14 @@
 import { useState } from "react"
 import axios from "axios"
 import { AnimatePresence } from "framer-motion"
-import { useDateTime } from "hooks/useDateTime"
 import { prisma } from "lib/prisma"
-import MovieDateSection from "modules/appPages/moviePage/components/MovieDateSection"
-import MovieSection from "modules/appPages/moviePage/components/MovieSection"
-import MovieShowtimeSection from "modules/appPages/moviePage/components/MovieShowtimeSection"
-import SeatsModal from "modules/appPages/moviePage/components/SeatsModal"
-import TicketConfirmationModal from "modules/appPages/moviePage/components/TicketConfirmationModal"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
+import MovieDateSection from "@/components/App/Movie/MovieDateSection"
+import MovieSection from "@/components/App/Movie/MovieSection"
+import MovieShowtimeSection from "@/components/App/Movie/MovieShowtimeSection"
+import SeatsModal from "@/components/App/Movie/SeatsModal"
+import TicketConfirmationModal from "@/components/App/Movie/TicketConfirmationModal"
 import AppLayout from "@/components/Layouts/AppLayout"
 
 export async function getStaticPaths() {
@@ -101,13 +100,6 @@ export default function AppMovieShowtimesPage({
   const [selectedShowtime, setSelectedShowtime] = useState({})
   const [selectedSeats, setSelectedSeats] = useState([])
   const [seatsId, setSeatsId] = useState()
-
-  const dateTime = useDateTime({
-    date: selectedDate.date,
-    month: selectedDate.month,
-    hours: selectedShowtime.showtime?.hour,
-    minutes: selectedShowtime.showtime?.minutes,
-  })
 
   return (
     <AppLayout pageTitle={`${movieDetails.title} Showtimes`}>

@@ -2,13 +2,12 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import { AnimatePresence } from "framer-motion"
 
+import { AddCinemaAdminModal } from "@/components/Admin/Admins/AddCinemaAdminModal"
+import { CinemaAdminsTable } from "@/components/Admin/Admins/CinemaAdminsTable"
+import { DeleteCinemaAdminsModal } from "@/components/Admin/Admins/DeleteCinemaAdminsModal"
+import { EditCinemaAdminModal } from "@/components/Admin/Admins/EditCinemaAdminModal"
 import AdminHeader from "@/components/Headers/AdminHeader"
 import { AdminLayout } from "@/components/Layouts/AdminLayout"
-
-import { AddCinemaAdminModal } from "./components/AddCinemaAdminModal"
-import { CinemaAdminsTable } from "./components/CinemaAdminsTable"
-import { DeleteCinemaAdminsModal } from "./components/DeleteCinemaAdminsModal"
-import { EditCinemaAdminModal } from "./components/EditCinemaAdminModal"
 
 export default function CinemaAdminsPage() {
   const [selectedAdmins, setSelectedAdmins] = useState([])
