@@ -14,7 +14,7 @@ export default function CinemaAdminsPage() {
   const { query, push } = useRouter()
   return (
     <AdminLayout pageTitle="Admins">
-      <div className="flex flex-1 flex-col rounded-lg p-4">
+      <div className="flex w-full flex-1 flex-col rounded-lg p-4">
         <AdminHeader>Admins</AdminHeader>
         <CinemaAdminsTable
           selectedAdmins={selectedAdmins}
