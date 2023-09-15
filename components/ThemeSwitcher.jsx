@@ -4,7 +4,6 @@ import { FaRegMoon } from "react-icons/fa"
 
 export const ThemeSwitcher = () => {
   const { setTheme, resolvedTheme } = useTheme()
-
   return (
     <button
       onClick={() => {
@@ -15,8 +14,11 @@ export const ThemeSwitcher = () => {
         }
       }}
     >
-      {resolvedTheme === "light" && <BsSun size={20} />}
-      {resolvedTheme === "dark" && <FaRegMoon size={20} />}
+      {resolvedTheme === "light" ? (
+        <BsSun size={20} />
+      ) : (
+        <FaRegMoon size={20} />
+      )}
     </button>
   )
 }
