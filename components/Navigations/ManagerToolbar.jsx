@@ -2,7 +2,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { AnimatePresence } from "framer-motion"
 
-import ManagerMenuModal from "../ManagerMenuModal"
+import ManagerMenuModal from "../Manager/ManagerMenuModal"
 import { ThemeSwitcher } from "../ThemeSwitcher"
 
 export const ManagerToolbar = () => {
