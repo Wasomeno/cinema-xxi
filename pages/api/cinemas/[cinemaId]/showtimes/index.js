@@ -8,6 +8,7 @@ export default async function cinemaShowtimesHandler(req, res) {
   if (req.method === "GET") {
     const cinemaShowtimes = await prisma.showtime.findMany({
       where: { cinemaId: parseInt(cinemaId) },
+      orderBy: { id: "asc" },
     })
     res.status(200).json(cinemaShowtimes)
   } else if (req.method === "POST") {

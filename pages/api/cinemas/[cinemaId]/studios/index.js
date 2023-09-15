@@ -9,6 +9,7 @@ export default async function studiosHandler(req, res) {
       where: { id: parseInt(cinemaId) },
       select: {
         studios: {
+          orderBy: { id: "asc" },
           include: {
             showtime_to_movie: { include: { movie: true, showtime: true } },
           },
