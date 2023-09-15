@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Table({ children }) {
   return (
-    <table className="w-full border-collapse border border-slate-200 bg-slate-50 text-left text-sm text-gray-500 shadow-md dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
+    <table className="w-full border-collapse bg-slate-50 text-left text-sm text-gray-500  dark:text-slate-100">
       {children}
     </table>
   )
