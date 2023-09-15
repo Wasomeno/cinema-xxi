@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import {
   flexRender,
@@ -8,16 +8,18 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { useSkeleton } from "hooks/useSkeleton"
+import { showtimeSorts } from "lib/tableSorts"
 import { useSession } from "next-auth/react"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
-import { twMerge } from "tailwind-merge"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
 import { query } from "@/components/reactQuery/queries/query"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
+
+import { ShowtimeTableSkeletons } from "./ShowtimeTableSkeleton"
 
 export const ShowtimesTable = ({
   rowMenu,
@@ -25,6 +27,7 @@ export const ShowtimesTable = ({
   selectedShowtimes,
 }) => {
   const [sorting, setSorting] = useState()
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
   const session = useSession()
 
   const router = useRouter()
@@ -122,39 +125,18 @@ export const ShowtimesTable = ({
   const table = useReactTable({
     data: cinemaShowtimes.data,
     columns: cinemaShowtimeTableColumns,
-    state: { sorting, pagination: { pageSize: 10, pageIndex: 0 } },
+    state: { sorting, pagination },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
 
-  const rowSkeletons = useSkeleton(
-    <tr>
-      {table.getAllColumns().map((column, index) => (
-        <td key={index}>
-          <div className="flex justify-center px-6 py-4">
-            <span
-              className={twMerge(
-                "h-6 animate-pulse rounded-lg bg-slate-300 lg:h-8",
-                column.id === "select" ||
-                  column.id === "menu" ||
-                  column.id === "id"
-                  ? "w-6 lg:w-8"
-                  : "w-24 lg:w-28 "
-              )}
-            />
-          </div>
-        </td>
-      ))}
-    </tr>,
-    5
-  )
-
   return (
-    <div className="flex justify-center">
-      <AnimatedContainer className="w-full">
+    <div className="flex flex-1 flex-col items-center">
+      <AnimatedContainer className="flex w-full flex-1 flex-col">
         <div className="my-2 flex justify-between gap-2.5">
           <div className="flex items-center gap-2">
             <input
@@ -165,6 +147,7 @@ export const ShowtimesTable = ({
               }
               className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
             />
+            <TableDataSorter table={table} sorts={showtimeSorts} />
           </div>
           <div className="flex w-72 items-center justify-end gap-2">
             <button
@@ -182,7 +165,7 @@ export const ShowtimesTable = ({
             </button>
           </div>
         </div>
-        <div className="overflow-x-scroll rounded-lg">
+        <div className="flex flex-1 flex-col overflow-x-scroll rounded-lg  border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
           <Table>
             <Table.Head>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -208,8 +191,7 @@ export const ShowtimesTable = ({
               ))}
             </Table.Head>
             <Table.Body>
-              {cinemaShowtimes.isLoading &&
-                rowSkeletons.map((skeleton) => skeleton)}
+              {cinemaShowtimes.isLoading && <ShowtimeTableSkeletons />}
               {!cinemaShowtimes.isLoading &&
                 !table.getRowModel().rows?.length && (
                   <tr>

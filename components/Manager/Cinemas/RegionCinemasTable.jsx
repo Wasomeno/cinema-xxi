@@ -8,8 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { MoviesTableRowSkeletons } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableSorter"
+import { cinemaSorts } from "lib/tableSorts"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
 
@@ -17,14 +16,17 @@ import AnimatedContainer from "@/components/AnimatedContainer"
 import { query } from "@/components/reactQuery/queries/query"
 import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
 import TableRowMenu from "@/components/TableRowMenu"
+
+import { RegionCinemaTableSkeletons } from "./RegionCinemaTableSkeleton"
 
 export const RegionCinemasTable = ({
   regionId,
   selectedCinemas,
   setSelectedCinemas,
 }) => {
-  const [sorting, setSorting] = useState({})
+  const [sorting, setSorting] = useState()
   const router = useRouter()
 
   const regionCinemas = query({
@@ -140,7 +142,7 @@ export const RegionCinemasTable = ({
             }
             className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
           />
-          <MoviesTableSorter table={table} />
+          <TableDataSorter table={table} sorts={cinemaSorts} />
         </div>
         <div className="flex w-72 items-center justify-end gap-2">
           <button
@@ -160,7 +162,7 @@ export const RegionCinemasTable = ({
           </button>
         </div>
       </div>
-      <div className="overflow-x-scroll rounded-lg">
+      <div className="flex flex-1 flex-col overflow-x-scroll rounded-lg  border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
         <Table>
           <Table.Head>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -187,7 +189,7 @@ export const RegionCinemasTable = ({
           </Table.Head>
           <Table.Body>
             {regionCinemas.isLoading && (
-              <MoviesTableRowSkeletons table={table} />
+              <RegionCinemaTableSkeletons table={table} />
             )}
             {!regionCinemas.isLoading && !table.getRowModel().rows?.length && (
               <tr>

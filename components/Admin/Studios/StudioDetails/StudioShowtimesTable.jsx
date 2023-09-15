@@ -8,8 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { MoviesTableRowSkeletons } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableSorter"
+import { studioShowtimeSorts } from "lib/tableSorts"
 import { useSession } from "next-auth/react"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
@@ -17,13 +16,17 @@ import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
 import AnimatedContainer from "@/components/AnimatedContainer"
 import { query } from "@/components/reactQuery/queries/query"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
 import TableRowMenu from "@/components/TableRowMenu"
+
+import { StudioShowtimeTableSkeletons } from "./StudioShowtimeTableSkeleton"
 
 export const StudioShowtimesTable = ({
   selectedShowtimes,
   setSelectedShowtimes,
 }) => {
   const [sorting, setSorting] = useState()
+  const [pagination, setPagination] = useState({ pageSize: 10, pageIndex: 0 })
   const router = useRouter()
   const session = useSession()
 
@@ -140,8 +143,9 @@ export const StudioShowtimesTable = ({
   const table = useReactTable({
     data: studioShowtimes.data,
     columns: studioShowtimesTableColumns,
-    state: { sorting, pagination: { pageSize: 3, pageIndex: 0 } },
+    state: { sorting, pagination },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -159,7 +163,7 @@ export const StudioShowtimesTable = ({
             }
             className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
           />
-          <MoviesTableSorter table={table} />
+          <TableDataSorter table={table} sorts={studioShowtimeSorts} />
         </div>
         <div className="flex w-72 items-center justify-end gap-2">
           <button
@@ -208,7 +212,7 @@ export const StudioShowtimesTable = ({
           </Table.Head>
           <Table.Body>
             {studioShowtimes.isLoading && (
-              <MoviesTableRowSkeletons table={table} />
+              <StudioShowtimeTableSkeletons table={table} />
             )}
             {!studioShowtimes.isLoading &&
               !table.getRowModel().rows?.length && (
@@ -250,14 +254,14 @@ export const StudioShowtimesTable = ({
       </div>
       <div className="mt-4 flex items-center gap-4">
         <button
-          disabled={!studioShowtimes.isLoading && !table.getCanPreviousPage()}
+          disabled={studioShowtimes.isLoading || !table.getCanPreviousPage()}
           onClick={() => table.previousPage()}
           className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800"
         >
           <HiChevronLeft />
         </button>
         <button
-          disabled={!studioShowtimes.isLoading && !table.getCanNextPage()}
+          disabled={studioShowtimes.isLoading || !table.getCanNextPage()}
           onClick={() => console.log(table.nextPage)}
           className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800"
         >

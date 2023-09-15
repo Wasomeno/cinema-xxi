@@ -8,18 +8,22 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { MoviesTableRowSkeletons } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableSorter"
+import { regionSorts } from "lib/tableSorts"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
 import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
 import TableRowMenu from "@/components/TableRowMenu"
+
+import { RegionTableSkeletons } from "./RegionTableSkeleton"
 
 export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
   const [sorting, setSorting] = useState()
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
+
   const router = useRouter()
   const allRegions = useAllRegions()
 
@@ -120,8 +124,9 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
   const table = useReactTable({
     data: allRegions.data,
     columns: regionTableColumns,
-    state: { sorting, pagination: { pageSize: 5, pageIndex: 0 } },
+    state: { sorting, pagination },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -129,7 +134,7 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
   })
 
   return (
-    <AnimatedContainer className="mt-2 w-full">
+    <AnimatedContainer className="mt-2 flex w-full flex-1 flex-col">
       <div className="my-2 flex justify-between gap-2.5">
         <div className="flex items-center gap-2">
           <input
@@ -139,7 +144,7 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
             }
             className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
           />
-          <MoviesTableSorter table={table} />
+          <TableDataSorter table={table} sorts={regionSorts} />
         </div>
         <div className="flex w-72 items-center justify-end gap-2">
           <button
@@ -157,7 +162,7 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
           </button>
         </div>
       </div>
-      <div className="overflow-x-scroll rounded-lg">
+      <div className="flex flex-1 flex-col overflow-x-scroll rounded-lg  border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
         <Table>
           <Table.Head className="bg-blue-100 dark:bg-slate-500">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -183,7 +188,7 @@ export const AllRegionsTable = ({ selectedRegions, setSelectedRegions }) => {
             ))}
           </Table.Head>
           <Table.Body>
-            {allRegions.isLoading && <MoviesTableRowSkeletons table={table} />}
+            {allRegions.isLoading && <RegionTableSkeletons />}
             {!allRegions.isLoading && !table.getRowModel().rows?.length && (
               <tr>
                 <td colSpan="10">

@@ -9,6 +9,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { movieSorts } from "lib/tableSorts"
 import { useSession } from "next-auth/react"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
@@ -17,12 +18,13 @@ import AnimatedContainer from "@/components/AnimatedContainer"
 import { query } from "@/components/reactQuery/queries/query"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
 
 import { MoviesTableRowSkeletons } from "./MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "./MoviesTableSorter"
 
 export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
   const [sorting, setSorting] = useState()
+  const [pagination, setPagination] = useState({ pageSize: 3, pageIndex: 0 })
 
   const { data: sessionData } = useSession()
 
@@ -132,8 +134,9 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
   const table = useReactTable({
     data: cinemaMovies.data,
     columns: cinemaMoviesTableColumns,
-    state: { sorting, pagination: { pageSize: 3, pageIndex: 0 } },
+    state: { sorting, pagination },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -141,8 +144,8 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
   })
 
   return (
-    <div className="flex justify-center">
-      <AnimatedContainer className="w-full">
+    <div className="flex flex-1 justify-center">
+      <AnimatedContainer className="flex w-full flex-1 flex-col">
         <div className="my-2 flex justify-between gap-2.5">
           <div className="flex items-center gap-2">
             <input
@@ -152,7 +155,7 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
               }
               className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
             />
-            <MoviesTableSorter table={table} />
+            <TableDataSorter table={table} sorts={movieSorts} />
           </div>
           <div className="flex w-72 items-center justify-end gap-2">
             <button
@@ -170,7 +173,7 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
             </button>
           </div>
         </div>
-        <div className="overflow-scroll rounded-lg">
+        <div className="flex flex-1 flex-col overflow-x-scroll rounded-lg  border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
           <Table>
             <Table.Head>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -195,7 +198,7 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
                 </tr>
               ))}
             </Table.Head>
-            <Table.Body className="relative divide-y divide-slate-200 border-t border-slate-200 dark:divide-slate-400 dark:border-slate-400">
+            <Table.Body>
               {cinemaMovies.isLoading && (
                 <MoviesTableRowSkeletons table={table} />
               )}
@@ -219,7 +222,7 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
                         {row.getVisibleCells().map((cell) => {
                           return (
                             <td
-                              className="px-6 py-4 text-center text-xs  sm:text-sm"
+                              className="px-4 py-2 text-center text-xs sm:text-sm lg:px-6  lg:py-4"
                               key={cell.id}
                             >
                               {flexRender(
@@ -238,15 +241,15 @@ export const MoviesTable = ({ rowMenu, setSelectedMovies, selectedMovies }) => {
         </div>
         <div className="mt-4 flex items-center gap-4">
           <button
-            disabled={!cinemaMovies.isLoading && !table.getCanPreviousPage()}
+            disabled={cinemaMovies.isLoading || !table.getCanPreviousPage()}
             onClick={() => table.previousPage()}
             className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
           >
             <HiChevronLeft />
           </button>
           <button
-            disabled={!cinemaMovies.isLoading && !table.getCanNextPage()}
-            onClick={() => console.log(table.nextPage)}
+            disabled={cinemaMovies.isLoading || !table.getCanNextPage()}
+            onClick={() => table.nextPage()}
             className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
           >
             <HiChevronRight />

@@ -8,20 +8,23 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { adminSorts } from "lib/tableSorts"
 import { useSession } from "next-auth/react"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
 
-import { MoviesTableRowSkeletons } from "@/components/Admin/Movie/MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "@/components/Admin/Movie/MoviesTableSorter"
 import AnimatedContainer from "@/components/AnimatedContainer"
 import { query } from "@/components/reactQuery/queries/query"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
 import TableRowMenu from "@/components/TableRowMenu"
+
+import { CinemaAdminsTableRowSkeletons } from "./CinemaAdminsTableRowSkeleton"
 
 export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
   const [sorting, setSorting] = useState()
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
   const session = useSession()
   const router = useRouter()
 
@@ -134,8 +137,9 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
   const table = useReactTable({
     data: cinemaAdmins.data,
     columns: cinemaAdminTableColumns,
-    state: { sorting, pagination: { pageSize: 3, pageIndex: 0 } },
+    state: { sorting, pagination },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -143,7 +147,7 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
   })
 
   return (
-    <AnimatedContainer className="mt-2 w-full">
+    <AnimatedContainer className="mt-2 flex w-full flex-1 flex-col">
       <div className="my-2 flex justify-between gap-2.5">
         <div className="flex items-center gap-2">
           <input
@@ -153,7 +157,7 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
             }
             className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
           />
-          <MoviesTableSorter table={table} />
+          <TableDataSorter table={table} sorts={adminSorts} />
         </div>
         <div className="flex w-72 items-center justify-end gap-2">
           <button
@@ -171,7 +175,7 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
           </button>
         </div>
       </div>
-      <div className="overflow-x-scroll rounded-lg">
+      <div className="flex flex-1 flex-col overflow-x-scroll rounded-lg  border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
         <Table>
           <Table.Head>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -198,7 +202,7 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
           </Table.Head>
           <Table.Body>
             {cinemaAdmins.isLoading && (
-              <MoviesTableRowSkeletons table={table} />
+              <CinemaAdminsTableRowSkeletons table={table} />
             )}
             {!cinemaAdmins.isLoading && !table.getRowModel().rows?.length && (
               <tr>
@@ -216,10 +220,14 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
             {!cinemaAdmins.isLoading && table.getRowModel().rows?.length
               ? table.getRowModel().rows.map((row) => {
                   return (
-                    <tr key={row.id} className="transition duration-300">
+                    <tr
+                      key={row.id}
+                      className="border-b transition duration-300"
+                    >
                       {row.getVisibleCells().map((cell) => {
                         return (
                           <td
+                            rowSpan={1}
                             className="px-6 py-4 text-center text-xs  sm:text-sm"
                             key={cell.id}
                           >
@@ -239,15 +247,15 @@ export const CinemaAdminsTable = ({ selectedAdmins, setSelectedAdmins }) => {
       </div>
       <div className="mt-4 flex items-center gap-4">
         <button
-          disabled={!cinemaAdmins.isLoading && !table.getCanPreviousPage()}
+          disabled={cinemaAdmins.isLoading || !table.getCanPreviousPage()}
           onClick={() => table.previousPage()}
           className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
         >
           <HiChevronLeft />
         </button>
         <button
-          disabled={!cinemaAdmins.isLoading && !table.getCanNextPage()}
-          onClick={() => console.log(table.nextPage)}
+          disabled={cinemaAdmins.isLoading || !table.getCanNextPage()}
+          onClick={() => table.nextPage()}
           className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
         >
           <HiChevronRight />

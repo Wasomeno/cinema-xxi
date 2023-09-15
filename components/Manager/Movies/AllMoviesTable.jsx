@@ -9,18 +9,20 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { MoviesTableRowSkeletons } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableRowSkeletons"
-import { MoviesTableSorter } from "modules/adminPages/moviesPage/CinemaMovies/components/MoviesTableSorter"
+import { movieSorts } from "lib/tableSorts"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
 
+import { MoviesTableRowSkeletons } from "@/components/Admin/Movie/MoviesTableRowSkeletons"
 import AnimatedContainer from "@/components/AnimatedContainer"
 import { useAllMovies } from "@/components/reactQuery/queries/Movie/useAllMovies"
 import Table from "@/components/Table"
+import { TableDataSorter } from "@/components/TableDataSorter"
 import TableRowMenu from "@/components/TableRowMenu"
 
 export const AllMoviesTable = ({ selectedMovies, setSelectedMovies }) => {
   const [sorting, setSorting] = useState()
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 3 })
   const allMovies = useAllMovies()
 
   const router = useRouter()
@@ -130,8 +132,9 @@ export const AllMoviesTable = ({ selectedMovies, setSelectedMovies }) => {
   const table = useReactTable({
     data: allMovies.data,
     columns: moviesTableColumns,
-    state: { sorting, pagination: { pageSize: 3, pageIndex: 0 } },
+    state: { sorting, pagination },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -139,7 +142,7 @@ export const AllMoviesTable = ({ selectedMovies, setSelectedMovies }) => {
   })
 
   return (
-    <AnimatedContainer className="mt-2 w-full">
+    <AnimatedContainer className="mt-2 flex w-full flex-1 flex-col">
       <div className="my-2 flex justify-between gap-2.5">
         <div className="flex items-center gap-2">
           <input
@@ -149,7 +152,7 @@ export const AllMoviesTable = ({ selectedMovies, setSelectedMovies }) => {
             }
             className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
           />
-          <MoviesTableSorter table={table} />
+          <TableDataSorter table={table} sorts={movieSorts} />
         </div>
         <div className="flex w-72 items-center justify-end gap-2">
           <button
@@ -167,7 +170,7 @@ export const AllMoviesTable = ({ selectedMovies, setSelectedMovies }) => {
           </button>
         </div>
       </div>
-      <div className="overflow-x-scroll rounded-lg">
+      <div className="flex flex-1 flex-col overflow-x-scroll rounded-lg  border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
         <Table>
           <Table.Head>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -241,7 +244,7 @@ export const AllMoviesTable = ({ selectedMovies, setSelectedMovies }) => {
         </button>
         <button
           disabled={!allMovies.isLoading && !table.getCanNextPage()}
-          onClick={() => console.log(table.nextPage)}
+          onClick={() => table.nextPage()}
           className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800"
         >
           <HiChevronRight />
