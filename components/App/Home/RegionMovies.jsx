@@ -9,10 +9,12 @@ import { MovieSkeleton } from "@/components/MovieSkeleton"
 import { query } from "@/components/reactQuery/queries/query"
 import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
 
-export const RegionMovies = ({ selectedRegion }) => {
+export const RegionMovies = () => {
+  const { query: routerQuery } = useRouter()
+
   const moviesInRegion = query({
-    queryKey: regionQueryKeys.regionMovies(selectedRegion.id),
-    url: "/api/regions/" + selectedRegion.id + "/movies",
+    queryKey: regionQueryKeys.regionMovies(routerQuery?.region ?? "1"),
+    url: `/api/regions/${routerQuery?.region ?? "1"} /movies`,
   })
 
   const router = useRouter()
