@@ -1,19 +1,21 @@
-import React, { useEffect } from "react"
+import React from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
 import { useSkeleton } from "hooks/useSkeleton"
 import { HiXMark } from "react-icons/hi2"
 
-export const CinemaList = ({ search }) => {
+export const CinemaList = () => {
+  const { query } = useRouter()
   const allCinema = useQuery({
-    queryKey: ["cinemaSearch"],
+    queryKey: ["cinemaSearch", query?.search],
     queryFn: async () => {
       return await fetch("/api/cinemas/search", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ searchTerm: search }),
+        body: JSON.stringify({ searchTerm: query?.search }),
       }).then((response) => response.json())
     },
   })
@@ -22,14 +24,6 @@ export const CinemaList = ({ search }) => {
     <div className="h-8 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-700 lg:h-10" />,
     5
   )
-
-  useEffect(() => {
-    let searchTimeout
-    if (search !== "") {
-      searchTimeout = setTimeout(() => allCinema.refetch(), 750)
-    }
-    return () => clearTimeout(searchTimeout)
-  }, [search])
 
   return (
     <div className="flex w-full flex-col gap-2 overflow-y-scroll">
