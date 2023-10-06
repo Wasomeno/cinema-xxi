@@ -10,7 +10,10 @@ export const WalletIdle = ({ connectors, connect }) => {
         {connectors.map((connector, index) => (
           <button
             key={index}
-            onClick={() => connect({ connector: connector, chainId: 11155111 })}
+            onClick={() => {
+              connect({ connector: connector, chainId: 11155111 })
+              localStorage.setItem("isMetamaskConnected", JSON.stringify(true))
+            }}
             className="flex w-full items-center justify-center gap-4 rounded-lg border bg-slate-100 p-3 text-sm font-medium shadow-sm transition duration-200 hover:bg-opacity-50 dark:border-slate-600 dark:bg-slate-700"
           >
             <Image
