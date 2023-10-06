@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "next/router"
+import { useQuery } from "@tanstack/react-query"
 import { useSkeleton } from "hooks/useSkeleton"
 import { RxCrossCircled } from "react-icons/rx"
 import { twMerge } from "tailwind-merge"
@@ -11,26 +13,26 @@ import {
 } from "@/components/App/Transaction/TransactionCard"
 import { TransactionDetailsModal } from "@/components/App/Transaction/TransactionDetailsModal"
 import AppLayout from "@/components/Layouts/AppLayout"
-import { query } from "@/components/reactQuery/queries/query"
 import { WalletNotConnected } from "@/components/WalletNotConnected"
 
 export default function AppTransactionsPage() {
-  const [activeTab, setActiveTab] = useState("tickets")
-
   const { address, isConnected } = useAccount()
-  const transactions = query({
-    queryKey: ["transactions"],
-    url: `/api/users/${address}/transactions`,
-    enabledCondition: isConnected,
-  })
+
+  const searchParams = useSearchParams()
+
+  const router = useRouter()
+  const isHistory = searchParams.get("history") !== null
+
+  const transactions = useQuery(
+    ["transactions", isHistory],
+    () =>
+      fetch(
+        `/api/users/${address}/transactions?${searchParams.toString()}`
+      ).then((response) => response.json()),
+    { enabled: isConnected }
+  )
 
   const skeletons = useSkeleton(<TransactionCardSkeleton />, 5)
-
-  const filteredTransactions = transactions.data?.filter((transaction) =>
-    activeTab === "tickets"
-      ? new Date(transaction.showtime * 1000).getMilliseconds() > Date.now()
-      : new Date(transaction.showtime * 1000).getMilliseconds() < Date.now()
-  )
 
   return (
     <AppLayout pageTitle="Transactions">
@@ -45,30 +47,28 @@ export default function AppTransactionsPage() {
           </div>
           <div className="flex gap-2">
             <button
-              onClick={() => setActiveTab("tickets")}
+              onClick={() => router.replace(`${router.pathname}`)}
               className={twMerge(
                 "rounded-lg bg-slate-100  px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
-                activeTab === "tickets" &&
-                  "bg-blue-100 text-slate-800 dark:bg-blue-300"
+                !isHistory && "bg-blue-100 text-slate-800 dark:bg-blue-300"
               )}
             >
-              Active Tickets
+              Active
             </button>
             <button
-              onClick={() => setActiveTab("history")}
+              onClick={() => router.replace(`${router.pathname}?history=true`)}
               className={twMerge(
                 "rounded-lg bg-slate-100 px-3 py-1.5 text-xs text-slate-500 transition duration-200 lg:text-sm",
-                activeTab === "history" &&
-                  "bg-blue-100 text-slate-800 dark:bg-blue-300"
+                isHistory && "bg-blue-100 text-slate-800 dark:bg-blue-300"
               )}
             >
-              Transactions History
+              History
             </button>
           </div>
           <div className="mt-4 flex flex-col gap-2">
             {transactions.isLoading && skeletons.map((skeleton) => skeleton)}
             {!transactions.isLoading && transactions.data?.length
-              ? filteredTransactions.map((transaction) => (
+              ? transactions.data.map((transaction) => (
                   <TransactionCard
                     href={`/app/transactions?id=${transaction.id}`}
                     key={transaction.id}
@@ -81,7 +81,7 @@ export default function AppTransactionsPage() {
                 ))
               : null}
 
-            {!transactions.isLoading && !filteredTransactions.length ? (
+            {!transactions.isLoading && !transactions.data?.length ? (
               <div className="flex h-80 w-full  flex-col items-center justify-center gap-1.5">
                 <span className="text-slate-400">No Transactions</span>
                 <RxCrossCircled size="32" className="text-slate-400" />
