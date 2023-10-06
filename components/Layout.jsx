@@ -1,7 +1,7 @@
 import { Open_Sans, Poppins } from "next/font/google"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { queryClientApp } from "client/reactQueryClient"
-import wagmiConfig from "lib/wagmiConfig"
+import { wagmiConfig } from "lib/wagmiConfig"
 import { twMerge } from "tailwind-merge"
 import { WagmiConfig } from "wagmi"
 
