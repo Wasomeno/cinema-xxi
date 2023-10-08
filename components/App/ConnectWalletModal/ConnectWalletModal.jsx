@@ -18,6 +18,7 @@ export const ConnectWalletModal = ({ toggleWalletModal }) => {
     success: WalletSuccess,
     idle: WalletIdle,
   }
+
   const WalletStatus = walletStatuses[status]
 
   return (
