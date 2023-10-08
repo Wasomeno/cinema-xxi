@@ -7,14 +7,26 @@ import { CenteredModal, ModalHeader } from "@/components/Modal"
 import { query } from "@/components/reactQuery/queries/query"
 
 import SeatSkeleton from "./SeatSkeleton"
+import {
+  useSeatsId,
+  useSelectedDate,
+  useSelectedSeats,
+  useSelectedShowtime,
+} from "./TicketContextProvider"
 
-export default function SeatsModal({ title, closeModal, seats, seatsTotal }) {
+export default function SeatsModal({ closeModal, seats, seatsTotal }) {
+  const { selectedShowtime } = useSelectedShowtime()
+
   return (
     <CenteredModal
       closeModal={closeModal}
       className="flex w-full flex-col gap-2 overflow-y-scroll rounded-t-lg bg-slate-50 p-0 dark:bg-slate-800 lg:w-3/6 lg:gap-4 lg:rounded-lg"
     >
-      <ModalHeader title={title} className="p-4" closeModal={closeModal} />
+      <ModalHeader
+        title={selectedShowtime.movie.title}
+        className="p-4"
+        closeModal={closeModal}
+      />
       <div className="flex flex-1 flex-col justify-between overflow-x-scroll px-4">
         {seats}
       </div>
@@ -24,13 +36,12 @@ export default function SeatsModal({ title, closeModal, seats, seatsTotal }) {
   )
 }
 
-function Seats({
-  setSeatsId,
-  setSelectedSeats,
-  selectedSeats,
-  selectedDate,
-  selectedShowtime,
-}) {
+function Seats() {
+  const { setSeatsId } = useSeatsId()
+  const { selectedDate } = useSelectedDate()
+  const { selectedShowtime } = useSelectedShowtime()
+  const { selectedSeats, selectSeat, deselectSeat } = useSelectedSeats()
+
   const seatSkeletons = useSkeleton(<SeatSkeleton />, 4)
   const showtimeSeats = query({
     queryKey: [
@@ -51,16 +62,6 @@ function Seats({
       selectedDate.date +
       "/seats",
   })
-
-  function selectSeat(seatNumber) {
-    setSelectedSeats((current) => [...current, seatNumber])
-  }
-
-  function deselectSeat(seatNumber) {
-    setSelectedSeats((current) =>
-      current.filter((currentSeatNumber) => currentSeatNumber !== seatNumber)
-    )
-  }
 
   function generateSeats() {
     let seats = []
@@ -121,7 +122,9 @@ function Seats({
   )
 }
 
-function SeatsTotal({ selectedSeats, selectedDate, onSeatsConfirmation }) {
+function SeatsTotal({ onSeatsConfirmation }) {
+  const { selectedDate } = useSelectedDate()
+  const { selectedSeats } = useSelectedSeats()
   const dateTime = useDateTime({ date: selectedDate.date })
 
   function getTicketPriceTotal(day, seatsAmount) {
