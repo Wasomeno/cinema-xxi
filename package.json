@@ -16,6 +16,7 @@
     "@tanstack/react-query-devtools": "^4.24.12",
     "@tanstack/react-table": "^8.9.1",
     "@wagmi/chains": "^1.7.0",
+    "@wagmi/core": "^1.4.3",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
     "clsx": "^2.0.0",
