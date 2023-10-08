@@ -17,9 +17,7 @@ const UserMenuModal = ({ toggleShowUserModal }) => {
   )
 
   function openEtherScan() {
-    window
-      .open("https://sepolia.etherscan.io/address/" + address, "_blank")
-      .focus()
+    window.open(`https://sepolia.etherscan.io/address/${address}`).focus()
   }
 
   function copyAddress() {
