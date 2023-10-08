@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useEffect, useRef } from "react"
+import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
@@ -7,17 +8,24 @@ import AppLayout from "@/components/Layouts/AppLayout"
 import { WalletNotConnected } from "@/components/WalletNotConnected"
 
 export default function AppCinemaSearchPage() {
-  const [search, setSearch] = useState("")
-
   const { isConnected } = useAccount()
+  const router = useRouter()
+
+  const searchTimeoutRef = useRef()
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(searchTimeoutRef.current)
+    }
+  }, [])
 
   return (
-    <AppLayout pageTitle="Search">
+    <AppLayout title="Search Cinema | Cinema App">
       {!isConnected ? (
         <WalletNotConnected />
       ) : (
-        <AnimatedContainer className="flex-1 py-5 lg:py-10">
-          <div className="mb-2.5 space-y-1.5 px-5 text-start lg:px-10">
+        <AnimatedContainer className="flex-1 p-4 lg:p-10">
+          <div className="space-y-1.5text-start mb-2.5">
             <h1 className="font-poppins text-base font-semibold lg:text-3xl">
               Search Cinemas
             </h1>
@@ -25,17 +33,26 @@ export default function AppCinemaSearchPage() {
               Search for cinema of your choosing
             </p>
           </div>
-          <div className="sticky top-[59px] bg-white px-5 dark:bg-slate-950 lg:static lg:w-3/6 lg:px-10">
+          <div className="sticky top-[59px] bg-white dark:bg-slate-950 lg:static lg:w-3/6">
             <input
               type="text"
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(event) => {
+                searchTimeoutRef.current = setTimeout(() => {
+                  const searchParams = new URLSearchParams(router.query)
+                  event.target.value !== ""
+                    ? searchParams.set("search", event.target.value)
+                    : searchParams.delete("search")
+
+                  router.replace(
+                    `${router.pathname}?${searchParams.toString()}`
+                  )
+                }, 750)
+              }}
               className="w-full rounded-lg border bg-white p-2 text-xs focus:outline-none dark:border-slate-700 dark:bg-slate-900 lg:text-base"
               placeholder="Search cinema..."
             />
           </div>
-          <div className="mt-2.5 px-5  lg:w-3/6 lg:px-10">
-            <CinemaList search={search} />
-          </div>
+          <CinemaList />
         </AnimatedContainer>
       )}
     </AppLayout>
