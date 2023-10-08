@@ -1,6 +1,6 @@
 import "swiper/css"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Image from "next/image"
 import { AnimatePresence, motion } from "framer-motion"
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
@@ -9,14 +9,16 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
 
 export function AppBannerSlider() {
   const [showNavigation, setShowNavigation] = useState(false)
+  const swiperRef = useRef()
   return (
     <div
-      className="swiper-container w-full lg:w-5/6"
+      className="swiper-container relative w-full overflow-visible lg:w-7/12"
       onMouseEnter={() => setShowNavigation(true)}
       onMouseLeave={() => setShowNavigation(false)}
     >
       <Swiper
-        className="h-40 w-full overflow-visible lg:h-96 lg:w-4/6"
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        className="h-40 w-full lg:h-96"
         autoplay={{ disableOnInteraction: false }}
         navigation={{ enabled: true }}
         modules={[Navigation, Autoplay]}
@@ -43,7 +45,6 @@ export function AppBannerSlider() {
             />
           </div>
         </SwiperSlide>
-
         <SwiperSlide className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg shadow-sm">
           <div className="relative h-full w-full  bg-slate-100 dark:bg-slate-700">
             <Image
@@ -54,35 +55,34 @@ export function AppBannerSlider() {
             />
           </div>
         </SwiperSlide>
-        <AnimatePresence>
-          {showNavigation && <AppBannerSliderNavigation />}
-        </AnimatePresence>
       </Swiper>
+      <AnimatePresence>
+        {showNavigation && <AppBannerSliderNavigation swiperRef={swiperRef} />}
+      </AnimatePresence>
     </div>
   )
 }
 
-const AppBannerSliderNavigation = () => {
-  const swiper = useSwiper()
+const AppBannerSliderNavigation = ({ swiperRef }) => {
   return (
     <>
       <motion.button
-        onClick={() => swiper.slidePrev()}
+        onClick={() => swiperRef.current.slidePrev()}
         initial={{ opacity: 0, bottom: "47%" }}
         animate={{ opacity: 1, bottom: "50%" }}
         exit={{ opacity: 0, bottom: "47%" }}
         transition={{ ease: "easeInOut", duration: 0.2, delay: 0.1 }}
-        className="btn-prev absolute -left-4 z-20 flex h-8 w-8  items-center justify-center rounded-full border bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:h-10 lg:w-10"
+        className="btn-prev absolute -left-2 z-20 flex h-8 w-8 items-center  justify-center rounded-full border bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:-left-4 lg:h-10 lg:w-10"
       >
         <BsChevronLeft size="20" />
       </motion.button>
       <motion.button
-        onClick={() => swiper.slideNext()}
+        onClick={() => swiperRef.current.slideNext()}
         initial={{ opacity: 0, bottom: "47%" }}
         animate={{ opacity: 1, bottom: "50%" }}
         exit={{ opacity: 0, bottom: "47%" }}
         transition={{ ease: "easeInOut", duration: 0.2, delay: 0.1 }}
-        className="btn-next absolute -right-4 z-20 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:h-10 lg:w-10"
+        className="btn-next absolute -right-2 z-20 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-2.5 shadow-md disabled:opacity-50 dark:bg-slate-900 lg:-right-4 lg:h-10 lg:w-10"
       >
         <BsChevronRight size="20" />
       </motion.button>
