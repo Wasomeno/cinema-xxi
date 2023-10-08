@@ -26,7 +26,7 @@ export const RegionMovies = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-3">
       <div className="w-full lg:w-5/6">
-        <h2 className="text-sm md:text-base">Movies on Show</h2>
+        <h2 className="text-sm font-medium md:text-base">Movies on Show</h2>
       </div>
       <div className="flex w-full justify-start gap-3 overflow-x-scroll lg:w-10/12">
         {moviesInRegion.isLoading && movieSkeletons.map((skeleton) => skeleton)}
@@ -36,7 +36,9 @@ export const RegionMovies = () => {
                 key={movie.id}
                 onClick={() =>
                   isConnected
-                    ? router.push(`/app/${selectedRegion.id}/${movie.id}`)
+                    ? router.push(
+                        `/app/${routerQuery?.region ?? 1}/${movie.id}`
+                      )
                     : toast.error("Connect your wallet first")
                 }
                 className="flex flex-col items-center gap-3"
@@ -57,8 +59,10 @@ export const RegionMovies = () => {
           : null}
         {!moviesInRegion.isLoading && moviesInRegion.data?.length < 1 ? (
           <div className="flex h-52 w-full flex-col items-center justify-center gap-2 opacity-50">
-            <span className="text-sm font-medium">No Active movies</span>
-            <TbMovieOff size={25} />
+            <span className="text-xs font-medium lg:text-sm">
+              No Active movies
+            </span>
+            <TbMovieOff className="h-5 w-5 lg:h-6 lg:w-6" />
           </div>
         ) : null}
       </div>
