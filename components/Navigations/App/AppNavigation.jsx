@@ -51,10 +51,7 @@ const AppNavigation = () => {
           </span>
         </Link>
         <button onClick={toggleShowSearchModal}>
-          <HiOutlineSearch
-            size={18}
-            className="text-slate-800 dark:text-slate-100"
-          />
+          <HiOutlineSearch className="text-slate-800 dark:text-slate-100 lg:h-5 lg:w-5" />
         </button>
       </div>
       <div className="flex items-center gap-4">
