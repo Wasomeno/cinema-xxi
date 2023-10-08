@@ -42,7 +42,7 @@ export async function getStaticProps(context) {
 export default function CinemaMoviesPage({ cinemaDetails }) {
   const { back } = useRouter()
   return (
-    <AppLayout pageTitle={`${cinemaDetails.name} Movies`}>
+    <AppLayout title={`${cinemaDetails.name} Movies`}>
       <AnimatedContainer className="flex-1 py-2.5 lg:py-10">
         <div className="sticky top-[59px] flex items-center gap-2 bg-white px-5 py-2.5 dark:bg-slate-950 lg:static lg:mb-2.5 lg:px-10">
           <button className="lg:hidden" onClick={back}>
