@@ -57,13 +57,13 @@ export function AppBannerSlider() {
         </SwiperSlide>
       </Swiper>
       <AnimatePresence>
-        {showNavigation && <AppBannerSliderNavigation swiperRef={swiperRef} />}
+        {showNavigation && <SliderNavigation swiperRef={swiperRef} />}
       </AnimatePresence>
     </div>
   )
 }
 
-const AppBannerSliderNavigation = ({ swiperRef }) => {
+const SliderNavigation = ({ swiperRef }) => {
   return (
     <>
       <motion.button
