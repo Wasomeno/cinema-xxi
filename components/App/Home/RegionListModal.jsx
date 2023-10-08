@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
+import clsx from "clsx"
 import { useSkeleton } from "hooks/useSkeleton"
-import { HiCheck } from "react-icons/hi2"
+import { twMerge } from "tailwind-merge"
 
 import { CenteredModal, ModalHeader } from "@/components/Modal"
 import { useAllRegions } from "@/components/reactQuery/queries/Region/useAllRegions"
@@ -19,7 +20,7 @@ const RegionListModal = ({ setSelectedRegion, toggleShowRegionList }) => {
   return (
     <CenteredModal
       closeModal={toggleShowRegionList}
-      className="h-72 bg-slate-50 p-4 px-6 py-4 dark:bg-slate-800 lg:h-4/6 lg:w-2/6 "
+      className="h-4/6 bg-slate-50 p-4 dark:bg-slate-800 lg:h-4/6 lg:w-2/6 lg:px-6 lg:py-4 "
     >
       <ModalHeader
         title="Region List"
@@ -38,14 +39,14 @@ const RegionListModal = ({ setSelectedRegion, toggleShowRegionList }) => {
                   toggleShowRegionList()
                   router.replace(`${router.pathname}?region=${region.id}`)
                 }}
-                className="relative flex w-full cursor-pointer justify-center rounded-lg bg-slate-200 p-2 text-sm tracking-wide dark:bg-slate-700"
-              >
-                {regionId === region.id && (
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2">
-                    <HiCheck />
-                  </span>
+                className={twMerge(
+                  clsx(
+                    "relative flex w-full cursor-pointer justify-center rounded-lg border bg-slate-100 p-2 text-sm font-medium tracking-wide shadow-sm dark:border-slate-500 dark:bg-slate-700",
+                    region.id === regionId &&
+                      "bg-blue-400 text-white dark:bg-blue-800"
+                  )
                 )}
-
+              >
                 <span className="text-xs lg:text-sm">{region.name}</span>
               </button>
             ))
