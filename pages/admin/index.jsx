@@ -37,7 +37,7 @@ export default function CinemaDashboardPage() {
     enabledCondition: session.data !== undefined,
   })
   return (
-    <AdminLayout pageTitle="Dashboard">
+    <AdminLayout title="Dashboard">
       <AnimatedContainer className="flex flex-1 flex-col rounded-lg p-4">
         <AdminHeader>{session.data?.user.cinemaName}</AdminHeader>
         <div className="my-4 flex w-full flex-wrap items-center justify-start gap-4 lg:flex-nowrap">

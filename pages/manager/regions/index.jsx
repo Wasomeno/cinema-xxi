@@ -13,7 +13,7 @@ export default function RegionsPage() {
   const [selectedRegions, setSelectedRegions] = useState([])
   const router = useRouter()
   return (
-    <ManagerLayout pageTitle="Regions">
+    <ManagerLayout title="Regions">
       <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
         <ManagerHeader>Manage Regions</ManagerHeader>
         <AllRegionsTable

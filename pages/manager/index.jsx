@@ -31,7 +31,7 @@ const Dashboard = () => {
 
 export default function DashboardPage() {
   return (
-    <ManagerLayout pageTitle="Dashboard">
+    <ManagerLayout title="Dashboard">
       <Dashboard />
     </ManagerLayout>
   )

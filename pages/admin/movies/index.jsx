@@ -25,7 +25,7 @@ export default function CinemaMoviesPage() {
   const [selectedMovies, setSelectedMovies] = useState([])
   const router = useRouter()
   return (
-    <AdminLayout pageTitle="Movies">
+    <AdminLayout title="Movies">
       <div className="flex w-full flex-1 flex-col rounded-lg p-4">
         <AdminHeader>Movies</AdminHeader>
         <MoviesTable

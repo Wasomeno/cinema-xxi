@@ -30,7 +30,7 @@ export default function CinemaShowtimesPage() {
   const [selectedShowtimes, setSelectedShowtimes] = useState([])
   const router = useRouter()
   return (
-    <AdminLayout pageTitle="Showtimes">
+    <AdminLayout title="Showtimes">
       <div className="flex w-full flex-1 flex-col rounded-lg p-4">
         <AdminHeader>Showtimes</AdminHeader>
         <ShowtimesTable

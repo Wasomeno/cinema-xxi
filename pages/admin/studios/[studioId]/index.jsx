@@ -25,7 +25,7 @@ export default function CinemaStudioDetailsPage({ studioDetails }) {
   const [selectedShowtimes, setSelectedShowtimes] = useState([])
   const router = useRouter()
   return (
-    <AdminLayout pageTitle={`Studio ${studioDetails.studio}`}>
+    <AdminLayout title={`Studio ${studioDetails.studio}`}>
       <div className="flex flex-1 flex-col p-4">
         <AdminHeader>Studio {studioDetails.studio} Showtimes</AdminHeader>
         <StudioShowtimesTable

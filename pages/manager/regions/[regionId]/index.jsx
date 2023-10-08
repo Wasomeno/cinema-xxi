@@ -32,7 +32,7 @@ export default function RegionDetailsPage({ regionDetails }) {
   const [selectedCinemas, setSelectedCinemas] = useState([])
   const router = useRouter()
   return (
-    <ManagerLayout pageTitle={`Regions - ${regionDetails?.name}`}>
+    <ManagerLayout title={`Regions - ${regionDetails?.name}`}>
       <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
         <ManagerHeader withBackButton>{regionDetails?.name}</ManagerHeader>
         <AnimatedContainer className="flex justify-center">

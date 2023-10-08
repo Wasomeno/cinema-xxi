@@ -13,7 +13,7 @@ export default function MoviesPage() {
   const [selectedMovies, setSelectedMovies] = useState([])
   const router = useRouter()
   return (
-    <ManagerLayout pageTitle="Movies">
+    <ManagerLayout title="Movies">
       <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
         <ManagerHeader>Manage Movies</ManagerHeader>
         <AllMoviesTable

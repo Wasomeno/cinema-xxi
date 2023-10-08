@@ -19,7 +19,7 @@ export async function getServerSideProps({ query }) {
 
 export default function AppHomePage({ region }) {
   return (
-    <AppLayout>
+    <AppLayout title="Cinema App">
       <AnimatedContainer className="z-5 relative flex flex-1 scroll-p-8 flex-col gap-4 overflow-y-scroll p-4 transition-all duration-200">
         <div className="flex items-center justify-center">
           <AppBannerSlider />
