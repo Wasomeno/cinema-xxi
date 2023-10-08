@@ -33,7 +33,7 @@ export const SearchModal = ({ toggleModal }) => {
   return (
     <CenteredModal
       closeModal={toggleModal}
-      className="flex h-5/6 flex-1 flex-col bg-slate-50 px-6 py-4 dark:bg-slate-800 lg:h-72 lg:w-5/12"
+      className="flex h-5/6 flex-1 flex-col bg-slate-50 p-4 dark:bg-slate-800 lg:h-72 lg:w-5/12 lg:px-6 lg:py-4"
     >
       <ModalHeader title="Search" className="mb-3" closeModal={toggleModal} />
       <div className=" mb-2 w-full lg:block">
@@ -53,7 +53,7 @@ export const SearchModal = ({ toggleModal }) => {
           </div>
         ) : !isCinemaResults && !isMovieResults ? (
           <div className="flex flex-1 items-center justify-center">
-            <span className="text-sm font-medium opacity-50">
+            <span className="text-xs font-medium opacity-50 lg:text-sm">
               Results Not Found
             </span>
           </div>
