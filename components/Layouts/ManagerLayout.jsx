@@ -8,7 +8,7 @@ import { ManagerNavigationMobile } from "../Navigations/Manager/ManagerNavigatio
 import { ManagerToolbar } from "../Navigations/ManagerToolbar"
 import { Spinner } from "../Spinner"
 
-export const ManagerLayout = ({ children, pageTitle = "" }) => {
+export const ManagerLayout = ({ children, title = "" }) => {
   const router = useRouter()
   const { data: sessionData, status } = useSession()
   const viewport = useViewport()
@@ -27,7 +27,7 @@ export const ManagerLayout = ({ children, pageTitle = "" }) => {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-950">
       <Head>
-        <title>Manager | {pageTitle}</title>
+        <title>Manager | {title}</title>
         <meta property="description" content="Manager page" />
       </Head>
       <ManagerToolbar />

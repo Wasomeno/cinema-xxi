@@ -9,7 +9,7 @@ import { AdminNavigationMobile } from "../Navigations/Admin/AdminNavigationMobil
 import { AdminToolbar } from "../Navigations/Admin/AdminToolbar"
 import { Spinner } from "../Spinner"
 
-export const AdminLayout = ({ children, pageTitle }) => {
+export const AdminLayout = ({ children, title }) => {
   const { data: sessionData, status } = useSession()
   const viewport = useViewport()
 
@@ -24,7 +24,7 @@ export const AdminLayout = ({ children, pageTitle }) => {
     <div className="flex min-h-screen flex-1 flex-col bg-slate-50 dark:bg-slate-950">
       <Head>
         <title>
-          {sessionData?.user.cinemaName} | {pageTitle}
+          {sessionData?.user.cinemaName} | {title}
         </title>
         <meta property="description" content="Admin page" />
       </Head>
