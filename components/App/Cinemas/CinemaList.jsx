@@ -26,7 +26,7 @@ export const CinemaList = () => {
   )
 
   return (
-    <div className="flex w-full flex-col gap-2 overflow-y-scroll">
+    <div className="mt-2.5 flex w-full flex-col  gap-2 overflow-y-scroll lg:w-3/6">
       {allCinema.isFetching && skeletons.map((skeleton) => skeleton)}
       {!allCinema.isFetching && allCinema.data?.length
         ? allCinema.data?.map((cinema) => (
