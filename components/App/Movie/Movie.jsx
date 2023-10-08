@@ -1,8 +1,8 @@
-import Image from "next/image";
+import NextImage from "next/image"
 
-export default function MovieSection({ image, title, plot, casts }) {
+export function Movie({ image, title, plot, casts }) {
   return (
-    <div className="flex w-11/12 items-center gap-4 lg:w-4/6 lg:gap-10">
+    <div className="flex w-full items-center gap-4 lg:w-4/6 lg:gap-10">
       {image}
       <div className="flex flex-col gap-2 lg:w-8/12">
         {title}
@@ -10,23 +10,23 @@ export default function MovieSection({ image, title, plot, casts }) {
         {casts}
       </div>
     </div>
-  );
+  )
 }
 
-function ImageSection({ image }) {
+function Image({ image }) {
   return (
     <div className="flex lg:w-4/12">
-      <div className="relative h-40 w-[120px] rounded-lg lg:h-96 lg:w-full">
-        <Image src={image} alt="movie-image" fill className="rounded-lg" />
+      <div className="relative h-52 w-36 rounded-lg lg:h-96 lg:w-full">
+        <NextImage src={image} alt="movie-image" className="rounded-lg" fill />
       </div>
     </div>
-  );
+  )
 }
 
 function Title({ title }) {
   return (
     <h1 className="font-poppins text-sm font-medium lg:text-2xl">{title}</h1>
-  );
+  )
 }
 
 function Plot({ plot }) {
@@ -34,11 +34,11 @@ function Plot({ plot }) {
     <p className="text-xs tracking-wide text-slate-700 dark:text-white lg:w-96 lg:text-sm">
       {plot}
     </p>
-  );
+  )
 }
 
 function Casts({ casts }) {
-  const selectedCasts = casts.filter((actor, index) => index < 5);
+  const selectedCasts = casts.filter((actor, index) => index < 5)
   return (
     <div className="hidden w-full flex-col gap-1.5 lg:flex">
       <span className="font-poppins text-sm font-medium">Casts</span>
@@ -59,10 +59,10 @@ function Casts({ casts }) {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-MovieSection.Image = ImageSection;
-MovieSection.Title = Title;
-MovieSection.Casts = Casts;
-MovieSection.Plot = Plot;
+Movie.Image = Image
+Movie.Title = Title
+Movie.Casts = Casts
+Movie.Plot = Plot
