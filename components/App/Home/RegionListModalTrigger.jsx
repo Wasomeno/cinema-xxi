@@ -19,14 +19,14 @@ export function RegionListModalTrigger({ region }) {
         <span className="text-slate-800 dark:text-slate-50">
           {selectedRegion.name}
         </span>
-        <span
+        <div
           className={twMerge(
             showRegionList && "rotate-90",
             "transition duration-200"
           )}
         >
           <HiChevronRight size="16" />
-        </span>
+        </div>
       </button>
       <AnimatePresence>
         {showRegionList && (
