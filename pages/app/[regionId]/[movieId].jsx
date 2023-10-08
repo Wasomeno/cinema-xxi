@@ -4,11 +4,12 @@ import { AnimatePresence } from "framer-motion"
 import { prisma } from "lib/prisma"
 
 import AnimatedContainer from "@/components/AnimatedContainer"
-import MovieDateSection from "@/components/App/Movie/MovieDateSection"
-import MovieSection from "@/components/App/Movie/MovieSection"
-import MovieShowtimeSection from "@/components/App/Movie/MovieShowtimeSection"
+import { AvailableCinema, Cinema } from "@/components/App/Movie/AvailableCinema"
+import { Dates } from "@/components/App/Movie/Dates"
+import { Movie } from "@/components/App/Movie/Movie"
 import SeatsModal from "@/components/App/Movie/SeatsModal"
 import TicketConfirmationModal from "@/components/App/Movie/TicketConfirmationModal"
+import { TicketContextProvider } from "@/components/App/Movie/TicketContextProvider"
 import AppLayout from "@/components/Layouts/AppLayout"
 
 export async function getStaticPaths() {
@@ -27,9 +28,7 @@ export async function getStaticPaths() {
   return { paths: flattedIds, fallback: "blocking" }
 }
 
-export async function getStaticProps(context) {
-  const { params } = context
-
+export async function getStaticProps({ params }) {
   const movieDetails = await axios.get(
     `https://imdb-api.projects.thetuhin.com/title/${params.movieId}`
   )
@@ -96,77 +95,55 @@ export default function AppMovieShowtimesPage({
   const [seatModalOpen, setSeatModalOpen] = useState(false)
   const [confirmModalOpen, setConfirmModalOpen] = useState(false)
 
-  const [selectedDate, setSelectedDate] = useState({})
-  const [selectedShowtime, setSelectedShowtime] = useState({})
-  const [selectedSeats, setSelectedSeats] = useState([])
-  const [seatsId, setSeatsId] = useState()
-
   return (
-    <AppLayout pageTitle={`${movieDetails.title} Showtimes`}>
-      <AnimatedContainer className="flex w-full flex-1 flex-col items-center gap-6 p-4">
-        <MovieSection
-          image={<MovieSection.Image image={movieDetails.image} />}
-          title={<MovieSection.Title title={movieDetails.title} />}
-          plot={<MovieSection.Plot plot={movieDetails.plot} />}
-        />
-        <MovieDateSection
-          setSelectedDate={setSelectedDate}
-          selectedDate={selectedDate}
-        />
-        <MovieShowtimeSection>
-          {movieShowtimes.map((cinema) => (
-            <MovieShowtimeSection.CinemaCard key={cinema.id} cinema={cinema}>
-              {cinema.showtimes.map((studioShowtime) => (
-                <MovieShowtimeSection.ShowtimeCard
-                  key={studioShowtime.id}
-                  showtime={studioShowtime.showtime}
-                  selectedDate={selectedDate}
-                  onClick={() => {
-                    setSelectedShowtime(studioShowtime)
-                    setSeatModalOpen(true)
+    <AppLayout title={`${movieDetails.title} | Showtimes`}>
+      <TicketContextProvider>
+        <AnimatedContainer className="flex w-full flex-1 flex-col items-center gap-6 p-4">
+          <Movie
+            image={<Movie.Image image={movieDetails.image} />}
+            title={<Movie.Title title={movieDetails.title} />}
+            plot={<Movie.Plot plot={movieDetails.plot} />}
+          />
+          <Dates />
+          <AvailableCinema>
+            {movieShowtimes.map((cinema) => (
+              <Cinema key={cinema.id} cinema={cinema}>
+                {cinema.showtimes.map((studioShowtime) => (
+                  <Cinema.Showtime
+                    key={studioShowtime.id}
+                    showtime={studioShowtime.showtime}
+                    onClick={(setSelectedShowtime) => {
+                      setSelectedShowtime(studioShowtime)
+                      setSeatModalOpen(true)
+                    }}
+                  />
+                ))}
+              </Cinema>
+            ))}
+          </AvailableCinema>
+        </AnimatedContainer>
+        <AnimatePresence>
+          {seatModalOpen && (
+            <SeatsModal
+              closeModal={() => setSeatModalOpen(false)}
+              seats={<SeatsModal.Seats />}
+              seatsTotal={
+                <SeatsModal.SeatsTotal
+                  onSeatsConfirmation={() => {
+                    setSeatModalOpen(false)
+                    setConfirmModalOpen(true)
                   }}
                 />
-              ))}
-            </MovieShowtimeSection.CinemaCard>
-          ))}
-        </MovieShowtimeSection>
-      </AnimatedContainer>
-      <AnimatePresence>
-        {seatModalOpen && (
-          <SeatsModal
-            title={`${selectedShowtime.movie.title}`}
-            closeModal={() => setSeatModalOpen(false)}
-            seats={
-              <SeatsModal.Seats
-                selectedDate={selectedDate}
-                selectedShowtime={selectedShowtime}
-                setSelectedSeats={setSelectedSeats}
-                selectedSeats={selectedSeats}
-                setSeatsId={setSeatsId}
-              />
-            }
-            seatsTotal={
-              <SeatsModal.SeatsTotal
-                selectedDate={selectedDate}
-                selectedSeats={selectedSeats}
-                onSeatsConfirmation={() => {
-                  setSeatModalOpen(false)
-                  setConfirmModalOpen(true)
-                }}
-              />
-            }
-          />
-        )}
-        {confirmModalOpen && (
-          <TicketConfirmationModal
-            closeModal={() => setConfirmModalOpen(false)}
-            selectedDate={selectedDate}
-            selectedSeats={selectedSeats}
-            selectedShowtime={selectedShowtime}
-            seatsId={seatsId}
-          />
-        )}
-      </AnimatePresence>
+              }
+            />
+          )}
+          {confirmModalOpen && (
+            <TicketConfirmationModal
+              closeModal={() => setConfirmModalOpen(false)}
+            />
+          )}
+        </AnimatePresence>
+      </TicketContextProvider>
     </AppLayout>
   )
 }
