@@ -32,7 +32,9 @@ export function useSelectedDate(date) {
   const { setSelectedDate: selectDate } = useContext(TicketDispatchContext)
 
   useEffect(() => {
-    selectDate(date)
+    if (date) {
+      selectDate(date)
+    }
   }, [])
 
   return { selectDate, selectedDate }
