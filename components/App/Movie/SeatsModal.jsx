@@ -64,18 +64,16 @@ function Seats() {
   })
 
   function generateSeats() {
-    let seats = []
-    let seatsSection = []
-    let seatIndex = 0
-    let otherIndex = 0
-    for (let i = 0; i < showtimeSeats.data?.studio.capacity; ++i) {
-      seatsSection[otherIndex] = i + 1
-      otherIndex += 1
-      if (i === (seatIndex + 1) * 15 - 1) {
-        seats[seatIndex] = seatsSection
-        seatsSection = []
-        otherIndex = 0
-        seatIndex += 1
+    const array = Array(showtimeSeats.data?.studio.capacity)
+
+    let seats = [[]]
+    let seatRowIndex = 0
+
+    for (let key of array.keys()) {
+      seats[seatRowIndex][key] = key + 1
+      if ((key + 1) % 15 === 0) {
+        seats.push([])
+        seatRowIndex++
       }
     }
     return seats
