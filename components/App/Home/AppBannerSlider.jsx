@@ -5,7 +5,7 @@ import Image from "next/image"
 import { AnimatePresence, motion } from "framer-motion"
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
 import { Autoplay, Navigation } from "swiper/modules"
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react"
 
 export function AppBannerSlider() {
   const [showNavigation, setShowNavigation] = useState(false)
