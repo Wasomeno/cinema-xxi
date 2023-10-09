@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 const TicketValueContext = createContext()
 const TicketDispatchContext = createContext()
@@ -27,9 +27,13 @@ export function TicketContextProvider({ children }) {
   )
 }
 
-export function useSelectedDate() {
+export function useSelectedDate(date) {
   const { selectedDate } = useContext(TicketValueContext)
   const { setSelectedDate: selectDate } = useContext(TicketDispatchContext)
+
+  useEffect(() => {
+    selectDate(date)
+  }, [])
 
   return { selectDate, selectedDate }
 }
