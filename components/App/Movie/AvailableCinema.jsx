@@ -2,6 +2,7 @@ import { useState } from "react"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import { useDateTime } from "hooks/useDateTime"
+import moment from "moment"
 import { HiChevronRight } from "react-icons/hi2"
 
 import { useSelectedDate, useSelectedShowtime } from "./TicketContextProvider"
@@ -59,12 +60,13 @@ function Showtime({ showtime, onClick }) {
   const dateTime = useDateTime({})
 
   function getParsedTime() {
-    const timeNow = new Date()
-    timeNow.setDate(selectedDate.date)
-    timeNow.setMonth(selectedDate.month)
-    timeNow.setHours(showtime.hour)
-    timeNow.setMinutes(showtime.minute)
-    return timeNow.getTime()
+    const timeNow = moment().set({
+      date: selectedDate.date,
+      month: selectedDate.month,
+      hour: showtime.hour,
+      minute: showtime.minute,
+    })
+    return timeNow.unix() * 1000
   }
 
   return (
