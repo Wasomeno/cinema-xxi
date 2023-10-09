@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import clsx from "clsx"
 import { useDates } from "hooks/useDates"
 import { twMerge } from "tailwind-merge"
@@ -6,12 +5,8 @@ import { twMerge } from "tailwind-merge"
 import { useSelectedDate } from "./TicketContextProvider"
 
 export function Dates() {
-  const { selectDate, selectedDate } = useSelectedDate()
   const datesDetails = useDates(5)
-
-  useEffect(() => {
-    selectDate(datesDetails[0])
-  }, [])
+  const { selectDate, selectedDate } = useSelectedDate(datesDetails[0])
 
   return (
     <div className="w-full space-y-2 md:w-8/12">
