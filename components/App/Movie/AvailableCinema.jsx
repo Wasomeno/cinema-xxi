@@ -1,6 +1,6 @@
 import { useState } from "react"
 import clsx from "clsx"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { useDateTime } from "hooks/useDateTime"
 import { HiChevronRight } from "react-icons/hi2"
 
