@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { Transaction } from "@prisma/client"
+import { Prisma, Transaction } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import { RxCrossCircled } from "react-icons/rx"
 import { twMerge } from "tailwind-merge"
@@ -25,7 +25,11 @@ export default function AppTransactionsPage() {
   const pathname = usePathname()
   const isHistory = searchParams.get("history") !== null
 
-  const transactions = useQuery<Transaction[]>(
+  const transactions = useQuery<
+    Prisma.TransactionGetPayload<{
+      include: { movie: true; cinema: true; region: true }
+    }>[]
+  >(
     ["transactions", isHistory],
     () =>
       fetch(
