@@ -3,7 +3,7 @@ import NextAuth from "next-auth"
 
 import { authOptions } from "@/lib/auth"
 
-export default async function auth(req: NextRequest, res: any) {
+async function auth(req: NextRequest, res: any) {
   const callbackUrl = req.nextUrl.searchParams.get("callbackUrl")
   return await NextAuth(req, res, {
     ...authOptions,
