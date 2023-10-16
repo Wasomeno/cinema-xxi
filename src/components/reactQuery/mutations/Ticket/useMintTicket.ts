@@ -4,18 +4,22 @@ import { useParams } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
 import { waitForTransaction } from "@wagmi/core"
 import { parseEther } from "ethers"
-import { ticketContract } from "hooks/createContract"
 import { useAccount } from "wagmi"
+
+import {
+  useSeatsId,
+  useSelectedDate,
+  useSelectedSeats,
+  useSelectedShowtime,
+} from "@/components/App/Movie/ticket-context-provider"
 
 import { useSideEffects } from "../useSideEffects"
 
-export function useMintTicket({
-  seatsId,
-  selectedDate,
-  selectedSeats,
-  selectedShowtime,
-  total,
-}) {
+export function useMintTicket({ total }: { total: number }) {
+  const { selectedDate } = useSelectedDate()
+  const { selectedShowtime } = useSelectedShowtime()
+  const { selectedSeats } = useSelectedSeats()
+  const { seatsId } = useSeatsId()
   const { address } = useAccount()
   const params = useParams()
   // const totalParsed = parseEther(total.toString())
@@ -55,11 +59,11 @@ export function useMintTicket({
       body: JSON.stringify({
         userAddress: address,
         selectedDate,
-        regionId: parseInt(params?.regionId),
-        cinemaId: parseInt(selectedShowtime.cinema.id),
-        movieId: selectedShowtime.movie.id,
+        regionId: params.regionId,
+        cinemaId: selectedShowtime?.studio.cinemaId,
+        movieId: selectedShowtime?.movie.id,
         showtime: selectedShowtime,
-        studio: parseInt(selectedShowtime.studio.studio),
+        studio: selectedShowtime?.studio.studio,
         seatsId,
         seatNumbers: selectedSeats,
         ticketIds: ["test1", "test2"],
@@ -67,9 +71,7 @@ export function useMintTicket({
       }),
     })
     if (!databaseTicketDetails.ok) {
-      throw new Error("Mutation Error", {
-        error: await databaseTicketDetails.json(),
-      })
+      throw new Error("Mutation Error")
     }
     return databaseTicketDetails
   }, sideEffects)
