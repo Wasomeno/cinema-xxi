@@ -1,37 +1,18 @@
-import { prisma } from "lib/prisma"
-
+import { prisma } from "@/lib/prisma"
 import { AnimatedContainer } from "@/components/animated-container"
-import ManagerHeader from "@/components/Headers/manager-header"
+import { ManagerHeader } from "@/components/Headers/manager-header"
 
-export async function getServerSideProps({ params }) {
-  const cinemaDetails = await prisma.cinema.findUnique({
+export default async function CinemaPage({
+  params,
+}: {
+  params: { regionId: string; cinemaId: string }
+}) {
+  const cinema = await prisma.cinema.findUnique({
     where: { id: parseInt(params.cinemaId) },
-    include: {
-      cinema_movie: true,
-      region: true,
-      showtimes: true,
-      studios: true,
-      transactions: true,
-    },
   })
-  return {
-    props: {
-      cinemaDetails: {
-        ...cinemaDetails,
-        transactions: cinemaDetails.transactions.map((transaction) => ({
-          ...transaction,
-          showtime: transaction.showtime.toString(),
-          createdAt: transaction.createdAt.getSeconds(),
-        })),
-      },
-    },
-  }
-}
-
-const CinemaDetails = ({ cinemaDetails }) => {
   return (
     <AnimatedContainer className="bg-white p-4">
-      <ManagerHeader withBackButton>{cinemaDetails.name}</ManagerHeader>
+      <ManagerHeader>{cinema?.name}</ManagerHeader>
       <div className="flex justify-center">
         <div className="w-full lg:w-4/6">
           <div className="mt-3 w-full">
@@ -62,5 +43,3 @@ const CinemaDetails = ({ cinemaDetails }) => {
     </AnimatedContainer>
   )
 }
-
-export default CinemaDetails
