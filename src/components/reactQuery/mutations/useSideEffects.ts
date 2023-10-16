@@ -14,15 +14,15 @@ export const useSideEffects = ({
   queryKeys?: string[]
   redirectUrl?: string
 }) => {
-  const [setLoading, setLoadingText] = useLoading()
+  const { setLoading, setText } = useLoading()
   const toast = useToast()
   const router = useRouter()
   return {
     onMutate: () => {
-      setLoadingText(text)
+      setText(text)
       setLoading(true)
     },
-    onError: (error) => {
+    onError: (error: any) => {
       let errorMessage
       if (error.reason) {
         errorMessage = error.reason
@@ -32,7 +32,7 @@ export const useSideEffects = ({
       setLoading(false)
       toast.error(errorMessage)
     },
-    onSuccess: async (response) => {
+    onSuccess: async (response: any) => {
       const responseJson = await response.json()
       setLoading(false)
       toast.success(responseJson.message)
