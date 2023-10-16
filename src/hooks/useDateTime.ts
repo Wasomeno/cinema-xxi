@@ -1,8 +1,8 @@
 type DateTimeProps = {
-  month: number | 0
-  date: number | 0
-  hours: number | 0
-  minutes: number | 0
+  month?: number | 0
+  date?: number | 0
+  hours?: number | 0
+  minutes?: number | 0
 }
 
 export function useDateTime(props?: DateTimeProps) {
