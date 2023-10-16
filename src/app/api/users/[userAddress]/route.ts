@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import { prisma } from "@/lib/prisma"
 
-export async function userDetailsHandler(
+export async function GET(
   request: NextRequest,
   context: { params: { userAddress: string } }
 ) {
