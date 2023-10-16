@@ -31,10 +31,6 @@ const TicketConfirmationModal = () => {
 
   const mintTicketMutation = useMintTicket({
     total: 1,
-    seatsId,
-    selectedDate,
-    selectedSeats,
-    selectedShowtime,
   })
 
   function getTicketPriceTotal(day: number, seatsAmount: number) {
@@ -55,7 +51,7 @@ const TicketConfirmationModal = () => {
         <div className="flex items-center gap-4">
           <div className="relative h-44 w-48 lg:h-52 lg:w-52">
             <Image
-              src={selectedShowtime?.movie.image_url}
+              src={selectedShowtime?.movie.image_url as string}
               alt="movie-image"
               className="rounded-lg"
               fill
