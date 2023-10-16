@@ -4,7 +4,10 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function GET(context: { params: { cinemaId: string } }) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { cinemaId: string } }
+) {
   const { cinemaId } = context.params
   const cinema = await prisma.cinema.findUnique({
     where: { id: parseInt(cinemaId) },
@@ -17,7 +20,7 @@ export async function GET(context: { params: { cinemaId: string } }) {
       },
     },
   })
-  return NextResponse.json(cinema.studios)
+  return NextResponse.json(cinema?.studios)
 }
 
 export async function POST(
@@ -28,7 +31,7 @@ export async function POST(
   const { studioCapacity, studioNumber } = await request.json()
   const session = await getServerSession(authOptions)
   try {
-    if (session?.user?.cinemaId !== parseInt(cinemaId) || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
     await prisma.cinema.update({

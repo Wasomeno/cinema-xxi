@@ -1,11 +1,14 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import moment from "moment"
 
 import { prisma } from "@/lib/prisma"
 
-export async function GET(context: {
-  params: { cinemaId: string; month: string }
-}) {
+export async function GET(
+  request: NextRequest,
+  context: {
+    params: { cinemaId: string; month: string }
+  }
+) {
   const { cinemaId, month } = context.params
   const date = new Date(`${month}/2/2023`)
   const dateAddedMonth = new Date(`${parseInt(month) + 1}/2/2023`)

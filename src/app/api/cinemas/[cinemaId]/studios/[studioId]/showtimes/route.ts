@@ -4,9 +4,12 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function GET(context: {
-  params: { studioId: string; cinemaId: string }
-}) {
+export async function GET(
+  request: NextRequest,
+  context: {
+    params: { studioId: string; cinemaId: string }
+  }
+) {
   const { studioId } = context.params
   const studioShowtimes = await prisma.showtimeToMovie.findMany({
     where: { studio_id: parseInt(studioId) },
@@ -31,7 +34,7 @@ export async function POST(
   const { showtimeId, movieId } = await request.json()
   const session = await getServerSession(authOptions)
   try {
-    if (session?.user?.cinemaId !== cinemaId || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
     await prisma.showtimeToMovie.create({
