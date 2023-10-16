@@ -15,7 +15,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  const [setLoading, setLoadingText] = useLoading()
+  const { setLoading, setText } = useLoading()
   const toast = useToast()
 
   const login = useMutation(
@@ -28,7 +28,7 @@ const LoginPage = () => {
       }),
     {
       onMutate() {
-        setLoadingText("Signing in")
+        setText("Signing in")
         setLoading(true)
       },
       onError() {

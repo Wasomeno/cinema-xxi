@@ -16,7 +16,7 @@ export default function ManagerLoginPage() {
   const session = useSession()
   const router = useRouter()
 
-  const [setLoading, setLoadingText] = useLoading()
+  const { setLoading, setText } = useLoading()
   const toast = useToast()
 
   const login = useMutation(
@@ -30,7 +30,7 @@ export default function ManagerLoginPage() {
     {
       onMutate() {
         setLoading(true)
-        setLoadingText("Signing in")
+        setText("Signing in")
       },
       onError(error) {
         console.log(error)
