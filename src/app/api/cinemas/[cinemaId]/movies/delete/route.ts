@@ -13,7 +13,7 @@ export async function POST(
 
   const session = await getServerSession(authOptions)
   try {
-    if (session?.user?.cinemaId !== parseInt(cinemaId) || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
     await prisma.cinema.update({

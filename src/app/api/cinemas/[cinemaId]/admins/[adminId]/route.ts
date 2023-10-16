@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma"
 
 export async function GET(
   request: NextRequest,
-  context: { params: { adminId } }
+  context: { params: { adminId: string } }
 ) {
   const { adminId } = context.params
   const adminDetails = await prisma.admin.findUnique({
@@ -24,7 +24,7 @@ export async function PATCH(
   const session = await getServerSession(authOptions)
 
   try {
-    if (session?.user?.cinemaId !== cinemaId || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" })
     }
     await prisma.admin.update({

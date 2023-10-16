@@ -12,8 +12,8 @@ export async function POST(
   const { showtimeIds } = await request.json()
   const session = await getServerSession(authOptions)
   try {
-    if (session?.user?.cinemaId !== cinemaId || !session) {
-      return NextResponse.json({ message: "Session Invalid" }), { status: 500 }
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
+      return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
 
     await prisma.showtimeToMovie.deleteMany({
@@ -21,7 +21,6 @@ export async function POST(
     })
 
     return NextResponse.json({
-      code: 200,
       message: "Successfully removed showtimes",
     })
   } catch (error) {

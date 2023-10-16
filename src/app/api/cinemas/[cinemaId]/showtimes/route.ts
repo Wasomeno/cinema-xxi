@@ -25,7 +25,7 @@ export async function POST(
   try {
     const { hour, minutes } = await request.json()
 
-    if (session?.user?.cinemaId !== parseInt(cinemaId) || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
 

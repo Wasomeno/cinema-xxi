@@ -23,7 +23,7 @@ export async function PATCH(
   const { hour, minutes } = await request.json()
   const session = await getServerSession(authOptions)
   try {
-    if (session?.user?.cinemaId !== cinemaId || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
     await prisma.showtime.update({

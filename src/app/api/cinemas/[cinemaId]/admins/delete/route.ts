@@ -12,7 +12,7 @@ export async function POST(
   const { adminIds } = await request.json()
   try {
     const session = await getServerSession(authOptions)
-    if (session?.user?.cinemaId !== parseInt(cinemaId) || !session) {
+    if (session?.user?.cinema?.id !== parseInt(cinemaId) || !session) {
       return NextResponse.json({ message: "Session Invalid" }, { status: 500 })
     }
     await prisma.admin.deleteMany({ where: { id: { in: adminIds } } })
