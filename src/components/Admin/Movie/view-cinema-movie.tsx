@@ -23,7 +23,7 @@ export function ViewCinemaMovie() {
           <h3>{movieDetails.data?.title}</h3>
 
           <Image
-            src={movieDetails.data?.image_url}
+            src={movieDetails.data?.image_url as string}
             alt="movie-image"
             className="rounded-lg shadow-sm"
             width={250}
