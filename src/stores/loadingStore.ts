@@ -1,20 +1,25 @@
-import { create } from "zustand";
+import { create } from "zustand"
 
-const loadingStore = create((set) => ({
+const loadingStore = create<{
+  loading: boolean
+  text: string
+  setLoading: (loading: boolean) => void
+  setText: (text: string) => void
+}>((set) => ({
   loading: false,
   text: "",
-  setLoading: (condition) => set(() => ({ loading: condition })),
+  setLoading: (loading) => set(() => ({ loading: loading })),
   setText: (text) => set(() => ({ text: text })),
-}));
+}))
 
 export const useLoadingDetails = () => {
-  const getLoading = loadingStore((state) => state.loading);
-  const getText = loadingStore((state) => state.text);
-  return [getLoading, getText];
-};
+  const loading = loadingStore((state) => state.loading)
+  const text = loadingStore((state) => state.text)
+  return { loading, text }
+}
 
 export const useLoading = () => {
-  const setLoading = loadingStore((state) => state.setLoading);
-  const setText = loadingStore((state) => state.setText);
-  return [setLoading, setText];
-};
+  const setLoading = loadingStore((state) => state.setLoading)
+  const setText = loadingStore((state) => state.setText)
+  return { setLoading, setText }
+}
