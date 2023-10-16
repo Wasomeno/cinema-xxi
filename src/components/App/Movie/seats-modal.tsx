@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { twMerge } from "tailwind-merge"
@@ -78,7 +78,8 @@ function Seats() {
   }
 
   useEffect(() => {
-    if (!showtimeSeats.isLoading) setSeatsId(showtimeSeats.data?.id)
+    if (!showtimeSeats.isLoading)
+      (setSeatsId as Dispatch<SetStateAction<number>>)(showtimeSeats.data?.id)
   }, [showtimeSeats.isLoading])
 
   return (
@@ -121,7 +122,7 @@ function Seats() {
 function SeatsTotal() {
   const { selectedDate } = useSelectedDate()
   const { selectedSeats } = useSelectedSeats()
-  const dateTime = useDateTime({ date: selectedDate?.date })
+  const dateTime = useDateTime({ date: selectedDate?.date as number })
 
   const pathnmame = usePathname()
   const router = useRouter()
@@ -138,7 +139,10 @@ function SeatsTotal() {
           <span className="text-xs lg:text-sm">Total price</span>
           <div className="flex h-8 items-center">
             <span className="text-base">
-              {getTicketPriceTotal(dateTime.getDay(), selectedSeats?.length)}{" "}
+              {getTicketPriceTotal(
+                dateTime.getDay(),
+                selectedSeats?.length as number
+              )}{" "}
               ETH
             </span>
           </div>

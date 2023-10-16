@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode, useState } from "react"
+import { Dispatch, ReactNode, SetStateAction, useState } from "react"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import moment from "moment"
@@ -83,7 +83,7 @@ export function Showtime({ showtime }:{showtime:StudioShowtime}) {
       animate={{ display: "inline-block" }}
       transition={{ bounce: false, delay: 0.05 }}
       exit={{ display: "hidden" }}
-      onClick={() => {setSelectedShowtime(showtime); router.replace(`${pathname}?seats=true`)}}
+      onClick={() => {(setSelectedShowtime as Dispatch<SetStateAction<StudioShowtime>>)(showtime); router.replace(`${pathname}?seats=true`)}}
       className="rounded-md bg-slate-200 p-2 px-3 text-center font-poppins text-xs shadow-sm transition duration-200 ease-in-out hover:bg-slate-300 disabled:opacity-50 dark:bg-slate-800 dark:hover:bg-slate-700 md:text-sm"
     >
       {showtime.showtime.hour} :{showtime.showtime.minutes}
