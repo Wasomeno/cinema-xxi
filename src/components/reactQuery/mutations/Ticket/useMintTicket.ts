@@ -1,17 +1,16 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { useMutation } from "@tanstack/react-query"
-import { waitForTransaction } from "@wagmi/core"
-import { parseEther } from "ethers"
-import { useAccount } from "wagmi"
-
 import {
   useSeatsId,
   useSelectedDate,
   useSelectedSeats,
   useSelectedShowtime,
-} from "@/components/App/Movie/ticket-context-provider"
+} from "@/stores/ticketStore"
+import { useMutation } from "@tanstack/react-query"
+import { waitForTransaction } from "@wagmi/core"
+import { parseEther } from "ethers"
+import { useAccount } from "wagmi"
 
 import { useSideEffects } from "../useSideEffects"
 
