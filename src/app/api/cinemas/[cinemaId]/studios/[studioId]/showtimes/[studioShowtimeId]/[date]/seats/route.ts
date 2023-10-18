@@ -26,6 +26,5 @@ export async function GET(
   } else {
     seats = { seats_taken: [], studio: studioDetails?.studio }
   }
-  console.log(seats)
   return NextResponse.json(seats)
 }
