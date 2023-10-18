@@ -1,17 +1,14 @@
 "use client"
 
-import { Dispatch, SetStateAction } from "react"
+import { useSelectedDate } from "@/stores/ticketStore"
 import clsx from "clsx"
 import { twMerge } from "tailwind-merge"
 
-import { Time, useDates } from "@/hooks/useDates"
-
-import { useSelectedDate } from "./ticket-context-provider"
+import { useDates } from "@/hooks/useDates"
 
 export function Dates() {
   const datesDetails = useDates(5)
-  const { setSelectedDate, selectedDate } = useSelectedDate(datesDetails[0])
-
+  const { selectDate, selectedDate } = useSelectedDate(datesDetails[0])
   return (
     <div className="w-full space-y-2 md:w-8/12">
       <h3 className="font-poppins text-xs font-medium md:text-sm lg:text-lg">
@@ -21,9 +18,7 @@ export function Dates() {
         {datesDetails.map((details) => (
           <div
             key={details.date}
-            onClick={() =>
-              (setSelectedDate as Dispatch<SetStateAction<Time>>)(details)
-            }
+            onClick={() => selectDate(details)}
             className="flex flex-col items-center justify-center gap-1.5"
           >
             <button
