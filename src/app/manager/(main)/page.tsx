@@ -1,7 +1,7 @@
 import { AnimatedContainer } from "@/components/animated-container"
 import { ManagerHeader } from "@/components/Headers/manager-header"
 
-export default function ManagerDashboard() {
+export default async function ManagerDashboard() {
   return (
     <div className="flex flex-1 flex-col gap-2 overflow-y-scroll p-4">
       <ManagerHeader>Dashboard</ManagerHeader>
