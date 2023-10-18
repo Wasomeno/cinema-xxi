@@ -147,7 +147,7 @@ export function MoviesTable({ movies }: { movies: Movie[] }) {
   })
 
   return (
-    <AnimatedContainer className="mt-2 flex w-full flex-1 flex-col">
+    <div className="mt-2 flex w-full flex-1 flex-col">
       <div className="my-2 flex justify-between gap-2.5">
         <div className="flex items-center gap-2">
           <input
@@ -261,6 +261,6 @@ export function MoviesTable({ movies }: { movies: Movie[] }) {
           <DeleteMovieModal selectedMovies={selectedMovies} />
         )}
       </AnimatePresence>
-    </AnimatedContainer>
+    </div>
   )
 }
