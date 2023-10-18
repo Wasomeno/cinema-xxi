@@ -2,17 +2,16 @@
 
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-
-import { useDateTime } from "@/hooks/useDateTime"
-import { CenteredModal, ModalHeader } from "@/components/modal"
-import { useMintTicket } from "@/components/reactQuery/mutations/Ticket/useMintTicket"
-
 import {
   useSeatsId,
   useSelectedDate,
   useSelectedSeats,
   useSelectedShowtime,
-} from "./ticket-context-provider"
+} from "@/stores/ticketStore"
+
+import { useDateTime } from "@/hooks/useDateTime"
+import { CenteredModal, ModalHeader } from "@/components/modal"
+import { useMintTicket } from "@/components/reactQuery/mutations/Ticket/useMintTicket"
 
 const TicketConfirmationModal = () => {
   const { selectedDate } = useSelectedDate()

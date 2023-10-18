@@ -2,6 +2,12 @@
 
 import { Dispatch, SetStateAction, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
+import {
+  useSeatsId,
+  useSelectedDate,
+  useSelectedSeats,
+  useSelectedShowtime,
+} from "@/stores/ticketStore"
 import { useQuery } from "@tanstack/react-query"
 import { twMerge } from "tailwind-merge"
 
@@ -9,16 +15,11 @@ import { useDateTime } from "@/hooks/useDateTime"
 import { useSkeleton } from "@/hooks/useSkeleton"
 import { CenteredModal, ModalHeader } from "@/components/modal"
 
-import SeatSkeleton from "./SeatSkeleton"
-import {
-  useSeatsId,
-  useSelectedDate,
-  useSelectedSeats,
-  useSelectedShowtime,
-} from "./ticket-context-provider"
+import SeatSkeleton from "./seat-skeleton"
 
 export default function SeatsModal() {
   const { selectedShowtime } = useSelectedShowtime()
+  const { selectedDate } = useSelectedDate()
   const pathname = usePathname()
   const router = useRouter()
   return (
@@ -28,7 +29,7 @@ export default function SeatsModal() {
     >
       <ModalHeader
         closeModal={() => router.replace(pathname)}
-        title={selectedShowtime?.movie.title}
+        title={`${selectedShowtime?.movie.title} (${selectedShowtime?.showtime.hour}:${selectedShowtime?.showtime.minutes} - ${selectedShowtime?.studio.cinema.name})`}
         className="p-4"
       />
       <div className="flex flex-1 flex-col justify-between overflow-x-scroll px-4">
