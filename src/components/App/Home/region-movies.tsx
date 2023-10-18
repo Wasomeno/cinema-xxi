@@ -29,10 +29,10 @@ export function RegionMovies({ movies }: { movies: Movie[] }) {
                 key={movie.id}
                 onClick={() =>
                   isConnected
-                    ? router.push(`/app/${region}/${movie.id}`)
+                    ? router.push(`/app/movies/${movie.id}/${region}`)
                     : toast.error("Connect your wallet first")
                 }
-                className="flex flex-col items-center gap-3"
+                className="flex cursor-pointer flex-col items-center gap-3"
               >
                 <div className="relative h-48 w-36 rounded-lg bg-slate-200 shadow-sm lg:h-64 lg:w-48">
                   <Image
