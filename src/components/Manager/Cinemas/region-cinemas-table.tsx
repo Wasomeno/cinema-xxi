@@ -234,7 +234,7 @@ export const RegionCinemasTable = ({ cinemas }: { cinemas: Cinema[] }) => {
         </button>
         <button
           disabled={!table.getCanNextPage()}
-          onClick={() => console.log(table.nextPage)}
+          onClick={() => table.nextPage()}
           className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800"
         >
           <HiChevronRight />
