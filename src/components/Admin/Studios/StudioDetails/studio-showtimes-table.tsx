@@ -20,7 +20,6 @@ import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
 
 import { studioShowtimeSorts } from "@/lib/tableSorts"
 import { AnimatedContainer } from "@/components/animated-container"
-import { StudioShowtime } from "@/components/App/Movie/ticket-context-provider"
 import Table from "@/components/table"
 import { TableDataSorter } from "@/components/table-data-sorter"
 import TableRowMenu from "@/components/table-row-menu"
@@ -28,7 +27,6 @@ import TableRowMenu from "@/components/table-row-menu"
 import { AddStudioShowtimeModal } from "./AddStudioShowtimeModal"
 import { DeleteStudioShowtimesModal } from "./delete-studio-showtime-modal"
 import { EditStudioShowtimeModal } from "./edit-studio-showtime-modal"
-import { StudioShowtimeTableSkeletons } from "./studio-showtime-table-row-skeleton"
 import { StudioShowtimeDetailsModal } from "./view-studio-showtime-modal"
 
 export const StudioShowtimesTable = ({
