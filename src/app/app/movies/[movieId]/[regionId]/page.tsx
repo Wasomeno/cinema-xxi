@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import { prisma } from "@/lib/prisma"
+import { AnimatePresenceClient } from "@/components/animate-presence-client"
 import { AnimatedContainer } from "@/components/animated-container"
 import {
   AvailableCinema,
@@ -11,7 +12,22 @@ import { Dates } from "@/components/App/Movie/date"
 import { Movie } from "@/components/App/Movie/movies"
 import SeatsModal from "@/components/App/Movie/seats-modal"
 import TicketConfirmationModal from "@/components/App/Movie/ticket-confirmation-modal"
-import { TicketContextProvider } from "@/components/App/Movie/ticket-context-provider"
+
+type AppMovieShowtimesPageProps = {
+  params: { movieId: string; regionId: string }
+  searchParams: { seats: string; confirmation: string }
+}
+
+export async function generateMetadata({ params }: AppMovieShowtimesPageProps) {
+  const movie = await getMovieDetails(params.movieId)
+  const region = await prisma.region.findUnique({
+    where: { id: parseInt(params.regionId) },
+  })
+
+  return {
+    title: `${movie.data.title} Showtimes in ${region?.name}`,
+  }
+}
 
 async function getMovieDetails(id: string) {
   const details = await axios.get<{
@@ -57,11 +73,6 @@ async function getAvailableCinema(regionId: string, movieId: string) {
   }))
 }
 
-type AppMovieShowtimesPageProps = {
-  params: { movieId: string; regionId: string }
-  searchParams: { seats: string; confirmation: string }
-}
-
 export default async function AppMovieShowtimesPage({
   params,
   searchParams,
@@ -70,28 +81,28 @@ export default async function AppMovieShowtimesPage({
   const cinemas = await getAvailableCinema(params.regionId, params.movieId)
 
   return (
-    <TicketContextProvider>
-      <AnimatedContainer className="flex w-full flex-1 flex-col items-center gap-6 p-4">
-        <Movie
-          image={<Movie.Image image={movieDetails.data.image} />}
-          title={<Movie.Title title={movieDetails.data.title} />}
-          plot={<Movie.Plot plot={movieDetails.data.plot} />}
-        />
-        <Dates />
-        <AvailableCinema>
-          {cinemas.map((cinema) => (
-            <Cinema key={cinema.id} cinema={cinema}>
-              {cinema.studios.map((studio) =>
-                studio.showtime_to_movie.map((studioShowtime) => (
-                  <Showtime key={studioShowtime.id} showtime={studioShowtime} />
-                ))
-              )}
-            </Cinema>
-          ))}
-        </AvailableCinema>
-      </AnimatedContainer>
-      {searchParams.seats && <SeatsModal />}
-      {searchParams.confirmation && <TicketConfirmationModal />}
-    </TicketContextProvider>
+    <AnimatedContainer className="flex w-full flex-1 flex-col items-center gap-6 p-4">
+      <Movie
+        image={<Movie.Image image={movieDetails.data.image} />}
+        title={<Movie.Title title={movieDetails.data.title} />}
+        plot={<Movie.Plot plot={movieDetails.data.plot} />}
+      />
+      <Dates />
+      <AvailableCinema>
+        {cinemas.map((cinema) => (
+          <Cinema key={cinema.id} cinema={cinema}>
+            {cinema.studios.map((studio) =>
+              studio.showtime_to_movie.map((studioShowtime) => (
+                <Showtime key={studioShowtime.id} showtime={studioShowtime} />
+              ))
+            )}
+          </Cinema>
+        ))}
+      </AvailableCinema>
+      <AnimatePresenceClient>
+        {searchParams.seats && <SeatsModal />}
+        {searchParams.confirmation && <TicketConfirmationModal />}
+      </AnimatePresenceClient>
+    </AnimatedContainer>
   )
 }
