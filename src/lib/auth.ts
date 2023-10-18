@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
             } else {
               return {
                 ...managerDetails,
-                roles: credentials.role,
+                role: credentials.role,
               }
             }
           } else if (credentials?.role === "admin") {
