@@ -26,9 +26,8 @@ import TableRowMenu from "@/components/table-row-menu"
 import { AddRegionModal } from "./add-region-modal"
 import { DeleteRegionsModal } from "./delete-regions-modal"
 import { EditRegionModal } from "./edit-region-modal"
-import { RegionTableSkeletons } from "./region-table-row-skeletons"
 
-export const AllRegionsTable = ({ regions }: { regions: Region[] }) => {
+export const RegionsTable = ({ regions }: { regions: Region[] }) => {
   const [selectedRegions, setSelectedRegions] = useState<number[]>([])
   const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
@@ -133,7 +132,7 @@ export const AllRegionsTable = ({ regions }: { regions: Region[] }) => {
   })
 
   return (
-    <AnimatedContainer className="mt-2 flex w-full flex-1 flex-col">
+    <div className="mt-2 flex w-full flex-1 flex-col">
       <div className="my-2 flex justify-between gap-2.5">
         <div className="flex items-center gap-2">
           <input
@@ -247,6 +246,6 @@ export const AllRegionsTable = ({ regions }: { regions: Region[] }) => {
           <DeleteRegionsModal selectedRegions={selectedRegions} />
         )}
       </AnimatePresence>
-    </AnimatedContainer>
+    </div>
   )
 }
