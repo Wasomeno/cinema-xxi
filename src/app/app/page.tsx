@@ -19,6 +19,7 @@ export default async function AppHomePage({ searchParams }: AppHomePageProps) {
   const region = await prisma.region.findUnique({
     where: { id: searchParams.region ? parseInt(searchParams.region) : 1 },
   })
+
   const regionMovies = await prisma.movie.findMany({
     where: { cinema_movies: { some: { cinema: { regionId: region?.id } } } },
   })
