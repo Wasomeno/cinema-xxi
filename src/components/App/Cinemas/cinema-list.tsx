@@ -17,7 +17,7 @@ export const CinemaList = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ searchTerm: searchParams.get("search") }),
+        body: JSON.stringify({ searchTerm: searchParams.get("search") ?? "" }),
       }).then((response) => response.json()),
   })
 
