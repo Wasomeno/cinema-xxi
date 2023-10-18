@@ -68,7 +68,10 @@ const UserMenuModal = ({ toggle }: { toggle: () => void }) => {
             {iconWrapper(RiShareBoxFill)}
           </button>
           <button
-            onClick={disconnectWallet}
+            onClick={() => {
+              localStorage.removeItem("isMetamaskConnected")
+              disconnectWallet()
+            }}
             className="rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
           >
             {iconWrapper(HiPower)}
