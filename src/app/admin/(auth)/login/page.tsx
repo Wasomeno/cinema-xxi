@@ -52,7 +52,10 @@ const LoginPage = () => {
         Admin Login
       </h1>
       <Form
-        onSubmit={() => login.mutate()}
+        onSubmit={(event) => {
+          event.preventDefault()
+          login.mutate()
+        }}
         className="flex w-72 flex-col gap-2"
       >
         <Form.Input

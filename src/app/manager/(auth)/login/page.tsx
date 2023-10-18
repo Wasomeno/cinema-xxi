@@ -33,7 +33,6 @@ export default function ManagerLoginPage() {
         setText("Signing in")
       },
       onError(error) {
-        console.log(error)
         setLoading(false)
         toast.error("Sign in Failed, Try again later")
       },
@@ -47,11 +46,15 @@ export default function ManagerLoginPage() {
   if (session.data?.user.role === "manager") router.push("/manager")
   return (
     <AnimatedContainer className="flex h-screen flex-col items-center justify-center gap-6 bg-slate-100 dark:bg-slate-900">
+      <title>Manager Login</title>
       <h1 className="font-openSans text-lg font-medium lg:text-2xl">
         Manager Login
       </h1>
       <Form
-        onSubmit={() => login.mutate()}
+        onSubmit={(event) => {
+          event.preventDefault()
+          login.mutate()
+        }}
         className="flex w-72 flex-col gap-2"
       >
         <Form.Input
