@@ -3,19 +3,14 @@ import NextImage from "next/image"
 export function Movie({
   image,
   title,
-  plot,
 }: {
   image: React.JSX.Element
   title: React.JSX.Element
-  plot: React.JSX.Element
 }) {
   return (
     <div className="flex w-full items-center gap-4 lg:w-4/6 lg:gap-10">
       {image}
-      <div className="flex flex-col gap-2 lg:w-8/12">
-        {title}
-        {plot}
-      </div>
+      <div className="flex flex-col gap-2 lg:w-8/12">{title}</div>
     </div>
   )
 }
@@ -43,31 +38,6 @@ function Plot({ plot }: { plot: string }) {
     </p>
   )
 }
-
-// function Casts({ casts }: { casts: string[] }) {
-//   const selectedCasts = casts.filter((actor, index) => index < 5)
-//   return (
-//     <div className="hidden w-full flex-col gap-1.5 lg:flex">
-//       <span className="font-poppins text-sm font-medium">Casts</span>
-//       <div className="flex items-center gap-2 overflow-x-scroll">
-//         {selectedCasts.map((cast) => (
-//           <div key={cast.id} className="flex flex-col items-center gap-1.5">
-//             <div className="relative h-48 w-36">
-//               <Image
-//                 src={cast.image}
-//                 alt="actor-image"
-//                 className="rounded-lg"
-//                 fill
-//                 quality={50}
-//               />
-//             </div>
-//             <span className="text -sm">{cast.name}</span>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   )
-// }
 
 Movie.Image = Image
 Movie.Title = Title

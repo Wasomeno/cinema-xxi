@@ -19,9 +19,10 @@ export function RegionListModal({
   setSelectedRegion,
   toggleShowRegionList,
 }: RegionListModalProps) {
-  const allRegion = useQuery<Region[]>(["regions"], () =>
-    fetch("/api/regions").then((result) => result.json())
-  )
+  const allRegion = useQuery<Region[]>({
+    queryKey: ["regions"],
+    queryFn: () => fetch("/api/regions").then((result) => result.json()),
+  })
   const skeletons = useSkeleton(
     <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-600" />,
     5

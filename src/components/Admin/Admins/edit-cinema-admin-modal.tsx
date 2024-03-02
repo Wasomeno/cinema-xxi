@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
@@ -21,16 +23,14 @@ export const EditCinemaAdminModal = () => {
 
   const adminId = searchParams.get("id")
 
-  const adminDetails = useQuery(
-    ["admin", adminId],
-    () =>
+  const adminDetails = useQuery({
+    queryKey: ["admin", adminId],
+    queryFn: () =>
       fetch(`/api/cinemas/${session?.user.cinema?.id}/admins/${adminId}`).then(
         (result) => result.json()
       ),
-    {
-      enabled: session?.user.cinema?.id !== undefined,
-    }
-  )
+    enabled: session?.user.cinema?.id !== undefined,
+  })
 
   const sideEffects = useSideEffects({
     text: "Updating admin",

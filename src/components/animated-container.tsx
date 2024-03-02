@@ -3,10 +3,7 @@
 import { HTMLAttributes, ReactNode } from "react"
 import { HTMLMotionProps, motion } from "framer-motion"
 
-interface AnimatedContainerProps
-  extends HTMLAttributes<HTMLMotionProps<"div">> {
-  children?: ReactNode
-}
+export interface AnimatedContainerProps extends HTMLAttributes<HTMLMotionProps<"div">> {}
 
 export function AnimatedContainer({
   children,

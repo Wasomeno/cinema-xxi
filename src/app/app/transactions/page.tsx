@@ -29,11 +29,13 @@ export default function TransactionsPage() {
     Prisma.TransactionGetPayload<{
       include: { movie: true; cinema: true; region: true }
     }>[]
-  >(["transactions", isHistory], () =>
-    fetch(`/api/users/${address}/transactions?${searchParams.toString()}`).then(
-      (response) => response.json()
-    )
-  )
+  >({
+    queryKey: ["transactions", isHistory],
+    queryFn: () =>
+      fetch(
+        `/api/users/${address}/transactions?${searchParams.toString()}`
+      ).then((response) => response.json()),
+  })
 
   const skeletons = useSkeleton(<TransactionCardSkeleton />, 5)
 

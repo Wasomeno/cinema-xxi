@@ -1,3 +1,5 @@
+"use client"
+
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 
@@ -6,18 +8,20 @@ import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 
-export const DeleteCinemaAdminsModal = ({
-  selectedAdmins,
-}: {
-  selectedAdmins: number[]
-}) => {
-  const pathname = usePathname()
+export const DeleteCinemaAdminsModal = () => {
   const router = useRouter()
+  const pathname = usePathname()
   const session = useSession()
+
   const sideEffects = useSideEffects({
     text: "Deleting cinema admins",
     queryKeys: cinemaQueryKeys.cinemaAdmins(session.data?.user.cinema?.id),
   })
+
+  const selectedAdmins: number[] = JSON.parse(
+    localStorage.getItem("selectedDatas") as string
+  )
+
   const deleteCineaAdmins = mutation({
     url: `/api/cinemas/${session.data?.user.cinema?.id}/admins/delete`,
     method: "POST",
@@ -26,6 +30,7 @@ export const DeleteCinemaAdminsModal = ({
     },
     sideEffects,
   })
+
   return (
     <DeleteDataModal
       title="Delete Cinema Admins"

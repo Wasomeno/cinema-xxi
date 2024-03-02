@@ -2,9 +2,8 @@
 
 import { ReactNode, useEffect } from "react"
 import { useAccount, useConnect } from "wagmi"
-import { MetaMaskConnector } from "wagmi/connectors/metaMask"
 
-import { WalletNotConnected } from "../WalletNotConnected"
+import { WalletNotConnected } from "../wallet-not-connected"
 
 export function WalletConnection({ children }: { children: ReactNode }) {
   const { connect } = useConnect()
@@ -14,10 +13,6 @@ export function WalletConnection({ children }: { children: ReactNode }) {
     const isMetamaskConnected =
       localStorage.getItem("isMetamaskConnected") !== null
     if (isMetamaskConnected && !isConnected) {
-      connect({
-        chainId: 11155111,
-        connector: new MetaMaskConnector(),
-      })
     }
   }, [isConnected])
 

@@ -1,10 +1,12 @@
 import "./globals.css"
+import "@rainbow-me/rainbowkit/styles.css"
 
 import { reactQueryClient } from "@/client/reactQueryClient"
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit"
 import { QueryClientProvider } from "@tanstack/react-query"
-import { WagmiConfig } from "wagmi"
+import { WagmiProvider } from "wagmi"
 
-import { wagmiConfig } from "@/lib/wagmiConfig"
+import { config } from "@/lib/wagmiConfig"
 import ClientSessionProvider from "@/components/client-session-provider"
 import { Loading } from "@/components/loading"
 import { ThemeClientProvider } from "@/components/theme-client-provider"
@@ -20,14 +22,19 @@ export default function RootLayout({
       <body className="bg-slate-50 antialiased dark:bg-slate-950">
         <ClientSessionProvider refetchOnWindowFocus={false}>
           <QueryClientProvider client={reactQueryClient}>
-            <WagmiConfig config={wagmiConfig}>
-              <ThemeClientProvider>
-                <Loading />
-                {children}
-                <div className="fixed" />
-                <Toast />
-              </ThemeClientProvider>
-            </WagmiConfig>
+            <WagmiProvider config={config}>
+              <RainbowKitProvider
+                modalSize="compact"
+                showRecentTransactions={true}
+              >
+                <ThemeClientProvider>
+                  <Loading />
+                  {children}
+                  <div className="fixed" />
+                  <Toast />
+                </ThemeClientProvider>
+              </RainbowKitProvider>
+            </WagmiProvider>
           </QueryClientProvider>
         </ClientSessionProvider>
         <div id="modal-portal-container" />

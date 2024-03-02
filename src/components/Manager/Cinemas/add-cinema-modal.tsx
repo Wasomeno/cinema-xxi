@@ -1,10 +1,10 @@
-import { useState } from "react"
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation"
+"use client"
+
+import { SyntheticEvent, useEffect, useState } from "react"
+import { useParams, usePathname, useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import z from "zod"
 
 import { Form } from "@/components/form"
 import { CenteredModal, ModalHeader } from "@/components/modal"
@@ -12,15 +12,24 @@ import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { regionQueryKeys } from "@/components/reactQuery/queries/queryKeys/regionQueryKeys"
 
-export const AddCinemaModal = () => {
-  const [cinemaName, setCinemaName] = useState("")
-  const [studioAmount, setStudioAmount] = useState(2)
-  const [studioCapacities, setStudioCapacities] = useState(["", ""])
+const AddCinemaSchema = z.object({
+  name: z.string().min(5).max(25),
+  studioAmount: z.number().min(3).max(12),
+})
 
-  const params = useParams()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+type AddCinemaInputTypes = z.infer<typeof AddCinemaSchema>
+
+export const AddCinemaModal = () => {
+  const [studioCapacities, setStudioCapacities] = useState([0, 0])
+  const { register, getValues, formState, watch, setValue } =
+    useForm<AddCinemaInputTypes>({
+      resolver: zodResolver(AddCinemaSchema),
+      defaultValues: { name: "", studioAmount: 2 },
+    })
+
   const router = useRouter()
+  const pathname = usePathname()
+  const params = useParams()
 
   const sideEffects = useSideEffects({
     text: "Adding New Cinema",
@@ -31,22 +40,48 @@ export const AddCinemaModal = () => {
     url: "/api/cinemas",
     method: "POST",
     body: {
-      cinemaName,
-      regionId: parseInt(params.regionId as string),
-      studioDetails: studioCapacities.map((capacity, index) => ({
-        studio: index + 1,
-        capacity: parseInt(capacity),
-      })),
+      cinema: {
+        name: getValues("name"),
+        regionId: params.regionId,
+        studios: studioCapacities.map((capacity, index) => ({
+          number: index + 1,
+          capacity: capacity,
+        })),
+      },
     },
     sideEffects,
   })
 
-  const onStudioAmountChange = (value: number) => {
-    if (value >= 10 || value <= 0) return
-    setStudioAmount(value)
-    const array = new Array(value ? value : 1)
-    setStudioCapacities(array.fill(""))
+  function onStudioAmountChange(
+    event: SyntheticEvent<HTMLInputElement, InputEvent>
+  ) {
+    const parsedValue = parseInt(event.currentTarget.value)
+    if (parsedValue >= 10 || Number.isNaN(parsedValue)) return
+    setValue("studioAmount", parsedValue)
   }
+
+  function onStudioCapacityChange(studioIndex: number, value: string) {
+    if (parseInt(value) >= 100) return
+    setStudioCapacities((current) =>
+      current.map((cap, inputIndex) => {
+        if (inputIndex === studioIndex) {
+          return Number.isNaN(parseInt(value)) ? 0 : parseInt(value)
+        } else {
+          return cap
+        }
+      })
+    )
+  }
+
+  useEffect(() => {
+    const watchStudioAmount = watch(({ studioAmount }) => {
+      const array = new Array(studioAmount ? studioAmount : 1)
+      setStudioCapacities(array.fill(0))
+    })
+    return () => {
+      watchStudioAmount.unsubscribe()
+    }
+  }, [watch])
 
   return (
     <CenteredModal
@@ -67,18 +102,14 @@ export const AddCinemaModal = () => {
       >
         <div className="flex flex-col gap-2">
           <Form.Input
-            type="text"
+            {...register("name")}
             label="Name"
-            value={cinemaName}
-            onChange={(event) => setCinemaName(event?.target.value)}
+            placeholder="Cinema Name"
+            className="lg:tex-sm h-8 w-full rounded-lg border border-slate-400 p-2 text-start font-poppins text-xs dark:bg-slate-700"
           />
           <Form.Input
-            type="number"
+            {...register("studioAmount", { onChange: onStudioAmountChange })}
             label="Studio Amount"
-            value={studioAmount}
-            onChange={(event) =>
-              onStudioAmountChange(parseInt(event?.target.value))
-            }
             className="lg:tex-sm h-8 w-6/12 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs dark:bg-slate-700"
           />
           <div className="my-3 flex w-full flex-col items-start gap-2">
@@ -89,24 +120,15 @@ export const AddCinemaModal = () => {
               Studio Capacities
             </label>
             <div className="grid grid-cols-2 items-center gap-2 lg:grid-cols-4 ">
-              {studioCapacities.map((studio, index) => (
+              {studioCapacities.map((capacity, index) => (
                 <input
                   key={index}
                   id="studioCapacities"
-                  type="number"
                   className="col-span-1 h-8 rounded-lg border border-slate-400 p-2 text-center font-poppins text-xs focus:outline-none dark:bg-slate-700 md:text-sm"
                   placeholder={"Studio " + index + 1}
-                  value={studio}
-                  onChange={(e) =>
-                    setStudioCapacities((current) =>
-                      current.map((cap, inputIndex) => {
-                        if (inputIndex === index) {
-                          return e.target.value
-                        } else {
-                          return cap
-                        }
-                      })
-                    )
+                  value={capacity}
+                  onChange={(event) =>
+                    onStudioCapacityChange(index, event.currentTarget.value)
                   }
                 />
               ))}

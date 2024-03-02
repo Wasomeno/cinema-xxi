@@ -18,29 +18,27 @@ const LoginPage = () => {
   const { setLoading, setText } = useLoading()
   const toast = useToast()
 
-  const login = useMutation(
-    async () =>
+  const login = useMutation({
+    mutationFn: async () =>
       await signIn("credentials", {
         username,
         password,
         role: "admin",
         callbackUrl: "/admin",
       }),
-    {
-      onMutate() {
-        setText("Signing in")
-        setLoading(true)
-      },
-      onError() {
-        setLoading(false)
-        toast.error("Sign failed, try again later")
-      },
-      onSuccess() {
-        setLoading(false)
-        toast.success("Sign in success")
-      },
-    }
-  )
+    onMutate() {
+      setText("Signing in")
+      setLoading(true)
+    },
+    onError() {
+      setLoading(false)
+      toast.error("Sign failed, try again later")
+    },
+    onSuccess() {
+      setLoading(false)
+      toast.success("Sign in success")
+    },
+  })
   const session = useSession()
   const router = useRouter()
 

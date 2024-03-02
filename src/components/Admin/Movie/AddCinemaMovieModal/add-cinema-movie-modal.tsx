@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
@@ -12,10 +14,10 @@ import { AvailableMovieList } from "./available-movie-list"
 
 export const AddCinemaMovieModal = () => {
   const [selectedMovies, setSelectedMovies] = useState<string[]>([])
-
+  const session = useSession()
   const router = useRouter()
   const pathname = usePathname()
-  const session = useSession()
+
   const sideEffects = useSideEffects({
     text: "Adding Cinema Movies",
     queryKeys: cinemaQueryKeys.cinemaMovies(session.data?.user.cinema?.id),

@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
@@ -19,11 +21,13 @@ export function EditStudioModal() {
   const { data: session } = useSession()
 
   const studioId = searhcParams.get("id")
-  const studioDetails = useQuery(["studio", studioId], () =>
-    fetch(`/api/cinemas/${session?.user.cinema?.id}/studios/${studioId}`).then(
-      (result) => result.json()
-    )
-  )
+  const studioDetails = useQuery({
+    queryKey: ["studio", studioId],
+    queryFn: () =>
+      fetch(
+        `/api/cinemas/${session?.user.cinema?.id}/studios/${studioId}`
+      ).then((result) => result.json()),
+  })
 
   const sideEffects = useSideEffects({
     queryKeys: cinemaStudioQueryKeys.allStudio,

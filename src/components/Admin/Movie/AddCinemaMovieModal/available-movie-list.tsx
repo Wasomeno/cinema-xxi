@@ -21,13 +21,13 @@ export const AvailableMovieList = ({
   const allMovies = useAllMovies()
 
   const { data: session } = useSession()
-  const cinemaMovies = useQuery<Movie[]>(
-    cinemaQueryKeys.cinemaMovies(session?.user?.cinema?.id),
-    () =>
+  const cinemaMovies = useQuery<Movie[]>({
+    queryKey: cinemaQueryKeys.cinemaMovies(session?.user?.cinema?.id),
+    queryFn: () =>
       fetch(`/api/cinemas/${session?.user.cinema?.id}/movies`).then(
         (response) => response.json()
-      )
-  )
+      ),
+  })
 
   const skeletons = useSkeleton(
     <div className="h-10 w-full animate-pulse rounded-lg bg-slate-300 dark:bg-slate-600 lg:h-12" />,

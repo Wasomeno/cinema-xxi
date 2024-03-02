@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { ClassArray } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -26,20 +26,25 @@ export const Form = ({ children, ...props }: FormProps) => {
   return <form {...props}>{children}</form>
 }
 
-const Input = ({ label, className, ...props }: InputProps) => {
-  return (
-    <div className="flex w-full flex-col gap-2">
-      <label className="text-xs lg:text-sm">{label}</label>
-      <input
-        className={cn(
-          "rounded-lg border bg-slate-50 px-2 py-2 text-xs dark:border-slate-600 dark:bg-slate-700 lg:text-sm",
-          className
-        )}
-        {...props}
-      />
-    </div>
-  )
-}
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, label, ...props }, ref) => {
+    return (
+      <div className="flex w-full flex-col gap-2">
+        <label className="text-xs lg:text-sm">{label}</label>
+        <input
+          ref={ref}
+          className={cn(
+            "bg-slate-white rounded-lg border px-2 py-2 text-xs dark:border-slate-600 dark:bg-slate-700 lg:text-sm",
+            className
+          )}
+          {...props}
+        />
+      </div>
+    )
+  }
+)
+
+Input.displayName = "Input"
 
 const Submit = ({
   text,

@@ -1,3 +1,5 @@
+"use client"
+
 import { ReactNode } from "react"
 import Link from "next/link"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
@@ -50,13 +52,8 @@ const ButtonLink = ({
   href: string
 }) => {
   return (
-    <DropdownMenu.Item>
-      <Link
-        href={href}
-        className="w-full rounded-md px-2 py-1.5 text-start decoration-white transition duration-200 hover:bg-blue-100 hover:dark:bg-slate-600"
-      >
-        {children}
-      </Link>
+    <DropdownMenu.Item className="w-full rounded-md px-2 py-1.5 text-start decoration-white transition duration-200 hover:bg-blue-100 hover:dark:bg-slate-600">
+      <Link href={href}>{children}</Link>
     </DropdownMenu.Item>
   )
 }

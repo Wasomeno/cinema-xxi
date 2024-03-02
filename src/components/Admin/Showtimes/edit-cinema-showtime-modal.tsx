@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
+"use client"
+
+import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Showtime } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
@@ -11,16 +13,29 @@ import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 
 export function EditCinemaShowtimeModal() {
-  const router = useRouter()
-  const { data: sessionData } = useSession()
-  const showtime = useQuery<Showtime>(["showtime", router.query?.id], () =>
-    fetch(
-      `/api/cinemas/${sessionData?.user.cinema?.id}/showtimes/${router.query?.id}`
-    ).then((result) => result.json())
-  )
-
   const [hour, setHour] = useState(0)
   const [minutes, setMinutes] = useState(0)
+
+  const { data: sessionData } = useSession()
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const showtimeId = searchParams.get("id")
+
+  const showtime = useQuery<Showtime>({
+    queryKey: ["showtime", showtimeId],
+    queryFn: () =>
+      fetch(
+        `/api/cinemas/${sessionData?.user.cinema?.id}/showtimes/${showtimeId}`
+      ).then((response) =>
+        response.json().then((result) => {
+          setHour(result.hour)
+          setHour(result.minutes)
+          return result
+        })
+      ),
+  })
 
   const sideEffects = useSideEffects({
     text: "Updating showtime",
@@ -31,7 +46,7 @@ export function EditCinemaShowtimeModal() {
     url: `/api/cinemas/${sessionData?.user.cinema?.id}/showtimes`,
     method: "PUT",
     body: {
-      id: router.query.id,
+      id: showtimeId,
       hour,
       minutes,
     },
@@ -49,13 +64,6 @@ export function EditCinemaShowtimeModal() {
     if (valueToInteger < 0 || valueToInteger >= 59) return
     setMinutes(valueToInteger)
   }
-
-  useEffect(() => {
-    if (!showtime.isLoading) {
-      setHour(showtime.data?.hour as number)
-      setMinutes(showtime.data?.minutes as number)
-    }
-  }, [showtime.isLoading])
 
   return (
     <CenteredModal

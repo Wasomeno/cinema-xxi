@@ -22,9 +22,11 @@ export const EditRegionModal = () => {
 
   const regionId = searchParams.get("id")
 
-  const region = useQuery(regionQueryKeys.regionDetails(regionId), () =>
-    fetch(`/api/regions/${regionId}`).then((result) => result.json())
-  )
+  const region = useQuery({
+    queryKey: regionQueryKeys.regionDetails(regionId),
+    queryFn: () =>
+      fetch(`/api/regions/${regionId}`).then((result) => result.json()),
+  })
 
   const updateRegion = mutation({
     method: "PUT",

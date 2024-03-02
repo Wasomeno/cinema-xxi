@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import {
   useParams,
@@ -26,40 +28,36 @@ export const EditStudioShowtimeModal = () => {
   const params = useParams()
   const router = useRouter()
 
-  const selectedStudioShowtime = useQuery(
-    cinemaStudioQueryKeys.studioShowtimes(
+  const selectedStudioShowtime = useQuery({
+    queryKey: cinemaStudioQueryKeys.studioShowtimes(
       params.studioId,
       sessionData?.user.cinema?.id
     ),
-    () =>
+    queryFn: () =>
       fetch(
         `/api/cinemas/${sessionData?.user.cinema?.id}/studios/${
           params.studioId
         }/showtimes/${searchParams.get("id")}`
-      ).then((result) => result.json())
-  )
+      ).then((result) => result.json()),
+  })
 
-  const cinemaShowtimes = useQuery<Showtime[]>(
-    cinemaQueryKeys.cinemaShowtimes(sessionData?.user.cinema?.id),
-    () =>
+  const cinemaShowtimes = useQuery<Showtime[]>({
+    queryKey: cinemaQueryKeys.cinemaShowtimes(sessionData?.user.cinema?.id),
+    queryFn: () =>
       fetch(`/api/cinemas/${sessionData?.user.cinema?.id}/showtimes`).then(
         (result) => result.json()
       ),
-    {
-      enabled: sessionData?.user !== undefined,
-    }
-  )
+    enabled: sessionData?.user !== undefined,
+  })
 
-  const cinemaMovies = useQuery<Movie[]>(
-    cinemaQueryKeys.cinemaMovies(sessionData?.user.cinema?.id),
-    () =>
+  const cinemaMovies = useQuery<Movie[]>({
+    queryKey: cinemaQueryKeys.cinemaMovies(sessionData?.user.cinema?.id),
+    queryFn: () =>
       fetch("/api/cinemas/" + sessionData?.user.cinema?.id + "/movies").then(
         (result) => result.json()
       ),
-    {
-      enabled: sessionData?.user.cinema?.id !== undefined,
-    }
-  )
+    enabled: sessionData?.user.cinema?.id !== undefined,
+  })
 
   const sideEffects = useSideEffects({
     text: "Updating Studio Showtime",

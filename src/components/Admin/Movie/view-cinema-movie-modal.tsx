@@ -1,20 +1,24 @@
+"use client"
+
 import Image from "next/image"
 import { useParams, usePathname, useRouter } from "next/navigation"
 import { Movie } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 
-import { TableRowDetailsModal } from "@/components/TableRowDetailsModal"
+import { CenteredModal } from "@/components/modal"
 
-export function ViewCinemaMovie() {
+export function ViewCinemaMovieModal() {
   const params = useParams()
   const pathname = usePathname()
   const router = useRouter()
-  const movieDetails = useQuery<Movie>(["movieDetails", params.movieId], () =>
-    fetch(`/api/movies/${params.movieId}`).then((result) => result.json())
-  )
+  const movieDetails = useQuery<Movie>({
+    queryKey: ["movieDetails", params.movieId],
+    queryFn: () =>
+      fetch(`/api/movies/${params.movieId}`).then((result) => result.json()),
+  })
 
   return (
-    <TableRowDetailsModal
+    <CenteredModal
       title="Movie Details"
       closeModal={() => router.replace(pathname)}
     >
@@ -31,6 +35,6 @@ export function ViewCinemaMovie() {
           />
         </div>
       </div>
-    </TableRowDetailsModal>
+    </CenteredModal>
   )
 }

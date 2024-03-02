@@ -1,3 +1,5 @@
+"use client"
+
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 
@@ -6,14 +8,14 @@ import mutation from "@/components/reactQuery/mutations/mutation"
 import { useSideEffects } from "@/components/reactQuery/mutations/useSideEffects"
 import { cinemaQueryKeys } from "@/components/reactQuery/queries/queryKeys/cinemaQueryKeys"
 
-export const DeleteShowtimeModal = ({
-  selectedShowtimes,
-}: {
-  selectedShowtimes: number[]
-}) => {
+export const DeleteShowtimeModal = () => {
   const { data: sessionData } = useSession()
-  const pathname = usePathname()
   const router = useRouter()
+  const pathname = usePathname()
+
+  const selectedShowtimes = JSON.parse(
+    localStorage.getItem("selectedDatas") as string
+  )
 
   const sideEffects = useSideEffects({
     text: "Deleting showtimes",

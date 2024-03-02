@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client"
 import { create } from "zustand"
 
-import { Time } from "@/hooks/useDates"
+import { TDate } from "@/hooks/useDates"
 
 export type StudioShowtime = Prisma.ShowtimeToMovieGetPayload<{
   include: {
@@ -28,8 +28,8 @@ const selectedSeatsStore = create<{
 }))
 
 const selectedDateStore = create<{
-  selectedDate?: Time
-  selectDate: (date: Time) => void
+  selectedDate?: TDate
+  selectDate: (date: TDate) => void
 }>((set) => ({ selectDate: (date) => set({ selectedDate: date }) }))
 
 const selectedShowtimeStore = create<{
@@ -60,7 +60,7 @@ export const useSelectedShowtime = () =>
     selectShowtime: state.selectShowtime,
   }))
 
-export const useSelectedDate = (date?: Time) =>
+export const useSelectedDate = (date?: TDate) =>
   selectedDateStore((state) => ({
     selectedDate: state.selectedDate ?? date,
     selectDate: state.selectDate,

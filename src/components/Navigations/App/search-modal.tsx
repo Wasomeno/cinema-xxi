@@ -20,13 +20,12 @@ export function SearchModal({ toggleModal }: { toggleModal: () => void }) {
 
   const searchTimeoutRef = useRef<NodeJS.Timeout>()
   const router = useRouter()
-  const searchResults = useQuery<SearchResult>(
-    ["search", searchQuery],
-    () => fetch(`/api/search/${searchQuery}`).then((result) => result.json()),
-    {
-      enabled: searchQuery !== "",
-    }
-  )
+  const searchResults = useQuery<SearchResult>({
+    queryKey: ["search", searchQuery],
+    queryFn: () =>
+      fetch(`/api/search/${searchQuery}`).then((result) => result.json()),
+    enabled: searchQuery !== "",
+  })
 
   const isMovieResults =
     !searchResults.isFetching &&

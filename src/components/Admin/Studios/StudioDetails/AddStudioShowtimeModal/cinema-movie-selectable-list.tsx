@@ -14,14 +14,12 @@ export const CinemaMovieSelectableList = ({
   selectMovie: (movieId: string) => void
   selectedMovie: string
 }) => {
-  const cinemaMovies = useQuery<Movie[]>(
-    cinemaQueryKeys.cinemaMovies(cinemaId),
-    () =>
+  const cinemaMovies = useQuery<Movie[]>({
+    queryKey: cinemaQueryKeys.cinemaMovies(cinemaId),
+    queryFn: () =>
       fetch(`/api/cinemas/${cinemaId}/movies`).then((result) => result.json()),
-    {
-      enabled: cinemaId !== undefined,
-    }
-  )
+    enabled: cinemaId !== undefined,
+  })
 
   const skeletons = useSkeleton(
     <div className="flex justify-center border-b p-2">

@@ -41,12 +41,11 @@ const DeleteShowtimeModal = dynamic(
     (await import("@/components/Admin/Showtimes/delete-cinema-showtime-modal"))
       .DeleteShowtimeModal
 )
+
 export const ShowtimesTable = ({ showtimes }: { showtimes: Showtime[] }) => {
-  const [selectedShowtimes, setSelectedShowtimes] = useState<number[]>([])
   const [sorting, setSorting] = useState<SortingState>([])
-
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
-
+  const [selectedShowtimes, setSelectedShowtimes] = useState<number[]>([])
   const router = useRouter()
   const searchParams = useSearchParams()
 

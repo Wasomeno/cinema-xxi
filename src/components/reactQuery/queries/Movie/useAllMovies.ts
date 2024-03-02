@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query"
 import { movieQueryKeys } from "../queryKeys/movieQueryKeys"
 
 export function useAllMovies() {
-  return useQuery<Movie[]>(movieQueryKeys.allMovies, () =>
-    fetch("/api/movies").then((result) => result.json())
-  )
+  return useQuery<Movie[]>({
+    queryKey: movieQueryKeys.allMovies,
+    queryFn: () => fetch("/api/movies").then((result) => result.json()),
+  })
 }

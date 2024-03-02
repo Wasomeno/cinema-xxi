@@ -1,8 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { Studio } from "@prisma/client"
+import { useEffect, useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import {
   ColumnDef,
   flexRender,
@@ -10,51 +9,60 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  Row,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table"
+import clsx from "clsx"
 import { AnimatePresence } from "framer-motion"
 import { BsXCircleFill } from "react-icons/bs"
 import { HiChevronLeft, HiChevronRight, HiPlus, HiTrash } from "react-icons/hi2"
+import { TbArrowsDownUp } from "react-icons/tb"
 
-import { studioSorts } from "@/lib/tableSorts"
-import { AnimatedContainer } from "@/components/animated-container"
-import Table from "@/components/table"
-import { TableDataSorter } from "@/components/table-data-sorter"
-import TableRowMenu from "@/components/table-row-menu"
+import { showtimeSorts, TableSort } from "@/lib/tableSorts"
 
-import { AddStudioModal } from "./add-studio-modal"
-import { DeleteStudioModal } from "./delete-studio-modal"
-import { EditStudioModal } from "./edit-studio-modal"
+import { AnimatedContainer } from "./animated-container"
+import { CenteredModal, ModalHeader } from "./modal"
+import Table from "./table"
+import { TableDataSorter } from "./table-data-sorter"
 
-export const StudioTable = ({ studios }: { studios: Studio[] }) => {
-  const [selectedStudios, setSelectedStudios] = useState<number[]>([])
+type Table<T> = {
+  data: T[]
+  columns: ColumnDef<T>[]
+}
+
+export function DataTable<T>({ columns, data }: Table<T>) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 3 })
+  const [selectedDatas, setSelectedDatas] = useState<Array<number | string>>([])
 
-  const searchParams = useSearchParams()
   const router = useRouter()
+  const pathname = usePathname()
 
-  function selectAllStudios(studioIds: number[]) {
-    setSelectedStudios(studioIds)
+  function selectAllDatas(datas: Array<number | string>) {
+    setSelectedDatas(datas)
+    localStorage.setItem("selectedDatas", JSON.stringify(datas))
+  }
+  function deselectAllDatas() {
+    setSelectedDatas([])
+    localStorage.setItem("selectedDatas", JSON.stringify([]))
   }
 
-  function deselectAllStudios() {
-    setSelectedStudios([])
+  function selectData(data: number | string) {
+    const currentSelected = [...selectedDatas, data]
+    setSelectedDatas(currentSelected)
+    localStorage.setItem("selectedDatas", JSON.stringify(currentSelected))
   }
 
-  function selectStudio(studioId: number) {
-    setSelectedStudios((current) => [...current, studioId])
-  }
-
-  function deselectStudio(studioId: number) {
-    const filteredStudios = selectedStudios.filter(
-      (selectedStudioId) => selectedStudioId !== studioId
+  function deselectData(data: number | string) {
+    const filteredDatas = selectedDatas.filter(
+      (selectedData) => selectedData !== data
     )
-    setSelectedStudios(filteredStudios)
+    setSelectedDatas(filteredDatas)
+    localStorage.setItem("selectedDatas", JSON.stringify(filteredDatas))
   }
 
-  const cinemaStudioTableColumns: ColumnDef<Studio>[] = [
+  const tableColumns: ColumnDef<T>[] = [
     {
       id: "select",
       header: ({ table }) => {
@@ -63,13 +71,15 @@ export const StudioTable = ({ studios }: { studios: Studio[] }) => {
             type="checkbox"
             className="h-4 w-4 cursor-pointer accent-blue-300 dark:accent-blue-800"
             checked={
-              table.getCoreRowModel().rows.length === selectedStudios.length
+              table.getCoreRowModel().rows.length === selectedDatas.length
             }
             onChange={() =>
-              table.getCoreRowModel().rows.length === selectedStudios.length
-                ? deselectAllStudios()
-                : selectAllStudios(
-                    table.getCoreRowModel().rows.map((row) => row.original.id)
+              table.getCoreRowModel().rows.length === selectedDatas.length
+                ? deselectAllDatas()
+                : selectAllDatas(
+                    table
+                      .getCoreRowModel()
+                      .rows.map((row) => row.getValue("id"))
                   )
             }
           />
@@ -81,47 +91,23 @@ export const StudioTable = ({ studios }: { studios: Studio[] }) => {
             <input
               type="checkbox"
               className="h-4 w-4 cursor-pointer rounded-md accent-blue-300 dark:accent-blue-800"
-              checked={selectedStudios.includes(row.original.id)}
+              checked={selectedDatas.includes(row.getValue("id"))}
               onChange={() =>
-                selectedStudios.includes(row.original.id)
-                  ? deselectStudio(row.original.id)
-                  : selectStudio(row.original.id)
+                selectedDatas.includes(row.getValue("id"))
+                  ? deselectData(row.getValue("id"))
+                  : selectData(row.getValue("id"))
               }
             />
           </div>
         )
       },
     },
-    { accessorKey: "id", header: "Id", cell: (info) => info.getValue() },
-    {
-      accessorKey: "studio",
-      header: "Studio",
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: "capacity",
-      header: "Capacity",
-      cell: (info) => info.getValue(),
-    },
-    {
-      id: "menu",
-      cell: ({ row }) => (
-        <TableRowMenu>
-          <TableRowMenu.Button
-            onClick={() => {
-              router.push(`/admin/studios/${row.original.id}`)
-            }}
-          >
-            View Studio
-          </TableRowMenu.Button>
-        </TableRowMenu>
-      ),
-    },
+    ...columns,
   ]
 
   const table = useReactTable({
-    data: studios,
-    columns: cinemaStudioTableColumns,
+    data: data,
+    columns: tableColumns,
     state: { sorting, pagination },
     onSortingChange: setSorting,
     onPaginationChange: setPagination,
@@ -131,6 +117,12 @@ export const StudioTable = ({ studios }: { studios: Studio[] }) => {
     getPaginationRowModel: getPaginationRowModel(),
   })
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("selectedDatas")
+    }
+  }, [])
+
   return (
     <div className="flex flex-1 flex-col items-center">
       <AnimatedContainer className="flex w-full flex-1 flex-col">
@@ -138,24 +130,24 @@ export const StudioTable = ({ studios }: { studios: Studio[] }) => {
           <div className="flex items-center gap-2">
             <input
               type="number"
-              placeholder="Search for studio number"
+              placeholder="Search for showtime hours..."
               onChange={(event) =>
-                table.getColumn("studio")?.setFilterValue(event.target.value)
+                table.getColumn("hour")?.setFilterValue(event.target.value)
               }
               className="h-8 w-44 rounded-md border p-2 text-xs dark:border-slate-700 dark:bg-slate-900 lg:w-96 lg:text-sm"
             />
-            <TableDataSorter table={table} sorts={studioSorts} />
+            <TableDataSorter table={table} sorts={showtimeSorts} />
           </div>
           <div className="flex w-72 items-center justify-end gap-2">
             <button
-              onClick={() => router.push("/admin/studios?add=true")}
+              onClick={() => router.push(`${pathname}?add=true`)}
               className="rounded-lg bg-green-600 p-2 text-slate-100 transition duration-150 disabled:bg-opacity-50 dark:bg-green-800"
             >
               <HiPlus className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             </button>
             <button
-              onClick={() => router.push("/admin/studios?delete=true")}
-              disabled={!selectedStudios.length}
+              onClick={() => router.push(`${pathname}?delete=true`)}
+              disabled={!selectedDatas.length}
               className="rounded-lg bg-red-600 p-2 text-sm text-slate-100 transition duration-150 disabled:opacity-50 dark:bg-red-800 dark:disabled:opacity-50"
             >
               <HiTrash className="h-3 w-3 sm:h-4 sm:w-4 lg:h-3.5 lg:w-3.5" />
@@ -229,25 +221,18 @@ export const StudioTable = ({ studios }: { studios: Studio[] }) => {
           <button
             disabled={!table.getCanPreviousPage()}
             onClick={() => table.previousPage()}
-            className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2  disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
+            className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-500 dark:bg-slate-800"
           >
             <HiChevronLeft />
           </button>
           <button
             disabled={!table.getCanNextPage()}
             onClick={() => table.nextPage()}
-            className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
+            className="flex-items-center justify-center rounded-lg border bg-slate-50 p-2 disabled:opacity-50 dark:border-slate-500 dark:bg-slate-800"
           >
             <HiChevronRight />
           </button>
         </div>
-        <AnimatePresence>
-          {searchParams.get("add") && <AddStudioModal />}
-          {searchParams.get("edit") && <EditStudioModal />}
-          {searchParams.get("delete") && (
-            <DeleteStudioModal selectedStudio={selectedStudios} />
-          )}
-        </AnimatePresence>
       </AnimatedContainer>
     </div>
   )

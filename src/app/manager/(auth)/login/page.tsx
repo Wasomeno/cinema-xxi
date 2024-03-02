@@ -19,29 +19,27 @@ export default function ManagerLoginPage() {
   const { setLoading, setText } = useLoading()
   const toast = useToast()
 
-  const login = useMutation(
-    async () =>
+  const login = useMutation({
+    mutationFn: async () =>
       await signIn("credentials", {
         username,
         password,
         role: "manager",
         callbackUrl: "/manager",
       }),
-    {
-      onMutate() {
-        setLoading(true)
-        setText("Signing in")
-      },
-      onError(error) {
-        setLoading(false)
-        toast.error("Sign in Failed, Try again later")
-      },
-      onSuccess() {
-        setLoading(false)
-        toast.success("Sign in Success")
-      },
-    }
-  )
+    onMutate() {
+      setLoading(true)
+      setText("Signing in")
+    },
+    onError(error) {
+      setLoading(false)
+      toast.error("Sign in Failed, Try again later")
+    },
+    onSuccess() {
+      setLoading(false)
+      toast.success("Sign in Success")
+    },
+  })
 
   if (session.data?.user.role === "manager") router.push("/manager")
   return (

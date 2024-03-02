@@ -48,19 +48,19 @@ function Seats() {
   const { selectedSeats, selectSeat, deselectSeat } = useSelectedSeats()
 
   const seatSkeletons = useSkeleton(<SeatSkeleton />, 4)
-  const showtimeSeats = useQuery(
-    [
+  const showtimeSeats = useQuery({
+    queryKey: [
       "showtimeSeats",
       selectedShowtime?.studio.cinemaId,
       selectedShowtime?.studio.id,
       selectedShowtime?.id,
-      selectedDate?.date,
+      selectedDate?.value,
     ],
-    () =>
+    queryFn: () =>
       fetch(
-        `/api/cinemas/${selectedShowtime?.studio.cinema.id}/studios/${selectedShowtime?.studio.id}/showtimes/${selectedShowtime?.id}/${selectedDate?.date}/seats`
-      ).then((response) => response.json())
-  )
+        `/api/cinemas/${selectedShowtime?.studio.cinema.id}/studios/${selectedShowtime?.studio.id}/showtimes/${selectedShowtime?.id}/${selectedDate?.value}/seats`
+      ).then((response) => response.json()),
+  })
 
   function generateSeats() {
     const array = Array(showtimeSeats.data?.studio.capacity)
@@ -123,7 +123,7 @@ function Seats() {
 function SeatsTotal() {
   const { selectedDate } = useSelectedDate()
   const { selectedSeats } = useSelectedSeats()
-  const dateTime = useDateTime({ date: selectedDate?.date as number })
+  const dateTime = useDateTime({ date: selectedDate?.value as number })
 
   const pathnmame = usePathname()
   const router = useRouter()

@@ -7,7 +7,7 @@ import { ManagerNavigationLink } from "./manager-navigation-link"
 
 export function ManagerNavigation() {
   return (
-    <div className="sticky z-10 rounded-lg border bg-white dark:border-slate-700 dark:bg-slate-900">
+    <div className="sticky z-10 hidden rounded-lg border bg-white dark:border-slate-700 dark:bg-slate-900 lg:block">
       <div className="flex w-[240px] flex-col justify-start">
         <div className="flex h-3/6 flex-col justify-start gap-3 overflow-hidden p-3">
           <ManagerNavigationLink href="/manager" Icon={HiHome}>

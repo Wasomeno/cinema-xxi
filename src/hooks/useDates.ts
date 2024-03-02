@@ -1,23 +1,22 @@
 import moment from "moment"
 
-export type Time = {
+export type TDate = {
   day: string
-  date: number
+  value: number
   month: number
 }
 
-export function useDates(addition: number): Time[] {
+export function useDates(amount: number): TDate[] {
   let dates = []
   const timeNow = moment()
-  for (let i = 0; i < addition; i++) {
-    const timeAdded = timeNow.add({ days: i === 0 ? 0 : 1 })
-    const dayOfTime = new Intl.DateTimeFormat("en-US", {
-      weekday: "short",
-    }).format(timeAdded.date())
+  for (let i = 0; i < amount; i++) {
+    const timeAdded = timeNow.add({ day: i + 1 - 1 })
+
+    const dayOfTime = timeAdded.format("ddd")
 
     dates.push({
       day: dayOfTime,
-      date: timeAdded.date(),
+      value: timeAdded.date(),
       month: timeAdded.month(),
     })
   }

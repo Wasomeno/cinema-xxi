@@ -1,17 +1,21 @@
 "use client"
 
-import {  ReactNode, useState } from "react"
+import { ReactNode, useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import {
+  StudioShowtime,
+  useSelectedDate,
+  useSelectedShowtime,
+} from "@/stores/ticketStore"
+import { Cinema } from "@prisma/client"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import moment from "moment"
 import { HiChevronRight } from "react-icons/hi2"
 
-import { StudioShowtime, useSelectedDate, useSelectedShowtime } from "@/stores/ticketStore"
-import { Cinema } from "@prisma/client"
 import { useDateTime } from "@/hooks/useDateTime"
-import { usePathname,useRouter } from "next/navigation"
 
-export function AvailableCinema({ children }: { children: ReactNode }) {
+export function Cinemas({ children }: { children: ReactNode }) {
   return (
     <div className="w-full space-y-2 md:w-8/12">
       <h4 className="font-poppins text-xs font-medium md:text-sm lg:text-lg">
@@ -24,7 +28,13 @@ export function AvailableCinema({ children }: { children: ReactNode }) {
   )
 }
 
-export function Cinema({ cinema, children }:{cinema:Cinema, children:ReactNode}) {
+export function CinemaCard({
+  cinema,
+  showtimes,
+}: {
+  cinema: Cinema
+  showtimes: StudioShowtime[]
+}) {
   const [isTabOpen, setIsTabOpen] = useState(false)
   return (
     <>
@@ -52,13 +62,15 @@ export function Cinema({ cinema, children }:{cinema:Cinema, children:ReactNode})
         }}
         className="flex w-full items-center gap-2.5 rounded-lg border bg-slate-100 p-2 dark:border-slate-800 dark:bg-slate-900"
       >
-        {children}
+        {showtimes.map((showtime) => (
+          <Showtime key={showtime.id} showtime={showtime} />
+        ))}
       </motion.div>
     </>
   )
 }
 
-export function Showtime({ showtime }:{showtime:StudioShowtime}) {
+function Showtime({ showtime }: { showtime: StudioShowtime }) {
   const { selectShowtime } = useSelectedShowtime()
   const { selectedDate } = useSelectedDate()
   const dateTime = useDateTime()
@@ -68,7 +80,7 @@ export function Showtime({ showtime }:{showtime:StudioShowtime}) {
 
   function getParsedTime() {
     const timeNow = moment().set({
-      date: selectedDate?.date,
+      date: selectedDate?.value,
       month: selectedDate?.month,
       hour: showtime.showtime.hour,
       minute: showtime.showtime.minutes,
@@ -83,11 +95,13 @@ export function Showtime({ showtime }:{showtime:StudioShowtime}) {
       animate={{ display: "inline-block" }}
       transition={{ bounce: false, delay: 0.05 }}
       exit={{ display: "hidden" }}
-      onClick={() => {selectShowtime(showtime); router.replace(`${pathname}?seats=true`)}}
+      onClick={() => {
+        selectShowtime(showtime)
+        router.replace(`${pathname}?seats=true`)
+      }}
       className="rounded-md bg-slate-200 p-2 px-3 text-center font-poppins text-xs shadow-sm transition duration-200 ease-in-out hover:bg-slate-300 disabled:opacity-50 dark:bg-slate-800 dark:hover:bg-slate-700 md:text-sm"
     >
       {showtime.showtime.hour} :{showtime.showtime.minutes}
     </motion.button>
   )
 }
-

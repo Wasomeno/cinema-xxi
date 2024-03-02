@@ -1,3 +1,5 @@
+"use client"
+
 import { HTMLAttributes } from "react"
 import { motion } from "framer-motion"
 import { createPortal } from "react-dom"
@@ -54,10 +56,6 @@ export const CenteredModal = ({
 }: ModalProps) => {
   const { width } = useViewport()
 
-  const portalContainer = document.getElementById(
-    "modal-portal-container"
-  ) as HTMLElement
-
   return createPortal(
     <>
       <AnimatedContainer
@@ -81,7 +79,7 @@ export const CenteredModal = ({
         {children}
       </motion.div>
     </>,
-    portalContainer
+    document.getElementById("modal-portal-container") as HTMLElement
   )
 }
 
