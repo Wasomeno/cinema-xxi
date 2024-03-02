@@ -1,8 +1,10 @@
+"use client"
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { CenteredModal } from "@/components/modal"
 
-export const TransactionDetailsModal = () => {
+export const TransactionDetailModal = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
