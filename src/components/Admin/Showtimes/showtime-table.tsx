@@ -264,9 +264,7 @@ export const ShowtimesTable = ({ showtimes }: { showtimes: Showtime[] }) => {
       <AnimatePresence>
         {searchParams.get("add") && <AddCinemaShowtimeModal />}
         {searchParams.get("edit") && <EditCinemaShowtimeModal />}
-        {searchParams.get("delete") && (
-          <DeleteShowtimeModal selectedShowtimes={selectedShowtimes} />
-        )}
+        {searchParams.get("delete") && <DeleteShowtimeModal />}
       </AnimatePresence>
     </div>
   )

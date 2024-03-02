@@ -6,7 +6,7 @@ type WalletErrorProps = {
   toggle: () => void
 }
 
-export const WalletError = ({ message, toggle }: WalletErrorProps) => {
+export function WalletError({ message, toggle }: WalletErrorProps) {
   useEffect(() => {
     const walletTimeout = setTimeout(() => toggle, 1500)
     return () => clearTimeout(walletTimeout)

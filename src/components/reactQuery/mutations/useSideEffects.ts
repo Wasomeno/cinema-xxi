@@ -37,7 +37,7 @@ export const useSideEffects = ({
       setLoading(false)
       toast.success(responseJson.message)
       redirectUrl && router.push(redirectUrl)
-      queryKeys && reactQueryClient.invalidateQueries(queryKeys)
+      queryKeys && reactQueryClient.invalidateQueries({ queryKey: queryKeys })
     },
   }
 }

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { HiCheckCircle } from "react-icons/hi2"
 
-export const WalletSuccess = ({ toggle }: { toggle: () => void }) => {
+export function WalletSuccess({ toggle }: { toggle: () => void }) {
   useEffect(() => {
     const walletTimeout = setTimeout(toggle, 1500)
     return () => clearTimeout(walletTimeout)

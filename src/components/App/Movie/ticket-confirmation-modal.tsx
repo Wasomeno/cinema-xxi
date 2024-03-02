@@ -22,7 +22,7 @@ const TicketConfirmationModal = () => {
   const pathname = usePathname()
   const router = useRouter()
   const dateTime = useDateTime({
-    date: selectedDate?.date,
+    date: selectedDate?.value,
     month: selectedDate?.month,
     hours: selectedShowtime?.showtime.hour,
     minutes: selectedShowtime?.showtime.minutes,
@@ -65,8 +65,9 @@ const TicketConfirmationModal = () => {
               {selectedShowtime?.studio.studio}
             </p>
             <p className="font-poppins text-xs">
-              {`${dateTime.toDateString()}, ${selectedShowtime?.showtime
-                .hour}:${selectedShowtime?.showtime.minutes} PM`}
+              {`${dateTime.toDateString()}, ${
+                selectedShowtime?.showtime.hour
+              }:${selectedShowtime?.showtime.minutes} PM`}
             </p>
           </div>
         </div>

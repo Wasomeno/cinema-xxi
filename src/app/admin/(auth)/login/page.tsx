@@ -1,12 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import Head from "next/head"
 import { useRouter } from "next/navigation"
 import { useLoading } from "@/stores/loadingStore"
 import { useToast } from "@/stores/toastStore"
+import { useMutation } from "@tanstack/react-query"
 import { signIn, useSession } from "next-auth/react"
-import { useMutation } from "wagmi"
 
 import { AnimatedContainer } from "@/components/animated-container"
 import { Form } from "@/components/form"

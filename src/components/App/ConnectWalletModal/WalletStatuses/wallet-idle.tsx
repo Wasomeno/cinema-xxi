@@ -1,10 +1,8 @@
 import Image from "next/image"
-import { ConnectArgs } from "@wagmi/core"
-import { Connector } from "wagmi"
 
 type WalletIdleProps = {
-  connectors: Connector<any, any>[]
-  connect: (args?: Partial<ConnectArgs> | undefined) => void
+  connectors: any[]
+  connect: (args?: Partial<any> | undefined) => void
 }
 
 export function WalletIdle({ connectors, connect }: WalletIdleProps) {

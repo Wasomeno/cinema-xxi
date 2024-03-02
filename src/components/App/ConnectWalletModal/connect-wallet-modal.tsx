@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { ReactElement, ReactNode } from "react"
 import { useConnect } from "wagmi"
 
 import { CenteredModal } from "@/components/modal"
@@ -18,11 +18,11 @@ type ConnectWalletModalProps = {
 
 export function ConnectWalletModal({ toggle }: ConnectWalletModalProps) {
   const { connect, connectors, status, error } = useConnect()
-  const walletStatuses = {
-    loading: WalletLoading,
-    error: WalletError,
-    success: WalletSuccess,
-    idle: WalletIdle,
+  const walletStatuses: Record<typeof status, any> = {
+    ["pending"]: WalletLoading,
+    ["error"]: WalletError,
+    ["success"]: WalletSuccess,
+    ["idle"]: WalletIdle,
   }
 
   const WalletStatus = walletStatuses[status]
