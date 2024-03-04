@@ -14,6 +14,7 @@ import moment from "moment"
 import { HiChevronRight } from "react-icons/hi2"
 
 import { useDateTime } from "@/hooks/useDateTime"
+import { Skeleton } from "@/components/skeleton"
 
 export function Cinemas({ children }: { children: ReactNode }) {
   return (
@@ -104,4 +105,8 @@ function Showtime({ showtime }: { showtime: StudioShowtime }) {
       {showtime.showtime.hour} :{showtime.showtime.minutes}
     </motion.button>
   )
+}
+
+export function CinemaCardSkeleton() {
+  return <Skeleton className="h-8 w-full lg:h-10" />
 }

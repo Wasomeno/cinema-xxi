@@ -1,5 +1,7 @@
 import NextImage from "next/image"
 
+import { Skeleton } from "@/components/skeleton"
+
 export function Movie({
   image,
   title,
@@ -39,6 +41,20 @@ function Plot({ plot }: { plot: string }) {
   )
 }
 
+function MovieSkeleton() {
+  return (
+    <div className="flex w-full items-center gap-4 lg:w-4/6 lg:gap-10">
+      <div className="flex w-auto lg:w-4/12">
+        <Skeleton className="h-52 w-36 lg:h-96 lg:w-full" />
+      </div>
+      <div className="flex flex-col gap-2 lg:w-8/12">
+        <Skeleton className="h-[22px] w-28 lg:h-[30px] lg:w-72" />
+      </div>
+    </div>
+  )
+}
+
 Movie.Image = Image
 Movie.Title = Title
 Movie.Plot = Plot
+Movie.Skeleton = MovieSkeleton

@@ -7,7 +7,7 @@ import { AnimatePresenceClient } from "@/components/animate-presence-client"
 import { AppLayout } from "@/components/app-layout"
 import { CinemaCard, Cinemas } from "@/components/App/Movie/cinemas"
 import { Dates } from "@/components/App/Movie/date"
-import { Movie } from "@/components/App/Movie/movies"
+import { Movie } from "@/components/App/Movie/movie"
 import SeatsModal from "@/components/App/Movie/seats-modal"
 import TicketConfirmationModal from "@/components/App/Movie/ticket-confirmation-modal"
 
