@@ -1,12 +1,11 @@
 "use client"
 
 import { ReactNode, useEffect } from "react"
-import { useAccount, useConnect } from "wagmi"
+import { useAccount } from "wagmi"
 
 import { WalletNotConnected } from "../wallet-not-connected"
 
 export function WalletConnection({ children }: { children: ReactNode }) {
-  const { connect } = useConnect()
   const { isConnected } = useAccount()
 
   useEffect(() => {
