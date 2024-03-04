@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import { AnimatedContainer } from "@/components/animated-container"
 import { CinemaList } from "@/components/App/Cinemas/cinema-list"
 import { CinemaSearchInput } from "@/components/App/Cinemas/cinema-search-input"
@@ -16,7 +18,9 @@ export default function AppCinemaSearchPage() {
       <div className="sticky top-[59px] bg-white dark:bg-slate-950 lg:static lg:w-3/6">
         <CinemaSearchInput />
       </div>
-      <CinemaList />
+      <Suspense>
+        <CinemaList />
+      </Suspense>
     </AnimatedContainer>
   )
 }
