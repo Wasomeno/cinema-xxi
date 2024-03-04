@@ -10,7 +10,7 @@ import { Autoplay, Navigation } from "swiper/modules"
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react"
 import { Swiper as SwiperType } from "swiper/types"
 
-export function AppBannerSlider() {
+export function BannerSlider() {
   const [showNavigation, setShowNavigation] = useState(false)
   const swiperRef = useRef<SwiperType>()
   return (

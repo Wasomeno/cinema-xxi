@@ -3,7 +3,7 @@ import { Region } from "@prisma/client"
 
 import { prisma } from "@/lib/prisma"
 import { AnimatedContainer } from "@/components/animated-container"
-import { AppBannerSlider } from "@/components/App/Home/app-banner-slider"
+import { BannerSlider } from "@/components/App/Home/banner-slider"
 import { RegionListModalTrigger } from "@/components/App/Home/region-list-modal-trigger"
 import { RegionMovies } from "@/components/App/Home/region-movies"
 
@@ -27,7 +27,7 @@ export default async function AppHomePage({ searchParams }: AppHomePageProps) {
   return (
     <AnimatedContainer className="z-5 relative flex flex-1 scroll-p-8 flex-col gap-4 overflow-y-scroll p-4 transition-all duration-200">
       <div className="flex items-center justify-center">
-        <AppBannerSlider />
+        <BannerSlider />
       </div>
       <div className="flex justify-center">
         <div className="w-full lg:w-5/6">
