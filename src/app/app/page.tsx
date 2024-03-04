@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { Region } from "@prisma/client"
+import invariant from "tiny-invariant"
 
 import { prisma } from "@/lib/prisma"
 import { AnimatedContainer } from "@/components/animated-container"
@@ -20,9 +20,11 @@ export default async function AppHomePage({ searchParams }: AppHomePageProps) {
     where: { id: searchParams.region ? parseInt(searchParams.region) : 1 },
   })
 
-  const regionMovies = await prisma.movie.findMany({
+  const moviesInRegion = await prisma.movie.findMany({
     where: { cinema_movies: { some: { cinema: { regionId: region?.id } } } },
   })
+
+  invariant(region)
 
   return (
     <AnimatedContainer className="z-5 relative flex flex-1 scroll-p-8 flex-col gap-4 overflow-y-scroll p-4 transition-all duration-200">
@@ -31,10 +33,10 @@ export default async function AppHomePage({ searchParams }: AppHomePageProps) {
       </div>
       <div className="flex justify-center">
         <div className="w-full lg:w-5/6">
-          <RegionListModalTrigger region={region as Region} />
+          <RegionListModalTrigger region={region} />
         </div>
       </div>
-      <RegionMovies movies={regionMovies} />
+      <RegionMovies movies={moviesInRegion} />
     </AnimatedContainer>
   )
 }
