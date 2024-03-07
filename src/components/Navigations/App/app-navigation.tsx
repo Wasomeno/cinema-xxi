@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { AnimatePresence } from "framer-motion"
 import { HiOutlineSearch } from "react-icons/hi"
 import { HiOutlineRectangleStack, HiOutlineTicket } from "react-icons/hi2"
@@ -9,6 +8,7 @@ import { useAccount } from "wagmi"
 
 import { useToggle } from "@/hooks/useToggle"
 import UserMenuModal from "@/components/App/user-menu-modal"
+import { CustomConnectButton } from "@/components/connect-button"
 
 import { SearchModal } from "./search-modal"
 
@@ -68,15 +68,7 @@ export function AppNavigation() {
           ))}
         </div>
         <div className="hidden h-6 w-[2px] rounded-full bg-slate-200 dark:bg-slate-600 lg:block" />
-        <div className="text-center">
-          <ConnectButton
-            showBalance={false}
-            accountStatus={{
-              smallScreen: "avatar",
-              largeScreen: "full",
-            }}
-          />
-        </div>
+        <CustomConnectButton />
       </div>
       <AnimatePresence>
         {showUserModal && <UserMenuModal toggle={toggleShowUserModal} />}
