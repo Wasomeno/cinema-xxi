@@ -12,9 +12,9 @@ const buttonVariants = cva(
         primary: "bg-slate-900 hover:bg-slate-800 text-white",
       },
       size: {
-        default: "py-2 px-4 text-sm",
-        medium: "py-3 px-5 text-base",
-        large: "py-4 px-6 text-lg",
+        default: "py-2 px-4 lg:text-sm text-xs",
+        medium: "py-3 px-5 text-base lg:text-sm",
+        large: "py-4 px-6 lg:text-lg text-base ",
       },
     },
     defaultVariants: {
